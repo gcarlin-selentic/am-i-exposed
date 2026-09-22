@@ -1,0 +1,19 @@
+{
+  "name": "am-i-exposed",
+  "version": "1.0.0",
+  "description": "Free and paid breach exposure checker for Selentic Group",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "vercel build",
+    "deploy": "vercel"
+  },
+  "keywords": [
+    "breach",
+    "security",
+    "hibp",
+    "data-exposure"
+  ],
+  "author": "Selentic Group",
+  "license": "ISC"
+}
