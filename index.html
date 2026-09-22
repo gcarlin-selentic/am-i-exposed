@@ -539,6 +539,33 @@
             line-height: 1.5;
         }
 
+        .breach-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .breach-domain {
+            font-size: 12px;
+            color: var(--text-light);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--text-light);
+            word-break: break-all;
+        }
+
+        a.breach-domain:hover {
+            color: var(--navy);
+            border-bottom-color: var(--navy);
+        }
+
+        .breach-scale {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+
         .data-classes {
             display: flex;
             flex-wrap: wrap;
@@ -1025,6 +1052,17 @@
         }
     }
 
+    // These domains come from HIBP and are turned into clickable links, so
+    // accept only a plain hostname. Anything else (a javascript: payload, an
+    // embedded path or credentials) is rendered as inert text instead.
+    function safeDomain(raw) {
+        if (!raw) return null;
+        const value = String(raw).trim().toLowerCase();
+        return /^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/.test(value) && value.length <= 253
+            ? value
+            : null;
+    }
+
     // HIBP returns BreachDate as YYYY-MM-DD, or omits it on a few old records.
     function formatBreachDate(raw) {
         if (!raw) return null;
@@ -1047,6 +1085,11 @@
             const label = breach.title || breach.name;
             const when = formatBreachDate(breach.breachDate);
             const classes = Array.isArray(breach.dataClasses) ? breach.dataClasses : [];
+            const domain = safeDomain(breach.domain);
+
+            const domainHTML = domain
+                ? `<a class="breach-domain" href="https://${domain}" target="_blank" rel="noopener noreferrer nofollow">${escapeHtml(domain)}</a>`
+                : (breach.domain ? `<span class="breach-domain">${escapeHtml(breach.domain)}</span>` : '');
 
             let exposedHTML = '';
             if (currentUser && classes.length) {
@@ -1055,10 +1098,18 @@
                     `</div>`;
             }
 
+            const scaleHTML = currentUser && breach.pwnCount
+                ? `<div class="breach-scale">${Number(breach.pwnCount).toLocaleString()} accounts affected</div>`
+                : '';
+
             breachListHTML += `
                 <div class="breach-item">
-                    <div class="breach-title">${escapeHtml(label)}</div>
+                    <div class="breach-head">
+                        <div class="breach-title">${escapeHtml(label)}</div>
+                        ${domainHTML}
+                    </div>
                     <div class="breach-date">${when ? 'Breached: ' + escapeHtml(when) : 'Breach date not published'}</div>
+                    ${scaleHTML}
                     ${exposedHTML}
                 </div>
             `;

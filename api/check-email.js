@@ -198,7 +198,9 @@ export default async function handler(req, res) {
             const sanitized = breaches.map(breach => ({
                 name: breach.Name,
                 title: breach.Title || breach.Name,
+                domain: breach.Domain || null,
                 breachDate: breach.BreachDate || null,
+                pwnCount: breach.PwnCount || null,
                 dataClasses: breach.DataClasses || [],
             }));
 
