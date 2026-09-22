@@ -539,6 +539,261 @@
             line-height: 1.5;
         }
 
+        /* --- Action plan CTA --- */
+        .plan-cta {
+            margin: 16px 0 0;
+            padding: 16px;
+            background-color: var(--navy);
+            color: #fff;
+            border-radius: 8px;
+        }
+
+        .plan-cta p { color: #D6DCE3; font-size: 14px; }
+
+        .plan-cta-btn {
+            background-color: #fff;
+            color: var(--navy);
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .plan-cta-btn:hover { background-color: var(--off-white); }
+
+        /* --- Action plan report --- */
+        .report-view {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background-color: #fff;
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .report-view.active { display: block; }
+
+        .report-toolbar {
+            position: sticky;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 20px;
+            background-color: var(--off-white);
+            border-bottom: 1px solid var(--border);
+            z-index: 1;
+        }
+
+        .report-btn {
+            background-color: var(--navy);
+            color: #fff;
+            border: none;
+            padding: 9px 18px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .report-btn.ghost {
+            background-color: transparent;
+            color: var(--navy);
+            border: 1px solid var(--border);
+        }
+
+        .report-body {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 32px 20px 64px;
+        }
+
+        .plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            padding-bottom: 16px;
+            border-bottom: 3px solid var(--navy);
+        }
+
+        .plan-header h1 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 30px;
+            margin: 0;
+            color: var(--navy);
+        }
+
+        .plan-meta { font-size: 13px; color: var(--text-light); margin: 6px 0 0; }
+
+        .plan-brand {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-weight: 600;
+            color: var(--navy);
+            white-space: nowrap;
+        }
+
+        .plan-summary {
+            margin: 24px 0 8px;
+            padding: 18px;
+            background-color: var(--off-white);
+            border-left: 4px solid var(--navy);
+            border-radius: 0 6px 6px 0;
+        }
+
+        .plan-summary p { margin: 0 0 10px; }
+        .plan-summary p:last-child { margin-bottom: 0; }
+
+        .plan-action {
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .plan-action-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .plan-action-head h3 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 19px;
+            margin: 0;
+            flex: 1;
+            min-width: 200px;
+            color: var(--navy);
+        }
+
+        .plan-step-num {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background-color: var(--navy);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .plan-pill {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 3px 10px;
+            border-radius: 999px;
+            color: #fff;
+        }
+
+        .plan-critical { background-color: var(--red); }
+        .plan-high { background-color: var(--amber); }
+        .plan-medium { background-color: #6B7280; }
+
+        .plan-why {
+            margin: 12px 0 14px;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .plan-steps { list-style: none; padding: 0; margin: 0; }
+
+        .plan-steps li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 10px;
+            line-height: 1.55;
+        }
+
+        .plan-check {
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--navy);
+            border-radius: 3px;
+        }
+
+        .plan-appendix { margin-top: 40px; page-break-before: always; }
+
+        .plan-appendix h2 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 22px;
+            color: var(--navy);
+            margin: 0 0 4px;
+        }
+
+        .appendix-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-top: 12px;
+        }
+
+        .appendix-table th,
+        .appendix-table td {
+            text-align: left;
+            vertical-align: top;
+            padding: 7px 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .appendix-table th {
+            background-color: var(--off-white);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--text-light);
+        }
+
+        .appendix-domain { color: var(--text-light); font-size: 11px; }
+
+        .plan-footer {
+            margin-top: 32px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* Print: the report becomes the whole document. The browser's
+           "Save as PDF" then produces the downloadable guide. */
+        @media print {
+            body > *:not(#reportView) { display: none !important; }
+
+            #reportView {
+                display: block !important;
+                position: static !important;
+                overflow: visible !important;
+            }
+
+            .report-toolbar { display: none !important; }
+
+            .report-body { max-width: none; padding: 0; }
+
+            @page { margin: 18mm 14mm; }
+
+            a { text-decoration: none; color: inherit; }
+
+            .plan-pill,
+            .plan-step-num,
+            .plan-cta {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
         .breach-head {
             display: flex;
             align-items: baseline;
@@ -747,6 +1002,15 @@
     </div>
 </div>
 
+<!-- Action Plan Report -->
+<div id="reportView" class="report-view">
+    <div class="report-toolbar">
+        <button onclick="closeReport()" class="report-btn ghost">&larr; Back</button>
+        <button onclick="printReport()" class="report-btn">Download PDF</button>
+    </div>
+    <div id="reportBody" class="report-body"></div>
+</div>
+
 <!-- Auth Modal -->
 <div id="authModal" class="auth-modal">
     <div class="auth-modal-content">
@@ -803,6 +1067,10 @@
 
     let currentUser = null;
     window.sbClient = null;
+
+    // Last email check, kept in memory only so the action plan can be built
+    // without re-querying. Nothing is persisted.
+    let lastEmailResult = null;
 
     // Escape HTML to prevent XSS
     function escapeHtml(str) {
@@ -1037,8 +1305,10 @@
             }
 
             if (data.found) {
+                lastEmailResult = { email, breaches: data.breaches };
                 renderEmailResult(data.breaches, email);
             } else {
+                lastEmailResult = null;
                 renderCleanResult('email', email);
             }
         } catch (error) {
@@ -1050,6 +1320,227 @@
             btn.classList.remove('loading');
             btn.textContent = 'Check Email';
         }
+    }
+
+    // ---------------------------------------------------------------------
+    // Personal action plan
+    //
+    // The advice below is not secret, and that is fine. What someone in 271
+    // breaches cannot do for themselves is work out which handful matter.
+    // This does the triage and gives them permission to ignore the rest.
+    // ---------------------------------------------------------------------
+
+    const CLASS_GROUPS = {
+        passwords: ['Passwords', 'Historical passwords'],
+        security: ['Security questions and answers'],
+        financial: ['Credit cards', 'Credit card CVV', 'Partial credit card data', 'Bank account numbers', 'Payment histories', 'Historical payment information'],
+        identity: ['Social security numbers', 'National identification numbers', 'Government issued IDs', 'Passport numbers', "Driver's licenses", 'Tax records'],
+        phone: ['Phone numbers'],
+        address: ['Physical addresses', 'Geographic locations'],
+        dob: ['Dates of birth'],
+        health: ['Health insurance information', 'Medical conditions', 'Medical records'],
+    };
+
+    const MONTH_MS = 30 * 24 * 60 * 60 * 1000;
+
+    function hasClass(breach, group) {
+        const list = Array.isArray(breach.dataClasses) ? breach.dataClasses : [];
+        return list.some(c => CLASS_GROUPS[group].includes(c));
+    }
+
+    function monthsAgo(dateStr) {
+        if (!dateStr) return null;
+        const t = Date.parse(dateStr);
+        if (isNaN(t)) return null;
+        return Math.max(0, Math.round((Date.now() - t) / MONTH_MS));
+    }
+
+    function siteName(breach) {
+        return breach.title || breach.name || 'an unnamed breach';
+    }
+
+    function listSites(breaches, max) {
+        const cap = max || 4;
+        const names = breaches.slice(0, cap).map(siteName);
+        const extra = breaches.length - names.length;
+        let text = names.join(', ');
+        if (extra > 0) text += `, and ${extra} more`;
+        return text;
+    }
+
+    function buildRemediationPlan(breaches) {
+        const all = Array.isArray(breaches) ? breaches : [];
+
+        const stealerLogs = all.filter(b => b.isStealerLog);
+        const withPasswords = all.filter(b => hasClass(b, 'passwords'));
+        const recentPasswords = withPasswords
+            .filter(b => { const m = monthsAgo(b.breachDate); return m !== null && m <= 24; })
+            .sort((a, b) => (b.breachDate || '').localeCompare(a.breachDate || ''));
+        const withSecurityQs = all.filter(b => hasClass(b, 'security'));
+        const withFinancial = all.filter(b => hasClass(b, 'financial'));
+        const withIdentity = all.filter(b => hasClass(b, 'identity'));
+        const withPhone = all.filter(b => hasClass(b, 'phone'));
+        const withAddress = all.filter(b => hasClass(b, 'address'));
+        const withDob = all.filter(b => hasClass(b, 'dob'));
+        const withHealth = all.filter(b => hasClass(b, 'health'));
+
+        const actions = [];
+
+        if (stealerLogs.length) {
+            actions.push({
+                priority: 'critical',
+                title: 'Check your device for malware before changing anything else',
+                why: `You appear in ${stealerLogs.length} stealer log${stealerLogs.length > 1 ? 's' : ''} (${listSites(stealerLogs)}). These are not company breaches. They are credentials collected by malware running on someone's computer, which means a device you used may be infected. If it is, any new password you set will be captured too.`,
+                steps: [
+                    "Run a full scan with your system's built-in protection: Windows Security on Windows, or a reputable scanner on Mac.",
+                    'Remove any browser extension you do not recognise. That is a common infection route.',
+                    'Do the password changes below from a different device you trust, such as your phone, rather than the possibly infected computer.',
+                    'If the scan finds something, change those passwords again after it is cleaned. Anything typed before the clean-up was likely captured.',
+                ],
+            });
+        }
+
+        if (recentPasswords.length) {
+            actions.push({
+                priority: 'critical',
+                title: 'Change your password on these sites first',
+                why: `${recentPasswords.length} breach${recentPasswords.length > 1 ? 'es' : ''} in the last two years exposed passwords: ${listSites(recentPasswords)}. The most recent was ${siteName(recentPasswords[0])}. Recent password leaks are the ones attackers are actively working through, so these come before anything older.`,
+                steps: [
+                    `Change your password on ${listSites(recentPasswords, 3)} now.`,
+                    'If you reused that password anywhere else, change it there too. That is the real risk: attackers try leaked email and password pairs across hundreds of other sites.',
+                    'Give each site a different password. You do not have to memorise them, see the password manager step below.',
+                ],
+            });
+        } else if (withPasswords.length) {
+            actions.push({
+                priority: 'high',
+                title: 'Change any password you still reuse from these breaches',
+                why: `${withPasswords.length} of your breaches exposed passwords, though none in the last two years. Old leaks still matter if you kept using the same password, because leaked credential lists never expire.`,
+                steps: [
+                    `The affected sites are ${listSites(withPasswords, 4)}.`,
+                    'If you still use any of those passwords anywhere, change it there. If you stopped using them years ago, you can skip this.',
+                ],
+            });
+        }
+
+        actions.push({
+            priority: withPasswords.length ? 'critical' : 'high',
+            title: 'Protect your email account above everything else',
+            why: 'Your email is the master key. Anyone who controls it can reset the password on every other account you own, so it is the single account worth protecting properly even if you do nothing else on this list.',
+            steps: [
+                'Give your email account a password you use nowhere else.',
+                'Turn on two-factor authentication. This is the most effective step here: it keeps the account safe even when the password is already known.',
+                'Prefer an authenticator app over SMS codes where offered. SMS can be intercepted by SIM swapping.',
+                "Check your email account's forwarding rules and recovery address. Attackers add a forwarding rule so they keep reading your mail after you change the password.",
+            ],
+        });
+
+        if (withSecurityQs.length) {
+            actions.push({
+                priority: 'high',
+                title: 'Change your security question answers',
+                why: `${withSecurityQs.length} breach${withSecurityQs.length > 1 ? 'es' : ''} exposed security questions and answers (${listSites(withSecurityQs)}). Changing your password does nothing if someone can reset it by answering "what was your first pet".`,
+                steps: [
+                    'On your important accounts, change the security question answers.',
+                    "Do not use the real answers. Treat each one as another password: a random phrase stored in your password manager. Your mother's maiden name is not a secret, and never was.",
+                ],
+            });
+        }
+
+        if (withIdentity.length) {
+            actions.push({
+                priority: 'critical',
+                title: 'Freeze your credit',
+                why: `${withIdentity.length} breach${withIdentity.length > 1 ? 'es' : ''} exposed government ID or national identification numbers (${listSites(withIdentity)}). Unlike a password, you cannot change these. The defence is to make them useless for opening accounts in your name.`,
+                steps: [
+                    'Place a credit freeze with the credit bureaus in your country. It is free, and it stops new accounts being opened in your name.',
+                    'A freeze does not affect your existing accounts or your credit score, and you can lift it temporarily when you apply for something.',
+                    'Watch for mail about accounts you did not open. That is usually the first sign.',
+                ],
+            });
+        }
+
+        if (withFinancial.length) {
+            actions.push({
+                priority: 'high',
+                title: 'Review the cards exposed in these breaches',
+                why: `${withFinancial.length} breach${withFinancial.length > 1 ? 'es' : ''} included payment or bank details (${listSites(withFinancial)}). Card numbers are often partial, but combined with your name and address they are enough for some fraud.`,
+                steps: [
+                    'Check recent statements for small unfamiliar charges. Testing a stolen card with a tiny purchase before a large one is standard practice.',
+                    'Turn on transaction alerts so you hear about charges immediately rather than at month end.',
+                    'If a card was used on one of these sites and you still hold it, ask your bank to reissue it.',
+                ],
+            });
+        }
+
+        if (withPhone.length) {
+            actions.push({
+                priority: 'medium',
+                title: 'Lock your phone number against SIM swapping',
+                why: `Your phone number leaked in ${withPhone.length} breach${withPhone.length > 1 ? 'es' : ''}. This is why you get scam calls and texts, but the real risk is SIM swapping: someone convinces your carrier to move your number to their SIM, then collects your SMS verification codes.`,
+                steps: [
+                    'Call your mobile carrier and ask them to add a port-out PIN or account lock.',
+                    'Move your two-factor codes from SMS to an authenticator app wherever the option exists.',
+                    'Treat unexpected calls claiming to be from your bank as fraud. They have your name, number, and enough breach data to sound convincing.',
+                ],
+            });
+        }
+
+        if (withAddress.length || withDob.length) {
+            const parts = [];
+            if (withAddress.length) parts.push(`your address in ${withAddress.length}`);
+            if (withDob.length) parts.push(`your date of birth in ${withDob.length}`);
+            actions.push({
+                priority: 'medium',
+                title: 'Expect convincing phishing, and slow down',
+                why: `Breaches exposed ${parts.join(' and ')} of the records about you. This is what makes modern scams work: a message that knows your name, address and birthday does not look like a scam.`,
+                steps: [
+                    'Treat any unexpected message that already knows your details as more suspicious, not less.',
+                    'Never act on a link in a message about your account. Open the site or app yourself and check there.',
+                    'If someone calls claiming to be your bank, hang up and call the number on your card.',
+                ],
+            });
+        }
+
+        if (withHealth.length) {
+            actions.push({
+                priority: 'medium',
+                title: 'Watch for medical billing you do not recognise',
+                why: `${withHealth.length} breach${withHealth.length > 1 ? 'es' : ''} exposed health or insurance information (${listSites(withHealth)}). Medical identity theft surfaces more slowly than financial fraud and is harder to unwind.`,
+                steps: [
+                    'Review explanation-of-benefits statements for treatment you did not receive.',
+                    'Report anything unfamiliar to your insurer promptly.',
+                ],
+            });
+        }
+
+        actions.push({
+            priority: 'high',
+            title: 'Get a password manager and stop reusing passwords',
+            why: `You appear in ${all.length} breach${all.length > 1 ? 'es' : ''}. You cannot stop companies being breached, and you cannot memorise a different password for every account. A password manager is what makes the problem finite: one breach stops being able to affect anything else.`,
+            steps: [
+                'Install one on your phone and computer. The option built into your browser or phone is already a large improvement over reusing passwords.',
+                'Let it generate new passwords as you go. You do not need to change everything at once.',
+                'Start with the accounts that matter: email, banking, and anything holding your payment details.',
+                'The only password you need to remember is the one for the manager itself. Make it long, and never use it anywhere else.',
+            ],
+        });
+
+        const order = { critical: 0, high: 1, medium: 2 };
+        actions.sort((a, b) => order[a.priority] - order[b.priority]);
+
+        return {
+            actions,
+            stats: {
+                total: all.length,
+                withPasswords: withPasswords.length,
+                recentPasswords: recentPasswords.length,
+                stealerLogs: stealerLogs.length,
+                withIdentity: withIdentity.length,
+                withFinancial: withFinancial.length,
+                withPhone: withPhone.length,
+            },
+        };
     }
 
     // These domains come from HIBP and are turned into clickable links, so
@@ -1140,6 +1631,14 @@
             }
         }
 
+        const planCTA = currentUser ? `
+            <div class="plan-cta">
+                <strong>Not sure where to start?</strong>
+                <p style="margin: 6px 0 12px;">${breachCount} breaches is too many to act on. Get a prioritised plan that says which ones actually matter and what to do about them, in order.</p>
+                <button onclick="openReport()" class="plan-cta-btn">Get my action plan</button>
+            </div>
+        ` : '';
+
         const gateHTML = currentUser ? '' : `
             <div class="auth-required">
                 <strong>Sign in to see what was actually exposed.</strong><br><br>
@@ -1162,6 +1661,7 @@
                 <div class="result-detail">
                     <strong>Your email appears in ${breachCount} known data breach${breachCount > 1 ? 'es' : ''}.</strong>
                     ${summaryHTML}
+                    ${planCTA}
                     <div class="breach-list">${breachListHTML}</div>
                     ${gateHTML}
                 </div>
@@ -1170,6 +1670,89 @@
 
         resultDiv.innerHTML = html;
         resultDiv.style.display = 'block';
+    }
+
+    function openReport() {
+        if (!lastEmailResult) return;
+        const { email, breaches } = lastEmailResult;
+        const { actions, stats } = buildRemediationPlan(breaches);
+
+        const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        const criticals = actions.filter(a => a.priority === 'critical').length;
+
+        const headlineBits = [];
+        if (stats.stealerLogs) headlineBits.push(`${stats.stealerLogs} from malware-harvested credentials`);
+        if (stats.recentPasswords) headlineBits.push(`${stats.recentPasswords} exposed a password in the last two years`);
+        if (stats.withIdentity) headlineBits.push(`${stats.withIdentity} exposed government ID numbers`);
+
+        const actionsHTML = actions.map((a, i) => `
+            <section class="plan-action">
+                <div class="plan-action-head">
+                    <span class="plan-step-num">${i + 1}</span>
+                    <h3>${escapeHtml(a.title)}</h3>
+                    <span class="plan-pill plan-${a.priority}">${a.priority}</span>
+                </div>
+                <p class="plan-why">${escapeHtml(a.why)}</p>
+                <ul class="plan-steps">
+                    ${a.steps.map(s => `<li><span class="plan-check"></span>${escapeHtml(s)}</li>`).join('')}
+                </ul>
+            </section>
+        `).join('');
+
+        const appendixHTML = breaches.map(b => {
+            const d = safeDomain(b.domain);
+            const when = formatBreachDate(b.breachDate);
+            const classes = Array.isArray(b.dataClasses) ? b.dataClasses : [];
+            return `<tr>
+                <td>${escapeHtml(siteName(b))}${d ? `<br><span class="appendix-domain">${escapeHtml(d)}</span>` : ''}</td>
+                <td>${when ? escapeHtml(when) : 'Not published'}</td>
+                <td>${classes.length ? escapeHtml(classes.join(', ')) : 'Not published'}</td>
+            </tr>`;
+        }).join('');
+
+        document.getElementById('reportBody').innerHTML = `
+            <header class="plan-header">
+                <div>
+                    <h1>Your Personal Action Plan</h1>
+                    <p class="plan-meta">Prepared for ${escapeHtml(email)} &middot; ${escapeHtml(today)}</p>
+                </div>
+                <div class="plan-brand">Am I Exposed?</div>
+            </header>
+
+            <section class="plan-summary">
+                <p><strong>Your email appears in ${stats.total} known data breach${stats.total > 1 ? 'es' : ''}${headlineBits.length ? ': ' + headlineBits.join(', ') : '.'}</strong></p>
+                <p>You cannot undo a breach, and you do not need to act on all ${stats.total}. This plan lists ${actions.length} things worth doing, ordered so the ${criticals} marked critical come first. Work down the list. Everything below the critical items is worth doing this month, not today.</p>
+            </section>
+
+            ${actionsHTML}
+
+            <section class="plan-appendix">
+                <h2>Appendix: every breach you appear in</h2>
+                <p class="plan-why">The full list, newest first, for your records.</p>
+                <table class="appendix-table">
+                    <thead><tr><th>Breach</th><th>Date</th><th>What was exposed</th></tr></thead>
+                    <tbody>${appendixHTML}</tbody>
+                </table>
+            </section>
+
+            <footer class="plan-footer">
+                Generated by Am I Exposed? from Have I Been Pwned breach data on ${escapeHtml(today)}.
+                This is general security guidance, not legal or financial advice.
+            </footer>
+        `;
+
+        document.getElementById('reportView').classList.add('active');
+        document.body.style.overflow = 'hidden';
+        document.getElementById('reportView').scrollTop = 0;
+    }
+
+    function closeReport() {
+        document.getElementById('reportView').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function printReport() {
+        window.print();
     }
 
     function renderCleanResult(type, value) {

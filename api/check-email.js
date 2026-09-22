@@ -202,6 +202,12 @@ export default async function handler(req, res) {
                 breachDate: breach.BreachDate || null,
                 pwnCount: breach.PwnCount || null,
                 dataClasses: breach.DataClasses || [],
+                // Credentials harvested by malware from the user's own device
+                // rather than leaked by a company. Changes the remediation
+                // completely, so the action plan keys off it.
+                isStealerLog: breach.IsStealerLog === true,
+                isSpamList: breach.IsSpamList === true,
+                isMalware: breach.IsMalware === true,
             }));
 
             // Newest breach first.
