@@ -13,11 +13,12 @@ const HIBP_ENDPOINT = 'https://haveibeenpwned.com/api/v3/breachedaccount';
 // by the ALLOWED_ORIGINS env var, comma separated.
 const DEFAULT_ALLOWED_ORIGINS = [];
 
-// Best-effort in-memory limiter. Vercel may run several instances, so this
-// bounds abuse per instance rather than globally. Durable limiting needs a
-// shared store (Vercel KV, Upstash, or Supabase).
 const RATE_LIMIT_MAX = 10;
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;
+
+// Shared limiter, backed by Postgres so the count holds across every Vercel
+// instance. Falls back to the in-memory limiter below if Supabase is not
+// configured or does not answer, so a database blip cannot take the site down.
 const hits = new Map();
 
 function allowedOrigins() {
@@ -49,6 +50,43 @@ function clientIp(req) {
         return forwarded.split(',')[0].trim();
     }
     return req.socket?.remoteAddress || 'unknown';
+}
+
+// Returns true if allowed, false if over the limit, or null if the shared
+// store is unavailable and the caller should fall back.
+async function allowedBySharedLimiter(key) {
+    const url = process.env.SUPABASE_URL;
+    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!url || !serviceKey) return null;
+
+    try {
+        const response = await fetch(`${url}/rest/v1/rpc/check_rate_limit`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                apikey: serviceKey,
+                Authorization: `Bearer ${serviceKey}`,
+            },
+            body: JSON.stringify({
+                p_key: key,
+                p_max: RATE_LIMIT_MAX,
+                p_window_seconds: RATE_LIMIT_WINDOW_MS / 1000,
+            }),
+            // Never let a slow database hold the request open.
+            signal: AbortSignal.timeout(2000),
+        });
+
+        if (!response.ok) {
+            console.error('Rate limit RPC failed:', response.status);
+            return null;
+        }
+
+        const allowed = await response.json();
+        return typeof allowed === 'boolean' ? allowed : null;
+    } catch (error) {
+        console.error('Rate limit RPC error:', error.name);
+        return null;
+    }
 }
 
 function rateLimited(ip) {
@@ -98,7 +136,12 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    if (rateLimited(clientIp(req))) {
+    const ip = clientIp(req);
+    const shared = await allowedBySharedLimiter(ip);
+    const overLimit = shared === null ? rateLimited(ip) : !shared;
+
+    if (overLimit) {
+        res.setHeader('Retry-After', String(RATE_LIMIT_WINDOW_MS / 1000));
         return res.status(429).json({ error: 'Too many requests. Please wait a minute and try again.' });
     }
 
