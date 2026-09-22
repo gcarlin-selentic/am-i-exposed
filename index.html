@@ -494,6 +494,96 @@
             padding: 0;
         }
 
+        .exposure-count {
+            text-align: center;
+            padding: 20px 16px 16px;
+            margin: 16px 0 0;
+            background-color: #FEF2F2;
+            border: 1px solid #FECACA;
+            border-radius: 8px;
+        }
+
+        .exposure-number {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 1.1;
+            color: var(--red);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .exposure-label {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 6px;
+        }
+
+        .severity-pill {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .remediation {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .remediation li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .data-classes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .data-chip {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background-color: #FEF2F2;
+            border: 1px solid #FECACA;
+            color: #991B1B;
+        }
+
+        .exposure-summary {
+            margin: 16px 0 0;
+            padding: 14px 16px;
+            background-color: var(--off-white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 5px 0;
+            font-size: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+
+        .summary-count {
+            font-size: 12px;
+            color: var(--text-light);
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
+        }
+
         .auth-divider {
             display: flex;
             align-items: center;
@@ -951,30 +1041,78 @@
         const resultDiv = document.getElementById('emailResult');
         const breachCount = breaches.length;
 
-        // Always show breach list (email exposure is free)
+        // Which breaches you are in is free. What leaked in each one is gated.
         let breachListHTML = '';
         breaches.forEach(breach => {
             const label = breach.title || breach.name;
             const when = formatBreachDate(breach.breachDate);
+            const classes = Array.isArray(breach.dataClasses) ? breach.dataClasses : [];
+
+            let exposedHTML = '';
+            if (currentUser && classes.length) {
+                exposedHTML = `<div class="data-classes">` +
+                    classes.map(c => `<span class="data-chip">${escapeHtml(c)}</span>`).join('') +
+                    `</div>`;
+            }
+
             breachListHTML += `
                 <div class="breach-item">
                     <div class="breach-title">${escapeHtml(label)}</div>
                     <div class="breach-date">${when ? 'Breached: ' + escapeHtml(when) : 'Breach date not published'}</div>
+                    ${exposedHTML}
                 </div>
             `;
         });
+
+        // Roll-up: how many breaches exposed each kind of data.
+        let summaryHTML = '';
+        if (currentUser) {
+            const tally = new Map();
+            breaches.forEach(b => {
+                (Array.isArray(b.dataClasses) ? b.dataClasses : []).forEach(c => {
+                    tally.set(c, (tally.get(c) || 0) + 1);
+                });
+            });
+            const ranked = [...tally.entries()].sort((a, b) => b[1] - a[1]).slice(0, 10);
+            if (ranked.length) {
+                summaryHTML = `
+                    <div class="exposure-summary">
+                        <p style="margin: 0 0 10px;"><strong>What was exposed about you</strong></p>
+                        ${ranked.map(([name, n]) => `
+                            <div class="summary-row">
+                                <span>${escapeHtml(name)}</span>
+                                <span class="summary-count">${n} breach${n > 1 ? 'es' : ''}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+        }
+
+        const gateHTML = currentUser ? '' : `
+            <div class="auth-required">
+                <strong>Sign in to see what was actually exposed.</strong><br><br>
+                You can see which breaches you are in. Sign in to see what leaked in each one: passwords, phone numbers, physical addresses, and more.
+                <div style="display: flex; gap: 12px; margin-top: 12px;">
+                    <button onclick="openAuthModal('signup')" style="flex: 1; background-color: #1C2B3A; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 600;">Create Account</button>
+                    <button onclick="openAuthModal('signin')" style="flex: 1; background-color: white; color: #1C2B3A; border: 2px solid #1C2B3A; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 600;">Sign In</button>
+                </div>
+            </div>
+        `;
 
         const html = `
             <div class="result-card exposed">
                 <div class="result-status">
                     <div class="status-icon exposed">!</div>
                     <div>
-                        <h3>Email Found in ${breachCount} Breach${breachCount > 1 ? 's' : ''}</h3>
+                        <h3>Email Found in ${breachCount} Breach${breachCount > 1 ? 'es' : ''}</h3>
                     </div>
                 </div>
                 <div class="result-detail">
                     <strong>Your email appears in ${breachCount} known data breach${breachCount > 1 ? 'es' : ''}.</strong>
+                    ${summaryHTML}
                     <div class="breach-list">${breachListHTML}</div>
+                    ${gateHTML}
                 </div>
             </div>
         `;
@@ -1027,9 +1165,9 @@
         resultDiv.style.display = 'none';
 
         try {
-            const found = await checkPasswordWithKAnonymity(password);
-            if (found) {
-                renderPasswordExposed();
+            const exposureCount = await checkPasswordWithKAnonymity(password);
+            if (exposureCount > 0) {
+                renderPasswordExposed(exposureCount);
             } else {
                 renderCleanResult('password', 'password');
             }
@@ -1062,17 +1200,53 @@
 
         // Check if the suffix matches any returned hash. Padded decoy entries
         // always carry a count of 0 and must not be treated as a match.
+        // Returns the exposure count, which is the number of separate times
+        // this password appears across breached datasets. 0 means not found.
         for (const line of lines) {
             const [candidate, count] = line.split(':');
             if (candidate === suffix && Number(count) > 0) {
-                return true; // Password found in breaches
+                return Number(count);
             }
         }
 
-        return false; // Password not found
+        return 0;
     }
 
-    function renderPasswordExposed() {
+    // Severity driven by how common the password is. A password seen three
+    // times and one seen forty million are not the same problem, and saying
+    // the same thing about both is how advice gets ignored.
+    function passwordSeverity(count) {
+        if (count >= 100000) {
+            return {
+                label: 'Critical',
+                color: '#EF4444',
+                summary: 'This is one of the most common passwords in existence. Credential-stuffing tools try it within their first few thousand guesses.',
+            };
+        }
+        if (count >= 1000) {
+            return {
+                label: 'High',
+                color: '#F59E0B',
+                summary: 'This password appears in widely circulated breach lists and is almost certainly in the wordlists attackers use.',
+            };
+        }
+        if (count >= 10) {
+            return {
+                label: 'Moderate',
+                color: '#F59E0B',
+                summary: 'This password has leaked more than once, which means it is in circulation even if it is not widespread.',
+            };
+        }
+        return {
+            label: 'Low',
+            color: '#F59E0B',
+            summary: 'This password has leaked only a small number of times, but once is enough to make it unsafe to reuse.',
+        };
+    }
+
+    // Free tier is told the password is exposed. The exposure count, severity
+    // and remediation steps are the gated detail.
+    function renderPasswordExposed(count) {
         const resultDiv = document.getElementById('passwordResult');
 
         let html = `
@@ -1088,15 +1262,29 @@
         `;
 
         if (currentUser) {
-            html += `<br><br>
-                    Do not use it on important accounts. We recommend changing this password immediately on any account where you've used it, and switch to a unique, strong password.
+            const sev = passwordSeverity(count);
+            html += `
+                    <div class="exposure-count">
+                        <div class="exposure-number">${count.toLocaleString()}</div>
+                        <div class="exposure-label">times this password appears in known breaches</div>
+                        <span class="severity-pill" style="background-color: ${sev.color};">${sev.label} risk</span>
+                    </div>
+                    <p style="margin: 16px 0 0;">${escapeHtml(sev.summary)}</p>
+                    <p style="margin: 12px 0 8px;"><strong>What to do now</strong></p>
+                    <ol class="remediation">
+                        <li>Change it on every account where you have used it, starting with email and banking. Your email account is the master key: whoever controls it can reset the others.</li>
+                        <li>Never reuse it again. Attackers take leaked pairs and try them across hundreds of sites, which is called credential stuffing.</li>
+                        <li>Turn on two-factor authentication where offered. It keeps an account safe even when the password is already known.</li>
+                        <li>Use a password manager so every account gets a different password you never have to remember.</li>
+                    </ol>
                 </div>
             </div>
             `;
         } else {
             html += `
                     <div class="auth-required">
-                        <strong>Sign in</strong> to unlock premium features.<br><br>
+                        <strong>Sign in to see the full picture.</strong><br><br>
+                        Find out exactly how many times this password has leaked, how severe the risk is, and the specific steps to fix it.
                         <div style="display: flex; gap: 12px; margin-top: 12px;">
                             <button onclick="openAuthModal('signup')" style="flex: 1; background-color: #1C2B3A; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 600;">Create Account</button>
                             <button onclick="openAuthModal('signin')" style="flex: 1; background-color: white; color: #1C2B3A; border: 2px solid #1C2B3A; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 600;">Sign In</button>
