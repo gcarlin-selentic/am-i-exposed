@@ -60,13 +60,21 @@ async function allowedBySharedLimiter(key) {
     if (!url || !serviceKey) return null;
 
     try {
+        // Legacy service_role keys are JWTs and are accepted on either header.
+        // New-format secret keys (sb_secret_...) are NOT JWTs: sending one as
+        // a Bearer token makes the gateway try to parse it and reject it with
+        // "Invalid JWT". Those go on the apikey header only.
+        const headers = {
+            'Content-Type': 'application/json',
+            apikey: serviceKey,
+        };
+        if (serviceKey.startsWith('eyJ')) {
+            headers.Authorization = `Bearer ${serviceKey}`;
+        }
+
         const response = await fetch(`${url}/rest/v1/rpc/check_rate_limit`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                apikey: serviceKey,
-                Authorization: `Bearer ${serviceKey}`,
-            },
+            headers,
             body: JSON.stringify({
                 p_key: key,
                 p_max: RATE_LIMIT_MAX,
