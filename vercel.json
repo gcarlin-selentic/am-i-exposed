@@ -1,9 +1,6 @@
 {
   "buildCommand": "echo 'Static site with serverless API functions'",
   "outputDirectory": ".",
-  "env": {
-    "HIBP_API_KEY": "@hibp_api_key"
-  },
   "headers": [
     {
       "source": "/api/(.*)",
