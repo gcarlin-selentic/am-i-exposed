@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Am I Exposed? — Check for Data Breaches</title>
+    <meta name="description" content="Check instantly whether your email address or password has appeared in a known data breach. Free, no account needed, and your data is never stored.">
+    <meta name="robots" content="index, follow">
+    <!-- Relative canonical resolves against whatever domain serves the page,
+         so a domain change cannot point search engines at the old URL. -->
+    <link rel="canonical" href="/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Am I Exposed? — Check for Data Breaches">
+    <meta property="og:description" content="Check instantly whether your email address or password has appeared in a known data breach. Free, no account needed.">
+    <!-- DOMAIN CHANGE: update this one line. Social scrapers do not run JS and
+         Open Graph requires an absolute URL, so it cannot be made relative. -->
+    <meta property="og:url" content="https://am-i-exposed-iota.vercel.app/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Am I Exposed? — Check for Data Breaches">
+    <meta name="twitter:description" content="Check instantly whether your email address or password has appeared in a known data breach.">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231C2B3A'/%3E%3Cpath d='M16 6l8 3v7c0 5-3.4 8.8-8 10-4.6-1.2-8-5-8-10V9l8-3z' fill='%23F9F7F4'/%3E%3C/svg%3E">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --navy: #1C2B3A;
+            --off-white: #F9F7F4;
+            --green: #10B981;
+            --amber: #F59E0B;
+            --red: #EF4444;
+            --border: #E5E5E5;
+            --text: #333;
+            --text-light: #666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--off-white);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Source Serif 4', serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .logo {
+            font-family: 'Source Serif 4', serif;
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            text-align: center;
+            color: var(--navy);
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 16px;
+            line-height: 1.2;
+            color: var(--navy);
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: var(--text-light);
+            margin-bottom: 0;
+        }
+
+        .checks-grid {
+            display: grid;
+            gap: 24px;
+            margin-bottom: 50px;
+        }
+
+        .check-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 28px;
+            border: 1px solid var(--border);
+        }
+
+        .check-card h2 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: var(--navy);
+        }
+
+        .check-card p {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        input::placeholder {
+            color: #999;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--navy);
+            box-shadow: 0 0 0 3px rgba(28, 43, 58, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--navy);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background-color 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        button:hover {
+            background-color: #0F1620;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        button.loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .spinner {
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .toggle-password {
+            font-size: 12px;
+            color: var(--navy);
+            cursor: pointer;
+            margin-top: 8px;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .toggle-password:hover {
+            text-decoration: underline;
+        }
+
+        .disclaimer {
+            background-color: #f0f0f0;
+            border-left: 4px solid var(--navy);
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 16px;
+            line-height: 1.5;
+        }
+
+        /* Results */
+        .result-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 24px;
+            border-left: 4px solid;
+            margin-top: 16px;
+        }
+
+        .result-card.clean {
+            border-left-color: var(--green);
+        }
+
+        .result-card.exposed {
+            border-left-color: var(--red);
+        }
+
+        .result-status {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .status-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .status-icon.clean {
+            background-color: var(--green);
+        }
+
+        .status-icon.exposed {
+            background-color: var(--red);
+        }
+
+        .result-status h3 {
+            font-size: 18px;
+            margin: 0;
+            color: var(--navy);
+        }
+
+        .result-detail {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .result-detail strong {
+            color: var(--navy);
+            font-weight: 600;
+        }
+
+        .breach-list {
+            background-color: #fafafa;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 12px;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .breach-item {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .breach-item:last-child {
+            border-bottom: none;
+        }
+
+        .breach-title {
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .breach-date {
+            color: #999;
+            font-size: 12px;
+        }
+
+        /* Coming Soon */
+        .coming-soon {
+            background-color: #f0fdf4;
+            border: 2px dashed var(--green);
+            padding: 28px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .coming-soon h2 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--navy);
+        }
+
+        .coming-soon p {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 0;
+        }
+
+        .error {
+            background-color: #fee2e2;
+            border: 1px solid #fca5a5;
+            color: #991b1b;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        .loading-state {
+            display: none;
+            padding: 20px;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .loading-state.active {
+            display: block;
+        }
+
+        /* Auth Styles */
+        .auth-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-auth {
+            padding: 10px 16px;
+            border: 1px solid var(--navy);
+            background: white;
+            color: var(--navy);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .btn-auth:hover {
+            background-color: var(--navy);
+            color: white;
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-button {
+            padding: 10px 16px;
+            border: 1px solid var(--navy);
+            background: white;
+            color: var(--navy);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            min-width: 150px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .user-dropdown.active {
+            display: block;
+        }
+
+        .user-dropdown button {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            background: none;
+            text-align: left;
+            font-size: 14px;
+            cursor: pointer;
+            color: var(--navy);
+        }
+
+        .user-dropdown button:hover {
+            background-color: #f5f5f5;
+        }
+
+        .user-email {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-modal.active {
+            display: flex;
+        }
+
+        .auth-modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+        }
+
+        .auth-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--navy);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .auth-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+
+        .auth-form button {
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .auth-toggle {
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .auth-toggle button {
+            background: none;
+            border: none;
+            color: var(--navy);
+            cursor: pointer;
+            text-decoration: underline;
+            width: auto;
+            padding: 0;
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 20px 0 16px;
+            color: var(--text-light);
+            font-size: 13px;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: var(--border);
+        }
+
+        .auth-providers {
+            display: flex;
+            gap: 12px;
+        }
+
+        .provider-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: #fff;
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .provider-btn:hover {
+            background-color: var(--off-white);
+            border-color: var(--navy);
+        }
+
+        .auth-required {
+            background-color: #fef3c7;
+            border: 1px solid #fcd34d;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #92400e;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="auth-header">
+        <div class="logo">Am I Exposed?</div>
+        <div id="authUI" class="auth-buttons">
+            <button class="btn-auth" onclick="openAuthModal('signin')">Sign In</button>
+            <button class="btn-auth" onclick="openAuthModal('signup')">Sign Up</button>
+        </div>
+        <div id="userUI" class="user-menu" style="display: none;">
+            <button class="user-button" onclick="toggleUserMenu()">Menu</button>
+            <div id="userDropdown" class="user-dropdown">
+                <div class="user-email" id="userEmail"></div>
+                <button onclick="signOut()">Sign Out</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero">
+        <h1>Know if your data is at risk</h1>
+        <p>Check if your email or password has appeared in known data breaches. Instant results, no account needed.</p>
+    </div>
+
+    <div class="checks-grid">
+        <!-- Email Check Card -->
+        <div class="check-card">
+            <h2>Check Your Email</h2>
+            <p>Search hundreds of known data breaches to see if your email is exposed.</p>
+
+            <div class="input-group">
+                <input
+                    type="email"
+                    id="emailInput"
+                    placeholder="your@email.com"
+                    autocomplete="off"
+                >
+            </div>
+
+            <button id="emailCheckBtn" onclick="checkEmail()">Check Email</button>
+
+            <div class="disclaimer">
+                🔒 Your email is never stored. We only check it against public breach databases.
+            </div>
+
+            <div id="emailResult" style="display: none;"></div>
+            <div id="emailError" class="error" style="display: none;"></div>
+        </div>
+
+        <!-- Password Check Card -->
+        <div class="check-card">
+            <h2>Check Your Password</h2>
+            <p>Verify if your password has appeared in breaches using secure k-anonymity (no password is sent).</p>
+
+            <div class="input-group">
+                <input
+                    type="password"
+                    id="passwordInput"
+                    placeholder="your password"
+                    autocomplete="off"
+                >
+                <div class="toggle-password" onclick="togglePasswordVisibility(this)">Show password</div>
+            </div>
+
+            <button id="passwordCheckBtn" onclick="checkPassword()">Check Password</button>
+
+            <div class="disclaimer">
+                🔒 Your password never leaves your device. We use k-anonymity to check securely.
+            </div>
+
+            <div id="passwordResult" style="display: none;"></div>
+            <div id="passwordError" class="error" style="display: none;"></div>
+        </div>
+
+        <!-- Paid Tier Coming Soon -->
+        <div class="coming-soon">
+            <h2>Full Threat Report</h2>
+            <p>Comprehensive scan with dark web monitoring, breach details, and step-by-step remediation guide — Coming Soon</p>
+        </div>
+    </div>
+</div>
+
+<!-- Auth Modal -->
+<div id="authModal" class="auth-modal">
+    <div class="auth-modal-content">
+        <button class="auth-modal-close" onclick="closeAuthModal()">×</button>
+
+        <div id="signinForm" class="auth-form active">
+            <h2>Sign In</h2>
+            <input type="email" id="signinEmail" placeholder="your@email.com" />
+            <input type="password" id="signinPassword" placeholder="Password" />
+            <button onclick="signInWithEmail()">Sign In</button>
+            <div class="auth-toggle">
+                Don't have an account? <button onclick="switchForm('signup')">Sign Up</button>
+            </div>
+        </div>
+
+        <div id="signupForm" class="auth-form">
+            <h2>Sign Up</h2>
+            <input type="email" id="signupEmail" placeholder="your@email.com" />
+            <input type="password" id="signupPassword" placeholder="Password (min 6 chars)" />
+            <button onclick="signUpWithEmail()">Create Account</button>
+            <div class="auth-toggle">
+                Already have an account? <button onclick="switchForm('signin')">Sign In</button>
+            </div>
+        </div>
+
+        <div class="auth-divider"><span>or continue with</span></div>
+
+        <div class="auth-providers">
+            <button type="button" class="provider-btn" onclick="signInWithProvider('google')">
+                <svg viewBox="0 0 18 18" width="16" height="16" aria-hidden="true">
+                    <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62z"/>
+                    <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.33A9 9 0 0 0 9 18z"/>
+                    <path fill="#FBBC05" d="M3.97 10.72a5.4 5.4 0 0 1 0-3.44V4.95H.96a9 9 0 0 0 0 8.1l3.01-2.33z"/>
+                    <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58A9 9 0 0 0 .96 4.95l3.01 2.33C4.68 5.16 6.66 3.58 9 3.58z"/>
+                </svg>
+                Google
+            </button>
+            <button type="button" class="provider-btn" onclick="signInWithProvider('github')">
+                <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true">
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                GitHub
+            </button>
+        </div>
+
+        <div id="authError" style="color: #dc2626; font-size: 13px; margin-top: 12px; display: none;"></div>
+    </div>
+</div>
+
+<script>
+    // Supabase Configuration
+    const SUPABASE_URL = 'https://morosdhhoznicppmrqyr.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_agkPOONNtck7k-an-rpwOg_GTXoo5de';
+
+    let currentUser = null;
+    window.sbClient = null;
+
+    // Escape HTML to prevent XSS
+    function escapeHtml(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
+    function initSupabase() {
+        if (window.supabase && !window.sbClient) {
+            try {
+                const { createClient } = window.supabase;
+                window.sbClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            } catch (e) {
+                console.error('Supabase init failed:', e);
+            }
+        }
+    }
+
+    // The Supabase library is loaded from a CDN that ad blockers and corporate
+    // proxies sometimes block. Without this guard the auth buttons throw an
+    // uncaught TypeError and appear to do nothing at all.
+    function requireClient() {
+        initSupabase();
+        if (window.sbClient) return true;
+        const errorDiv = document.getElementById('authError');
+        errorDiv.textContent = 'Sign-in is unavailable because a required script was blocked. Disable your ad blocker for this site, or try another browser.';
+        errorDiv.style.color = '#dc2626';
+        errorDiv.style.display = 'block';
+        return false;
+    }
+
+    // Initialize auth on page load
+    async function initAuth() {
+        if (!window.sbClient) return;
+
+        // Keeps the UI in sync with token refreshes, sign-out in another tab,
+        // and the redirect back from an OAuth provider.
+        window.sbClient.auth.onAuthStateChange((_event, session) => {
+            currentUser = session?.user ?? null;
+            updateAuthUI();
+        });
+
+        try {
+            const { data: { session }, error } = await window.sbClient.auth.getSession();
+            if (error) console.error('Auth error:', error);
+            currentUser = session?.user ?? null;
+            updateAuthUI();
+        } catch (e) {
+            console.error('InitAuth failed:', e);
+        }
+    }
+
+    async function signInWithProvider(provider) {
+        if (!requireClient()) return;
+        const errorDiv = document.getElementById('authError');
+        try {
+            const { error } = await window.sbClient.auth.signInWithOAuth({
+                provider,
+                options: { redirectTo: window.location.origin },
+            });
+            if (error) {
+                errorDiv.textContent = error.message;
+                errorDiv.style.color = '#dc2626';
+                errorDiv.style.display = 'block';
+            }
+        } catch (e) {
+            errorDiv.textContent = 'Could not start sign-in. Please try again.';
+            errorDiv.style.color = '#dc2626';
+            errorDiv.style.display = 'block';
+        }
+    }
+
+    function updateAuthUI() {
+        const authUI = document.getElementById('authUI');
+        const userUI = document.getElementById('userUI');
+
+        if (currentUser) {
+            authUI.style.display = 'none';
+            userUI.style.display = 'block';
+            document.getElementById('userEmail').textContent = currentUser.email;
+        } else {
+            authUI.style.display = 'flex';
+            userUI.style.display = 'none';
+        }
+    }
+
+    function openAuthModal(form) {
+        document.getElementById('authModal').classList.add('active');
+        switchForm(form);
+        document.getElementById('authError').style.display = 'none';
+    }
+
+    function closeAuthModal() {
+        document.getElementById('authModal').classList.remove('active');
+        document.getElementById('authError').style.display = 'none';
+    }
+
+    function switchForm(form) {
+        document.getElementById('signinForm').classList.remove('active');
+        document.getElementById('signupForm').classList.remove('active');
+        document.getElementById(form + 'Form').classList.add('active');
+    }
+
+    function toggleUserMenu() {
+        document.getElementById('userDropdown').classList.toggle('active');
+    }
+
+    async function signInWithEmail() {
+        const email = document.getElementById('signinEmail').value;
+        const password = document.getElementById('signinPassword').value;
+        const errorDiv = document.getElementById('authError');
+
+        if (!email || !password) {
+            errorDiv.textContent = 'Please fill in all fields';
+            errorDiv.style.color = '#dc2626';
+            errorDiv.style.display = 'block';
+            return;
+        }
+
+        if (!requireClient()) return;
+
+        const { data, error } = await window.sbClient.auth.signInWithPassword({ email, password });
+
+        if (error) {
+            errorDiv.textContent = error.message;
+            errorDiv.style.display = 'block';
+        } else {
+            currentUser = data.user;
+            updateAuthUI();
+            closeAuthModal();
+            document.getElementById('signinEmail').value = '';
+            document.getElementById('signinPassword').value = '';
+        }
+    }
+
+    async function signUpWithEmail() {
+        const email = document.getElementById('signupEmail').value;
+        const password = document.getElementById('signupPassword').value;
+        const errorDiv = document.getElementById('authError');
+
+        if (!email || !password) {
+            errorDiv.textContent = 'Please fill in all fields';
+            errorDiv.style.color = '#dc2626';
+            errorDiv.style.display = 'block';
+            return;
+        }
+
+        if (password.length < 6) {
+            errorDiv.textContent = 'Password must be at least 6 characters';
+            errorDiv.style.color = '#dc2626';
+            errorDiv.style.display = 'block';
+            return;
+        }
+
+        if (!requireClient()) return;
+
+        const { data, error } = await window.sbClient.auth.signUp({ email, password });
+
+        if (error) {
+            errorDiv.textContent = error.message;
+            errorDiv.style.color = '#dc2626';
+            errorDiv.style.display = 'block';
+            return;
+        }
+
+        // When email confirmation is enabled, signUp returns a user but no
+        // session. The account is not usable yet, so it must not unlock gated
+        // content: only a real session counts as signed in.
+        if (data.session) {
+            currentUser = data.session.user;
+            updateAuthUI();
+            closeAuthModal();
+            document.getElementById('signupEmail').value = '';
+            document.getElementById('signupPassword').value = '';
+            return;
+        }
+
+        errorDiv.textContent = 'Account created. Check your email to confirm, then sign in.';
+        errorDiv.style.color = '#059669';
+        errorDiv.style.display = 'block';
+        document.getElementById('signupEmail').value = '';
+        document.getElementById('signupPassword').value = '';
+    }
+
+    async function signOut() {
+        if (window.sbClient) {
+            await window.sbClient.auth.signOut();
+        }
+        currentUser = null;
+        updateAuthUI();
+        document.getElementById('userDropdown').classList.remove('active');
+    }
+
+    // Email Check
+    async function checkEmail() {
+        const email = document.getElementById('emailInput').value.trim();
+        const btn = document.getElementById('emailCheckBtn');
+        const resultDiv = document.getElementById('emailResult');
+        const errorDiv = document.getElementById('emailError');
+
+        if (!email) {
+            errorDiv.textContent = 'Please enter an email address.';
+            errorDiv.style.display = 'block';
+            resultDiv.style.display = 'none';
+            return;
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            errorDiv.textContent = 'Please enter a valid email address.';
+            errorDiv.style.display = 'block';
+            resultDiv.style.display = 'none';
+            return;
+        }
+
+        btn.disabled = true;
+        btn.classList.add('loading');
+        btn.innerHTML = '<span class="spinner"></span> Checking...';
+        errorDiv.style.display = 'none';
+        resultDiv.style.display = 'none';
+
+        try {
+            // POST, not GET: a query string would put the user's email into
+            // Vercel's access logs, which contradicts the promise above.
+            const response = await fetch('/api/check-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            });
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to check email');
+            }
+
+            if (data.found) {
+                renderEmailResult(data.breaches, email);
+            } else {
+                renderCleanResult('email', email);
+            }
+        } catch (error) {
+            errorDiv.textContent = error.message || 'Error checking email. Please try again.';
+            errorDiv.style.display = 'block';
+            resultDiv.style.display = 'none';
+        } finally {
+            btn.disabled = false;
+            btn.classList.remove('loading');
+            btn.textContent = 'Check Email';
+        }
+    }
+
+    // HIBP returns BreachDate as YYYY-MM-DD, or omits it on a few old records.
+    function formatBreachDate(raw) {
+        if (!raw) return null;
+        const parts = String(raw).split('-');
+        if (parts.length !== 3) return String(raw);
+        const date = new Date(Date.UTC(+parts[0], +parts[1] - 1, +parts[2]));
+        if (isNaN(date.getTime())) return String(raw);
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC',
+        });
+    }
+
+    function renderEmailResult(breaches, email) {
+        const resultDiv = document.getElementById('emailResult');
+        const breachCount = breaches.length;
+
+        // Always show breach list (email exposure is free)
+        let breachListHTML = '';
+        breaches.forEach(breach => {
+            const label = breach.title || breach.name;
+            const when = formatBreachDate(breach.breachDate);
+            breachListHTML += `
+                <div class="breach-item">
+                    <div class="breach-title">${escapeHtml(label)}</div>
+                    <div class="breach-date">${when ? 'Breached: ' + escapeHtml(when) : 'Breach date not published'}</div>
+                </div>
+            `;
+        });
+
+        const html = `
+            <div class="result-card exposed">
+                <div class="result-status">
+                    <div class="status-icon exposed">!</div>
+                    <div>
+                        <h3>Email Found in ${breachCount} Breach${breachCount > 1 ? 's' : ''}</h3>
+                    </div>
+                </div>
+                <div class="result-detail">
+                    <strong>Your email appears in ${breachCount} known data breach${breachCount > 1 ? 'es' : ''}.</strong>
+                    <div class="breach-list">${breachListHTML}</div>
+                </div>
+            </div>
+        `;
+
+        resultDiv.innerHTML = html;
+        resultDiv.style.display = 'block';
+    }
+
+    function renderCleanResult(type, value) {
+        const resultDiv = document.getElementById(type + 'Result');
+        const label = type === 'email' ? 'Email' : 'Password';
+
+        resultDiv.innerHTML = `
+            <div class="result-card clean">
+                <div class="result-status">
+                    <div class="status-icon clean">✓</div>
+                    <div>
+                        <h3>Good News</h3>
+                    </div>
+                </div>
+                <div class="result-detail">
+                    ${type === 'email'
+                        ? 'We searched hundreds of known data breaches and did not find this email address.'
+                        : 'This password does not appear in the Pwned Passwords database of billions of leaked credentials.'}
+                    Keep using strong, unique passwords to stay safe.
+                </div>
+            </div>
+        `;
+        resultDiv.style.display = 'block';
+    }
+
+    // Password Check (k-anonymity via HIBP)
+    async function checkPassword() {
+        const password = document.getElementById('passwordInput').value;
+        const btn = document.getElementById('passwordCheckBtn');
+        const resultDiv = document.getElementById('passwordResult');
+        const errorDiv = document.getElementById('passwordError');
+
+        if (!password) {
+            errorDiv.textContent = 'Please enter a password.';
+            errorDiv.style.display = 'block';
+            resultDiv.style.display = 'none';
+            return;
+        }
+
+        btn.disabled = true;
+        btn.classList.add('loading');
+        btn.innerHTML = '<span class="spinner"></span> Checking...';
+        errorDiv.style.display = 'none';
+        resultDiv.style.display = 'none';
+
+        try {
+            const found = await checkPasswordWithKAnonymity(password);
+            if (found) {
+                renderPasswordExposed();
+            } else {
+                renderCleanResult('password', 'password');
+            }
+        } catch (error) {
+            errorDiv.textContent = error.message || 'Error checking password. Please try again.';
+            errorDiv.style.display = 'block';
+            resultDiv.style.display = 'none';
+        } finally {
+            btn.disabled = false;
+            btn.classList.remove('loading');
+            btn.textContent = 'Check Password';
+        }
+    }
+
+    async function checkPasswordWithKAnonymity(password) {
+        // SHA1 hash the password (k-anonymity only sends first 5 chars)
+        const hash = await sha1(password);
+        const prefix = hash.substring(0, 5);
+        const suffix = hash.substring(5).toUpperCase();
+
+        // Add-Padding pads the response with decoy hashes so an observer cannot
+        // infer the prefix from the response size.
+        const response = await fetch(`https://api.pwnedpasswords.com/range/${prefix}`, {
+            headers: { 'Add-Padding': 'true' },
+        });
+        if (!response.ok) throw new Error('Failed to check password');
+
+        const text = await response.text();
+        const lines = text.split(/\r?\n/);
+
+        // Check if the suffix matches any returned hash. Padded decoy entries
+        // always carry a count of 0 and must not be treated as a match.
+        for (const line of lines) {
+            const [candidate, count] = line.split(':');
+            if (candidate === suffix && Number(count) > 0) {
+                return true; // Password found in breaches
+            }
+        }
+
+        return false; // Password not found
+    }
+
+    function renderPasswordExposed() {
+        const resultDiv = document.getElementById('passwordResult');
+
+        let html = `
+            <div class="result-card exposed">
+                <div class="result-status">
+                    <div class="status-icon exposed">!</div>
+                    <div>
+                        <h3>Password Found in Breach</h3>
+                    </div>
+                </div>
+                <div class="result-detail">
+                    <strong>This password has appeared in public data breaches.</strong>
+        `;
+
+        if (currentUser) {
+            html += `<br><br>
+                    Do not use it on important accounts. We recommend changing this password immediately on any account where you've used it, and switch to a unique, strong password.
+                </div>
+            </div>
+            `;
+        } else {
+            html += `
+                    <div class="auth-required">
+                        <strong>Sign in</strong> to unlock premium features.<br><br>
+                        <div style="display: flex; gap: 12px; margin-top: 12px;">
+                            <button onclick="openAuthModal('signup')" style="flex: 1; background-color: #1C2B3A; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 600;">Create Account</button>
+                            <button onclick="openAuthModal('signin')" style="flex: 1; background-color: white; color: #1C2B3A; border: 2px solid #1C2B3A; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 600;">Sign In</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `;
+        }
+
+        resultDiv.innerHTML = html;
+        resultDiv.style.display = 'block';
+    }
+
+    // SHA1 hash (for k-anonymity)
+    async function sha1(str) {
+        const buffer = new TextEncoder().encode(str);
+        const hashBuffer = await crypto.subtle.digest('SHA-1', buffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
+    }
+
+    // Toggle password visibility
+    function togglePasswordVisibility(toggle) {
+        const input = document.getElementById('passwordInput');
+
+        if (input.type === 'password') {
+            input.type = 'text';
+            toggle.textContent = 'Hide password';
+        } else {
+            input.type = 'password';
+            toggle.textContent = 'Show password';
+        }
+    }
+
+    // Initialize auth on page load
+    window.addEventListener('DOMContentLoaded', () => {
+        initSupabase();
+        if (window.sbClient) {
+            initAuth();
+        }
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.user-menu')) {
+            document.getElementById('userDropdown').classList.remove('active');
+        }
+    });
+</script>
+
+</body>
+</html>
