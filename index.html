@@ -765,21 +765,79 @@
             line-height: 1.6;
         }
 
-        .plan-steps { list-style: none; padding: 0; margin: 0; }
-
-        .plan-steps li {
-            position: relative;
-            padding-left: 30px;
-            margin-bottom: 10px;
-            line-height: 1.55;
+        .plan-time {
+            display: inline-block;
+            margin: 10px 0 4px;
+            font-size: 12px;
+            color: var(--text-light);
+            background-color: var(--off-white);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 3px 12px;
         }
 
-        .plan-check {
+        .plan-block { margin-top: 14px; }
+
+        .plan-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
+        .plan-block p { margin: 0; line-height: 1.65; }
+
+        .plan-reassure {
+            margin-top: 12px !important;
+            font-style: italic;
+            color: var(--text-light);
+        }
+
+        /* Numbered steps, one instruction each, with room to tick off on
+           paper. Sequential numbering matters more than density here. */
+        .plan-steps {
+            list-style: none;
+            counter-reset: substep;
+            padding: 0;
+            margin: 6px 0 0;
+        }
+
+        .plan-steps li {
+            counter-increment: substep;
+            position: relative;
+            padding-left: 58px;
+            min-height: 26px;
+            margin-bottom: 12px;
+            line-height: 1.65;
+        }
+
+        .plan-steps li::before {
+            content: counter(substep);
+            position: absolute;
+            left: 26px;
+            top: 1px;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: var(--off-white);
+            border: 1px solid var(--border);
+            color: var(--navy);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .plan-steps li::after {
+            content: "";
             position: absolute;
             left: 0;
-            top: 2px;
-            width: 16px;
-            height: 16px;
+            top: 3px;
+            width: 17px;
+            height: 17px;
             border: 2px solid var(--navy);
             border-radius: 3px;
         }
@@ -1503,13 +1561,17 @@
         if (stealerLogs.length) {
             actions.push({
                 priority: 'critical',
-                title: 'Check your device for malware before changing anything else',
-                why: `You appear in ${stealerLogs.length} stealer log${stealerLogs.length > 1 ? 's' : ''} (${listSites(stealerLogs)}). These are not company breaches. They are credentials collected by malware running on someone's computer, which means a device you used may be infected. If it is, any new password you set will be captured too.`,
+                time: 'About 20 minutes',
+                title: 'Check your computer for a virus first',
+                whatHappened: 'Your email address and a password turned up in a list that was made by a virus. This kind of virus sits quietly on a computer and copies everything the person types, including passwords.',
+                whyItMatters: 'If that virus is still on your computer, there is no point changing your passwords yet. It would simply copy the new ones too. So this comes before everything else on the list.',
                 steps: [
-                    "Run a full scan with your system's built-in protection: Windows Security on Windows, or a reputable scanner on Mac.",
-                    'Remove any browser extension you do not recognise. That is a common infection route.',
-                    'Do the password changes below from a different device you trust, such as your phone, rather than the possibly infected computer.',
-                    'If the scan finds something, change those passwords again after it is cleaned. Anything typed before the clean-up was likely captured.',
+                    'For now, use a different device. Your phone or a tablet is fine. Do the rest of this list on that, not on your usual computer.',
+                    'On a Windows computer: click the Start button, type the words Windows Security, and press Enter. Choose "Virus & threat protection", then click "Quick scan". Let it finish.',
+                    'On a Mac: open any antivirus program you already have and run a full scan. If you do not have one, ask someone you trust to help you check the computer.',
+                    'Open your web browser. In its menu, look for "Extensions" or "Add-ons". Remove anything you do not remember adding yourself.',
+                    'If the scan finds something, let it remove it, then restart the computer.',
+                    'Only after the computer is clean, come back and do the password steps below.',
                 ],
             });
         }
@@ -1517,46 +1579,60 @@
         if (recentPasswords.length) {
             actions.push({
                 priority: 'critical',
-                title: 'Change your password on these sites first',
-                why: `${recentPasswords.length} breach${recentPasswords.length > 1 ? 'es' : ''} in the last two years exposed passwords: ${listSites(recentPasswords)}. The most recent was ${siteName(recentPasswords[0])}. Recent password leaks are the ones attackers are actively working through, so these come before anything older.`,
+                time: 'About 5 minutes for each website',
+                title: 'Change your password on these websites',
+                whatHappened: `${recentPasswords.length} website${recentPasswords.length > 1 ? 's were' : ' was'} broken into in the last two years, and your password was taken: ${listSites(recentPasswords)}.`,
+                whyItMatters: 'These lists get bought and sold. Criminals take your email address and that password, then try the pair on other websites, such as your bank or your email, hoping you used the same one twice.',
                 steps: [
-                    `Change your password on ${listSites(recentPasswords, 3)} now.`,
-                    'If you reused that password anywhere else, change it there too. That is the real risk: attackers try leaked email and password pairs across hundreds of other sites.',
-                    'Give each site a different password. You do not have to memorise them, see the password manager step below.',
+                    `Go to each of these websites and change your password: ${listSites(recentPasswords, 3)}.`,
+                    'Usually you find this under "Settings", then "Password" or "Security". If you cannot find it, search the website for the words "change password".',
+                    'Give each website a different password. Never the same one twice.',
+                    'Now the important part: if you used that same password anywhere else, change it there too. Especially your email and your bank.',
+                    'A good password is three ordinary words joined together, like purple-tractor-window. Long is better than complicated. You do not need symbols and capital letters to be safe.',
                 ],
             });
         } else if (withPasswords.length) {
             actions.push({
                 priority: 'high',
-                title: 'Change any password you still reuse from these breaches',
-                why: `${withPasswords.length} of your breaches exposed passwords, though none in the last two years. Old leaks still matter if you kept using the same password, because leaked credential lists never expire.`,
+                time: 'About 5 minutes for each website',
+                title: 'Change any old password you still use',
+                whatHappened: `${withPasswords.length} of the websites you were on lost passwords, though none of them recently. They were ${listSites(withPasswords, 4)}.`,
+                whyItMatters: 'Old lists never go away. If you are still using one of those passwords somewhere today, it is still a risk. If you stopped using it years ago, you can relax about this one.',
                 steps: [
-                    `The affected sites are ${listSites(withPasswords, 4)}.`,
-                    'If you still use any of those passwords anywhere, change it there. If you stopped using them years ago, you can skip this.',
+                    'Think about whether you still use any of those old passwords anywhere.',
+                    'If you do, change it on those accounts. Start with your email and your bank.',
+                    'If you have not used those passwords in years, you can skip this step.',
                 ],
             });
         }
 
         actions.push({
             priority: withPasswords.length ? 'critical' : 'high',
-            title: 'Protect your email account above everything else',
-            why: 'Your email is the master key. Anyone who controls it can reset the password on every other account you own, so it is the single account worth protecting properly even if you do nothing else on this list.',
+            time: 'About 15 minutes',
+            title: 'Protect your email account before anything else',
+            whatHappened: 'Nothing has gone wrong with your email account specifically. This step is on the list because your email protects everything else you own.',
+            whyItMatters: 'Think of your email as the spare key to your whole life. If someone gets into it, they can go to your bank, your shopping accounts, anything at all, and click "forgot my password". The reset link arrives in your email, which they are now reading. So they get in everywhere.',
             steps: [
-                'Give your email account a password you use nowhere else.',
-                'Turn on two-factor authentication. This is the most effective step here: it keeps the account safe even when the password is already known.',
-                'Prefer an authenticator app over SMS codes where offered. SMS can be intercepted by SIM swapping.',
-                "Check your email account's forwarding rules and recovery address. Attackers add a forwarding rule so they keep reading your mail after you change the password.",
+                'Give your email a password you do not use on any other website.',
+                'Turn on the second step for logging in. This means that after you type your password, the website also sends a short code to your phone. Even if a criminal knows your password, they cannot get in without your phone in their hand.',
+                'If you use Gmail: go to myaccount.google.com, click "Security" on the left, then find "2-Step Verification" and follow the instructions.',
+                'If you use Outlook or Hotmail: go to account.microsoft.com, click "Security", then "Two-step verification".',
+                'While you are in your email settings, look for "Forwarding". Make sure your mail is not being copied to an address you do not recognise. Someone who breaks in often sets this up so they keep reading your mail even after you change the password.',
+                'Also check the "recovery" phone number and email address listed there, and make sure both belong to you.',
             ],
         });
 
         if (withSecurityQs.length) {
             actions.push({
                 priority: 'high',
-                title: 'Change your security question answers',
-                why: `${withSecurityQs.length} breach${withSecurityQs.length > 1 ? 'es' : ''} exposed security questions and answers (${listSites(withSecurityQs)}). Changing your password does nothing if someone can reset it by answering "what was your first pet".`,
+                time: 'About 10 minutes',
+                title: 'Change your security questions',
+                whatHappened: `${withSecurityQs.length} website${withSecurityQs.length > 1 ? 's' : ''} lost the answers to your security questions. These are the questions like "what was your mother's maiden name" or "what was the name of your first pet". The website was ${listSites(withSecurityQs)}.`,
+                whyItMatters: 'Changing your password does not help if somebody can simply click "forgot my password" and then answer those questions correctly. They already have your answers.',
                 steps: [
-                    'On your important accounts, change the security question answers.',
-                    "Do not use the real answers. Treat each one as another password: a random phrase stored in your password manager. Your mother's maiden name is not a secret, and never was.",
+                    'On your important accounts, go into the security settings and change the answers to these questions.',
+                    'Do not put the true answer. Make something up instead. For "first pet" you could answer blue curtain. Nobody will ever guess that, because it is not true.',
+                    'Write your made-up answers down and keep the note somewhere safe. On paper in a drawer at home is perfectly fine.',
                 ],
             });
         }
@@ -1564,12 +1640,17 @@
         if (withIdentity.length) {
             actions.push({
                 priority: 'critical',
-                title: 'Freeze your credit',
-                why: `${withIdentity.length} breach${withIdentity.length > 1 ? 'es' : ''} exposed government ID or national identification numbers (${listSites(withIdentity)}). Unlike a password, you cannot change these. The defence is to make them useless for opening accounts in your name.`,
+                time: 'About 30 minutes',
+                title: 'Stop anyone opening accounts in your name',
+                whatHappened: `${withIdentity.length} of the break-ins included your identity number, such as a national ID, social security or passport number. ${withIdentity.length > 1 ? 'They were' : 'It was'} ${listSites(withIdentity)}.`,
+                whyItMatters: 'You can change a password whenever you like. You cannot change your ID number. Somebody could use it, along with your name and address, to open a credit card or take out a loan pretending to be you.',
                 steps: [
-                    'Place a credit freeze with the credit bureaus in your country. It is free, and it stops new accounts being opened in your name.',
-                    'A freeze does not affect your existing accounts or your credit score, and you can lift it temporarily when you apply for something.',
-                    'Watch for mail about accounts you did not open. That is usually the first sign.',
+                    'Contact the credit agencies in your country and ask for a credit freeze. Some countries call it a security freeze or a credit lock.',
+                    'It is free, and you can do it by phone or on their website.',
+                    'A freeze means nobody can open a new account in your name. Not a criminal, and not you either, until you lift it.',
+                    'It does not affect the cards and accounts you already have, and it does not harm your credit score.',
+                    'If you need a loan or a new card later, you can lift the freeze for a few days and then put it back.',
+                    'Open every letter about an account you did not open, rather than assuming it is junk mail. That letter is usually the first warning sign.',
                 ],
             });
         }
@@ -1577,12 +1658,16 @@
         if (withFinancial.length) {
             actions.push({
                 priority: 'high',
-                title: 'Review the cards exposed in these breaches',
-                why: `${withFinancial.length} breach${withFinancial.length > 1 ? 'es' : ''} included payment or bank details (${listSites(withFinancial)}). Card numbers are often partial, but combined with your name and address they are enough for some fraud.`,
+                time: 'About 20 minutes',
+                title: 'Check your bank and card statements',
+                whatHappened: `${withFinancial.length} of the break-ins included card or bank details: ${listSites(withFinancial)}.`,
+                whyItMatters: 'Card numbers are often only partly included, but combined with your name and address that can be enough for somebody to make a purchase.',
                 steps: [
-                    'Check recent statements for small unfamiliar charges. Testing a stolen card with a tiny purchase before a large one is standard practice.',
-                    'Turn on transaction alerts so you hear about charges immediately rather than at month end.',
-                    'If a card was used on one of these sites and you still hold it, ask your bank to reissue it.',
+                    'Look through your last three statements, line by line.',
+                    'Pay attention to small amounts you do not recognise, even one or two pounds or dollars. Criminals test a stolen card with a tiny purchase first, and only spend properly if it works.',
+                    'If you see anything you do not recognise, however small, phone the number on the back of your card.',
+                    'Ask your bank to send you a text message every time the card is used. Then you hear about a problem the same day instead of at the end of the month.',
+                    'If you used one of those cards on the websites above and still have it, ask the bank to send you a new card number.',
                 ],
             });
         }
@@ -1590,28 +1675,35 @@
         if (withPhone.length) {
             actions.push({
                 priority: 'medium',
-                title: 'Lock your phone number against SIM swapping',
-                why: `Your phone number leaked in ${withPhone.length} breach${withPhone.length > 1 ? 'es' : ''}. This is why you get scam calls and texts, but the real risk is SIM swapping: someone convinces your carrier to move your number to their SIM, then collects your SMS verification codes.`,
+                time: 'About 15 minutes',
+                title: 'Protect your phone number',
+                whatHappened: `Your phone number was included in ${withPhone.length} of the break-ins.`,
+                whyItMatters: 'This is why you get so many nuisance calls and texts. There is a more serious risk as well. Someone can telephone your mobile company, pretend to be you, and ask them to move your number onto a new SIM card in their possession. If they manage it, the security codes your bank sends by text go to them instead of you.',
                 steps: [
-                    'Call your mobile carrier and ask them to add a port-out PIN or account lock.',
-                    'Move your two-factor codes from SMS to an authenticator app wherever the option exists.',
-                    'Treat unexpected calls claiming to be from your bank as fraud. They have your name, number, and enough breach data to sound convincing.',
+                    'Phone your mobile company. Ask them to put a PIN or a password on your account, so that nobody can move your number to another SIM without it.',
+                    'Say these exact words if it helps: "Please add a port-out PIN to my account." They will know what you mean.',
+                    'If a call or a text claims to be from your bank, hang up. Then telephone the number printed on the back of your card. A real bank will never mind you doing this.',
+                    'Never read a security code out to somebody who telephones you. Those codes are for you to type in, never to say out loud.',
                 ],
             });
         }
 
         if (withAddress.length || withDob.length) {
             const parts = [];
-            if (withAddress.length) parts.push(`your address in ${withAddress.length}`);
+            if (withAddress.length) parts.push(`your home address in ${withAddress.length} of them`);
             if (withDob.length) parts.push(`your date of birth in ${withDob.length}`);
             actions.push({
                 priority: 'medium',
-                title: 'Expect convincing phishing, and slow down',
-                why: `Breaches exposed ${parts.join(' and ')} of the records about you. This is what makes modern scams work: a message that knows your name, address and birthday does not look like a scam.`,
+                time: 'Nothing to install, just worth reading',
+                title: 'Expect scams that sound very convincing',
+                whatHappened: `The break-ins included ${parts.join(' and ')}.`,
+                whyItMatters: 'This is what makes modern scams work so well. A letter, email or phone call that already knows your name, your address and your birthday does not feel like a scam. It feels official. That is exactly the trick.',
                 steps: [
-                    'Treat any unexpected message that already knows your details as more suspicious, not less.',
-                    'Never act on a link in a message about your account. Open the site or app yourself and check there.',
-                    'If someone calls claiming to be your bank, hang up and call the number on your card.',
+                    'When a message already knows your personal details, treat it as more suspicious, not less. Knowing your details proves nothing any more.',
+                    'Never click a link in a message about one of your accounts. Close it, and open the app or type the website address in yourself.',
+                    'If somebody telephones and asks you to move money, buy gift cards, or read out a code, it is a scam every single time. Put the phone down. You are not being rude.',
+                    'If a message makes you feel rushed or frightened, that is deliberate. Take an hour. Real organisations will wait.',
+                    'When in doubt, telephone somebody you trust and describe the message to them before you do anything.',
                 ],
             });
         }
@@ -1619,24 +1711,31 @@
         if (withHealth.length) {
             actions.push({
                 priority: 'medium',
-                title: 'Watch for medical billing you do not recognise',
-                why: `${withHealth.length} breach${withHealth.length > 1 ? 'es' : ''} exposed health or insurance information (${listSites(withHealth)}). Medical identity theft surfaces more slowly than financial fraud and is harder to unwind.`,
+                time: 'About 15 minutes',
+                title: 'Keep an eye on your medical bills',
+                whatHappened: `${withHealth.length} of the break-ins included health or insurance information: ${listSites(withHealth)}.`,
+                whyItMatters: 'Somebody could use your details to get treatment or claim on your insurance. This takes much longer to notice than money going missing from a bank account, and it is more difficult to put right.',
                 steps: [
-                    'Review explanation-of-benefits statements for treatment you did not receive.',
-                    'Report anything unfamiliar to your insurer promptly.',
+                    'Read the statements your health insurer sends you instead of filing them away unopened.',
+                    'Look for appointments, treatments or prescriptions you did not have.',
+                    'Telephone your insurer about anything you do not recognise, even if it seems minor.',
                 ],
             });
         }
 
         actions.push({
             priority: 'high',
-            title: 'Get a password manager and stop reusing passwords',
-            why: `You appear in ${all.length} breach${all.length > 1 ? 'es' : ''}. You cannot stop companies being breached, and you cannot memorise a different password for every account. A password manager is what makes the problem finite: one breach stops being able to affect anything else.`,
+            time: 'About 20 minutes to set up',
+            title: 'Let your phone remember your passwords for you',
+            whatHappened: `Your email address turned up in ${all.length} break-in${all.length > 1 ? 's' : ''} in total. More companies will be broken into in future. None of that is your fault and you cannot prevent it.`,
+            whyItMatters: 'Nobody can remember a different password for every website, so most people use the same one over and over. That is the real problem: one company loses your password, and suddenly everything else you own is unlocked with it. Something that remembers your passwords for you fixes this completely.',
             steps: [
-                'Install one on your phone and computer. The option built into your browser or phone is already a large improvement over reusing passwords.',
-                'Let it generate new passwords as you go. You do not need to change everything at once.',
-                'Start with the accounts that matter: email, banking, and anything holding your payment details.',
-                'The only password you need to remember is the one for the manager itself. Make it long, and never use it anywhere else.',
+                'You very likely already have one. Your phone and your web browser can both remember passwords for you.',
+                'Next time a website asks "Would you like to save this password?", say yes.',
+                'When it offers to make up a password for you, let it. It does not matter that the password looks like nonsense, because you will never have to type it.',
+                'You only need to remember one password: the one that unlocks your phone or your browser.',
+                'Make that one long, and never use it anywhere else. Three ordinary words joined together works well.',
+                'Start with your email and your bank. You do not need to fix every account today. A few each week is perfectly good progress.',
             ],
         });
 
@@ -1656,6 +1755,14 @@
             },
         };
     }
+
+    // Plain-language labels. "Critical" and "High" mean nothing to someone who
+    // did not ask for a severity rating; a deadline does.
+    const PRIORITY_LABEL = {
+        critical: 'Do this first',
+        high: 'Do this week',
+        medium: 'Do this month',
+    };
 
     // These domains come from HIBP and are turned into clickable links, so
     // accept only a plain hostname. Anything else (a javascript: payload, an
@@ -1747,9 +1854,9 @@
 
         const planCTA = isUnlocked() ? `
             <div class="plan-cta">
-                <strong>Not sure where to start?</strong>
-                <p style="margin: 6px 0 12px;">${breachCount} breaches is too many to act on. Get a prioritised plan that says which ones actually matter and what to do about them, in order.</p>
-                <button onclick="openReport()" class="plan-cta-btn">Get my action plan</button>
+                <strong>Not sure what to do about all this?</strong>
+                <p style="margin: 6px 0 12px;">${breachCount} is far too many to deal with one by one, and you do not need to. Get a plain-English plan that tells you which ones actually matter, what to do about each, and in what order. Written for normal people, not computer experts.</p>
+                <button onclick="openReport()" class="plan-cta-btn">Show me what to do</button>
             </div>
         ` : '';
 
@@ -1804,12 +1911,26 @@
                 <div class="plan-action-head">
                     <span class="plan-step-num">${i + 1}</span>
                     <h3>${escapeHtml(a.title)}</h3>
-                    <span class="plan-pill plan-${a.priority}">${a.priority}</span>
+                    <span class="plan-pill plan-${a.priority}">${escapeHtml(PRIORITY_LABEL[a.priority])}</span>
                 </div>
-                <p class="plan-why">${escapeHtml(a.why)}</p>
-                <ul class="plan-steps">
-                    ${a.steps.map(s => `<li><span class="plan-check"></span>${escapeHtml(s)}</li>`).join('')}
-                </ul>
+                <div class="plan-time">Time needed: ${escapeHtml(a.time)}</div>
+
+                <div class="plan-block">
+                    <div class="plan-label">What happened</div>
+                    <p>${escapeHtml(a.whatHappened)}</p>
+                </div>
+
+                <div class="plan-block">
+                    <div class="plan-label">Why this matters</div>
+                    <p>${escapeHtml(a.whyItMatters)}</p>
+                </div>
+
+                <div class="plan-block">
+                    <div class="plan-label">What to do, step by step</div>
+                    <ol class="plan-steps">
+                        ${a.steps.map(s => `<li>${escapeHtml(s)}</li>`).join('')}
+                    </ol>
+                </div>
             </section>
         `).join('');
 
@@ -1837,8 +1958,13 @@
             </header>
 
             <section class="plan-summary">
-                <p><strong>Your email appears in ${stats.total} known data breach${stats.total > 1 ? 'es' : ''}${headlineBits.length ? ': ' + headlineBits.join(', ') : '.'}</strong></p>
-                <p>You cannot undo a breach, and you do not need to act on all ${stats.total}. This plan lists ${actions.length} things worth doing, ordered so the ${criticals} marked critical come first. Work down the list. Everything below the critical items is worth doing this month, not today.</p>
+                <p><strong>Your email address was found in ${stats.total} company break-in${stats.total > 1 ? 's' : ''}.</strong></p>
+                <p>That number sounds frightening. It is less bad than it looks. It means that over the years, ${stats.total} compan${stats.total > 1 ? 'ies' : 'y'} you once gave your email address to ${stats.total > 1 ? 'were' : 'was'} broken into by criminals. Many of those are old and no longer matter.</p>
+                <p>${stats.total > actions.length
+                    ? `You do not need to deal with all ${stats.total}. There are <strong>${actions.length} things</strong> worth doing, and only the first ${criticals} ${criticals === 1 ? 'is' : 'are'} urgent.`
+                    : `There are <strong>${actions.length} things</strong> worth doing about it, and only the first ${criticals} ${criticals === 1 ? 'is' : 'are'} urgent.`}</p>
+                <p>Work down the list in order. Each step tells you what happened, why it matters, and exactly what to do. Tick them off as you go. If you only ever do the first ${criticals}, you will have dealt with almost all of the real risk.</p>
+                <p class="plan-reassure">Nothing here is your fault. You cannot stop companies being broken into. You can only make sure it does not cost you anything.</p>
             </section>
 
             ${actionsHTML}
@@ -1971,27 +2097,27 @@
             return {
                 label: 'Critical',
                 color: '#EF4444',
-                summary: 'This is one of the most common passwords in existence. Credential-stuffing tools try it within their first few thousand guesses.',
+                summary: 'This is one of the most commonly used passwords in the world. It is among the first ones criminals try, which makes any account using it very easy to break into.',
             };
         }
         if (count >= 1000) {
             return {
                 label: 'High',
                 color: '#F59E0B',
-                summary: 'This password appears in widely circulated breach lists and is almost certainly in the wordlists attackers use.',
+                summary: 'This password appears on lists that criminals pass around and use to break into accounts. Treat it as public knowledge.',
             };
         }
         if (count >= 10) {
             return {
                 label: 'Moderate',
                 color: '#F59E0B',
-                summary: 'This password has leaked more than once, which means it is in circulation even if it is not widespread.',
+                summary: 'This password has escaped more than once, so it is out there, even though it is not one of the very common ones.',
             };
         }
         return {
             label: 'Low',
             color: '#F59E0B',
-            summary: 'This password has leaked only a small number of times, but once is enough to make it unsafe to reuse.',
+            summary: 'This password has only escaped a few times. That is still once too many, so it is not safe to keep using.',
         };
     }
 
@@ -2023,10 +2149,10 @@
                     <p style="margin: 16px 0 0;">${escapeHtml(sev.summary)}</p>
                     <p style="margin: 12px 0 8px;"><strong>What to do now</strong></p>
                     <ol class="remediation">
-                        <li>Change it on every account where you have used it, starting with email and banking. Your email account is the master key: whoever controls it can reset the others.</li>
-                        <li>Never reuse it again. Attackers take leaked pairs and try them across hundreds of sites, which is called credential stuffing.</li>
-                        <li>Turn on two-factor authentication where offered. It keeps an account safe even when the password is already known.</li>
-                        <li>Use a password manager so every account gets a different password you never have to remember.</li>
+                        <li>Change it on every account where you have used it. Start with your email, then your bank. Your email matters most, because anyone who gets into it can reset the password on everything else you own.</li>
+                        <li>Do not use this password anywhere again. Criminals take a password that has escaped and try it on hundreds of other websites, hoping you used it twice.</li>
+                        <li>Where a website offers it, turn on the second step for logging in. It sends a short code to your phone after your password, and keeps the account safe even when somebody already knows that password.</li>
+                        <li>Let your phone or your web browser remember your passwords for you. Then every website can have a different one, and you never have to memorise any of them.</li>
                     </ol>
                 </div>
             </div>
