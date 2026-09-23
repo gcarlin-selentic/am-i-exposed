@@ -623,6 +623,97 @@
 
         .plan-cta-btn:hover { background-color: var(--off-white); }
 
+        /* --- Paywall / teaser --- */
+        .report-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 60px 20px;
+            color: var(--text-light);
+        }
+
+        .spinner.dark {
+            border-color: rgba(28, 43, 58, 0.2);
+            border-top-color: var(--navy);
+        }
+
+        .teaser-note {
+            margin-top: 24px;
+            padding: 12px 16px;
+            background-color: #ECFDF5;
+            border: 1px solid #A7F3D0;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #065F46;
+        }
+
+        .paywall {
+            margin-top: 28px;
+            padding: 24px;
+            border: 2px solid var(--navy);
+            border-radius: 10px;
+            background-color: var(--off-white);
+        }
+
+        .paywall h2 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 22px;
+            color: var(--navy);
+            margin: 0 0 16px;
+        }
+
+        .locked-list { margin-bottom: 18px; }
+
+        .locked-action {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .locked-action:last-child { border-bottom: none; }
+
+        .plan-step-num.muted {
+            background-color: #CBD5E1;
+            color: #fff;
+        }
+
+        .locked-body { flex: 1; min-width: 0; }
+
+        .locked-title {
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .locked-meta {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .locked-icon { opacity: 0.45; flex-shrink: 0; }
+
+        .paywall-pitch {
+            font-size: 14px;
+            color: var(--text);
+            margin: 0 0 16px;
+        }
+
+        .paywall-btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .paywall-fine {
+            margin: 10px 0 0;
+            font-size: 12px;
+            color: var(--text-light);
+            text-align: center;
+        }
+
         /* --- Action plan report --- */
         .report-view {
             display: none;
@@ -1131,7 +1222,7 @@
 <div id="reportView" class="report-view">
     <div class="report-toolbar">
         <button onclick="closeReport()" class="report-btn ghost">&larr; Back</button>
-        <button onclick="printReport()" class="report-btn">Download PDF</button>
+        <button id="reportPrintBtn" onclick="printReport()" class="report-btn">Download PDF</button>
     </div>
     <div id="reportBody" class="report-body"></div>
 </div>
@@ -1197,6 +1288,9 @@
     // without re-querying. Nothing is persisted.
     let lastEmailResult = null;
 
+    // Last plan returned by /api/report, full or teaser depending on access.
+    let lastReport = null;
+
     // Preview mode (?demo=1). Renders gated content from fixed sample data so
     // the report can be reviewed without signing in or spending an API call.
     // It never touches auth state and never calls the breach API.
@@ -1212,37 +1306,31 @@
         return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     }
 
-    // Fictional data for preview mode. Chosen to exercise every rule in the
-    // action plan: a stealer log, a recent password leak, government ID,
-    // payment data, security questions, phone, address, date of birth and
-    // health records. None of it is real.
-    const DEMO_BREACHES = [
-        { name: 'DemoStealerLogs', title: 'Sample Stealer Logs', domain: null, breachDate: '2026-04-11', pwnCount: 284132969, isStealerLog: true,
-          dataClasses: ['Email addresses', 'Passwords'] },
-        { name: 'DemoRetail', title: 'Northwind Outfitters', domain: 'example.com', breachDate: '2026-08-13', pwnCount: 12933413, isStealerLog: false,
-          dataClasses: ['Email addresses', 'Passwords', 'Names', 'Phone numbers', 'Physical addresses'] },
-        { name: 'DemoGov', title: 'Sample Services Portal', domain: 'example.org', breachDate: '2025-02-01', pwnCount: 5041233, isStealerLog: false,
-          dataClasses: ['Government issued IDs', 'Dates of birth', 'Physical addresses', 'Names'] },
-        { name: 'DemoShop', title: 'Sample Marketplace', domain: 'example.net', breachDate: '2024-06-01', pwnCount: 903411, isStealerLog: false,
-          dataClasses: ['Credit cards', 'Email addresses', 'Payment histories'] },
-        { name: 'DemoForum', title: 'Sample Forum', domain: 'example.com', breachDate: '2014-09-22', pwnCount: 393430309, isStealerLog: false,
-          dataClasses: ['Security questions and answers', 'Passwords', 'Email addresses'] },
-        { name: 'DemoClinic', title: 'Sample Health Group', domain: null, breachDate: '2023-11-05', pwnCount: 411902, isStealerLog: false,
-          dataClasses: ['Health insurance information', 'Names', 'Dates of birth'] },
-    ];
-
-    function startDemo() {
+    async function startDemo() {
         demoMode = true;
         document.getElementById('demoBanner').style.display = 'flex';
         document.body.classList.add('demo-active');
 
-        const email = 'sample.person@example.com';
-        document.getElementById('emailInput').value = email;
-        lastEmailResult = { email, breaches: DEMO_BREACHES };
-        renderEmailResult(DEMO_BREACHES, email);
-
         document.getElementById('passwordInput').value = 'sample-password';
         renderPasswordExposed(52372427);
+
+        // The sample data lives on the server alongside the plan engine, so
+        // there is only ever one copy of either.
+        try {
+            const response = await fetch('/api/report', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ demo: true }),
+            });
+            if (!response.ok) return;
+            const data = await response.json();
+            lastReport = data;
+            lastEmailResult = { email: data.email, breaches: data.breaches };
+            document.getElementById('emailInput').value = data.email;
+            renderEmailResult(data.breaches, data.email);
+        } catch (e) {
+            console.error('Demo load failed:', e);
+        }
     }
 
     function exitDemo() {
@@ -1494,270 +1582,13 @@
         }
     }
 
-    // ---------------------------------------------------------------------
-    // Personal action plan
-    //
-    // The advice below is not secret, and that is fine. What someone in 271
-    // breaches cannot do for themselves is work out which handful matter.
-    // This does the triage and gives them permission to ignore the rest.
-    // ---------------------------------------------------------------------
-
-    const CLASS_GROUPS = {
-        passwords: ['Passwords', 'Historical passwords'],
-        security: ['Security questions and answers'],
-        financial: ['Credit cards', 'Credit card CVV', 'Partial credit card data', 'Bank account numbers', 'Payment histories', 'Historical payment information'],
-        identity: ['Social security numbers', 'National identification numbers', 'Government issued IDs', 'Passport numbers', "Driver's licenses", 'Tax records'],
-        phone: ['Phone numbers'],
-        address: ['Physical addresses', 'Geographic locations'],
-        dob: ['Dates of birth'],
-        health: ['Health insurance information', 'Medical conditions', 'Medical records'],
-    };
-
-    const MONTH_MS = 30 * 24 * 60 * 60 * 1000;
-
-    function hasClass(breach, group) {
-        const list = Array.isArray(breach.dataClasses) ? breach.dataClasses : [];
-        return list.some(c => CLASS_GROUPS[group].includes(c));
-    }
-
-    function monthsAgo(dateStr) {
-        if (!dateStr) return null;
-        const t = Date.parse(dateStr);
-        if (isNaN(t)) return null;
-        return Math.max(0, Math.round((Date.now() - t) / MONTH_MS));
-    }
-
+    // The action plan itself is built on the server (/api/report) so that the
+    // paid text never reaches an unpaid browser. Only small display helpers
+    // remain here.
     function siteName(breach) {
         return breach.title || breach.name || 'an unnamed breach';
     }
 
-    function listSites(breaches, max) {
-        const cap = max || 4;
-        const names = breaches.slice(0, cap).map(siteName);
-        const extra = breaches.length - names.length;
-        let text = names.join(', ');
-        if (extra > 0) text += `, and ${extra} more`;
-        return text;
-    }
-
-    function buildRemediationPlan(breaches) {
-        const all = Array.isArray(breaches) ? breaches : [];
-
-        const stealerLogs = all.filter(b => b.isStealerLog);
-        const withPasswords = all.filter(b => hasClass(b, 'passwords'));
-        const recentPasswords = withPasswords
-            .filter(b => { const m = monthsAgo(b.breachDate); return m !== null && m <= 24; })
-            .sort((a, b) => (b.breachDate || '').localeCompare(a.breachDate || ''));
-        const withSecurityQs = all.filter(b => hasClass(b, 'security'));
-        const withFinancial = all.filter(b => hasClass(b, 'financial'));
-        const withIdentity = all.filter(b => hasClass(b, 'identity'));
-        const withPhone = all.filter(b => hasClass(b, 'phone'));
-        const withAddress = all.filter(b => hasClass(b, 'address'));
-        const withDob = all.filter(b => hasClass(b, 'dob'));
-        const withHealth = all.filter(b => hasClass(b, 'health'));
-
-        const actions = [];
-
-        if (stealerLogs.length) {
-            actions.push({
-                priority: 'critical',
-                time: 'About 20 minutes',
-                title: 'Check your computer for a virus first',
-                whatHappened: 'Your email address and a password turned up in a list that was made by a virus. This kind of virus sits quietly on a computer and copies everything the person types, including passwords.',
-                whyItMatters: 'If that virus is still on your computer, there is no point changing your passwords yet. It would simply copy the new ones too. So this comes before everything else on the list.',
-                steps: [
-                    'For now, use a different device. Your phone or a tablet is fine. Do the rest of this list on that, not on your usual computer.',
-                    'On a Windows computer: click the Start button, type the words Windows Security, and press Enter. Choose "Virus & threat protection", then click "Quick scan". Let it finish.',
-                    'On a Mac: open any antivirus program you already have and run a full scan. If you do not have one, ask someone you trust to help you check the computer.',
-                    'Open your web browser. In its menu, look for "Extensions" or "Add-ons". Remove anything you do not remember adding yourself.',
-                    'If the scan finds something, let it remove it, then restart the computer.',
-                    'Only after the computer is clean, come back and do the password steps below.',
-                ],
-            });
-        }
-
-        if (recentPasswords.length) {
-            actions.push({
-                priority: 'critical',
-                time: 'About 5 minutes for each website',
-                title: 'Change your password on these websites',
-                whatHappened: `${recentPasswords.length} website${recentPasswords.length > 1 ? 's were' : ' was'} broken into in the last two years, and your password was taken: ${listSites(recentPasswords)}.`,
-                whyItMatters: 'These lists get bought and sold. Criminals take your email address and that password, then try the pair on other websites, such as your bank or your email, hoping you used the same one twice.',
-                steps: [
-                    `Go to each of these websites and change your password: ${listSites(recentPasswords, 3)}.`,
-                    'Usually you find this under "Settings", then "Password" or "Security". If you cannot find it, search the website for the words "change password".',
-                    'Give each website a different password. Never the same one twice.',
-                    'Now the important part: if you used that same password anywhere else, change it there too. Especially your email and your bank.',
-                    'A good password is three ordinary words joined together, like purple-tractor-window. Long is better than complicated. You do not need symbols and capital letters to be safe.',
-                ],
-            });
-        } else if (withPasswords.length) {
-            actions.push({
-                priority: 'high',
-                time: 'About 5 minutes for each website',
-                title: 'Change any old password you still use',
-                whatHappened: `${withPasswords.length} of the websites you were on lost passwords, though none of them recently. They were ${listSites(withPasswords, 4)}.`,
-                whyItMatters: 'Old lists never go away. If you are still using one of those passwords somewhere today, it is still a risk. If you stopped using it years ago, you can relax about this one.',
-                steps: [
-                    'Think about whether you still use any of those old passwords anywhere.',
-                    'If you do, change it on those accounts. Start with your email and your bank.',
-                    'If you have not used those passwords in years, you can skip this step.',
-                ],
-            });
-        }
-
-        actions.push({
-            priority: withPasswords.length ? 'critical' : 'high',
-            time: 'About 15 minutes',
-            title: 'Protect your email account before anything else',
-            whatHappened: 'Nothing has gone wrong with your email account specifically. This step is on the list because your email protects everything else you own.',
-            whyItMatters: 'Think of your email as the spare key to your whole life. If someone gets into it, they can go to your bank, your shopping accounts, anything at all, and click "forgot my password". The reset link arrives in your email, which they are now reading. So they get in everywhere.',
-            steps: [
-                'Give your email a password you do not use on any other website.',
-                'Turn on the second step for logging in. This means that after you type your password, the website also sends a short code to your phone. Even if a criminal knows your password, they cannot get in without your phone in their hand.',
-                'If you use Gmail: go to myaccount.google.com, click "Security" on the left, then find "2-Step Verification" and follow the instructions.',
-                'If you use Outlook or Hotmail: go to account.microsoft.com, click "Security", then "Two-step verification".',
-                'While you are in your email settings, look for "Forwarding". Make sure your mail is not being copied to an address you do not recognise. Someone who breaks in often sets this up so they keep reading your mail even after you change the password.',
-                'Also check the "recovery" phone number and email address listed there, and make sure both belong to you.',
-            ],
-        });
-
-        if (withSecurityQs.length) {
-            actions.push({
-                priority: 'high',
-                time: 'About 10 minutes',
-                title: 'Change your security questions',
-                whatHappened: `${withSecurityQs.length} website${withSecurityQs.length > 1 ? 's' : ''} lost the answers to your security questions. These are the questions like "what was your mother's maiden name" or "what was the name of your first pet". The website was ${listSites(withSecurityQs)}.`,
-                whyItMatters: 'Changing your password does not help if somebody can simply click "forgot my password" and then answer those questions correctly. They already have your answers.',
-                steps: [
-                    'On your important accounts, go into the security settings and change the answers to these questions.',
-                    'Do not put the true answer. Make something up instead. For "first pet" you could answer blue curtain. Nobody will ever guess that, because it is not true.',
-                    'Write your made-up answers down and keep the note somewhere safe. On paper in a drawer at home is perfectly fine.',
-                ],
-            });
-        }
-
-        if (withIdentity.length) {
-            actions.push({
-                priority: 'critical',
-                time: 'About 30 minutes',
-                title: 'Stop anyone opening accounts in your name',
-                whatHappened: `${withIdentity.length} of the break-ins included your identity number, such as a national ID, social security or passport number. ${withIdentity.length > 1 ? 'They were' : 'It was'} ${listSites(withIdentity)}.`,
-                whyItMatters: 'You can change a password whenever you like. You cannot change your ID number. Somebody could use it, along with your name and address, to open a credit card or take out a loan pretending to be you.',
-                steps: [
-                    'Contact the credit agencies in your country and ask for a credit freeze. Some countries call it a security freeze or a credit lock.',
-                    'It is free, and you can do it by phone or on their website.',
-                    'A freeze means nobody can open a new account in your name. Not a criminal, and not you either, until you lift it.',
-                    'It does not affect the cards and accounts you already have, and it does not harm your credit score.',
-                    'If you need a loan or a new card later, you can lift the freeze for a few days and then put it back.',
-                    'Open every letter about an account you did not open, rather than assuming it is junk mail. That letter is usually the first warning sign.',
-                ],
-            });
-        }
-
-        if (withFinancial.length) {
-            actions.push({
-                priority: 'high',
-                time: 'About 20 minutes',
-                title: 'Check your bank and card statements',
-                whatHappened: `${withFinancial.length} of the break-ins included card or bank details: ${listSites(withFinancial)}.`,
-                whyItMatters: 'Card numbers are often only partly included, but combined with your name and address that can be enough for somebody to make a purchase.',
-                steps: [
-                    'Look through your last three statements, line by line.',
-                    'Pay attention to small amounts you do not recognise, even one or two pounds or dollars. Criminals test a stolen card with a tiny purchase first, and only spend properly if it works.',
-                    'If you see anything you do not recognise, however small, phone the number on the back of your card.',
-                    'Ask your bank to send you a text message every time the card is used. Then you hear about a problem the same day instead of at the end of the month.',
-                    'If you used one of those cards on the websites above and still have it, ask the bank to send you a new card number.',
-                ],
-            });
-        }
-
-        if (withPhone.length) {
-            actions.push({
-                priority: 'medium',
-                time: 'About 15 minutes',
-                title: 'Protect your phone number',
-                whatHappened: `Your phone number was included in ${withPhone.length} of the break-ins.`,
-                whyItMatters: 'This is why you get so many nuisance calls and texts. There is a more serious risk as well. Someone can telephone your mobile company, pretend to be you, and ask them to move your number onto a new SIM card in their possession. If they manage it, the security codes your bank sends by text go to them instead of you.',
-                steps: [
-                    'Phone your mobile company. Ask them to put a PIN or a password on your account, so that nobody can move your number to another SIM without it.',
-                    'Say these exact words if it helps: "Please add a port-out PIN to my account." They will know what you mean.',
-                    'If a call or a text claims to be from your bank, hang up. Then telephone the number printed on the back of your card. A real bank will never mind you doing this.',
-                    'Never read a security code out to somebody who telephones you. Those codes are for you to type in, never to say out loud.',
-                ],
-            });
-        }
-
-        if (withAddress.length || withDob.length) {
-            const parts = [];
-            if (withAddress.length) parts.push(`your home address in ${withAddress.length} of them`);
-            if (withDob.length) parts.push(`your date of birth in ${withDob.length}`);
-            actions.push({
-                priority: 'medium',
-                time: 'Nothing to install, just worth reading',
-                title: 'Expect scams that sound very convincing',
-                whatHappened: `The break-ins included ${parts.join(' and ')}.`,
-                whyItMatters: 'This is what makes modern scams work so well. A letter, email or phone call that already knows your name, your address and your birthday does not feel like a scam. It feels official. That is exactly the trick.',
-                steps: [
-                    'When a message already knows your personal details, treat it as more suspicious, not less. Knowing your details proves nothing any more.',
-                    'Never click a link in a message about one of your accounts. Close it, and open the app or type the website address in yourself.',
-                    'If somebody telephones and asks you to move money, buy gift cards, or read out a code, it is a scam every single time. Put the phone down. You are not being rude.',
-                    'If a message makes you feel rushed or frightened, that is deliberate. Take an hour. Real organisations will wait.',
-                    'When in doubt, telephone somebody you trust and describe the message to them before you do anything.',
-                ],
-            });
-        }
-
-        if (withHealth.length) {
-            actions.push({
-                priority: 'medium',
-                time: 'About 15 minutes',
-                title: 'Keep an eye on your medical bills',
-                whatHappened: `${withHealth.length} of the break-ins included health or insurance information: ${listSites(withHealth)}.`,
-                whyItMatters: 'Somebody could use your details to get treatment or claim on your insurance. This takes much longer to notice than money going missing from a bank account, and it is more difficult to put right.',
-                steps: [
-                    'Read the statements your health insurer sends you instead of filing them away unopened.',
-                    'Look for appointments, treatments or prescriptions you did not have.',
-                    'Telephone your insurer about anything you do not recognise, even if it seems minor.',
-                ],
-            });
-        }
-
-        actions.push({
-            priority: 'high',
-            time: 'About 20 minutes to set up',
-            title: 'Let your phone remember your passwords for you',
-            whatHappened: `Your email address turned up in ${all.length} break-in${all.length > 1 ? 's' : ''} in total. More companies will be broken into in future. None of that is your fault and you cannot prevent it.`,
-            whyItMatters: 'Nobody can remember a different password for every website, so most people use the same one over and over. That is the real problem: one company loses your password, and suddenly everything else you own is unlocked with it. Something that remembers your passwords for you fixes this completely.',
-            steps: [
-                'You very likely already have one. Your phone and your web browser can both remember passwords for you.',
-                'Next time a website asks "Would you like to save this password?", say yes.',
-                'When it offers to make up a password for you, let it. It does not matter that the password looks like nonsense, because you will never have to type it.',
-                'You only need to remember one password: the one that unlocks your phone or your browser.',
-                'Make that one long, and never use it anywhere else. Three ordinary words joined together works well.',
-                'Start with your email and your bank. You do not need to fix every account today. A few each week is perfectly good progress.',
-            ],
-        });
-
-        const order = { critical: 0, high: 1, medium: 2 };
-        actions.sort((a, b) => order[a.priority] - order[b.priority]);
-
-        return {
-            actions,
-            stats: {
-                total: all.length,
-                withPasswords: withPasswords.length,
-                recentPasswords: recentPasswords.length,
-                stealerLogs: stealerLogs.length,
-                withIdentity: withIdentity.length,
-                withFinancial: withFinancial.length,
-                withPhone: withPhone.length,
-            },
-        };
-    }
-
-    // Plain-language labels. "Critical" and "High" mean nothing to someone who
-    // did not ask for a severity rating; a deadline does.
     const PRIORITY_LABEL = {
         critical: 'Do this first',
         high: 'Do this week',
@@ -1893,25 +1724,77 @@
         resultDiv.style.display = 'block';
     }
 
-    function openReport() {
-        if (!lastEmailResult) return;
-        const { email, breaches } = lastEmailResult;
-        const { actions, stats } = buildRemediationPlan(breaches);
+    // Asks the server for the plan. The server decides how much to send back
+    // based on whether this account has paid, so there is nothing here that a
+    // determined browser could unlock on its own.
+    async function openReport() {
+        if (!lastEmailResult && !demoMode) return;
 
+        const view = document.getElementById('reportView');
+        document.getElementById('reportBody').innerHTML =
+            '<div class="report-loading"><span class="spinner dark"></span> Building your plan...</div>';
+        view.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        view.scrollTop = 0;
+
+        let data = lastReport;
+        const needsFetch = !data || (!demoMode && data.email !== lastEmailResult.email);
+
+        if (needsFetch) {
+            try {
+                let accessToken = null;
+                if (window.sbClient) {
+                    const { data: { session } } = await window.sbClient.auth.getSession();
+                    accessToken = session?.access_token || null;
+                }
+                const response = await fetch('/api/report', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(demoMode
+                        ? { demo: true }
+                        : { email: lastEmailResult.email, accessToken }),
+                });
+                data = await response.json();
+                if (!response.ok) throw new Error(data.error || 'Could not build your plan');
+                lastReport = data;
+            } catch (error) {
+                document.getElementById('reportBody').innerHTML =
+                    `<div class="report-loading">${escapeHtml(error.message || 'Something went wrong. Please try again.')}</div>`;
+                return;
+            }
+        }
+
+        const entitled = data.entitled === true;
+        document.getElementById('reportBody').innerHTML = entitled
+            ? fullReportHTML(data)
+            : teaserHTML(data);
+
+        // Offering "Download PDF" on a paywall makes no sense.
+        document.getElementById('reportPrintBtn').style.display = entitled ? '' : 'none';
+    }
+
+    function reportHeaderHTML(email) {
         const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-        const criticals = actions.filter(a => a.priority === 'critical').length;
+        return `
+            <div class="demo-print-notice">
+                PREVIEW — This report was generated from fictional sample data. It is not a real breach result for any person.
+            </div>
+            <header class="plan-header">
+                <div>
+                    <h1>Your Personal Action Plan</h1>
+                    <p class="plan-meta">Prepared for ${escapeHtml(email || '')} &middot; ${escapeHtml(today)}</p>
+                </div>
+                <div class="plan-brand">Am I Exposed?</div>
+            </header>`;
+    }
 
-        const headlineBits = [];
-        if (stats.stealerLogs) headlineBits.push(`${stats.stealerLogs} from malware-harvested credentials`);
-        if (stats.recentPasswords) headlineBits.push(`${stats.recentPasswords} exposed a password in the last two years`);
-        if (stats.withIdentity) headlineBits.push(`${stats.withIdentity} exposed government ID numbers`);
-
-        const actionsHTML = actions.map((a, i) => `
+    function actionHTML(a, i) {
+        return `
             <section class="plan-action">
                 <div class="plan-action-head">
                     <span class="plan-step-num">${i + 1}</span>
                     <h3>${escapeHtml(a.title)}</h3>
-                    <span class="plan-pill plan-${a.priority}">${escapeHtml(PRIORITY_LABEL[a.priority])}</span>
+                    <span class="plan-pill plan-${a.priority}">${escapeHtml(PRIORITY_LABEL[a.priority] || '')}</span>
                 </div>
                 <div class="plan-time">Time needed: ${escapeHtml(a.time)}</div>
 
@@ -1928,13 +1811,31 @@
                 <div class="plan-block">
                     <div class="plan-label">What to do, step by step</div>
                     <ol class="plan-steps">
-                        ${a.steps.map(s => `<li>${escapeHtml(s)}</li>`).join('')}
+                        ${a.steps.map(step => `<li>${escapeHtml(step)}</li>`).join('')}
                     </ol>
                 </div>
-            </section>
-        `).join('');
+            </section>`;
+    }
 
-        const appendixHTML = breaches.map(b => {
+    function planSummaryHTML(stats, actionCount, criticals) {
+        const total = stats.total;
+        return `
+            <section class="plan-summary">
+                <p><strong>Your email address was found in ${total} company break-in${total > 1 ? 's' : ''}.</strong></p>
+                <p>That number sounds frightening. It is less bad than it looks. It means that over the years, ${total} compan${total > 1 ? 'ies' : 'y'} you once gave your email address to ${total > 1 ? 'were' : 'was'} broken into by criminals. Many of those are old and no longer matter.</p>
+                <p>${total > actionCount
+                    ? `You do not need to deal with all ${total}. There are <strong>${actionCount} things</strong> worth doing, and only the first ${criticals} ${criticals === 1 ? 'is' : 'are'} urgent.`
+                    : `There are <strong>${actionCount} things</strong> worth doing about it, and only the first ${criticals} ${criticals === 1 ? 'is' : 'are'} urgent.`}</p>
+                <p>Work down the list in order. Each step tells you what happened, why it matters, and exactly what to do. Tick them off as you go. If you only ever do the first ${criticals}, you will have dealt with almost all of the real risk.</p>
+                <p class="plan-reassure">Nothing here is your fault. You cannot stop companies being broken into. You can only make sure it does not cost you anything.</p>
+            </section>`;
+    }
+
+    function fullReportHTML(data) {
+        const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        const criticals = data.actions.filter(a => a.priority === 'critical').length;
+
+        const appendixHTML = (data.breaches || []).map(b => {
             const d = safeDomain(b.domain);
             const when = formatBreachDate(b.breachDate);
             const classes = Array.isArray(b.dataClasses) ? b.dataClasses : [];
@@ -1945,48 +1846,59 @@
             </tr>`;
         }).join('');
 
-        document.getElementById('reportBody').innerHTML = `
-            <div class="demo-print-notice">
-                PREVIEW — This report was generated from fictional sample data. It is not a real breach result for any person.
-            </div>
-            <header class="plan-header">
-                <div>
-                    <h1>Your Personal Action Plan</h1>
-                    <p class="plan-meta">Prepared for ${escapeHtml(email)} &middot; ${escapeHtml(today)}</p>
-                </div>
-                <div class="plan-brand">Am I Exposed?</div>
-            </header>
-
-            <section class="plan-summary">
-                <p><strong>Your email address was found in ${stats.total} company break-in${stats.total > 1 ? 's' : ''}.</strong></p>
-                <p>That number sounds frightening. It is less bad than it looks. It means that over the years, ${stats.total} compan${stats.total > 1 ? 'ies' : 'y'} you once gave your email address to ${stats.total > 1 ? 'were' : 'was'} broken into by criminals. Many of those are old and no longer matter.</p>
-                <p>${stats.total > actions.length
-                    ? `You do not need to deal with all ${stats.total}. There are <strong>${actions.length} things</strong> worth doing, and only the first ${criticals} ${criticals === 1 ? 'is' : 'are'} urgent.`
-                    : `There are <strong>${actions.length} things</strong> worth doing about it, and only the first ${criticals} ${criticals === 1 ? 'is' : 'are'} urgent.`}</p>
-                <p>Work down the list in order. Each step tells you what happened, why it matters, and exactly what to do. Tick them off as you go. If you only ever do the first ${criticals}, you will have dealt with almost all of the real risk.</p>
-                <p class="plan-reassure">Nothing here is your fault. You cannot stop companies being broken into. You can only make sure it does not cost you anything.</p>
-            </section>
-
-            ${actionsHTML}
-
-            <section class="plan-appendix">
-                <h2>Appendix: every breach you appear in</h2>
-                <p class="plan-why">The full list, newest first, for your records.</p>
-                <table class="appendix-table">
-                    <thead><tr><th>Breach</th><th>Date</th><th>What was exposed</th></tr></thead>
-                    <tbody>${appendixHTML}</tbody>
-                </table>
-            </section>
-
-            <footer class="plan-footer">
+        return reportHeaderHTML(data.email)
+            + planSummaryHTML(data.stats, data.actions.length, criticals)
+            + data.actions.map(actionHTML).join('')
+            + (appendixHTML ? `
+                <section class="plan-appendix">
+                    <h2>Appendix: every break-in you appear in</h2>
+                    <p class="plan-why">The full list, newest first, for your records.</p>
+                    <table class="appendix-table">
+                        <thead><tr><th>Company</th><th>Date</th><th>What was taken</th></tr></thead>
+                        <tbody>${appendixHTML}</tbody>
+                    </table>
+                </section>` : '')
+            + `<footer class="plan-footer">
                 Generated by Am I Exposed? from Have I Been Pwned breach data on ${escapeHtml(today)}.
                 This is general security guidance, not legal or financial advice.
-            </footer>
-        `;
+            </footer>`;
+    }
 
-        document.getElementById('reportView').classList.add('active');
-        document.body.style.overflow = 'hidden';
-        document.getElementById('reportView').scrollTop = 0;
+    // What an unpaid visitor sees: the first action in full, so the quality is
+    // obvious, then the titles of everything still locked.
+    function teaserHTML(data) {
+        const locked = data.locked || [];
+        const criticals = data.criticalCount || 0;
+
+        const lockedHTML = locked.map((a, i) => `
+            <div class="locked-action">
+                <span class="plan-step-num muted">${i + 2}</span>
+                <div class="locked-body">
+                    <div class="locked-title">${escapeHtml(a.title)}</div>
+                    <div class="locked-meta">${escapeHtml(PRIORITY_LABEL[a.priority] || '')} &middot; ${escapeHtml(a.time)}</div>
+                </div>
+                <span class="locked-icon" aria-hidden="true">&#128274;</span>
+            </div>`).join('');
+
+        return reportHeaderHTML(data.email)
+            + planSummaryHTML(data.stats, data.totalActions, criticals)
+            + `<div class="teaser-note">Here is the first step in full, so you can see exactly what you are getting.</div>`
+            + (data.preview ? actionHTML(data.preview, 0) : '')
+            + `
+            <section class="paywall">
+                <h2>${locked.length} more step${locked.length === 1 ? '' : 's'}, written the same way</h2>
+                <div class="locked-list">${lockedHTML}</div>
+                <p class="paywall-pitch">
+                    Each one tells you what happened, why it matters, and exactly what to do, in plain English.
+                    You also get the full list of every break-in you appear in, and a copy you can print or save.
+                </p>
+                <button class="paywall-btn" onclick="startPurchase()">Unlock my full plan</button>
+                <p class="paywall-fine">One payment. You can come back and update your plan for 30 days.</p>
+            </section>`;
+    }
+
+    async function startPurchase() {
+        alert('Payment is not connected yet. This button will open the checkout once Mercado Pago is wired up.');
     }
 
     function closeReport() {
