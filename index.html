@@ -1291,6 +1291,10 @@
     // Last plan returned by /api/report, full or teaser depending on access.
     let lastReport = null;
 
+    // Last password exposure count, so the card can be re-rendered when
+    // sign-in state changes.
+    let lastPasswordCount = null;
+
     // Preview mode (?demo=1). Renders gated content from fixed sample data so
     // the report can be reviewed without signing in or spending an API call.
     // It never touches auth state and never calls the breach API.
@@ -1371,8 +1375,10 @@
         // Keeps the UI in sync with token refreshes, sign-out in another tab,
         // and the redirect back from an OAuth provider.
         window.sbClient.auth.onAuthStateChange((_event, session) => {
+            const was = !!currentUser;
             currentUser = session?.user ?? null;
             updateAuthUI();
+            if (was !== !!currentUser) refreshGatedViews();
         });
 
         try {
@@ -1402,6 +1408,20 @@
             errorDiv.textContent = 'Could not start sign-in. Please try again.';
             errorDiv.style.color = '#dc2626';
             errorDiv.style.display = 'block';
+        }
+    }
+
+
+    // Results already on the page were rendered for the previous sign-in
+    // state. Redraw them so signing in or out takes effect immediately.
+    function refreshGatedViews() {
+        lastReport = null;
+        closeReport();
+        if (lastEmailResult) {
+            renderEmailResult(lastEmailResult.breaches, lastEmailResult.email);
+        }
+        if (lastPasswordCount !== null) {
+            renderPasswordExposed(lastPasswordCount);
         }
     }
 
@@ -1523,6 +1543,7 @@
         }
         currentUser = null;
         updateAuthUI();
+        refreshGatedViews();
         document.getElementById('userDropdown').classList.remove('active');
     }
 
@@ -2039,6 +2060,7 @@
     // Free tier is told the password is exposed. The exposure count, severity
     // and remediation steps are the gated detail.
     function renderPasswordExposed(count) {
+        lastPasswordCount = count;
         const resultDiv = document.getElementById('passwordResult');
 
         let html = `
