@@ -1325,7 +1325,9 @@
             });
             if (!response.ok) return;
             const data = await response.json();
-            lastReport = data;
+            // In teaser mode this full response must not be cached, or
+            // openReport would reuse it and show the paid view.
+            if (!demoTeaser) lastReport = data;
             lastEmailResult = { email: data.email, breaches: data.breaches };
             document.getElementById('emailInput').value = data.email;
             renderEmailResult(data.breaches, data.email);
