@@ -459,6 +459,13 @@ export default async function handler(req, res) {
     // read and no breach lookup happens, so this can never leak a real result.
     if (body?.demo === true) {
         const plan = buildRemediationPlan(DEMO_BREACHES);
+
+        // demoTeaser lets the unpaid view be inspected without signing in and
+        // running a real check, so the sales page can be reviewed directly.
+        if (body.teaser === true) {
+            return res.status(200).json({ demo: true, found: true, ...toTeaser(plan) });
+        }
+
         return res.status(200).json({
             entitled: true,
             demo: true,

@@ -1295,6 +1295,7 @@
     // the report can be reviewed without signing in or spending an API call.
     // It never touches auth state and never calls the breach API.
     let demoMode = false;
+    let demoTeaser = false;
 
     // Gated content renders when the user is signed in, or in preview mode.
     function isUnlocked() {
@@ -1751,7 +1752,7 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(demoMode
-                        ? { demo: true }
+                        ? { demo: true, teaser: demoTeaser }
                         : { email: lastEmailResult.email, accessToken }),
                 });
                 data = await response.json();
@@ -2118,9 +2119,12 @@
 
         const params = new URLSearchParams(window.location.search);
         if (params.get('demo') === '1') {
-            startDemo();
-            // ?demo=1&report=1 jumps straight to the action plan.
-            if (params.get('report') === '1') openReport();
+            // ?demo=1&teaser=1 shows the unpaid view instead of the full plan.
+            demoTeaser = params.get('teaser') === '1';
+            startDemo().then(() => {
+                // ?demo=1&report=1 jumps straight to the action plan.
+                if (params.get('report') === '1' || demoTeaser) openReport();
+            });
         }
     });
 
