@@ -539,6 +539,65 @@
             line-height: 1.5;
         }
 
+        /* --- Preview mode --- */
+        .demo-banner {
+            position: sticky;
+            top: 0;
+            z-index: 1500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 10px 20px;
+            background-color: #7C2D12;
+            color: #FFEDD5;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .demo-banner strong {
+            background-color: #FFEDD5;
+            color: #7C2D12;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            letter-spacing: 0.06em;
+            white-space: nowrap;
+        }
+
+        .demo-banner button {
+            background: transparent;
+            border: 1px solid #FDBA74;
+            color: #FFEDD5;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 12px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .demo-banner button:hover { background-color: rgba(255,255,255,0.12); }
+
+        /* The preview watermark must survive into a printed/saved PDF so a
+           sample report can never be mistaken for a real one. */
+        .demo-print-notice { display: none; }
+
+        @media print {
+            body.demo-active .demo-print-notice {
+                display: block !important;
+                margin-bottom: 16px;
+                padding: 10px 12px;
+                border: 2px solid #7C2D12;
+                color: #7C2D12;
+                font-weight: 700;
+                font-size: 12px;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
         /* --- Action plan CTA --- */
         .plan-cta {
             margin: 16px 0 0;
@@ -1002,6 +1061,13 @@
     </div>
 </div>
 
+<!-- Preview mode banner -->
+<div id="demoBanner" class="demo-banner" style="display: none;">
+    <strong>PREVIEW MODE</strong>
+    <span>Everything below is fictional sample data, not a real breach result. Nothing was checked against any database.</span>
+    <button onclick="exitDemo()">Exit preview</button>
+</div>
+
 <!-- Action Plan Report -->
 <div id="reportView" class="report-view">
     <div class="report-toolbar">
@@ -1072,9 +1138,56 @@
     // without re-querying. Nothing is persisted.
     let lastEmailResult = null;
 
+    // Preview mode (?demo=1). Renders gated content from fixed sample data so
+    // the report can be reviewed without signing in or spending an API call.
+    // It never touches auth state and never calls the breach API.
+    let demoMode = false;
+
+    // Gated content renders when the user is signed in, or in preview mode.
+    function isUnlocked() {
+        return !!currentUser || demoMode;
+    }
+
     // Escape HTML to prevent XSS
     function escapeHtml(str) {
         return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
+    // Fictional data for preview mode. Chosen to exercise every rule in the
+    // action plan: a stealer log, a recent password leak, government ID,
+    // payment data, security questions, phone, address, date of birth and
+    // health records. None of it is real.
+    const DEMO_BREACHES = [
+        { name: 'DemoStealerLogs', title: 'Sample Stealer Logs', domain: null, breachDate: '2026-04-11', pwnCount: 284132969, isStealerLog: true,
+          dataClasses: ['Email addresses', 'Passwords'] },
+        { name: 'DemoRetail', title: 'Northwind Outfitters', domain: 'example.com', breachDate: '2026-08-13', pwnCount: 12933413, isStealerLog: false,
+          dataClasses: ['Email addresses', 'Passwords', 'Names', 'Phone numbers', 'Physical addresses'] },
+        { name: 'DemoGov', title: 'Sample Services Portal', domain: 'example.org', breachDate: '2025-02-01', pwnCount: 5041233, isStealerLog: false,
+          dataClasses: ['Government issued IDs', 'Dates of birth', 'Physical addresses', 'Names'] },
+        { name: 'DemoShop', title: 'Sample Marketplace', domain: 'example.net', breachDate: '2024-06-01', pwnCount: 903411, isStealerLog: false,
+          dataClasses: ['Credit cards', 'Email addresses', 'Payment histories'] },
+        { name: 'DemoForum', title: 'Sample Forum', domain: 'example.com', breachDate: '2014-09-22', pwnCount: 393430309, isStealerLog: false,
+          dataClasses: ['Security questions and answers', 'Passwords', 'Email addresses'] },
+        { name: 'DemoClinic', title: 'Sample Health Group', domain: null, breachDate: '2023-11-05', pwnCount: 411902, isStealerLog: false,
+          dataClasses: ['Health insurance information', 'Names', 'Dates of birth'] },
+    ];
+
+    function startDemo() {
+        demoMode = true;
+        document.getElementById('demoBanner').style.display = 'flex';
+        document.body.classList.add('demo-active');
+
+        const email = 'sample.person@example.com';
+        document.getElementById('emailInput').value = email;
+        lastEmailResult = { email, breaches: DEMO_BREACHES };
+        renderEmailResult(DEMO_BREACHES, email);
+
+        document.getElementById('passwordInput').value = 'sample-password';
+        renderPasswordExposed(52372427);
+    }
+
+    function exitDemo() {
+        window.location.href = window.location.pathname;
     }
 
     function initSupabase() {
@@ -1583,13 +1696,13 @@
                 : (breach.domain ? `<span class="breach-domain">${escapeHtml(breach.domain)}</span>` : '');
 
             let exposedHTML = '';
-            if (currentUser && classes.length) {
+            if (isUnlocked() && classes.length) {
                 exposedHTML = `<div class="data-classes">` +
                     classes.map(c => `<span class="data-chip">${escapeHtml(c)}</span>`).join('') +
                     `</div>`;
             }
 
-            const scaleHTML = currentUser && breach.pwnCount
+            const scaleHTML = isUnlocked() && breach.pwnCount
                 ? `<div class="breach-scale">${Number(breach.pwnCount).toLocaleString()} accounts affected</div>`
                 : '';
 
@@ -1608,7 +1721,7 @@
 
         // Roll-up: how many breaches exposed each kind of data.
         let summaryHTML = '';
-        if (currentUser) {
+        if (isUnlocked()) {
             const tally = new Map();
             breaches.forEach(b => {
                 (Array.isArray(b.dataClasses) ? b.dataClasses : []).forEach(c => {
@@ -1631,7 +1744,7 @@
             }
         }
 
-        const planCTA = currentUser ? `
+        const planCTA = isUnlocked() ? `
             <div class="plan-cta">
                 <strong>Not sure where to start?</strong>
                 <p style="margin: 6px 0 12px;">${breachCount} breaches is too many to act on. Get a prioritised plan that says which ones actually matter and what to do about them, in order.</p>
@@ -1639,7 +1752,7 @@
             </div>
         ` : '';
 
-        const gateHTML = currentUser ? '' : `
+        const gateHTML = isUnlocked() ? '' : `
             <div class="auth-required">
                 <strong>Sign in to see what was actually exposed.</strong><br><br>
                 You can see which breaches you are in. Sign in to see what leaked in each one: passwords, phone numbers, physical addresses, and more.
@@ -1711,6 +1824,9 @@
         }).join('');
 
         document.getElementById('reportBody').innerHTML = `
+            <div class="demo-print-notice">
+                PREVIEW — This report was generated from fictional sample data. It is not a real breach result for any person.
+            </div>
             <header class="plan-header">
                 <div>
                     <h1>Your Personal Action Plan</h1>
@@ -1895,7 +2011,7 @@
                     <strong>This password has appeared in public data breaches.</strong>
         `;
 
-        if (currentUser) {
+        if (isUnlocked()) {
             const sev = passwordSeverity(count);
             html += `
                     <div class="exposure-count">
@@ -1959,6 +2075,13 @@
         initSupabase();
         if (window.sbClient) {
             initAuth();
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('demo') === '1') {
+            startDemo();
+            // ?demo=1&report=1 jumps straight to the action plan.
+            if (params.get('report') === '1') openReport();
         }
     });
 
