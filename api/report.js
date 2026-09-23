@@ -463,7 +463,7 @@ export default async function handler(req, res) {
         // demoTeaser lets the unpaid view be inspected without signing in and
         // running a real check, so the sales page can be reviewed directly.
         if (body.teaser === true) {
-            return res.status(200).json({ demo: true, found: true, ...toTeaser(plan) });
+            return res.status(200).json({ demo: true, found: true, email: 'sample.person@example.com', ...toTeaser(plan) });
         }
 
         return res.status(200).json({
@@ -500,7 +500,7 @@ export default async function handler(req, res) {
     const plan = buildRemediationPlan(breaches);
 
     if (!entitled) {
-        return res.status(200).json({ found: true, ...toTeaser(plan) });
+        return res.status(200).json({ found: true, email, ...toTeaser(plan) });
     }
 
     return res.status(200).json({
