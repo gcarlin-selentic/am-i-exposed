@@ -474,6 +474,21 @@
         }
         .flag svg { color: var(--warn); flex-shrink: 0; margin-top: 2px; }
 
+        .more-btn {
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            background: var(--surface-2);
+            border: 0;
+            color: var(--ink);
+            padding: 12px;
+            border-radius: var(--r-sm);
+            cursor: pointer;
+            margin-top: 14px;
+        }
+        .more-btn:hover { background: var(--line); }
+
         .rollup { margin-top: 6px; }
         .rollup-row {
             display: flex;
@@ -1298,6 +1313,7 @@
             lblExposed: 'Qué se expuso sobre ti',
             inBreaches: (n) => n === 1 ? '1 filtración' : `${n} filtraciones`,
             accountsIn: 'cuentas en esta filtración',
+            showMore: (n) => n === 1 ? 'Ver 1 filtración más' : `Ver las otras ${n} filtraciones`,
             noDate: 'Fecha no publicada',
             notPublished: 'No publicado',
             stealerFlag: '<b>Esta es la más grave.</b> Un programa malicioso copió contraseñas guardadas directamente de un computador. Si alguna de tus contraseñas se repite en varios sitios, cámbiala hoy.',
@@ -1427,6 +1443,7 @@
             lblExposed: 'What was exposed about you',
             inBreaches: (n) => n === 1 ? '1 breach' : `${n} breaches`,
             accountsIn: 'accounts in this breach',
+            showMore: (n) => n === 1 ? 'Show 1 more breach' : `Show the other ${n} breaches`,
             noDate: 'Breach date not published',
             notPublished: 'Not published',
             stealerFlag: '<b>This is the serious one.</b> A malicious program copied saved passwords straight off a computer. If you reuse any password across sites, change it today.',
@@ -1985,7 +2002,11 @@
         const unlocked = isUnlocked();
 
         // Which breaches you are in is free. What leaked in each one is gated.
-        const breachHTML = breaches.map(breach => {
+        // A heavily exposed address can return hundreds of breaches. Showing
+        // them all at once buries the gate and the next step under a wall of
+        // names, so the tail is folded behind a button.
+        const VISIBLE = 8;
+        const breachCard = (breach) => {
             const label = siteName(breach);
             const when = formatBreachDate(breach.breachDate);
             const classes = Array.isArray(breach.dataClasses) ? breach.dataClasses : [];
@@ -2018,7 +2039,15 @@
                     ${chipsHTML}
                     ${flagHTML}
                 </div>`;
-        }).join('');
+        };
+
+        const shown = breaches.slice(0, VISIBLE).map(breachCard).join('');
+        const restCount = breaches.length - VISIBLE;
+        const breachHTML = restCount > 0
+            ? shown
+                + `<div id="breachRest" hidden>${breaches.slice(VISIBLE).map(breachCard).join('')}</div>`
+                + `<button type="button" class="more-btn" onclick="showAllBreaches(this)">${escapeHtml(t().showMore(restCount))}</button>`
+            : shown;
 
         // Roll-up: how many breaches exposed each kind of data.
         let rollupHTML = '';
@@ -2100,6 +2129,12 @@
                 ${gateHTML}
             </div>`;
         resultDiv.style.display = 'block';
+    }
+
+    function showAllBreaches(btn) {
+        const rest = document.getElementById('breachRest');
+        if (rest) rest.hidden = false;
+        btn.remove();
     }
 
     // =======================================================================
