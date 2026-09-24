@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Am I Exposed? — Check for Data Breaches</title>
     <meta name="description" content="Check instantly whether your email address or password has appeared in a known data breach. Free, no account needed, and your data is never stored.">
     <meta name="robots" content="index, follow">
@@ -20,1209 +20,1128 @@
     <meta name="twitter:title" content="Am I Exposed? — Check for Data Breaches">
     <meta name="twitter:description" content="Check instantly whether your email address or password has appeared in a known data breach.">
 
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231C2B3A'/%3E%3Cpath d='M16 6l8 3v7c0 5-3.4 8.8-8 10-4.6-1.2-8-5-8-10V9l8-3z' fill='%23F9F7F4'/%3E%3C/svg%3E">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230F0F0F'/%3E%3Cpath d='M16 5l8 3v6.6c0 5-3.4 8.8-8 10-4.6-1.2-8-5-8-10V8l8-3z' fill='%23FAFAFA'/%3E%3Ccircle cx='16' cy='13.6' r='2.4' fill='%230F0F0F'/%3E%3Cpath d='M16 16c2 0 3.6 1.3 3.6 2.9h-7.2C12.4 17.3 14 16 16 16z' fill='%230F0F0F'/%3E%3C/svg%3E">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
+        /* ====================================================================
+           TOKENS
+           Palette derived from acctual.com: near-white ground, black ink, a
+           single blue accent, colour used only where it carries meaning.
+           ==================================================================== */
         :root {
-            --navy: #1C2B3A;
-            --off-white: #F9F7F4;
-            --green: #10B981;
-            --amber: #F59E0B;
-            --red: #EF4444;
-            --border: #E5E5E5;
-            --text: #333;
-            --text-light: #666;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--off-white);
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        h1, h2, h3 {
-            font-family: 'Source Serif 4', serif;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .logo {
-            font-family: 'Source Serif 4', serif;
-            font-size: 32px;
-            font-weight: 600;
-            margin-bottom: 40px;
-            text-align: center;
-            color: var(--navy);
-        }
-
-        .hero {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .hero h1 {
-            font-size: 36px;
-            margin-bottom: 16px;
-            line-height: 1.2;
-            color: var(--navy);
-        }
-
-        .hero p {
-            font-size: 16px;
-            color: var(--text-light);
-            margin-bottom: 0;
-        }
-
-        .checks-grid {
-            display: grid;
-            gap: 24px;
-            margin-bottom: 50px;
-        }
-
-        .check-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 28px;
-            border: 1px solid var(--border);
-        }
-
-        .check-card h2 {
-            font-size: 22px;
-            margin-bottom: 12px;
-            color: var(--navy);
-        }
-
-        .check-card p {
-            font-size: 14px;
-            color: var(--text-light);
-            margin-bottom: 20px;
-        }
-
-        .input-group {
-            margin-bottom: 16px;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            color: var(--text);
-        }
-
-        input::placeholder {
-            color: #999;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--navy);
-            box-shadow: 0 0 0 3px rgba(28, 43, 58, 0.1);
-        }
-
-        button {
-            width: 100%;
-            padding: 12px 16px;
-            border: none;
-            border-radius: 6px;
-            background-color: var(--navy);
-            color: white;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            transition: background-color 0.2s;
-            font-family: 'Inter', sans-serif;
-        }
-
-        button:hover {
-            background-color: #0F1620;
-        }
-
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        button.loading {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .spinner {
-            width: 14px;
-            height: 14px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.6s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .toggle-password {
-            font-size: 12px;
-            color: var(--navy);
-            cursor: pointer;
-            margin-top: 8px;
-            font-weight: 500;
-            display: inline-block;
-        }
-
-        .toggle-password:hover {
-            text-decoration: underline;
-        }
-
-        .disclaimer {
-            background-color: #f0f0f0;
-            border-left: 4px solid var(--navy);
-            padding: 12px;
-            border-radius: 4px;
-            font-size: 12px;
-            color: var(--text-light);
-            margin-top: 16px;
-            line-height: 1.5;
-        }
-
-        /* Results */
-        .result-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 24px;
-            border-left: 4px solid;
-            margin-top: 16px;
-        }
-
-        .result-card.clean {
-            border-left-color: var(--green);
-        }
-
-        .result-card.exposed {
-            border-left-color: var(--red);
-        }
-
-        .result-status {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .status-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-
-        .status-icon.clean {
-            background-color: var(--green);
-        }
-
-        .status-icon.exposed {
-            background-color: var(--red);
-        }
-
-        .result-status h3 {
-            font-size: 18px;
-            margin: 0;
-            color: var(--navy);
-        }
-
-        .result-detail {
-            font-size: 14px;
-            color: var(--text-light);
-            line-height: 1.8;
-        }
-
-        .result-detail strong {
-            color: var(--navy);
-            font-weight: 600;
-        }
-
-        .breach-list {
-            background-color: #fafafa;
-            border-radius: 6px;
-            padding: 12px;
-            margin-top: 12px;
-            font-size: 13px;
-            line-height: 1.8;
-        }
-
-        .breach-item {
-            padding: 8px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .breach-item:last-child {
-            border-bottom: none;
-        }
-
-        .breach-title {
-            font-weight: 600;
-            color: var(--navy);
-        }
-
-        .breach-date {
-            color: #999;
-            font-size: 12px;
-        }
-
-        /* Coming Soon */
-        .coming-soon {
-            background-color: #f0fdf4;
-            border: 2px dashed var(--green);
-            padding: 28px;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .coming-soon h2 {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: var(--navy);
-        }
-
-        .coming-soon p {
-            font-size: 14px;
-            color: var(--text-light);
-            margin-bottom: 0;
-        }
-
-        .error {
-            background-color: #fee2e2;
-            border: 1px solid #fca5a5;
-            color: #991b1b;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 13px;
-            margin-top: 12px;
-        }
-
-        .loading-state {
-            display: none;
-            padding: 20px;
-            text-align: center;
-            color: var(--text-light);
-        }
-
-        .loading-state.active {
-            display: block;
-        }
-
-        /* Auth Styles */
-        .auth-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn-auth {
-            padding: 10px 16px;
-            border: 1px solid var(--navy);
-            background: white;
-            color: var(--navy);
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.2s;
-        }
-
-        .btn-auth:hover {
-            background-color: var(--navy);
-            color: white;
-        }
-
-        .user-menu {
-            position: relative;
-        }
-
-        .user-button {
-            padding: 10px 16px;
-            border: 1px solid var(--navy);
-            background: white;
-            color: var(--navy);
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .user-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            min-width: 150px;
-            display: none;
-            z-index: 1000;
-        }
-
-        .user-dropdown.active {
-            display: block;
-        }
-
-        .user-dropdown button {
-            width: 100%;
-            padding: 12px 16px;
-            border: none;
-            background: none;
-            text-align: left;
-            font-size: 14px;
-            cursor: pointer;
-            color: var(--navy);
-        }
-
-        .user-dropdown button:hover {
-            background-color: #f5f5f5;
-        }
-
-        .user-email {
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border);
-            font-size: 12px;
-            color: var(--text-light);
-        }
-
-        .auth-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .auth-modal.active {
-            display: flex;
-        }
-
-        .auth-modal-content {
-            background: white;
-            border-radius: 8px;
-            padding: 40px;
-            max-width: 400px;
-            width: 90%;
-            position: relative;
-        }
-
-        .auth-modal-close {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--navy);
-        }
-
-        .auth-form {
-            display: none;
-        }
-
-        .auth-form.active {
-            display: block;
-        }
-
-        .auth-form input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 16px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-        }
-
-        .auth-form button {
-            width: 100%;
-            margin-bottom: 12px;
-        }
-
-        .auth-toggle {
-            text-align: center;
-            font-size: 14px;
-            color: var(--text-light);
-        }
-
-        .auth-toggle button {
-            background: none;
-            border: none;
-            color: var(--navy);
-            cursor: pointer;
-            text-decoration: underline;
-            width: auto;
-            padding: 0;
-        }
-
-        .exposure-count {
-            text-align: center;
-            padding: 20px 16px 16px;
-            margin: 16px 0 0;
-            background-color: #FEF2F2;
-            border: 1px solid #FECACA;
-            border-radius: 8px;
-        }
-
-        .exposure-number {
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-size: 40px;
-            font-weight: 600;
-            line-height: 1.1;
-            color: var(--red);
-            font-variant-numeric: tabular-nums;
-        }
-
-        .exposure-label {
-            font-size: 13px;
-            color: var(--text-light);
-            margin-top: 6px;
-        }
-
-        .severity-pill {
-            display: inline-block;
-            margin-top: 12px;
-            padding: 4px 12px;
-            border-radius: 999px;
-            color: #fff;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-        }
-
-        .remediation {
-            margin: 0;
-            padding-left: 20px;
-        }
-
-        .remediation li {
-            margin-bottom: 8px;
-            line-height: 1.5;
-        }
-
-        /* --- Preview mode --- */
-        .demo-banner {
-            position: sticky;
-            top: 0;
-            z-index: 1500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            padding: 10px 20px;
-            background-color: #7C2D12;
-            color: #FFEDD5;
-            font-size: 13px;
-            text-align: center;
-        }
-
-        .demo-banner strong {
-            background-color: #FFEDD5;
-            color: #7C2D12;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            letter-spacing: 0.06em;
-            white-space: nowrap;
-        }
-
-        .demo-banner button {
-            background: transparent;
-            border: 1px solid #FDBA74;
-            color: #FFEDD5;
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-family: inherit;
-            font-size: 12px;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .demo-banner button:hover { background-color: rgba(255,255,255,0.12); }
-
-        /* The preview watermark must survive into a printed/saved PDF so a
-           sample report can never be mistaken for a real one. */
-        .demo-print-notice { display: none; }
-
-        @media print {
-            body.demo-active .demo-print-notice {
-                display: block !important;
-                margin-bottom: 16px;
-                padding: 10px 12px;
-                border: 2px solid #7C2D12;
-                color: #7C2D12;
-                font-weight: 700;
-                font-size: 12px;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
+            color-scheme: light;
+
+            --bg:          #FAFAFA;
+            --surface:     #FFFFFF;
+            --surface-2:   #F4F4F5;
+            --ink:         #0F0F0F;
+            --ink-soft:    #1E1E1E;
+            --muted:       #6B6B70;
+            --muted-2:     #8D8D8D;
+            --line:        rgba(0,0,0,.09);
+            --line-strong: rgba(0,0,0,.16);
+
+            --accent:      #0098F2;
+            --accent-ink:  #0077C2;
+            --accent-soft: rgba(0,152,242,.11);
+            --violet:      #6C56FC;
+            --violet-soft: rgba(108,86,252,.11);
+            --good:        #4E8A05;
+            --good-soft:   rgba(93,156,6,.12);
+            --warn:        #B26A00;
+            --warn-soft:   rgba(232,137,12,.14);
+            --bad:         #D3373C;
+            --bad-soft:    rgba(229,72,77,.12);
+
+            --btn-bg:      #0F0F0F;
+            --btn-ink:     #FFFFFF;
+
+            --shadow-sm:   0 1px 2px rgba(0,0,0,.05);
+            --shadow:      0 2px 6px rgba(0,0,0,.05), 0 12px 28px rgba(0,0,0,.05);
+            --shadow-lg:   0 4px 10px rgba(0,0,0,.06), 0 24px 56px rgba(0,0,0,.09);
+
+            --r-sm: 10px;
+            --r:    16px;
+            --r-lg: 22px;
+            --r-pill: 999px;
+        }
+
+        /* Same palette three times over: the OS default (no stamp), and both
+           explicit choices, so neither can strand a colour undefined. */
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                color-scheme: dark;
+                --bg:          #0B0B0D;
+                --surface:     #151518;
+                --surface-2:   #1D1D21;
+                --ink:         #F6F6F7;
+                --ink-soft:    #E4E4E7;
+                --muted:       #A1A1A8;
+                --muted-2:     #86868E;
+                --line:        rgba(255,255,255,.10);
+                --line-strong: rgba(255,255,255,.20);
+
+                --accent:      #4DB5FF;
+                --accent-ink:  #7CCAFF;
+                --accent-soft: rgba(77,181,255,.14);
+                --violet:      #9C8CFF;
+                --violet-soft: rgba(156,140,255,.14);
+                --good:        #8FCB3A;
+                --good-soft:   rgba(143,203,58,.14);
+                --warn:        #F0A94C;
+                --warn-soft:   rgba(240,169,76,.14);
+                --bad:         #FF6B6F;
+                --bad-soft:    rgba(255,107,111,.14);
+
+                --btn-bg:      #F6F6F7;
+                --btn-ink:     #0B0B0D;
+
+                --shadow-sm:   0 1px 2px rgba(0,0,0,.5);
+                --shadow:      0 2px 6px rgba(0,0,0,.45), 0 12px 28px rgba(0,0,0,.4);
+                --shadow-lg:   0 4px 10px rgba(0,0,0,.5), 0 24px 56px rgba(0,0,0,.5);
             }
         }
 
-        /* --- Action plan CTA --- */
-        .plan-cta {
-            margin: 16px 0 0;
-            padding: 16px;
-            background-color: var(--navy);
-            color: #fff;
-            border-radius: 8px;
+        :root[data-theme="dark"] {
+            color-scheme: dark;
+            --bg:          #0B0B0D;
+            --surface:     #151518;
+            --surface-2:   #1D1D21;
+            --ink:         #F6F6F7;
+            --ink-soft:    #E4E4E7;
+            --muted:       #A1A1A8;
+            --muted-2:     #86868E;
+            --line:        rgba(255,255,255,.10);
+            --line-strong: rgba(255,255,255,.20);
+
+            --accent:      #4DB5FF;
+            --accent-ink:  #7CCAFF;
+            --accent-soft: rgba(77,181,255,.14);
+            --violet:      #9C8CFF;
+            --violet-soft: rgba(156,140,255,.14);
+            --good:        #8FCB3A;
+            --good-soft:   rgba(143,203,58,.14);
+            --warn:        #F0A94C;
+            --warn-soft:   rgba(240,169,76,.14);
+            --bad:         #FF6B6F;
+            --bad-soft:    rgba(255,107,111,.14);
+
+            --btn-bg:      #F6F6F7;
+            --btn-ink:     #0B0B0D;
+
+            --shadow-sm:   0 1px 2px rgba(0,0,0,.5);
+            --shadow:      0 2px 6px rgba(0,0,0,.45), 0 12px 28px rgba(0,0,0,.4);
+            --shadow-lg:   0 4px 10px rgba(0,0,0,.5), 0 24px 56px rgba(0,0,0,.5);
         }
 
-        .plan-cta p { color: #D6DCE3; font-size: 14px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        .plan-cta-btn {
-            background-color: #fff;
-            color: var(--navy);
-            border: none;
-            padding: 10px 18px;
-            border-radius: 6px;
-            font-weight: 700;
-            font-family: inherit;
-            font-size: 14px;
+        html, body { background: var(--bg); }
+
+        body {
+            color: var(--ink);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Nunito', 'Inter', sans-serif;
+            font-weight: 800;
+            letter-spacing: -.02em;
+            line-height: 1.14;
+            text-wrap: balance;
+        }
+
+        a { color: var(--accent-ink); }
+        img { max-width: 100%; }
+        [hidden] { display: none !important; }
+
+        .wrap {
+            max-width: 720px;
+            margin: 0 auto;
+            padding-inline: 20px;
+            padding-block: 0 72px;
+        }
+
+        /* ---------------- top bar ---------------- */
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding-block: 22px 8px;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 17px;
+            letter-spacing: -.015em;
+            color: var(--ink);
+        }
+        .brand svg { flex-shrink: 0; }
+        .brand span { white-space: nowrap; }
+        .topbar-right { display: flex; align-items: center; gap: 8px; }
+
+        .langtog {
+            display: inline-flex;
+            background: var(--surface-2);
+            border: 1px solid var(--line);
+            border-radius: var(--r-pill);
+            padding: 3px;
+        }
+        .langtog button {
+            font: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            border: 0;
+            background: transparent;
+            color: var(--muted);
+            padding: 4px 11px;
+            border-radius: var(--r-pill);
             cursor: pointer;
         }
+        .langtog button[aria-pressed="true"] {
+            background: var(--surface);
+            color: var(--ink);
+            box-shadow: var(--shadow-sm);
+        }
 
-        .plan-cta-btn:hover { background-color: var(--off-white); }
+        .ghost-btn {
+            font-family: 'Inter', sans-serif;
+            font-size: 13.5px;
+            font-weight: 600;
+            background: transparent;
+            border: 1px solid var(--line-strong);
+            color: var(--ink);
+            padding: 8px 15px;
+            border-radius: var(--r-pill);
+            cursor: pointer;
+            transition: background .15s;
+        }
+        .ghost-btn:hover { background: var(--surface-2); }
 
-        /* --- Paywall / teaser --- */
+        .user-menu { position: relative; }
+        .user-dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            right: 0;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--r-sm);
+            box-shadow: var(--shadow);
+            min-width: 210px;
+            display: none;
+            z-index: 1000;
+            overflow: hidden;
+        }
+        .user-dropdown.active { display: block; }
+        .user-email {
+            padding: 11px 14px;
+            font-size: 12.5px;
+            color: var(--muted);
+            border-bottom: 1px solid var(--line);
+            word-break: break-all;
+        }
+        .user-dropdown button {
+            width: 100%;
+            text-align: left;
+            font: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            background: transparent;
+            border: 0;
+            color: var(--ink);
+            padding: 11px 14px;
+            cursor: pointer;
+        }
+        .user-dropdown button:hover { background: var(--surface-2); }
+
+        @media (max-width: 420px) {
+            .brand { font-size: 15px; gap: 7px; }
+            .topbar { gap: 8px; }
+            .ghost-btn { padding: 8px 12px; font-size: 13px; }
+        }
+
+        /* ---------------- hero ---------------- */
+        .hero { text-align: center; padding-block: 44px 8px; }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--accent-soft);
+            color: var(--accent-ink);
+            font-size: 12.5px;
+            font-weight: 600;
+            padding: 6px 13px;
+            border-radius: var(--r-pill);
+            margin-bottom: 20px;
+        }
+        .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+        .hero h1 { font-size: clamp(34px, 8.2vw, 54px); font-weight: 900; margin-bottom: 16px; }
+        .hero .lede {
+            color: var(--muted);
+            font-size: clamp(15px, 3.6vw, 17.5px);
+            max-width: 30em;
+            margin: 0 auto;
+        }
+
+        .search {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 30px;
+            text-align: left;
+        }
+        .search input {
+            flex: 1 1 260px;
+            min-width: 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 16.5px;
+            color: var(--ink);
+            background: var(--surface);
+            border: 1.5px solid var(--line-strong);
+            border-radius: var(--r-pill);
+            padding: 15px 22px;
+            box-shadow: var(--shadow-sm);
+            transition: border-color .15s, box-shadow .15s;
+        }
+        .search input::placeholder { color: var(--muted-2); }
+        .search input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+
+        .btn {
+            font-family: 'Nunito', 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: -.01em;
+            background: var(--btn-bg);
+            color: var(--btn-ink);
+            border: 0;
+            border-radius: var(--r-pill);
+            padding: 15px 30px;
+            cursor: pointer;
+            flex: 1 1 100%;
+            transition: opacity .15s, transform .12s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+        }
+        @media (min-width: 560px) { .search .btn { flex: 0 0 auto; } }
+        .btn:hover { opacity: .88; }
+        .btn:active { transform: scale(.985); }
+        .btn:disabled { opacity: .55; cursor: not-allowed; }
+        .btn.sm { font-size: 14.5px; padding: 11px 20px; flex: 0 0 auto; }
+        .btn.accent { background: var(--accent); color: #fff; }
+
+        .spinner {
+            width: 15px; height: 15px;
+            border: 2px solid currentColor;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin .6s linear infinite;
+            flex-shrink: 0;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .trust {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 22px;
+            margin-top: 22px;
+        }
+        .trust span {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13.5px;
+            font-weight: 500;
+            color: var(--muted);
+        }
+        .trust svg { color: var(--accent); flex-shrink: 0; }
+
+        /* ---------------- result card ---------------- */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--r-lg);
+            box-shadow: var(--shadow);
+            padding: 26px;
+            margin-top: 28px;
+        }
+        @media (max-width: 480px) { .card { padding: 20px; border-radius: var(--r); } }
+
+        .verdict { display: flex; align-items: flex-start; gap: 14px; }
+        .verdict-icon {
+            width: 46px; height: 46px;
+            border-radius: 14px;
+            display: grid; place-items: center;
+            flex-shrink: 0;
+            color: #fff;
+        }
+        .verdict-icon.good { background: var(--good); }
+        .verdict-icon.bad  { background: var(--bad); }
+        .verdict h2 { font-size: clamp(20px, 5vw, 25px); margin-bottom: 4px; }
+        .verdict p { color: var(--muted); font-size: 14.5px; line-height: 1.55; }
+        .verdict .who { font-weight: 600; color: var(--ink); word-break: break-word; }
+
+        .tally { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+        .tally-box {
+            flex: 1 1 130px;
+            background: var(--surface-2);
+            border-radius: var(--r-sm);
+            padding: 14px 16px;
+        }
+        .tally-num {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 900;
+            font-size: 27px;
+            line-height: 1.1;
+            letter-spacing: -.02em;
+            font-variant-numeric: tabular-nums;
+        }
+        .tally-num.bad { color: var(--bad); }
+        .tally-lbl { font-size: 12.5px; color: var(--muted); font-weight: 500; margin-top: 2px; }
+
+        .section-lbl {
+            font-size: 11.5px;
+            font-weight: 700;
+            letter-spacing: .09em;
+            text-transform: uppercase;
+            color: var(--muted-2);
+            margin: 26px 0 12px;
+        }
+
+        .breach { border-top: 1px solid var(--line); padding: 15px 0; }
+        .breach-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; }
+        .breach-name {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 16.5px;
+            letter-spacing: -.01em;
+        }
+        .breach-url {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent-ink);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-soft);
+            word-break: break-all;
+        }
+        .breach-url:hover { border-bottom-color: currentColor; }
+        .breach-meta { font-size: 13px; color: var(--muted); margin-top: 5px; }
+        .breach-meta b { color: var(--ink-soft); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+        .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+        .chip {
+            font-size: 12px;
+            font-weight: 500;
+            background: var(--surface-2);
+            border: 1px solid var(--line);
+            color: var(--muted);
+            padding: 3px 10px;
+            border-radius: var(--r-pill);
+        }
+        .chip.hot { background: var(--bad-soft); border-color: transparent; color: var(--bad); font-weight: 600; }
+
+        .flag {
+            display: flex;
+            gap: 11px;
+            align-items: flex-start;
+            background: var(--warn-soft);
+            border-radius: var(--r-sm);
+            padding: 13px 15px;
+            margin-top: 16px;
+            font-size: 13.5px;
+            line-height: 1.5;
+            color: var(--ink-soft);
+        }
+        .flag svg { color: var(--warn); flex-shrink: 0; margin-top: 2px; }
+
+        .rollup { margin-top: 6px; }
+        .rollup-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            font-size: 13.5px;
+            padding: 7px 0;
+            border-bottom: 1px solid var(--line);
+        }
+        .rollup-row:last-child { border-bottom: 0; }
+        .rollup-row span:first-child { color: var(--ink-soft); }
+        .rollup-count { color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+        /* ---------------- sign-in gate ---------------- */
+        .gate {
+            margin-top: 22px;
+            border: 1.5px dashed var(--line-strong);
+            border-radius: var(--r);
+            padding: 22px;
+            text-align: center;
+        }
+        .gate h3 { font-size: 18px; margin-bottom: 6px; }
+        .gate p { font-size: 14px; color: var(--muted); max-width: 34em; margin: 0 auto 16px; }
+        .gate-btns { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+        .gate-btns .btn { flex: 0 0 auto; }
+
+        /* ---------------- next step ---------------- */
+        .nextstep {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 14px;
+            justify-content: space-between;
+            margin-top: 24px;
+            padding-top: 22px;
+            border-top: 1px solid var(--line);
+        }
+        .nextstep p { font-size: 14.5px; color: var(--muted); flex: 1 1 220px; }
+        .nextstep strong { color: var(--ink); font-weight: 600; }
+
+        .strength { display: flex; gap: 5px; margin-top: 20px; }
+        .strength i { height: 5px; flex: 1; border-radius: var(--r-pill); background: var(--surface-2); }
+        .strength i.on { background: var(--bad); }
+
+        .steps-inline { list-style: none; counter-reset: q; display: grid; gap: 10px; margin-top: 16px; }
+        .steps-inline li {
+            counter-increment: q;
+            position: relative;
+            padding-left: 30px;
+            font-size: 14.5px;
+            line-height: 1.6;
+            color: var(--ink-soft);
+        }
+        .steps-inline li::before {
+            content: counter(q);
+            position: absolute; left: 0; top: 1px;
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            background: var(--surface-2); color: var(--muted);
+            font-family: 'Nunito', sans-serif;
+            font-size: 11px; font-weight: 700;
+            display: grid; place-items: center;
+        }
+
+        /* ---------------- password fold ---------------- */
+        .fold {
+            margin-top: 16px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--r);
+            overflow: hidden;
+        }
+        .fold-head {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            text-align: left;
+            font: inherit;
+            background: transparent;
+            border: 0;
+            color: var(--ink);
+            padding: 17px 20px;
+            cursor: pointer;
+        }
+        .fold-head:hover { background: var(--surface-2); }
+        .fold-icon {
+            width: 34px; height: 34px;
+            border-radius: 10px;
+            background: var(--violet-soft);
+            color: var(--violet);
+            display: grid; place-items: center;
+            flex-shrink: 0;
+        }
+        .fold-title { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 15.5px; }
+        .fold-sub { font-size: 13px; color: var(--muted); line-height: 1.4; }
+        .fold-chev { margin-left: auto; color: var(--muted-2); transition: transform .2s; flex-shrink: 0; }
+        .fold[data-open="1"] .fold-chev { transform: rotate(180deg); }
+        .fold-body { padding: 18px 20px 20px; border-top: 1px solid var(--line); }
+
+        .pw-row { display: flex; flex-wrap: wrap; gap: 10px; }
+        .pw-row input {
+            flex: 1 1 200px;
+            min-width: 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 15.5px;
+            color: var(--ink);
+            background: var(--bg);
+            border: 1.5px solid var(--line-strong);
+            border-radius: var(--r-pill);
+            padding: 12px 20px;
+        }
+        .pw-row input:focus { outline: none; border-color: var(--violet); box-shadow: 0 0 0 4px var(--violet-soft); }
+
+        .linkish {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px; font-weight: 600;
+            background: none; border: 0; color: var(--accent-ink);
+            cursor: pointer; padding: 0; margin-top: 11px;
+        }
+        .linkish:hover { text-decoration: underline; }
+
+        .note {
+            display: flex; gap: 10px; align-items: flex-start;
+            font-size: 12.5px; line-height: 1.5; color: var(--muted);
+            margin-top: 14px;
+        }
+        .note svg { flex-shrink: 0; margin-top: 2px; color: var(--muted-2); }
+
+        .error {
+            background: var(--bad-soft);
+            color: var(--bad);
+            border-radius: var(--r-sm);
+            padding: 12px 15px;
+            font-size: 13.5px;
+            margin-top: 14px;
+        }
+
+        /* ---------------- paid offer ---------------- */
+        .offer {
+            margin-top: 38px;
+            background: var(--ink);
+            color: var(--bg);
+            border-radius: var(--r-lg);
+            padding: 30px;
+            box-shadow: var(--shadow-lg);
+        }
+        /* In dark mode this block inverts to a light card, so it needs an edge
+           and its accent must go back to the light-mode blue, or the check
+           marks wash out on white. The bare :root default must not match. */
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) .offer { border: 1px solid var(--line); --accent: #0098F2; }
+        }
+        :root[data-theme="dark"] .offer { border: 1px solid var(--line); --accent: #0098F2; }
+        @media (max-width: 480px) { .offer { padding: 22px; border-radius: var(--r); } }
+
+        .offer .badge { background: rgba(128,128,128,.22); color: inherit; }
+        .offer .badge .dot { background: var(--accent); }
+        .offer h2 { font-size: clamp(23px, 5.6vw, 30px); margin-bottom: 10px; }
+        .offer > p { font-size: 15px; opacity: .72; max-width: 36em; }
+        .offer ul { list-style: none; margin: 22px 0 26px; display: grid; gap: 11px; }
+        .offer li { display: flex; gap: 11px; align-items: flex-start; font-size: 14.5px; }
+        .offer li svg { color: var(--accent); flex-shrink: 0; margin-top: 3px; }
+        .offer-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+        .offer .btn { background: var(--bg); color: var(--ink); flex: 0 0 auto; }
+        .price { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 26px; letter-spacing: -.02em; }
+        .price small { font-size: 13px; font-weight: 600; opacity: .6; margin-left: 5px; }
+
+        /* ---------------- footer ---------------- */
+        .foot {
+            margin-top: 54px;
+            padding-top: 24px;
+            border-top: 1px solid var(--line);
+            font-size: 13px;
+            color: var(--muted-2);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 18px;
+            justify-content: space-between;
+        }
+
+        /* ====================================================================
+           AUTH MODAL
+           ==================================================================== */
+        .auth-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+        .auth-modal.active { display: flex; }
+        .auth-modal-content {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--r-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .auth-modal-close {
+            position: absolute;
+            top: 14px; right: 16px;
+            background: none; border: 0;
+            font-size: 26px; line-height: 1;
+            color: var(--muted-2);
+            cursor: pointer;
+        }
+        .auth-form { display: none; }
+        .auth-form.active { display: block; }
+        .auth-form h2 { font-size: 23px; margin-bottom: 18px; }
+        .auth-form input {
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            color: var(--ink);
+            background: var(--bg);
+            border: 1.5px solid var(--line-strong);
+            border-radius: var(--r-pill);
+            padding: 12px 18px;
+            margin-bottom: 11px;
+        }
+        .auth-form input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+        .auth-form .btn { width: 100%; margin-top: 4px; }
+        .auth-toggle { font-size: 13.5px; color: var(--muted); margin-top: 15px; text-align: center; }
+        .auth-toggle button {
+            font: inherit; font-weight: 600;
+            background: none; border: 0; color: var(--accent-ink);
+            cursor: pointer; padding: 0;
+        }
+        .auth-toggle button:hover { text-decoration: underline; }
+
+        .auth-divider {
+            position: relative;
+            text-align: center;
+            margin: 22px 0 16px;
+            font-size: 12px;
+            color: var(--muted-2);
+        }
+        .auth-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 0; right: 0;
+            height: 1px;
+            background: var(--line);
+        }
+        .auth-divider span { position: relative; background: var(--surface); padding: 0 12px; }
+
+        .auth-providers { display: flex; gap: 10px; }
+        .provider-btn {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            background: var(--surface);
+            border: 1.5px solid var(--line-strong);
+            color: var(--ink);
+            padding: 11px;
+            border-radius: var(--r-pill);
+            cursor: pointer;
+        }
+        .provider-btn:hover { background: var(--surface-2); }
+
+        .auth-msg { font-size: 13px; margin-top: 14px; display: none; }
+        .auth-msg.bad { color: var(--bad); }
+        .auth-msg.good { color: var(--good); }
+
+        /* ====================================================================
+           PREVIEW BANNER
+           ==================================================================== */
+        .demo-banner {
+            background: var(--warn-soft);
+            border-bottom: 1px solid var(--line);
+            padding: 11px 20px;
+            display: none;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px 14px;
+            justify-content: center;
+            font-size: 13px;
+            color: var(--ink-soft);
+            text-align: center;
+        }
+        .demo-banner strong {
+            font-weight: 700;
+            letter-spacing: .07em;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--warn);
+        }
+        .demo-banner button {
+            font: inherit;
+            font-size: 12.5px;
+            font-weight: 600;
+            background: transparent;
+            border: 1px solid var(--line-strong);
+            color: var(--ink);
+            padding: 5px 12px;
+            border-radius: var(--r-pill);
+            cursor: pointer;
+        }
+        .demo-print-notice { display: none; }
+
+        /* ====================================================================
+           ACTION PLAN (full-screen overlay, also the print surface)
+           ==================================================================== */
+        .report-view {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            overflow-y: auto;
+            display: none;
+            z-index: 1500;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+        .report-view.active { display: block; }
+
+        .report-toolbar {
+            position: sticky;
+            top: 0;
+            background: var(--bg);
+            border-bottom: 1px solid var(--line);
+            padding: 13px 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+            z-index: 10;
+        }
+        .report-body {
+            max-width: 720px;
+            margin: 0 auto;
+            padding-inline: 20px;
+            padding-block: 30px 80px;
+        }
         .report-loading {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             padding: 60px 20px;
-            color: var(--text-light);
+            color: var(--muted);
+            font-size: 15px;
+        }
+        .report-loading .spinner { color: var(--muted); }
+
+        .plan-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 16px;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-bottom: 22px;
+            border-bottom: 1px solid var(--line);
+            margin-bottom: 26px;
+        }
+        .plan-header h1 { font-size: clamp(26px, 6.4vw, 38px); }
+        .plan-meta { font-size: 13.5px; color: var(--muted); margin-top: 5px; word-break: break-word; }
+        .plan-brand {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 13px;
+            color: var(--muted-2);
+            white-space: nowrap;
         }
 
-        .spinner.dark {
-            border-color: rgba(28, 43, 58, 0.2);
-            border-top-color: var(--navy);
+        .plan-summary {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--r);
+            padding: 22px;
+            margin-bottom: 26px;
+            box-shadow: var(--shadow-sm);
+        }
+        .plan-summary p { font-size: 14.5px; color: var(--muted); margin-bottom: 11px; }
+        .plan-summary p:last-child { margin-bottom: 0; }
+        .plan-summary strong { color: var(--ink); font-weight: 600; }
+        .plan-reassure {
+            border-left: 3px solid var(--accent);
+            padding-left: 13px;
+            font-style: italic;
+        }
+
+        .plan-action {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--r);
+            padding: 24px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+        .plan-action-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+        .plan-action-head h3 { font-size: 18.5px; flex: 1 1 auto; }
+        .plan-step-num {
+            width: 30px; height: 30px; flex-shrink: 0;
+            border-radius: 9px;
+            background: var(--accent); color: #fff;
+            display: grid; place-items: center;
+            font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 14px;
+        }
+        .plan-step-num.muted { background: var(--surface-2); color: var(--muted-2); }
+        .plan-pill {
+            font-size: 11px; font-weight: 700;
+            letter-spacing: .05em; text-transform: uppercase;
+            padding: 3px 9px; border-radius: var(--r-pill);
+            white-space: nowrap;
+        }
+        .plan-critical { background: var(--bad-soft); color: var(--bad); }
+        .plan-high     { background: var(--warn-soft); color: var(--warn); }
+        .plan-medium   { background: var(--accent-soft); color: var(--accent-ink); }
+
+        .plan-time {
+            font-size: 12.5px;
+            color: var(--muted-2);
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .plan-block { margin-top: 18px; }
+        .plan-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .09em;
+            text-transform: uppercase;
+            color: var(--muted-2);
+            margin-bottom: 7px;
+        }
+        .plan-block p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.65; }
+
+        .plan-steps { list-style: none; counter-reset: p; display: grid; gap: 11px; }
+        .plan-steps li {
+            counter-increment: p;
+            position: relative;
+            padding-left: 31px;
+            font-size: 14.5px;
+            line-height: 1.65;
+            color: var(--ink-soft);
+        }
+        .plan-steps li::before {
+            content: counter(p);
+            position: absolute; left: 0; top: 2px;
+            width: 21px; height: 21px;
+            border-radius: 50%;
+            background: var(--accent-soft); color: var(--accent-ink);
+            font-family: 'Nunito', sans-serif;
+            font-size: 11px; font-weight: 700;
+            display: grid; place-items: center;
         }
 
         .teaser-note {
-            margin-top: 24px;
-            padding: 12px 16px;
-            background-color: #ECFDF5;
-            border: 1px solid #A7F3D0;
-            border-radius: 6px;
-            font-size: 14px;
-            color: #065F46;
+            font-size: 13.5px;
+            color: var(--muted);
+            text-align: center;
+            margin-bottom: 14px;
         }
-
-        .paywall {
-            margin-top: 28px;
-            padding: 24px;
-            border: 2px solid var(--navy);
-            border-radius: 10px;
-            background-color: var(--off-white);
-        }
-
-        .paywall h2 {
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-size: 22px;
-            color: var(--navy);
-            margin: 0 0 16px;
-        }
-
-        .locked-list { margin-bottom: 18px; }
 
         .locked-action {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border);
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--r-sm);
+            padding: 14px 16px;
+            margin-bottom: 8px;
         }
+        .locked-body { flex: 1 1 auto; min-width: 0; }
+        .locked-title { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 15px; color: var(--muted); }
+        .locked-meta { font-size: 12.5px; color: var(--muted-2); margin-top: 2px; }
+        .locked-icon { color: var(--muted-2); flex-shrink: 0; }
 
-        .locked-action:last-child { border-bottom: none; }
-
-        .plan-step-num.muted {
-            background-color: #CBD5E1;
-            color: #fff;
-        }
-
-        .locked-body { flex: 1; min-width: 0; }
-
-        .locked-title {
-            font-weight: 600;
-            color: var(--navy);
-        }
-
-        .locked-meta {
-            font-size: 12px;
-            color: var(--text-light);
-        }
-
-        .locked-icon { opacity: 0.45; flex-shrink: 0; }
-
-        .paywall-pitch {
-            font-size: 14px;
-            color: var(--text);
-            margin: 0 0 16px;
-        }
-
-        .paywall-btn {
-            width: 100%;
-            padding: 14px;
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .paywall-fine {
-            margin: 10px 0 0;
-            font-size: 12px;
-            color: var(--text-light);
+        .paywall {
+            background: var(--surface);
+            border: 1.5px solid var(--accent);
+            border-radius: var(--r-lg);
+            padding: 28px;
+            margin-top: 24px;
             text-align: center;
+            box-shadow: var(--shadow);
         }
+        .paywall h2 { font-size: clamp(21px, 5vw, 27px); margin-bottom: 16px; }
+        .paywall .locked-list { text-align: left; margin-bottom: 20px; }
+        .paywall-pitch { font-size: 14.5px; color: var(--muted); max-width: 34em; margin: 0 auto 20px; }
+        .paywall-fine { font-size: 12.5px; color: var(--muted-2); margin-top: 14px; }
 
-        /* --- Action plan report --- */
-        .report-view {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background-color: #fff;
-            z-index: 2000;
-            overflow-y: auto;
-        }
-
-        .report-view.active { display: block; }
-
-        .report-toolbar {
-            position: sticky;
-            top: 0;
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            padding: 12px 20px;
-            background-color: var(--off-white);
-            border-bottom: 1px solid var(--border);
-            z-index: 1;
-        }
-
-        .report-btn {
-            background-color: var(--navy);
-            color: #fff;
-            border: none;
-            padding: 9px 18px;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .report-btn.ghost {
-            background-color: transparent;
-            color: var(--navy);
-            border: 1px solid var(--border);
-        }
-
-        .report-body {
-            max-width: 760px;
-            margin: 0 auto;
-            padding: 32px 20px 64px;
-        }
-
-        .plan-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 16px;
-            padding-bottom: 16px;
-            border-bottom: 3px solid var(--navy);
-        }
-
-        .plan-header h1 {
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-size: 30px;
-            margin: 0;
-            color: var(--navy);
-        }
-
-        .plan-meta { font-size: 13px; color: var(--text-light); margin: 6px 0 0; }
-
-        .plan-brand {
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-weight: 600;
-            color: var(--navy);
-            white-space: nowrap;
-        }
-
-        .plan-summary {
-            margin: 24px 0 8px;
-            padding: 18px;
-            background-color: var(--off-white);
-            border-left: 4px solid var(--navy);
-            border-radius: 0 6px 6px 0;
-        }
-
-        .plan-summary p { margin: 0 0 10px; }
-        .plan-summary p:last-child { margin-bottom: 0; }
-
-        .plan-action {
-            margin-top: 28px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
-            break-inside: avoid;
-            page-break-inside: avoid;
-        }
-
-        .plan-action-head {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .plan-action-head h3 {
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-size: 19px;
-            margin: 0;
-            flex: 1;
-            min-width: 200px;
-            color: var(--navy);
-        }
-
-        .plan-step-num {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-            flex-shrink: 0;
-            border-radius: 50%;
-            background-color: var(--navy);
-            color: #fff;
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .plan-pill {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            padding: 3px 10px;
-            border-radius: 999px;
-            color: #fff;
-        }
-
-        .plan-critical { background-color: var(--red); }
-        .plan-high { background-color: var(--amber); }
-        .plan-medium { background-color: #6B7280; }
-
-        .plan-why {
-            margin: 12px 0 14px;
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        .plan-time {
-            display: inline-block;
-            margin: 10px 0 4px;
-            font-size: 12px;
-            color: var(--text-light);
-            background-color: var(--off-white);
-            border: 1px solid var(--border);
-            border-radius: 999px;
-            padding: 3px 12px;
-        }
-
-        .plan-block { margin-top: 14px; }
-
-        .plan-label {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--text-light);
-            margin-bottom: 4px;
-        }
-
-        .plan-block p { margin: 0; line-height: 1.65; }
-
-        .plan-reassure {
-            margin-top: 12px !important;
-            font-style: italic;
-            color: var(--text-light);
-        }
-
-        /* Numbered steps, one instruction each, with room to tick off on
-           paper. Sequential numbering matters more than density here. */
-        .plan-steps {
-            list-style: none;
-            counter-reset: substep;
-            padding: 0;
-            margin: 6px 0 0;
-        }
-
-        .plan-steps li {
-            counter-increment: substep;
-            position: relative;
-            padding-left: 58px;
-            min-height: 26px;
-            margin-bottom: 12px;
-            line-height: 1.65;
-        }
-
-        .plan-steps li::before {
-            content: counter(substep);
-            position: absolute;
-            left: 26px;
-            top: 1px;
-            width: 22px;
-            height: 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background-color: var(--off-white);
-            border: 1px solid var(--border);
-            color: var(--navy);
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        .plan-steps li::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 3px;
-            width: 17px;
-            height: 17px;
-            border: 2px solid var(--navy);
-            border-radius: 3px;
-        }
-
-        .plan-appendix { margin-top: 40px; page-break-before: always; }
-
-        .plan-appendix h2 {
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-size: 22px;
-            color: var(--navy);
-            margin: 0 0 4px;
-        }
-
+        .plan-appendix { margin-top: 34px; }
+        .plan-appendix h2 { font-size: 21px; margin-bottom: 6px; }
+        .plan-appendix .plan-why { font-size: 13.5px; color: var(--muted); margin-bottom: 14px; }
+        .appendix-scroll { overflow-x: auto; }
         .appendix-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 12px;
-            margin-top: 12px;
+            font-size: 13.5px;
+            min-width: 460px;
         }
-
-        .appendix-table th,
-        .appendix-table td {
-            text-align: left;
-            vertical-align: top;
-            padding: 7px 8px;
-            border-bottom: 1px solid var(--border);
-        }
-
         .appendix-table th {
-            background-color: var(--off-white);
+            text-align: left;
             font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .07em;
             text-transform: uppercase;
-            letter-spacing: 0.04em;
-            color: var(--text-light);
+            color: var(--muted-2);
+            padding: 9px 12px 9px 0;
+            border-bottom: 1px solid var(--line-strong);
         }
-
-        .appendix-domain { color: var(--text-light); font-size: 11px; }
+        .appendix-table td {
+            padding: 11px 12px 11px 0;
+            border-bottom: 1px solid var(--line);
+            color: var(--ink-soft);
+            vertical-align: top;
+        }
+        .appendix-domain { font-size: 12px; color: var(--muted-2); }
 
         .plan-footer {
-            margin-top: 32px;
-            padding-top: 16px;
-            border-top: 1px solid var(--border);
-            font-size: 12px;
-            color: var(--text-light);
+            margin-top: 34px;
+            padding-top: 20px;
+            border-top: 1px solid var(--line);
+            font-size: 12.5px;
+            color: var(--muted-2);
+            line-height: 1.6;
         }
 
-        /* Print: the report becomes the whole document. The browser's
-           "Save as PDF" then produces the downloadable guide. */
+        /* ---------------- print ---------------- */
         @media print {
-            body > *:not(#reportView) { display: none !important; }
-
-            #reportView {
-                display: block !important;
-                position: static !important;
-                overflow: visible !important;
-            }
-
-            .report-toolbar { display: none !important; }
-
+            :root { --bg: #fff; --surface: #fff; --surface-2: #f4f4f5; }
+            body { background: #fff; }
+            .wrap, .demo-banner, .report-toolbar, .auth-modal, .paywall { display: none !important; }
+            .report-view { position: static; display: block !important; overflow: visible; background: #fff; }
             .report-body { max-width: none; padding: 0; }
-
-            @page { margin: 18mm 14mm; }
-
-            a { text-decoration: none; color: inherit; }
-
-            .plan-pill,
-            .plan-step-num,
-            .plan-cta {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
+            .plan-action { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+            .plan-summary { box-shadow: none; border: 1px solid #ddd; }
+            body.demo-active .demo-print-notice {
+                display: block;
+                border: 2px solid var(--warn);
+                color: var(--warn);
+                font-weight: 700;
+                font-size: 12px;
+                padding: 9px 12px;
+                border-radius: 6px;
+                margin-bottom: 18px;
             }
-        }
-
-        .breach-head {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .breach-domain {
-            font-size: 12px;
-            color: var(--text-light);
-            text-decoration: none;
-            border-bottom: 1px dotted var(--text-light);
-            word-break: break-all;
-        }
-
-        a.breach-domain:hover {
-            color: var(--navy);
-            border-bottom-color: var(--navy);
-        }
-
-        .breach-scale {
-            font-size: 12px;
-            color: var(--text-light);
-            margin-top: 2px;
-        }
-
-        .data-classes {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 8px;
-        }
-
-        .data-chip {
-            font-size: 11px;
-            padding: 3px 8px;
-            border-radius: 4px;
-            background-color: #FEF2F2;
-            border: 1px solid #FECACA;
-            color: #991B1B;
-        }
-
-        .exposure-summary {
-            margin: 16px 0 0;
-            padding: 14px 16px;
-            background-color: var(--off-white);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-            padding: 5px 0;
-            font-size: 14px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .summary-row:last-child {
-            border-bottom: none;
-        }
-
-        .summary-count {
-            font-size: 12px;
-            color: var(--text-light);
-            white-space: nowrap;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .auth-divider {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin: 20px 0 16px;
-            color: var(--text-light);
-            font-size: 13px;
-        }
-
-        .auth-divider::before,
-        .auth-divider::after {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background-color: var(--border);
-        }
-
-        .auth-providers {
-            display: flex;
-            gap: 12px;
-        }
-
-        .provider-btn {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background-color: #fff;
-            color: var(--text);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            font-family: inherit;
-            cursor: pointer;
-        }
-
-        .provider-btn:hover {
-            background-color: var(--off-white);
-            border-color: var(--navy);
-        }
-
-        .auth-required {
-            background-color: #fef3c7;
-            border: 1px solid #fcd34d;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 13px;
-            color: #92400e;
-            margin-top: 12px;
         }
     </style>
 </head>
 <body>
 
 <!-- Preview mode banner -->
-<div id="demoBanner" class="demo-banner" style="display: none;">
-    <strong>PREVIEW MODE</strong>
-    <span>Everything below is fictional sample data, not a real breach result. Nothing was checked against any database.</span>
-    <button onclick="exitDemo()">Exit preview</button>
+<div id="demoBanner" class="demo-banner">
+    <strong data-i18n="demoTag">Modo de ejemplo</strong>
+    <span data-i18n="demoBody">Todo lo que ves abajo son datos ficticios. No se consultó ninguna base de datos real.</span>
+    <button onclick="exitDemo()" data-i18n="demoExit">Salir del ejemplo</button>
 </div>
 
+<div class="wrap">
 
-<div class="container">
-    <div class="auth-header">
-        <div class="logo">Am I Exposed?</div>
-        <div id="authUI" class="auth-buttons">
-            <button class="btn-auth" onclick="openAuthModal('signin')">Sign In</button>
-            <button class="btn-auth" onclick="openAuthModal('signup')">Sign Up</button>
+    <div class="topbar">
+        <div class="brand">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2.5l7.5 2.8v6.2c0 4.7-3.2 8.3-7.5 9.5-4.3-1.2-7.5-4.8-7.5-9.5V5.3L12 2.5z" fill="currentColor"/>
+                <circle cx="12" cy="10.6" r="2.6" fill="var(--bg)"/>
+                <path d="M12 13.2c2.1 0 3.8 1.4 3.8 3.1H8.2c0-1.7 1.7-3.1 3.8-3.1z" fill="var(--bg)"/>
+            </svg>
+            <span data-i18n="brand">¿Estoy expuesto?</span>
         </div>
-        <div id="userUI" class="user-menu" style="display: none;">
-            <button class="user-button" onclick="toggleUserMenu()">Menu</button>
-            <div id="userDropdown" class="user-dropdown">
-                <div class="user-email" id="userEmail"></div>
-                <button onclick="signOut()">Sign Out</button>
+        <div class="topbar-right">
+            <div class="langtog" role="group" aria-label="Language">
+                <button type="button" data-lang="es" aria-pressed="true">ES</button>
+                <button type="button" data-lang="en">EN</button>
+            </div>
+            <div id="authUI">
+                <button class="ghost-btn" onclick="openAuthModal('signin')" data-i18n="signin">Entrar</button>
+            </div>
+            <div id="userUI" class="user-menu" style="display: none;">
+                <button class="ghost-btn" onclick="toggleUserMenu()" data-i18n="menu">Mi cuenta</button>
+                <div id="userDropdown" class="user-dropdown">
+                    <div class="user-email" id="userEmail"></div>
+                    <button onclick="signOut()" data-i18n="signout">Cerrar sesión</button>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="hero">
-        <h1>Know if your data is at risk</h1>
-        <p>Check if your email or password has appeared in known data breaches. Instant results, no account needed.</p>
-    </div>
+        <span class="badge"><span class="dot"></span><span data-i18n="heroBadge">Gratis · Sin crear cuenta</span></span>
+        <h1 data-i18n="heroTitle">¿Se filtraron tus datos?</h1>
+        <p class="lede" data-i18n="heroLede">Escribe tu correo y te decimos en segundos si aparece en alguna filtración conocida, y qué hacer al respecto.</p>
 
-    <div class="checks-grid">
-        <!-- Email Check Card -->
-        <div class="check-card">
-            <h2>Check Your Email</h2>
-            <p>Search hundreds of known data breaches to see if your email is exposed.</p>
-
-            <div class="input-group">
-                <input
-                    type="email"
-                    id="emailInput"
-                    placeholder="your@email.com"
-                    autocomplete="off"
-                >
-            </div>
-
-            <button id="emailCheckBtn" onclick="checkEmail()">Check Email</button>
-
-            <div class="disclaimer">
-                🔒 Your email is never stored. We only check it against public breach databases.
-            </div>
-
-            <div id="emailResult" style="display: none;"></div>
-            <div id="emailError" class="error" style="display: none;"></div>
+        <div class="search">
+            <input type="email" id="emailInput" placeholder="tucorreo@ejemplo.com" autocomplete="email" aria-label="Email">
+            <button class="btn" id="emailCheckBtn" onclick="checkEmail()" data-i18n="heroBtn">Revisar mi correo</button>
         </div>
 
-        <!-- Password Check Card -->
-        <div class="check-card">
-            <h2>Check Your Password</h2>
-            <p>Verify if your password has appeared in breaches using secure k-anonymity (no password is sent).</p>
+        <div class="trust">
+            <span><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="trust1">No guardamos tu correo</span></span>
+            <span><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="trust2">Resultado inmediato</span></span>
+            <span><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="trust3">Sin publicidad</span></span>
+        </div>
+    </div>
 
-            <div class="input-group">
-                <input
-                    type="password"
-                    id="passwordInput"
-                    placeholder="your password"
-                    autocomplete="off"
-                >
-                <div class="toggle-password" onclick="togglePasswordVisibility(this)">Show password</div>
+    <div id="emailError" class="error" style="display: none;"></div>
+    <div id="emailResult" style="display: none;"></div>
+
+    <!-- Password check, folded away so the page opens on one decision -->
+    <div class="fold" id="pwFold" data-open="0">
+        <button type="button" class="fold-head" onclick="togglePasswordFold()">
+            <span class="fold-icon">
+                <svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2.5" y="6.8" width="11" height="7" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M5.2 6.8V4.9a2.8 2.8 0 015.6 0v1.9" stroke="currentColor" stroke-width="1.6"/></svg>
+            </span>
+            <span>
+                <span class="fold-title" data-i18n="pwTitle">Revisar también una contraseña</span><br>
+                <span class="fold-sub" data-i18n="pwSub">Tu contraseña nunca sale de este dispositivo.</span>
+            </span>
+            <svg class="fold-chev" width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="fold-body" id="pwBody" hidden>
+            <div class="pw-row">
+                <input type="password" id="passwordInput" placeholder="••••••••••" autocomplete="off" aria-label="Password">
+                <button class="btn sm" id="passwordCheckBtn" onclick="checkPassword()" data-i18n="pwBtn">Revisar</button>
             </div>
-
-            <button id="passwordCheckBtn" onclick="checkPassword()">Check Password</button>
-
-            <div class="disclaimer">
-                🔒 Your password never leaves your device. We use k-anonymity to check securely.
+            <button type="button" class="linkish" id="pwShowToggle" onclick="togglePasswordVisibility()" data-i18n="pwShow">Mostrar contraseña</button>
+            <div class="note">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.6" stroke="currentColor" stroke-width="1.5"/><path d="M8 7.2v4M8 4.9v.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                <span data-i18n="pwNote">Solo enviamos las primeras cinco letras de un código calculado en tu navegador. Ni nosotros ni nadie más puede reconstruir tu contraseña a partir de eso.</span>
             </div>
-
-            <div id="passwordResult" style="display: none;"></div>
             <div id="passwordError" class="error" style="display: none;"></div>
-        </div>
-
-        <!-- Paid Tier Coming Soon -->
-        <div class="coming-soon">
-            <h2>Full Threat Report</h2>
-            <p>Comprehensive scan with dark web monitoring, breach details, and step-by-step remediation guide — Coming Soon</p>
+            <div id="passwordResult" style="display: none;"></div>
         </div>
     </div>
+
+    <!-- Paid tier -->
+    <div class="offer">
+        <span class="badge"><span class="dot"></span><span data-i18n="offerBadge">Reporte completo</span></span>
+        <h2 data-i18n="offerTitle">Sabes que estás expuesto. Ahora, qué hacer.</h2>
+        <p data-i18n="offerLede">Un plan personalizado, escrito en palabras normales, ordenado de lo más urgente a lo que puede esperar.</p>
+        <ul>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi1">Qué cuenta cambiar primero y exactamente cómo hacerlo</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi2">Pasos numerados, sin palabras técnicas</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi3">Descargable en PDF para imprimir o compartir</span></li>
+        </ul>
+        <div class="offer-foot">
+            <span class="price">US$9<small data-i18n="offerPer">por reporte</small></span>
+            <button class="btn" onclick="openSampleReport()" data-i18n="offerBtn">Ver un ejemplo</button>
+        </div>
+    </div>
+
+    <div class="foot">
+        <span data-i18n="footLeft">Selentic Group · Datos de filtraciones por Have I Been Pwned</span>
+    </div>
+
 </div>
 
 <!-- Action Plan Report -->
 <div id="reportView" class="report-view">
     <div class="report-toolbar">
-        <button onclick="closeReport()" class="report-btn ghost">&larr; Back</button>
-        <button id="reportPrintBtn" onclick="printReport()" class="report-btn">Download PDF</button>
+        <button onclick="closeReport()" class="ghost-btn" data-i18n="reportBack">&larr; Volver</button>
+        <button id="reportPrintBtn" onclick="printReport()" class="btn sm" data-i18n="reportPdf">Descargar PDF</button>
     </div>
     <div id="reportBody" class="report-body"></div>
 </div>
@@ -1230,29 +1149,31 @@
 <!-- Auth Modal -->
 <div id="authModal" class="auth-modal">
     <div class="auth-modal-content">
-        <button class="auth-modal-close" onclick="closeAuthModal()">×</button>
+        <button class="auth-modal-close" onclick="closeAuthModal()" aria-label="Close">&times;</button>
 
         <div id="signinForm" class="auth-form active">
-            <h2>Sign In</h2>
-            <input type="email" id="signinEmail" placeholder="your@email.com" />
-            <input type="password" id="signinPassword" placeholder="Password" />
-            <button onclick="signInWithEmail()">Sign In</button>
+            <h2 data-i18n="modalSigninTitle">Entrar</h2>
+            <input type="email" id="signinEmail" placeholder="tucorreo@ejemplo.com" autocomplete="email">
+            <input type="password" id="signinPassword" placeholder="Contraseña" autocomplete="current-password">
+            <button class="btn" onclick="signInWithEmail()" data-i18n="modalSigninBtn">Entrar</button>
             <div class="auth-toggle">
-                Don't have an account? <button onclick="switchForm('signup')">Sign Up</button>
+                <span data-i18n="modalNoAccount">¿No tienes cuenta?</span>
+                <button onclick="switchForm('signup')" data-i18n="modalSignupLink">Crear una</button>
             </div>
         </div>
 
         <div id="signupForm" class="auth-form">
-            <h2>Sign Up</h2>
-            <input type="email" id="signupEmail" placeholder="your@email.com" />
-            <input type="password" id="signupPassword" placeholder="Password (min 6 chars)" />
-            <button onclick="signUpWithEmail()">Create Account</button>
+            <h2 data-i18n="modalSignupTitle">Crear cuenta</h2>
+            <input type="email" id="signupEmail" placeholder="tucorreo@ejemplo.com" autocomplete="email">
+            <input type="password" id="signupPassword" placeholder="Contraseña (mínimo 6 caracteres)" autocomplete="new-password">
+            <button class="btn" onclick="signUpWithEmail()" data-i18n="modalSignupBtn">Crear cuenta</button>
             <div class="auth-toggle">
-                Already have an account? <button onclick="switchForm('signin')">Sign In</button>
+                <span data-i18n="modalHaveAccount">¿Ya tienes cuenta?</span>
+                <button onclick="switchForm('signin')" data-i18n="modalSigninLink">Entrar</button>
             </div>
         </div>
 
-        <div class="auth-divider"><span>or continue with</span></div>
+        <div class="auth-divider"><span data-i18n="modalOr">o continúa con</span></div>
 
         <div class="auth-providers">
             <button type="button" class="provider-btn" onclick="signInWithProvider('google')">
@@ -1272,7 +1193,7 @@
             </button>
         </div>
 
-        <div id="authError" style="color: #dc2626; font-size: 13px; margin-top: 12px; display: none;"></div>
+        <div id="authError" class="auth-msg bad"></div>
     </div>
 </div>
 
@@ -1306,17 +1227,353 @@
         return !!currentUser || demoMode;
     }
 
+    // =======================================================================
+    // LANGUAGE
+    // Both languages sit side by side so a change to one is visibly a change
+    // to the other. The plan itself is translated on the server; `lang` is
+    // sent with every /api/report call.
+    // =======================================================================
+    const COPY = {
+        es: {
+            docTitle: '¿Estoy expuesto? — Revisa si tus datos se filtraron',
+            brand: '¿Estoy expuesto?',
+            signin: 'Entrar', signout: 'Cerrar sesión', menu: 'Mi cuenta',
+            heroBadge: 'Gratis · Sin crear cuenta',
+            heroTitle: '¿Se filtraron tus datos?',
+            heroLede: 'Escribe tu correo y te decimos en segundos si aparece en alguna filtración conocida, y qué hacer al respecto.',
+            heroBtn: 'Revisar mi correo',
+            heroPlaceholder: 'tucorreo@ejemplo.com',
+            checking: 'Revisando...',
+            trust1: 'No guardamos tu correo', trust2: 'Resultado inmediato', trust3: 'Sin publicidad',
+
+            pwTitle: 'Revisar también una contraseña',
+            pwSub: 'Tu contraseña nunca sale de este dispositivo.',
+            pwPlaceholder: '••••••••••',
+            pwBtn: 'Revisar', pwShow: 'Mostrar contraseña', pwHide: 'Ocultar contraseña',
+            pwNote: 'Solo enviamos las primeras cinco letras de un código calculado en tu navegador. Ni nosotros ni nadie más puede reconstruir tu contraseña a partir de eso.',
+
+            offerBadge: 'Reporte completo',
+            offerTitle: 'Sabes que estás expuesto. Ahora, qué hacer.',
+            offerLede: 'Un plan personalizado, escrito en palabras normales, ordenado de lo más urgente a lo que puede esperar.',
+            offerLi1: 'Qué cuenta cambiar primero y exactamente cómo hacerlo',
+            offerLi2: 'Pasos numerados, sin palabras técnicas',
+            offerLi3: 'Descargable en PDF para imprimir o compartir',
+            offerPer: 'por reporte', offerBtn: 'Ver un ejemplo',
+            footLeft: 'Selentic Group · Datos de filtraciones por Have I Been Pwned',
+
+            demoTag: 'Modo de ejemplo',
+            demoBody: 'Todo lo que ves abajo son datos ficticios. No se consultó ninguna base de datos real.',
+            demoExit: 'Salir del ejemplo',
+            demoPrintNotice: 'EJEMPLO — Este reporte se generó con datos ficticios. No corresponde a ninguna persona real.',
+
+            reportBack: '← Volver', reportPdf: 'Descargar PDF',
+            modalSigninTitle: 'Entrar', modalSigninBtn: 'Entrar',
+            modalSignupTitle: 'Crear cuenta', modalSignupBtn: 'Crear cuenta',
+            modalNoAccount: '¿No tienes cuenta?', modalSignupLink: 'Crear una',
+            modalHaveAccount: '¿Ya tienes cuenta?', modalSigninLink: 'Entrar',
+            modalOr: 'o continúa con',
+            modalEmailPlaceholder: 'tucorreo@ejemplo.com',
+            modalPwPlaceholder: 'Contraseña',
+            modalNewPwPlaceholder: 'Contraseña (mínimo 6 caracteres)',
+
+            errNoEmail: 'Escribe un correo electrónico.',
+            errBadEmail: 'Ese correo no parece válido. Revísalo e intenta de nuevo.',
+            errEmailFail: 'No pudimos revisar tu correo. Intenta de nuevo en un momento.',
+            errNoPw: 'Escribe una contraseña.',
+            errPwFail: 'No pudimos revisar la contraseña. Intenta de nuevo en un momento.',
+            errFields: 'Completa los dos campos.',
+            errShortPw: 'La contraseña debe tener al menos 6 caracteres.',
+            errBlocked: 'No se puede entrar porque un script necesario fue bloqueado. Desactiva el bloqueador de anuncios para este sitio, o prueba con otro navegador.',
+            errSignin: 'No pudimos iniciar sesión. Intenta de nuevo.',
+            okSignup: 'Cuenta creada. Revisa tu correo para confirmarla y luego entra.',
+
+            cleanTitle: 'Buenas noticias: no apareces',
+            cleanBody: (email) => `No encontramos <span class="who">${email}</span> en ninguna filtración conocida. Esto no garantiza que nunca pase, así que vale la pena repetir el chequeo de vez en cuando.`,
+            expTitle: 'Tu correo sí aparece',
+            expBody: (email, n) => `Encontramos <span class="who">${email}</span> en ${n} ${n === 1 ? 'filtración de datos' : 'filtraciones de datos'}. Esto es común y tiene solución.`,
+            tallyBreaches: (n) => n === 1 ? 'filtración' : 'filtraciones',
+            tallyAccounts: 'cuentas afectadas en total',
+            tallyOldest: 'la más antigua',
+            lblWhere: 'Dónde apareció tu correo',
+            lblExposed: 'Qué se expuso sobre ti',
+            inBreaches: (n) => n === 1 ? '1 filtración' : `${n} filtraciones`,
+            accountsIn: 'cuentas en esta filtración',
+            noDate: 'Fecha no publicada',
+            notPublished: 'No publicado',
+            stealerFlag: '<b>Esta es la más grave.</b> Un programa malicioso copió contraseñas guardadas directamente de un computador. Si alguna de tus contraseñas se repite en varios sitios, cámbiala hoy.',
+
+            gateTitle: 'Crea una cuenta gratis para ver el detalle',
+            gateBody: 'Te mostramos en qué filtraciones apareciste, qué datos se expusieron y desde cuándo. Es gratis y toma menos de un minuto.',
+            gateSignup: 'Crear cuenta gratis', gateSignin: 'Ya tengo cuenta',
+
+            nextTitle: 'Te decimos qué hacer, paso a paso',
+            nextBody: (n) => `Tenemos un plan ordenado por urgencia para las ${n} ${n === 1 ? 'filtración' : 'filtraciones'} en las que apareces.`,
+            nextBtn: 'Ver mi plan',
+            buildingPlan: 'Preparando tu plan...',
+            planFail: 'No pudimos preparar tu plan. Intenta de nuevo en un momento.',
+
+            pwExpTitle: 'Esta contraseña ya está en manos de terceros',
+            pwExpBodyFree: 'Esta contraseña aparece en filtraciones públicas. Cámbiala donde sea que la uses.',
+            pwExpBody: (n) => `Apareció <span class="who">${n} veces</span> en listas de contraseñas robadas. Los programas que intentan entrar a cuentas ajenas la prueban de primeras.`,
+            pwCleanTitle: 'Esta contraseña no aparece',
+            pwCleanBody: 'No la encontramos en ninguna lista de contraseñas robadas. Sigue siendo buena idea no repetirla entre sitios.',
+            pwRiskLabel: 'riesgo',
+            pwSev: {
+                critical: { label: 'Muy alto', summary: 'Es una de las contraseñas más usadas del mundo. Está entre las primeras que prueban los delincuentes, así que cualquier cuenta que la use es muy fácil de abrir.' },
+                high:     { label: 'Alto',     summary: 'Esta contraseña está en las listas que los delincuentes se pasan entre ellos para entrar a cuentas ajenas. Dala por pública.' },
+                moderate: { label: 'Medio',    summary: 'Esta contraseña se ha escapado más de una vez, así que ya está circulando, aunque no sea de las más comunes.' },
+                low:      { label: 'Bajo',     summary: 'Esta contraseña se ha escapado solo unas pocas veces. Aun así es una vez de más, así que no conviene seguir usándola.' },
+            },
+            pwSteps: [
+                'Cámbiala en toda cuenta donde la hayas usado. Empieza por tu correo y después el banco. El correo es lo más importante, porque quien entra ahí puede pedir el cambio de contraseña de todo lo demás.',
+                'No la vuelvas a usar en ningún lado. Los delincuentes toman una contraseña que se escapó y la prueban en cientos de sitios, a ver si la repetiste.',
+                'Donde el sitio lo ofrezca, activa el segundo paso para entrar. Manda un código corto a tu teléfono después de la contraseña, y mantiene la cuenta segura incluso si alguien ya se sabe esa contraseña.',
+                'Deja que tu teléfono o tu navegador recuerde las contraseñas por ti. Así cada sitio puede tener una distinta y no tienes que memorizar ninguna.',
+            ],
+            pwWhatToDo: 'Qué hacer ahora',
+            pwPlanTitleA: 'Esta es una contraseña. ¿Y todo lo demás?',
+            pwPlanBodyA: 'Tu plan de acción cubre cada filtración en la que aparece tu correo, qué se llevaron en cada una y qué hacer, en orden.',
+            pwPlanBtnA: 'Ver mi plan',
+            pwPlanBodyB: 'Revisa también tu correo y te armamos un plan que cubre cada filtración en la que aparece, qué se llevaron y qué hacer.',
+            pwPlanBtnB: 'Revisar mi correo también',
+
+            planHeading: 'Tu plan de acción',
+            planPreparedFor: 'Preparado para',
+            planWhatHappened: 'Qué pasó',
+            planWhyMatters: 'Por qué importa',
+            planWhatToDo: 'Qué hacer, paso a paso',
+            planSummary: (total, actions, criticals) => {
+                const b = total === 1 ? 'una empresa' : `${total} empresas`;
+                const urgent = criticals === 1 ? 'solo el primero es urgente' : `solo los primeros ${criticals} son urgentes`;
+                return `<p><strong>Tu correo apareció en filtraciones de ${b}.</strong></p>`
+                    + `<p>Ese número asusta, pero es menos grave de lo que parece. Significa que, con los años, ${b} a ${total === 1 ? 'la que' : 'las que'} alguna vez le diste tu correo ${total === 1 ? 'fue' : 'fueron'} atacada${total === 1 ? '' : 's'} por delincuentes. Muchas de esas son viejas y ya no importan.</p>`
+                    + `<p>No tienes que resolver ${total === 1 ? 'la' : 'las'} ${total}. Hay <strong>${actions} cosas</strong> que vale la pena hacer, y ${urgent}.</p>`
+                    + `<p>Ve bajando la lista en orden. Cada paso te dice qué pasó, por qué importa y exactamente qué hacer. Si solo alcanzas a hacer ${criticals === 1 ? 'el primero' : `los primeros ${criticals}`}, ya habrás cubierto casi todo el riesgo real.</p>`;
+            },
+            planReassure: 'Nada de esto es culpa tuya. No puedes evitar que ataquen a las empresas. Solo puedes asegurarte de que no te cueste nada.',
+            appendixTitle: 'Anexo: todas las filtraciones en las que apareces',
+            appendixLede: 'La lista completa, de la más reciente a la más antigua, para tus registros.',
+            appendixCompany: 'Empresa', appendixDate: 'Fecha', appendixTaken: 'Qué se llevaron',
+            planFooter: (date) => `Generado por ¿Estoy expuesto? con datos de Have I Been Pwned el ${date}. Esto es orientación general de seguridad, no asesoría legal ni financiera.`,
+            teaserNote: 'Aquí va el primer paso completo, para que veas exactamente qué recibes.',
+            paywallTitle: (n) => n === 1 ? 'Falta 1 paso más, escrito igual' : `Faltan ${n} pasos más, escritos igual`,
+            paywallPitch: 'Cada uno te dice qué pasó, por qué importa y exactamente qué hacer, en palabras normales. También recibes la lista completa de todas las filtraciones en las que apareces, y una copia para imprimir o guardar.',
+            paywallBtn: 'Desbloquear mi plan completo',
+            paywallFine: 'Un solo pago. Puedes volver y actualizar tu plan durante 30 días.',
+
+            payNotReady: 'El pago todavía no está conectado. Este botón abrirá la caja cuando Mercado Pago esté listo.',
+        },
+        en: {
+            docTitle: 'Am I Exposed? — Check for Data Breaches',
+            brand: 'Am I Exposed?',
+            signin: 'Sign in', signout: 'Sign out', menu: 'My account',
+            heroBadge: 'Free · No account needed',
+            heroTitle: 'Was your data leaked?',
+            heroLede: 'Type your email and we will tell you in seconds whether it shows up in a known breach, and what to do about it.',
+            heroBtn: 'Check my email',
+            heroPlaceholder: 'you@example.com',
+            checking: 'Checking...',
+            trust1: 'We never store your email', trust2: 'Instant result', trust3: 'No ads',
+
+            pwTitle: 'Check a password too',
+            pwSub: 'Your password never leaves this device.',
+            pwPlaceholder: '••••••••••',
+            pwBtn: 'Check', pwShow: 'Show password', pwHide: 'Hide password',
+            pwNote: 'We only send the first five letters of a code your browser works out. Neither we nor anyone else can rebuild your password from that.',
+
+            offerBadge: 'Full report',
+            offerTitle: 'You know you are exposed. Now, what to do.',
+            offerLede: 'A personal plan written in plain words, ordered from most urgent to what can wait.',
+            offerLi1: 'Which account to fix first, and exactly how',
+            offerLi2: 'Numbered steps, no technical words',
+            offerLi3: 'Downloadable as a PDF to print or share',
+            offerPer: 'per report', offerBtn: 'See an example',
+            footLeft: 'Selentic Group · Breach data by Have I Been Pwned',
+
+            demoTag: 'Preview mode',
+            demoBody: 'Everything below is fictional sample data. Nothing was checked against any real database.',
+            demoExit: 'Exit preview',
+            demoPrintNotice: 'PREVIEW — This report was generated from fictional sample data. It is not a real breach result for any person.',
+
+            reportBack: '← Back', reportPdf: 'Download PDF',
+            modalSigninTitle: 'Sign in', modalSigninBtn: 'Sign in',
+            modalSignupTitle: 'Create account', modalSignupBtn: 'Create account',
+            modalNoAccount: "Don't have an account?", modalSignupLink: 'Create one',
+            modalHaveAccount: 'Already have an account?', modalSigninLink: 'Sign in',
+            modalOr: 'or continue with',
+            modalEmailPlaceholder: 'you@example.com',
+            modalPwPlaceholder: 'Password',
+            modalNewPwPlaceholder: 'Password (min 6 characters)',
+
+            errNoEmail: 'Please enter an email address.',
+            errBadEmail: 'That email does not look right. Check it and try again.',
+            errEmailFail: 'We could not check your email. Please try again in a moment.',
+            errNoPw: 'Please enter a password.',
+            errPwFail: 'We could not check that password. Please try again in a moment.',
+            errFields: 'Please fill in both fields.',
+            errShortPw: 'Password must be at least 6 characters.',
+            errBlocked: 'Sign-in is unavailable because a required script was blocked. Disable your ad blocker for this site, or try another browser.',
+            errSignin: 'Could not start sign-in. Please try again.',
+            okSignup: 'Account created. Check your email to confirm, then sign in.',
+
+            cleanTitle: 'Good news: you are not in there',
+            cleanBody: (email) => `We did not find <span class="who">${email}</span> in any known breach. That is no guarantee for the future, so it is worth checking again now and then.`,
+            expTitle: 'Your email does show up',
+            expBody: (email, n) => `We found <span class="who">${email}</span> in ${n} data ${n === 1 ? 'breach' : 'breaches'}. This is common and it can be fixed.`,
+            tallyBreaches: (n) => n === 1 ? 'breach' : 'breaches',
+            tallyAccounts: 'accounts affected in total',
+            tallyOldest: 'oldest one',
+            lblWhere: 'Where your email showed up',
+            lblExposed: 'What was exposed about you',
+            inBreaches: (n) => n === 1 ? '1 breach' : `${n} breaches`,
+            accountsIn: 'accounts in this breach',
+            noDate: 'Breach date not published',
+            notPublished: 'Not published',
+            stealerFlag: '<b>This is the serious one.</b> A malicious program copied saved passwords straight off a computer. If you reuse any password across sites, change it today.',
+
+            gateTitle: 'Create a free account to see the detail',
+            gateBody: 'We show you which breaches you appeared in, what was exposed and since when. It is free and takes under a minute.',
+            gateSignup: 'Create free account', gateSignin: 'I already have an account',
+
+            nextTitle: 'We tell you what to do, step by step',
+            nextBody: (n) => `We have a plan ordered by urgency for the ${n} ${n === 1 ? 'breach' : 'breaches'} you appear in.`,
+            nextBtn: 'See my plan',
+            buildingPlan: 'Building your plan...',
+            planFail: 'We could not build your plan. Please try again in a moment.',
+
+            pwExpTitle: "This password is already in other people's hands",
+            pwExpBodyFree: 'This password appears in public data breaches. Change it everywhere you use it.',
+            pwExpBody: (n) => `It appeared <span class="who">${n} times</span> in stolen password lists. Programs that break into accounts try it first.`,
+            pwCleanTitle: 'This password does not show up',
+            pwCleanBody: 'We did not find it in any stolen password list. It is still a good idea not to reuse it across sites.',
+            pwRiskLabel: 'risk',
+            pwSev: {
+                critical: { label: 'Critical', summary: 'This is one of the most commonly used passwords in the world. It is among the first ones criminals try, which makes any account using it very easy to break into.' },
+                high:     { label: 'High',     summary: 'This password appears on lists that criminals pass around and use to break into accounts. Treat it as public knowledge.' },
+                moderate: { label: 'Moderate', summary: 'This password has escaped more than once, so it is out there, even though it is not one of the very common ones.' },
+                low:      { label: 'Low',      summary: 'This password has only escaped a few times. That is still once too many, so it is not safe to keep using.' },
+            },
+            pwSteps: [
+                'Change it on every account where you have used it. Start with your email, then your bank. Your email matters most, because anyone who gets into it can reset the password on everything else you own.',
+                'Do not use this password anywhere again. Criminals take a password that has escaped and try it on hundreds of other websites, hoping you used it twice.',
+                'Where a website offers it, turn on the second step for logging in. It sends a short code to your phone after your password, and keeps the account safe even when somebody already knows that password.',
+                'Let your phone or your web browser remember your passwords for you. Then every website can have a different one, and you never have to memorise any of them.',
+            ],
+            pwWhatToDo: 'What to do now',
+            pwPlanTitleA: 'This is one password. What about everything else?',
+            pwPlanBodyA: 'Your action plan covers every breach your email appears in, what was taken in each, and what to do about it, in order.',
+            pwPlanBtnA: 'See my plan',
+            pwPlanBodyB: 'Check your email address as well, and we will build you a plan covering every breach it appears in, what was taken, and what to do about it.',
+            pwPlanBtnB: 'Check my email too',
+
+            planHeading: 'Your Personal Action Plan',
+            planPreparedFor: 'Prepared for',
+            planWhatHappened: 'What happened',
+            planWhyMatters: 'Why this matters',
+            planWhatToDo: 'What to do, step by step',
+            planSummary: (total, actions, criticals) => {
+                const urgent = criticals === 1 ? 'only the first is urgent' : `only the first ${criticals} are urgent`;
+                return `<p><strong>Your email address was found in ${total} company break-in${total > 1 ? 's' : ''}.</strong></p>`
+                    + `<p>That number sounds frightening. It is less bad than it looks. It means that over the years, ${total} compan${total > 1 ? 'ies' : 'y'} you once gave your email address to ${total > 1 ? 'were' : 'was'} broken into by criminals. Many of those are old and no longer matter.</p>`
+                    + `<p>You do not need to deal with all ${total}. There are <strong>${actions} things</strong> worth doing, and ${urgent}.</p>`
+                    + `<p>Work down the list in order. Each step tells you what happened, why it matters, and exactly what to do. If you only ever do ${criticals === 1 ? 'the first one' : `the first ${criticals}`}, you will have dealt with almost all of the real risk.</p>`;
+            },
+            planReassure: 'Nothing here is your fault. You cannot stop companies being broken into. You can only make sure it does not cost you anything.',
+            appendixTitle: 'Appendix: every break-in you appear in',
+            appendixLede: 'The full list, newest first, for your records.',
+            appendixCompany: 'Company', appendixDate: 'Date', appendixTaken: 'What was taken',
+            planFooter: (date) => `Generated by Am I Exposed? from Have I Been Pwned breach data on ${date}. This is general security guidance, not legal or financial advice.`,
+            teaserNote: 'Here is the first step in full, so you can see exactly what you are getting.',
+            paywallTitle: (n) => n === 1 ? '1 more step, written the same way' : `${n} more steps, written the same way`,
+            paywallPitch: 'Each one tells you what happened, why it matters, and exactly what to do, in plain English. You also get the full list of every break-in you appear in, and a copy you can print or save.',
+            paywallBtn: 'Unlock my full plan',
+            paywallFine: 'One payment. You can come back and update your plan for 30 days.',
+
+            payNotReady: 'Payment is not connected yet. This button will open the checkout once Mercado Pago is wired up.',
+        },
+    };
+
+    // Browser preference first, then whatever the visitor last chose here.
+    let lang = (navigator.language || 'en').toLowerCase().startsWith('es') ? 'es' : 'en';
+    try {
+        const saved = localStorage.getItem('aie-lang');
+        if (saved === 'es' || saved === 'en') lang = saved;
+    } catch (e) { /* private mode or blocked storage: the default stands */ }
+
+    const t = () => COPY[lang];
+    const locale = () => (lang === 'es' ? 'es-CO' : 'en-US');
+    const num = (n) => Number(n).toLocaleString(locale());
+
+    function setLang(next) {
+        if (next !== 'es' && next !== 'en') return;
+        lang = next;
+        try { localStorage.setItem('aie-lang', next); } catch (e) { /* not essential */ }
+        applyLang();
+        // Anything already on screen was rendered in the old language.
+        rerenderAll();
+    }
+
+    function applyLang() {
+        document.documentElement.lang = lang;
+        document.title = t().docTitle;
+
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const value = t()[el.dataset.i18n];
+            if (typeof value === 'string') el.innerHTML = value;
+        });
+
+        document.getElementById('emailInput').placeholder = t().heroPlaceholder;
+        document.getElementById('passwordInput').placeholder = t().pwPlaceholder;
+        document.getElementById('signinEmail').placeholder = t().modalEmailPlaceholder;
+        document.getElementById('signupEmail').placeholder = t().modalEmailPlaceholder;
+        document.getElementById('signinPassword').placeholder = t().modalPwPlaceholder;
+        document.getElementById('signupPassword').placeholder = t().modalNewPwPlaceholder;
+
+        // The show/hide label depends on the current input state, not only the
+        // language, so it cannot come from the data-i18n sweep above.
+        const pwInput = document.getElementById('passwordInput');
+        document.getElementById('pwShowToggle').textContent =
+            pwInput.type === 'password' ? t().pwShow : t().pwHide;
+
+        document.querySelectorAll('[data-lang]').forEach(b => {
+            b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
+        });
+    }
+
+    // Redraw every rendered region. Used after a language change and after a
+    // sign-in state change, since both alter what the same data should say.
+    function rerenderAll() {
+        const reportWasOpen = document.getElementById('reportView').classList.contains('active');
+        lastReport = null;
+
+        if (lastEmailResult) {
+            renderEmailResult(lastEmailResult.breaches, lastEmailResult.email);
+        }
+        if (lastPasswordCount !== null) {
+            renderPasswordExposed(lastPasswordCount);
+        }
+        if (reportWasOpen) {
+            openReport();
+        } else {
+            closeReport();
+        }
+    }
+
     // Escape HTML to prevent XSS
     function escapeHtml(str) {
         return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     }
 
+    // =======================================================================
+    // PREVIEW MODE
+    // =======================================================================
     async function startDemo() {
         demoMode = true;
         document.getElementById('demoBanner').style.display = 'flex';
         document.body.classList.add('demo-active');
 
         document.getElementById('passwordInput').value = 'sample-password';
+        openPasswordFold(true);
         renderPasswordExposed(52372427);
 
         // The sample data lives on the server alongside the plan engine, so
@@ -1325,7 +1582,7 @@
             const response = await fetch('/api/report', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ demo: true }),
+                body: JSON.stringify({ demo: true, lang }),
             });
             if (!response.ok) return;
             const data = await response.json();
@@ -1335,6 +1592,7 @@
             lastEmailResult = { email: data.email, breaches: data.breaches };
             document.getElementById('emailInput').value = data.email;
             renderEmailResult(data.breaches, data.email);
+            refreshPasswordCTA();
         } catch (e) {
             console.error('Demo load failed:', e);
         }
@@ -1344,6 +1602,15 @@
         window.location.href = window.location.pathname;
     }
 
+    // The offer's "see an example" button. Same preview the ?demo= query gives,
+    // but reached from the page instead of a hand-typed URL.
+    function openSampleReport() {
+        window.location.href = window.location.pathname + '?demo=1&teaser=1';
+    }
+
+    // =======================================================================
+    // AUTH
+    // =======================================================================
     function initSupabase() {
         if (window.supabase && !window.sbClient) {
             try {
@@ -1361,14 +1628,21 @@
     function requireClient() {
         initSupabase();
         if (window.sbClient) return true;
-        const errorDiv = document.getElementById('authError');
-        errorDiv.textContent = 'Sign-in is unavailable because a required script was blocked. Disable your ad blocker for this site, or try another browser.';
-        errorDiv.style.color = '#dc2626';
-        errorDiv.style.display = 'block';
+        showAuthMsg(t().errBlocked, 'bad');
         return false;
     }
 
-    // Initialize auth on page load
+    function showAuthMsg(text, kind) {
+        const el = document.getElementById('authError');
+        el.textContent = text;
+        el.className = 'auth-msg ' + (kind === 'good' ? 'good' : 'bad');
+        el.style.display = 'block';
+    }
+
+    function hideAuthMsg() {
+        document.getElementById('authError').style.display = 'none';
+    }
+
     async function initAuth() {
         if (!window.sbClient) return;
 
@@ -1378,7 +1652,7 @@
             const was = !!currentUser;
             currentUser = session?.user ?? null;
             updateAuthUI();
-            if (was !== !!currentUser) refreshGatedViews();
+            if (was !== !!currentUser) rerenderAll();
         });
 
         try {
@@ -1393,35 +1667,14 @@
 
     async function signInWithProvider(provider) {
         if (!requireClient()) return;
-        const errorDiv = document.getElementById('authError');
         try {
             const { error } = await window.sbClient.auth.signInWithOAuth({
                 provider,
                 options: { redirectTo: window.location.origin },
             });
-            if (error) {
-                errorDiv.textContent = error.message;
-                errorDiv.style.color = '#dc2626';
-                errorDiv.style.display = 'block';
-            }
+            if (error) showAuthMsg(error.message, 'bad');
         } catch (e) {
-            errorDiv.textContent = 'Could not start sign-in. Please try again.';
-            errorDiv.style.color = '#dc2626';
-            errorDiv.style.display = 'block';
-        }
-    }
-
-
-    // Results already on the page were rendered for the previous sign-in
-    // state. Redraw them so signing in or out takes effect immediately.
-    function refreshGatedViews() {
-        lastReport = null;
-        closeReport();
-        if (lastEmailResult) {
-            renderEmailResult(lastEmailResult.breaches, lastEmailResult.email);
-        }
-        if (lastPasswordCount !== null) {
-            renderPasswordExposed(lastPasswordCount);
+            showAuthMsg(t().errSignin, 'bad');
         }
     }
 
@@ -1434,7 +1687,7 @@
             userUI.style.display = 'block';
             document.getElementById('userEmail').textContent = currentUser.email;
         } else {
-            authUI.style.display = 'flex';
+            authUI.style.display = 'block';
             userUI.style.display = 'none';
         }
     }
@@ -1442,12 +1695,12 @@
     function openAuthModal(form) {
         document.getElementById('authModal').classList.add('active');
         switchForm(form);
-        document.getElementById('authError').style.display = 'none';
+        hideAuthMsg();
     }
 
     function closeAuthModal() {
         document.getElementById('authModal').classList.remove('active');
-        document.getElementById('authError').style.display = 'none';
+        hideAuthMsg();
     }
 
     function switchForm(form) {
@@ -1463,22 +1716,14 @@
     async function signInWithEmail() {
         const email = document.getElementById('signinEmail').value;
         const password = document.getElementById('signinPassword').value;
-        const errorDiv = document.getElementById('authError');
 
-        if (!email || !password) {
-            errorDiv.textContent = 'Please fill in all fields';
-            errorDiv.style.color = '#dc2626';
-            errorDiv.style.display = 'block';
-            return;
-        }
-
+        if (!email || !password) { showAuthMsg(t().errFields, 'bad'); return; }
         if (!requireClient()) return;
 
         const { data, error } = await window.sbClient.auth.signInWithPassword({ email, password });
 
         if (error) {
-            errorDiv.textContent = error.message;
-            errorDiv.style.display = 'block';
+            showAuthMsg(error.message, 'bad');
         } else {
             currentUser = data.user;
             updateAuthUI();
@@ -1491,32 +1736,14 @@
     async function signUpWithEmail() {
         const email = document.getElementById('signupEmail').value;
         const password = document.getElementById('signupPassword').value;
-        const errorDiv = document.getElementById('authError');
 
-        if (!email || !password) {
-            errorDiv.textContent = 'Please fill in all fields';
-            errorDiv.style.color = '#dc2626';
-            errorDiv.style.display = 'block';
-            return;
-        }
-
-        if (password.length < 6) {
-            errorDiv.textContent = 'Password must be at least 6 characters';
-            errorDiv.style.color = '#dc2626';
-            errorDiv.style.display = 'block';
-            return;
-        }
-
+        if (!email || !password) { showAuthMsg(t().errFields, 'bad'); return; }
+        if (password.length < 6) { showAuthMsg(t().errShortPw, 'bad'); return; }
         if (!requireClient()) return;
 
         const { data, error } = await window.sbClient.auth.signUp({ email, password });
 
-        if (error) {
-            errorDiv.textContent = error.message;
-            errorDiv.style.color = '#dc2626';
-            errorDiv.style.display = 'block';
-            return;
-        }
+        if (error) { showAuthMsg(error.message, 'bad'); return; }
 
         // When email confirmation is enabled, signUp returns a user but no
         // session. The account is not usable yet, so it must not unlock gated
@@ -1530,9 +1757,7 @@
             return;
         }
 
-        errorDiv.textContent = 'Account created. Check your email to confirm, then sign in.';
-        errorDiv.style.color = '#059669';
-        errorDiv.style.display = 'block';
+        showAuthMsg(t().okSignup, 'good');
         document.getElementById('signupEmail').value = '';
         document.getElementById('signupPassword').value = '';
     }
@@ -1543,80 +1768,26 @@
         }
         currentUser = null;
         updateAuthUI();
-        refreshGatedViews();
+        rerenderAll();
         document.getElementById('userDropdown').classList.remove('active');
     }
 
-    // Email Check
-    async function checkEmail() {
-        const email = document.getElementById('emailInput').value.trim();
-        const btn = document.getElementById('emailCheckBtn');
-        const resultDiv = document.getElementById('emailResult');
-        const errorDiv = document.getElementById('emailError');
+    // =======================================================================
+    // SHARED PIECES
+    // =======================================================================
+    const ICON_BAD  = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8v5.4" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="17.2" r="1.4" fill="currentColor"/></svg>';
+    const ICON_GOOD = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 7.5l-8.4 9L5 11" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    const ICON_WARN = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8.4v5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1.3" fill="currentColor"/></svg>';
+    const ICON_LOCK = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2.8" y="7" width="10.4" height="6.6" rx="1.8" stroke="currentColor" stroke-width="1.5"/><path d="M5.4 7V5.2a2.6 2.6 0 015.2 0V7" stroke="currentColor" stroke-width="1.5"/></svg>';
+    const ICON_CLOCK = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.4" stroke="currentColor" stroke-width="1.5"/><path d="M8 4.6V8l2.3 1.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
 
-        if (!email) {
-            errorDiv.textContent = 'Please enter an email address.';
-            errorDiv.style.display = 'block';
-            resultDiv.style.display = 'none';
-            return;
-        }
-
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            errorDiv.textContent = 'Please enter a valid email address.';
-            errorDiv.style.display = 'block';
-            resultDiv.style.display = 'none';
-            return;
-        }
-
-        btn.disabled = true;
-        btn.classList.add('loading');
-        btn.innerHTML = '<span class="spinner"></span> Checking...';
-        errorDiv.style.display = 'none';
-        resultDiv.style.display = 'none';
-
-        try {
-            // POST, not GET: a query string would put the user's email into
-            // Vercel's access logs, which contradicts the promise above.
-            const response = await fetch('/api/check-email', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email }),
-            });
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.error || 'Failed to check email');
-            }
-
-            if (data.found) {
-                lastEmailResult = { email, breaches: data.breaches };
-                renderEmailResult(data.breaches, email);
-            } else {
-                lastEmailResult = null;
-                renderCleanResult('email', email);
-            }
-        } catch (error) {
-            errorDiv.textContent = error.message || 'Error checking email. Please try again.';
-            errorDiv.style.display = 'block';
-            resultDiv.style.display = 'none';
-        } finally {
-            btn.disabled = false;
-            btn.classList.remove('loading');
-            btn.textContent = 'Check Email';
-        }
-    }
-
-    // The action plan itself is built on the server (/api/report) so that the
-    // paid text never reaches an unpaid browser. Only small display helpers
-    // remain here.
     function siteName(breach) {
-        return breach.title || breach.name || 'an unnamed breach';
+        return breach.title || breach.name || (lang === 'es' ? 'una filtración sin nombre' : 'an unnamed breach');
     }
 
     const PRIORITY_LABEL = {
-        critical: 'Do this first',
-        high: 'Do this week',
-        medium: 'Do this month',
+        es: { critical: 'Hazlo primero', high: 'Esta semana', medium: 'Este mes' },
+        en: { critical: 'Do this first', high: 'Do this week', medium: 'Do this month' },
     };
 
     // These domains come from HIBP and are turned into clickable links, so
@@ -1637,54 +1808,221 @@
         if (parts.length !== 3) return String(raw);
         const date = new Date(Date.UTC(+parts[0], +parts[1] - 1, +parts[2]));
         if (isNaN(date.getTime())) return String(raw);
-        return date.toLocaleDateString('en-US', {
+        return date.toLocaleDateString(locale(), {
             year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC',
         });
     }
 
+    function todayLong() {
+        return new Date().toLocaleDateString(locale(), { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    // A data class naming a password is the one that decides urgency, so it is
+    // the only chip that gets colour. Matched against the English label, which
+    // is what HIBP sends, before any translation below.
+    function isPasswordClass(label) {
+        return /password/i.test(String(label));
+    }
+
+    // HIBP sends its data classes in English only. Left untranslated they are
+    // the part of a Spanish result a non-technical reader most needs to
+    // understand, so the common ones are mapped here. Anything not listed
+    // falls through as the original label rather than being dropped.
+    const DATA_CLASS_ES = {
+        'Email addresses': 'Correos electrónicos',
+        'Passwords': 'Contraseñas',
+        'Historical passwords': 'Contraseñas anteriores',
+        'Password hints': 'Pistas de contraseña',
+        'Usernames': 'Nombres de usuario',
+        'Names': 'Nombres',
+        'Phone numbers': 'Números de teléfono',
+        'Physical addresses': 'Direcciones físicas',
+        'Geographic locations': 'Ubicación geográfica',
+        'Dates of birth': 'Fechas de nacimiento',
+        'Genders': 'Género',
+        'IP addresses': 'Direcciones IP',
+        'Security questions and answers': 'Preguntas y respuestas de seguridad',
+        'Credit cards': 'Tarjetas de crédito',
+        'Credit card CVV': 'Código CVV de la tarjeta',
+        'Partial credit card data': 'Datos parciales de tarjeta',
+        'Bank account numbers': 'Números de cuenta bancaria',
+        'Payment histories': 'Historial de pagos',
+        'Historical payment information': 'Información de pagos anteriores',
+        'Government issued IDs': 'Documentos de identidad',
+        'Social security numbers': 'Números de seguridad social',
+        'National identification numbers': 'Números de identificación nacional',
+        'Passport numbers': 'Números de pasaporte',
+        "Driver's licenses": 'Licencias de conducir',
+        'Tax records': 'Registros tributarios',
+        'Health insurance information': 'Información de seguro de salud',
+        'Medical conditions': 'Condiciones médicas',
+        'Medical records': 'Historias clínicas',
+        'Job titles': 'Cargos',
+        'Employers': 'Empleadores',
+        'Occupations': 'Ocupaciones',
+        'Salutations': 'Tratamientos de cortesía',
+        'Social media profiles': 'Perfiles de redes sociales',
+        'Website activity': 'Actividad en el sitio',
+        'Browsing histories': 'Historial de navegación',
+        'Browser user agent details': 'Datos del navegador',
+        'Device information': 'Información del dispositivo',
+        'Purchases': 'Compras',
+        'Purchasing habits': 'Hábitos de compra',
+        'Private messages': 'Mensajes privados',
+        'Chat logs': 'Conversaciones de chat',
+        'Support tickets': 'Tickets de soporte',
+        'Profile photos': 'Fotos de perfil',
+        'Avatars': 'Avatares',
+        'Spoken languages': 'Idiomas',
+        'Nationalities': 'Nacionalidades',
+        'Time zones': 'Zonas horarias',
+        'Account balances': 'Saldos de cuenta',
+        'Login histories': 'Historial de inicios de sesión',
+        'Recovery email addresses': 'Correos de recuperación',
+        'Relationship statuses': 'Estado sentimental',
+        'Marital statuses': 'Estado civil',
+        'Family members\' names': 'Nombres de familiares',
+        'Education levels': 'Nivel educativo',
+        'Income levels': 'Nivel de ingresos',
+        'Political views': 'Opiniones políticas',
+        'Religions': 'Religión',
+        'Sexual orientations': 'Orientación sexual',
+        'Physical attributes': 'Características físicas',
+        'Biometric data': 'Datos biométricos',
+        'Vehicle details': 'Datos del vehículo',
+        'Utility bills': 'Facturas de servicios',
+        'Personal descriptions': 'Descripciones personales',
+        'Age groups': 'Rango de edad',
+        'Social connections': 'Contactos',
+        'SMS messages': 'Mensajes de texto',
+        'Survey results': 'Respuestas de encuestas',
+        'User website URLs': 'Direcciones de sitios del usuario',
+    };
+
+    function dataClassLabel(raw) {
+        if (lang !== 'es') return raw;
+        return DATA_CLASS_ES[raw] || raw;
+    }
+
+    // =======================================================================
+    // EMAIL CHECK
+    // =======================================================================
+    async function checkEmail() {
+        const email = document.getElementById('emailInput').value.trim();
+        const btn = document.getElementById('emailCheckBtn');
+        const resultDiv = document.getElementById('emailResult');
+        const errorDiv = document.getElementById('emailError');
+
+        if (!email) {
+            errorDiv.textContent = t().errNoEmail;
+            errorDiv.style.display = 'block';
+            resultDiv.style.display = 'none';
+            return;
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            errorDiv.textContent = t().errBadEmail;
+            errorDiv.style.display = 'block';
+            resultDiv.style.display = 'none';
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span>' + escapeHtml(t().checking);
+        errorDiv.style.display = 'none';
+        resultDiv.style.display = 'none';
+
+        try {
+            // POST, not GET: a query string would put the user's email into
+            // Vercel's access logs, which contradicts the promise above.
+            const response = await fetch('/api/check-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            });
+            const data = await response.json();
+
+            if (!response.ok) throw new Error(data.error || t().errEmailFail);
+
+            if (data.found) {
+                lastEmailResult = { email, breaches: data.breaches };
+                lastReport = null;
+                renderEmailResult(data.breaches, email);
+            } else {
+                lastEmailResult = null;
+                lastReport = null;
+                renderCleanEmail(email);
+            }
+            refreshPasswordCTA();
+        } catch (error) {
+            errorDiv.textContent = error.message || t().errEmailFail;
+            errorDiv.style.display = 'block';
+            resultDiv.style.display = 'none';
+        } finally {
+            btn.disabled = false;
+            btn.textContent = t().heroBtn;
+        }
+    }
+
+    function renderCleanEmail(email) {
+        const resultDiv = document.getElementById('emailResult');
+        resultDiv.innerHTML = `
+            <div class="card">
+                <div class="verdict">
+                    <div class="verdict-icon good">${ICON_GOOD}</div>
+                    <div>
+                        <h2>${escapeHtml(t().cleanTitle)}</h2>
+                        <p>${t().cleanBody(escapeHtml(email))}</p>
+                    </div>
+                </div>
+            </div>`;
+        resultDiv.style.display = 'block';
+    }
+
     function renderEmailResult(breaches, email) {
         const resultDiv = document.getElementById('emailResult');
-        const breachCount = breaches.length;
+        const count = breaches.length;
+        const unlocked = isUnlocked();
 
         // Which breaches you are in is free. What leaked in each one is gated.
-        let breachListHTML = '';
-        breaches.forEach(breach => {
-            const label = breach.title || breach.name;
+        const breachHTML = breaches.map(breach => {
+            const label = siteName(breach);
             const when = formatBreachDate(breach.breachDate);
             const classes = Array.isArray(breach.dataClasses) ? breach.dataClasses : [];
             const domain = safeDomain(breach.domain);
 
             const domainHTML = domain
-                ? `<a class="breach-domain" href="https://${domain}" target="_blank" rel="noopener noreferrer nofollow">${escapeHtml(domain)}</a>`
-                : (breach.domain ? `<span class="breach-domain">${escapeHtml(breach.domain)}</span>` : '');
+                ? `<a class="breach-url" href="https://${domain}" target="_blank" rel="noopener noreferrer nofollow">${escapeHtml(domain)}</a>`
+                : (breach.domain ? `<span class="breach-url">${escapeHtml(breach.domain)}</span>` : '');
 
-            let exposedHTML = '';
-            if (isUnlocked() && classes.length) {
-                exposedHTML = `<div class="data-classes">` +
-                    classes.map(c => `<span class="data-chip">${escapeHtml(c)}</span>`).join('') +
-                    `</div>`;
-            }
-
-            const scaleHTML = isUnlocked() && breach.pwnCount
-                ? `<div class="breach-scale">${Number(breach.pwnCount).toLocaleString()} accounts affected</div>`
+            const scaleHTML = unlocked && breach.pwnCount
+                ? ` &middot; <b>${num(breach.pwnCount)}</b> ${escapeHtml(t().accountsIn)}`
                 : '';
 
-            breachListHTML += `
-                <div class="breach-item">
-                    <div class="breach-head">
-                        <div class="breach-title">${escapeHtml(label)}</div>
+            const chipsHTML = unlocked && classes.length
+                ? `<div class="chips">${classes.map(c =>
+                    `<span class="chip${isPasswordClass(c) ? ' hot' : ''}">${escapeHtml(dataClassLabel(c))}</span>`).join('')}</div>`
+                : '';
+
+            const flagHTML = unlocked && breach.isStealerLog
+                ? `<div class="flag">${ICON_WARN}<span>${t().stealerFlag}</span></div>`
+                : '';
+
+            return `
+                <div class="breach">
+                    <div class="breach-top">
+                        <span class="breach-name">${escapeHtml(label)}</span>
                         ${domainHTML}
                     </div>
-                    <div class="breach-date">${when ? 'Breached: ' + escapeHtml(when) : 'Breach date not published'}</div>
-                    ${scaleHTML}
-                    ${exposedHTML}
-                </div>
-            `;
-        });
+                    <div class="breach-meta">${when ? escapeHtml(when) : escapeHtml(t().noDate)}${scaleHTML}</div>
+                    ${chipsHTML}
+                    ${flagHTML}
+                </div>`;
+        }).join('');
 
         // Roll-up: how many breaches exposed each kind of data.
-        let summaryHTML = '';
-        if (isUnlocked()) {
+        let rollupHTML = '';
+        if (unlocked) {
             const tally = new Map();
             breaches.forEach(b => {
                 (Array.isArray(b.dataClasses) ? b.dataClasses : []).forEach(c => {
@@ -1693,76 +2031,99 @@
             });
             const ranked = [...tally.entries()].sort((a, b) => b[1] - a[1]).slice(0, 10);
             if (ranked.length) {
-                summaryHTML = `
-                    <div class="exposure-summary">
-                        <p style="margin: 0 0 10px;"><strong>What was exposed about you</strong></p>
+                rollupHTML = `
+                    <div class="section-lbl">${escapeHtml(t().lblExposed)}</div>
+                    <div class="rollup">
                         ${ranked.map(([name, n]) => `
-                            <div class="summary-row">
-                                <span>${escapeHtml(name)}</span>
-                                <span class="summary-count">${n} breach${n > 1 ? 'es' : ''}</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
+                            <div class="rollup-row">
+                                <span>${escapeHtml(dataClassLabel(name))}</span>
+                                <span class="rollup-count">${escapeHtml(t().inBreaches(n))}</span>
+                            </div>`).join('')}
+                    </div>`;
             }
         }
 
-        const planCTA = isUnlocked() ? `
-            <div class="plan-cta">
-                <strong>Not sure what to do about all this?</strong>
-                <p style="margin: 6px 0 12px;">${breachCount} is far too many to deal with one by one, and you do not need to. Get a plain-English plan that tells you which ones actually matter, what to do about each, and in what order. Written for normal people, not computer experts.</p>
-                <button onclick="openReport()" class="plan-cta-btn">Show me what to do</button>
-            </div>
-        ` : '';
+        let tallyHTML = '';
+        if (unlocked) {
+            const totalAccounts = breaches.reduce((s, b) => s + (Number(b.pwnCount) || 0), 0);
+            const dates = breaches.map(b => b.breachDate).filter(Boolean).sort();
+            const oldestYear = dates.length ? String(dates[0]).slice(0, 4) : null;
+            tallyHTML = `
+                <div class="tally">
+                    <div class="tally-box">
+                        <div class="tally-num bad">${num(count)}</div>
+                        <div class="tally-lbl">${escapeHtml(t().tallyBreaches(count))}</div>
+                    </div>
+                    ${totalAccounts ? `
+                    <div class="tally-box">
+                        <div class="tally-num">${num(totalAccounts)}</div>
+                        <div class="tally-lbl">${escapeHtml(t().tallyAccounts)}</div>
+                    </div>` : ''}
+                    ${oldestYear ? `
+                    <div class="tally-box">
+                        <div class="tally-num">${escapeHtml(oldestYear)}</div>
+                        <div class="tally-lbl">${escapeHtml(t().tallyOldest)}</div>
+                    </div>` : ''}
+                </div>`;
+        }
 
-        const gateHTML = isUnlocked() ? '' : `
-            <div class="auth-required">
-                <strong>Sign in to see what was actually exposed.</strong><br><br>
-                You can see which breaches you are in. Sign in to see what leaked in each one: passwords, phone numbers, physical addresses, and more.
-                <div style="display: flex; gap: 12px; margin-top: 12px;">
-                    <button onclick="openAuthModal('signup')" style="flex: 1; background-color: #1C2B3A; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 600;">Create Account</button>
-                    <button onclick="openAuthModal('signin')" style="flex: 1; background-color: white; color: #1C2B3A; border: 2px solid #1C2B3A; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 600;">Sign In</button>
+        const nextHTML = unlocked ? `
+            <div class="nextstep">
+                <p><strong>${escapeHtml(t().nextTitle)}.</strong> ${escapeHtml(t().nextBody(count))}</p>
+                <button class="btn sm accent" onclick="openReport()">${escapeHtml(t().nextBtn)}</button>
+            </div>` : '';
+
+        const gateHTML = unlocked ? '' : `
+            <div class="gate">
+                <h3>${escapeHtml(t().gateTitle)}</h3>
+                <p>${escapeHtml(t().gateBody)}</p>
+                <div class="gate-btns">
+                    <button class="btn sm" onclick="openAuthModal('signup')">${escapeHtml(t().gateSignup)}</button>
+                    <button class="ghost-btn" onclick="openAuthModal('signin')">${escapeHtml(t().gateSignin)}</button>
                 </div>
-            </div>
-        `;
+            </div>`;
 
-        const html = `
-            <div class="result-card exposed">
-                <div class="result-status">
-                    <div class="status-icon exposed">!</div>
+        resultDiv.innerHTML = `
+            <div class="card">
+                <div class="verdict">
+                    <div class="verdict-icon bad">${ICON_BAD}</div>
                     <div>
-                        <h3>Email Found in ${breachCount} Breach${breachCount > 1 ? 'es' : ''}</h3>
+                        <h2>${escapeHtml(t().expTitle)}</h2>
+                        <p>${t().expBody(escapeHtml(email), count)}</p>
                     </div>
                 </div>
-                <div class="result-detail">
-                    <strong>Your email appears in ${breachCount} known data breach${breachCount > 1 ? 'es' : ''}.</strong>
-                    ${summaryHTML}
-                    ${planCTA}
-                    <div class="breach-list">${breachListHTML}</div>
-                    ${gateHTML}
-                </div>
-            </div>
-        `;
-
-        resultDiv.innerHTML = html;
+                ${tallyHTML}
+                ${rollupHTML}
+                <div class="section-lbl">${escapeHtml(t().lblWhere)}</div>
+                ${breachHTML}
+                ${nextHTML}
+                ${gateHTML}
+            </div>`;
         resultDiv.style.display = 'block';
     }
 
-    // Asks the server for the plan. The server decides how much to send back
-    // based on whether this account has paid, so there is nothing here that a
-    // determined browser could unlock on its own.
+    // =======================================================================
+    // ACTION PLAN
+    // The plan is built on the server (/api/report) so that paid text never
+    // reaches an unpaid browser. Only display helpers live here.
+    // =======================================================================
     async function openReport() {
         if (!lastEmailResult && !demoMode) return;
 
         const view = document.getElementById('reportView');
         document.getElementById('reportBody').innerHTML =
-            '<div class="report-loading"><span class="spinner dark"></span> Building your plan...</div>';
+            `<div class="report-loading"><span class="spinner"></span>${escapeHtml(t().buildingPlan)}</div>`;
         view.classList.add('active');
         document.body.style.overflow = 'hidden';
         view.scrollTop = 0;
 
         let data = lastReport;
-        const needsFetch = !data || (!demoMode && data.email !== lastEmailResult.email);
+        // A cached plan is only reusable for the same address AND the same
+        // language, since the server writes the prose in the language it is
+        // given.
+        const needsFetch = !data
+            || data.lang !== lang
+            || (!demoMode && data.email !== lastEmailResult.email);
 
         if (needsFetch) {
             try {
@@ -1775,15 +2136,15 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(demoMode
-                        ? { demo: true, teaser: demoTeaser }
-                        : { email: lastEmailResult.email, accessToken }),
+                        ? { demo: true, teaser: demoTeaser, lang }
+                        : { email: lastEmailResult.email, accessToken, lang }),
                 });
                 data = await response.json();
-                if (!response.ok) throw new Error(data.error || 'Could not build your plan');
+                if (!response.ok) throw new Error(data.error || t().planFail);
                 lastReport = data;
             } catch (error) {
                 document.getElementById('reportBody').innerHTML =
-                    `<div class="report-loading">${escapeHtml(error.message || 'Something went wrong. Please try again.')}</div>`;
+                    `<div class="report-loading">${escapeHtml(error.message || t().planFail)}</div>`;
                 return;
             }
         }
@@ -1798,17 +2159,14 @@
     }
 
     function reportHeaderHTML(email) {
-        const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
         return `
-            <div class="demo-print-notice">
-                PREVIEW — This report was generated from fictional sample data. It is not a real breach result for any person.
-            </div>
+            <div class="demo-print-notice">${escapeHtml(t().demoPrintNotice)}</div>
             <header class="plan-header">
                 <div>
-                    <h1>Your Personal Action Plan</h1>
-                    <p class="plan-meta">Prepared for ${escapeHtml(email || '')} &middot; ${escapeHtml(today)}</p>
+                    <h1>${escapeHtml(t().planHeading)}</h1>
+                    <p class="plan-meta">${escapeHtml(t().planPreparedFor)} ${escapeHtml(email || '')} &middot; ${escapeHtml(todayLong())}</p>
                 </div>
-                <div class="plan-brand">Am I Exposed?</div>
+                <div class="plan-brand">${escapeHtml(t().brand)}</div>
             </header>`;
     }
 
@@ -1818,22 +2176,22 @@
                 <div class="plan-action-head">
                     <span class="plan-step-num">${i + 1}</span>
                     <h3>${escapeHtml(a.title)}</h3>
-                    <span class="plan-pill plan-${a.priority}">${escapeHtml(PRIORITY_LABEL[a.priority] || '')}</span>
+                    <span class="plan-pill plan-${a.priority}">${escapeHtml(PRIORITY_LABEL[lang][a.priority] || '')}</span>
                 </div>
-                <div class="plan-time">Time needed: ${escapeHtml(a.time)}</div>
+                <div class="plan-time">${ICON_CLOCK}${escapeHtml(a.time)}</div>
 
                 <div class="plan-block">
-                    <div class="plan-label">What happened</div>
+                    <div class="plan-label">${escapeHtml(t().planWhatHappened)}</div>
                     <p>${escapeHtml(a.whatHappened)}</p>
                 </div>
 
                 <div class="plan-block">
-                    <div class="plan-label">Why this matters</div>
+                    <div class="plan-label">${escapeHtml(t().planWhyMatters)}</div>
                     <p>${escapeHtml(a.whyItMatters)}</p>
                 </div>
 
                 <div class="plan-block">
-                    <div class="plan-label">What to do, step by step</div>
+                    <div class="plan-label">${escapeHtml(t().planWhatToDo)}</div>
                     <ol class="plan-steps">
                         ${a.steps.map(step => `<li>${escapeHtml(step)}</li>`).join('')}
                     </ol>
@@ -1842,50 +2200,46 @@
     }
 
     function planSummaryHTML(stats, actionCount, criticals) {
-        const total = stats.total;
         return `
             <section class="plan-summary">
-                <p><strong>Your email address was found in ${total} company break-in${total > 1 ? 's' : ''}.</strong></p>
-                <p>That number sounds frightening. It is less bad than it looks. It means that over the years, ${total} compan${total > 1 ? 'ies' : 'y'} you once gave your email address to ${total > 1 ? 'were' : 'was'} broken into by criminals. Many of those are old and no longer matter.</p>
-                <p>${total > actionCount
-                    ? `You do not need to deal with all ${total}. There are <strong>${actionCount} things</strong> worth doing, and only the first ${criticals} ${criticals === 1 ? 'is' : 'are'} urgent.`
-                    : `There are <strong>${actionCount} things</strong> worth doing about it, and only the first ${criticals} ${criticals === 1 ? 'is' : 'are'} urgent.`}</p>
-                <p>Work down the list in order. Each step tells you what happened, why it matters, and exactly what to do. Tick them off as you go. If you only ever do the first ${criticals}, you will have dealt with almost all of the real risk.</p>
-                <p class="plan-reassure">Nothing here is your fault. You cannot stop companies being broken into. You can only make sure it does not cost you anything.</p>
+                ${t().planSummary(stats.total, actionCount, criticals)}
+                <p class="plan-reassure">${escapeHtml(t().planReassure)}</p>
             </section>`;
     }
 
     function fullReportHTML(data) {
-        const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
         const criticals = data.actions.filter(a => a.priority === 'critical').length;
 
-        const appendixHTML = (data.breaches || []).map(b => {
+        const rows = (data.breaches || []).map(b => {
             const d = safeDomain(b.domain);
             const when = formatBreachDate(b.breachDate);
             const classes = Array.isArray(b.dataClasses) ? b.dataClasses : [];
             return `<tr>
                 <td>${escapeHtml(siteName(b))}${d ? `<br><span class="appendix-domain">${escapeHtml(d)}</span>` : ''}</td>
-                <td>${when ? escapeHtml(when) : 'Not published'}</td>
-                <td>${classes.length ? escapeHtml(classes.join(', ')) : 'Not published'}</td>
+                <td>${when ? escapeHtml(when) : escapeHtml(t().notPublished)}</td>
+                <td>${classes.length ? escapeHtml(classes.map(dataClassLabel).join(', ')) : escapeHtml(t().notPublished)}</td>
             </tr>`;
         }).join('');
 
         return reportHeaderHTML(data.email)
             + planSummaryHTML(data.stats, data.actions.length, criticals)
             + data.actions.map(actionHTML).join('')
-            + (appendixHTML ? `
+            + (rows ? `
                 <section class="plan-appendix">
-                    <h2>Appendix: every break-in you appear in</h2>
-                    <p class="plan-why">The full list, newest first, for your records.</p>
-                    <table class="appendix-table">
-                        <thead><tr><th>Company</th><th>Date</th><th>What was taken</th></tr></thead>
-                        <tbody>${appendixHTML}</tbody>
-                    </table>
+                    <h2>${escapeHtml(t().appendixTitle)}</h2>
+                    <p class="plan-why">${escapeHtml(t().appendixLede)}</p>
+                    <div class="appendix-scroll">
+                        <table class="appendix-table">
+                            <thead><tr>
+                                <th>${escapeHtml(t().appendixCompany)}</th>
+                                <th>${escapeHtml(t().appendixDate)}</th>
+                                <th>${escapeHtml(t().appendixTaken)}</th>
+                            </tr></thead>
+                            <tbody>${rows}</tbody>
+                        </table>
+                    </div>
                 </section>` : '')
-            + `<footer class="plan-footer">
-                Generated by Am I Exposed? from Have I Been Pwned breach data on ${escapeHtml(today)}.
-                This is general security guidance, not legal or financial advice.
-            </footer>`;
+            + `<footer class="plan-footer">${escapeHtml(t().planFooter(todayLong()))}</footer>`;
     }
 
     // What an unpaid visitor sees: the first action in full, so the quality is
@@ -1899,30 +2253,27 @@
                 <span class="plan-step-num muted">${i + 2}</span>
                 <div class="locked-body">
                     <div class="locked-title">${escapeHtml(a.title)}</div>
-                    <div class="locked-meta">${escapeHtml(PRIORITY_LABEL[a.priority] || '')} &middot; ${escapeHtml(a.time)}</div>
+                    <div class="locked-meta">${escapeHtml(PRIORITY_LABEL[lang][a.priority] || '')} &middot; ${escapeHtml(a.time)}</div>
                 </div>
-                <span class="locked-icon" aria-hidden="true">&#128274;</span>
+                <span class="locked-icon">${ICON_LOCK}</span>
             </div>`).join('');
 
         return reportHeaderHTML(data.email)
             + planSummaryHTML(data.stats, data.totalActions, criticals)
-            + `<div class="teaser-note">Here is the first step in full, so you can see exactly what you are getting.</div>`
+            + `<div class="teaser-note">${escapeHtml(t().teaserNote)}</div>`
             + (data.preview ? actionHTML(data.preview, 0) : '')
             + `
             <section class="paywall">
-                <h2>${locked.length} more step${locked.length === 1 ? '' : 's'}, written the same way</h2>
+                <h2>${escapeHtml(t().paywallTitle(locked.length))}</h2>
                 <div class="locked-list">${lockedHTML}</div>
-                <p class="paywall-pitch">
-                    Each one tells you what happened, why it matters, and exactly what to do, in plain English.
-                    You also get the full list of every break-in you appear in, and a copy you can print or save.
-                </p>
-                <button class="paywall-btn" onclick="startPurchase()">Unlock my full plan</button>
-                <p class="paywall-fine">One payment. You can come back and update your plan for 30 days.</p>
+                <p class="paywall-pitch">${escapeHtml(t().paywallPitch)}</p>
+                <button class="btn accent" onclick="startPurchase()">${escapeHtml(t().paywallBtn)}</button>
+                <p class="paywall-fine">${escapeHtml(t().paywallFine)}</p>
             </section>`;
     }
 
     async function startPurchase() {
-        alert('Payment is not connected yet. This button will open the checkout once Mercado Pago is wired up.');
+        alert(t().payNotReady);
     }
 
     function closeReport() {
@@ -1934,30 +2285,20 @@
         window.print();
     }
 
-    function renderCleanResult(type, value) {
-        const resultDiv = document.getElementById(type + 'Result');
-        const label = type === 'email' ? 'Email' : 'Password';
-
-        resultDiv.innerHTML = `
-            <div class="result-card clean">
-                <div class="result-status">
-                    <div class="status-icon clean">✓</div>
-                    <div>
-                        <h3>Good News</h3>
-                    </div>
-                </div>
-                <div class="result-detail">
-                    ${type === 'email'
-                        ? 'We searched hundreds of known data breaches and did not find this email address.'
-                        : 'This password does not appear in the Pwned Passwords database of billions of leaked credentials.'}
-                    Keep using strong, unique passwords to stay safe.
-                </div>
-            </div>
-        `;
-        resultDiv.style.display = 'block';
+    // =======================================================================
+    // PASSWORD CHECK (k-anonymity via HIBP)
+    // =======================================================================
+    function togglePasswordFold() {
+        const fold = document.getElementById('pwFold');
+        openPasswordFold(fold.dataset.open !== '1');
     }
 
-    // Password Check (k-anonymity via HIBP)
+    function openPasswordFold(open) {
+        const fold = document.getElementById('pwFold');
+        fold.dataset.open = open ? '1' : '0';
+        document.getElementById('pwBody').hidden = !open;
+    }
+
     async function checkPassword() {
         const password = document.getElementById('passwordInput').value;
         const btn = document.getElementById('passwordCheckBtn');
@@ -1965,15 +2306,14 @@
         const errorDiv = document.getElementById('passwordError');
 
         if (!password) {
-            errorDiv.textContent = 'Please enter a password.';
+            errorDiv.textContent = t().errNoPw;
             errorDiv.style.display = 'block';
             resultDiv.style.display = 'none';
             return;
         }
 
         btn.disabled = true;
-        btn.classList.add('loading');
-        btn.innerHTML = '<span class="spinner"></span> Checking...';
+        btn.innerHTML = '<span class="spinner"></span>' + escapeHtml(t().checking);
         errorDiv.style.display = 'none';
         resultDiv.style.display = 'none';
 
@@ -1982,16 +2322,16 @@
             if (exposureCount > 0) {
                 renderPasswordExposed(exposureCount);
             } else {
-                renderCleanResult('password', 'password');
+                lastPasswordCount = null;
+                renderCleanPassword();
             }
         } catch (error) {
-            errorDiv.textContent = error.message || 'Error checking password. Please try again.';
+            errorDiv.textContent = error.message || t().errPwFail;
             errorDiv.style.display = 'block';
             resultDiv.style.display = 'none';
         } finally {
             btn.disabled = false;
-            btn.classList.remove('loading');
-            btn.textContent = 'Check Password';
+            btn.textContent = t().pwBtn;
         }
     }
 
@@ -2006,15 +2346,14 @@
         const response = await fetch(`https://api.pwnedpasswords.com/range/${prefix}`, {
             headers: { 'Add-Padding': 'true' },
         });
-        if (!response.ok) throw new Error('Failed to check password');
+        if (!response.ok) throw new Error(t().errPwFail);
 
         const text = await response.text();
         const lines = text.split(/\r?\n/);
 
-        // Check if the suffix matches any returned hash. Padded decoy entries
-        // always carry a count of 0 and must not be treated as a match.
-        // Returns the exposure count, which is the number of separate times
-        // this password appears across breached datasets. 0 means not found.
+        // Padded decoy entries always carry a count of 0 and must not be
+        // treated as a match. The count returned is the number of separate
+        // times this password appears across breached datasets.
         for (const line of lines) {
             const [candidate, count] = line.split(':');
             if (candidate === suffix && Number(count) > 0) {
@@ -2029,51 +2368,35 @@
     // times and one seen forty million are not the same problem, and saying
     // the same thing about both is how advice gets ignored.
     function passwordSeverity(count) {
-        if (count >= 100000) {
-            return {
-                label: 'Critical',
-                color: '#EF4444',
-                summary: 'This is one of the most commonly used passwords in the world. It is among the first ones criminals try, which makes any account using it very easy to break into.',
-            };
-        }
-        if (count >= 1000) {
-            return {
-                label: 'High',
-                color: '#F59E0B',
-                summary: 'This password appears on lists that criminals pass around and use to break into accounts. Treat it as public knowledge.',
-            };
-        }
-        if (count >= 10) {
-            return {
-                label: 'Moderate',
-                color: '#F59E0B',
-                summary: 'This password has escaped more than once, so it is out there, even though it is not one of the very common ones.',
-            };
-        }
-        return {
-            label: 'Low',
-            color: '#F59E0B',
-            summary: 'This password has only escaped a few times. That is still once too many, so it is not safe to keep using.',
-        };
+        if (count >= 100000) return { ...t().pwSev.critical, bars: 5 };
+        if (count >= 1000)   return { ...t().pwSev.high,     bars: 4 };
+        if (count >= 10)     return { ...t().pwSev.moderate, bars: 3 };
+        return { ...t().pwSev.low, bars: 2 };
     }
 
-    // The action plan needs an email result to build from, so this offers the
-    // plan when one exists and points at the email check when it does not.
+    // The action plan is built from email breach data, so this offers the plan
+    // when an email result exists and points at the email check when it does not.
     function passwordPlanCTA() {
         if (lastEmailResult) {
             return `
-                <div class="plan-cta">
-                    <strong>This is one password. What about everything else?</strong>
-                    <p style="margin: 6px 0 12px;">Your action plan covers every company break-in your email appears in, what was taken in each, and what to do about it, in order.</p>
-                    <button onclick="openReport()" class="plan-cta-btn">Show me what to do</button>
+                <div class="nextstep">
+                    <p><strong>${escapeHtml(t().pwPlanTitleA)}</strong> ${escapeHtml(t().pwPlanBodyA)}</p>
+                    <button class="btn sm accent" onclick="openReport()">${escapeHtml(t().pwPlanBtnA)}</button>
                 </div>`;
         }
         return `
-            <div class="plan-cta">
-                <strong>This is one password. What about everything else?</strong>
-                <p style="margin: 6px 0 12px;">Check your email address as well, and we will build you a plan covering every company break-in it appears in, what was taken, and what to do about it.</p>
-                <button onclick="focusEmailCheck()" class="plan-cta-btn">Check my email too</button>
+            <div class="nextstep">
+                <p><strong>${escapeHtml(t().pwPlanTitleA)}</strong> ${escapeHtml(t().pwPlanBodyB)}</p>
+                <button class="btn sm accent" onclick="focusEmailCheck()">${escapeHtml(t().pwPlanBtnB)}</button>
             </div>`;
+    }
+
+    // The password card's call to action depends on whether an email result
+    // exists, and the two checks can happen in either order. Whichever runs
+    // second has to redraw the other, or the card keeps offering a check that
+    // has already been done.
+    function refreshPasswordCTA() {
+        if (lastPasswordCount !== null) renderPasswordExposed(lastPasswordCount);
     }
 
     function focusEmailCheck() {
@@ -2082,60 +2405,65 @@
         setTimeout(() => input.focus(), 400);
     }
 
+    function renderCleanPassword() {
+        const resultDiv = document.getElementById('passwordResult');
+        resultDiv.innerHTML = `
+            <div class="card" style="margin-top: 18px;">
+                <div class="verdict">
+                    <div class="verdict-icon good">${ICON_GOOD}</div>
+                    <div>
+                        <h2>${escapeHtml(t().pwCleanTitle)}</h2>
+                        <p>${escapeHtml(t().pwCleanBody)}</p>
+                    </div>
+                </div>
+            </div>`;
+        resultDiv.style.display = 'block';
+    }
+
     // Free tier is told the password is exposed. The exposure count, severity
     // and remediation steps are the gated detail.
     function renderPasswordExposed(count) {
         lastPasswordCount = count;
         const resultDiv = document.getElementById('passwordResult');
-
-        let html = `
-            <div class="result-card exposed">
-                <div class="result-status">
-                    <div class="status-icon exposed">!</div>
-                    <div>
-                        <h3>Password Found in Breach</h3>
-                    </div>
-                </div>
-                <div class="result-detail">
-                    <strong>This password has appeared in public data breaches.</strong>
-        `;
+        let inner;
 
         if (isUnlocked()) {
             const sev = passwordSeverity(count);
-            html += `
-                    <div class="exposure-count">
-                        <div class="exposure-number">${count.toLocaleString()}</div>
-                        <div class="exposure-label">times this password appears in known breaches</div>
-                        <span class="severity-pill" style="background-color: ${sev.color};">${sev.label} risk</span>
-                    </div>
-                    <p style="margin: 16px 0 0;">${escapeHtml(sev.summary)}</p>
-                    <p style="margin: 12px 0 8px;"><strong>What to do now</strong></p>
-                    <ol class="remediation">
-                        <li>Change it on every account where you have used it. Start with your email, then your bank. Your email matters most, because anyone who gets into it can reset the password on everything else you own.</li>
-                        <li>Do not use this password anywhere again. Criminals take a password that has escaped and try it on hundreds of other websites, hoping you used it twice.</li>
-                        <li>Where a website offers it, turn on the second step for logging in. It sends a short code to your phone after your password, and keeps the account safe even when somebody already knows that password.</li>
-                        <li>Let your phone or your web browser remember your passwords for you. Then every website can have a different one, and you never have to memorise any of them.</li>
-                    </ol>
-                    ${passwordPlanCTA()}
-                </div>
-            </div>
-            `;
+            const bars = Array.from({ length: 5 }, (_, i) =>
+                `<i${i < sev.bars ? ' class="on"' : ''}></i>`).join('');
+            inner = `
+                <p>${t().pwExpBody(num(count))}</p>
+                <div class="strength">${bars}</div>
+                <div class="section-lbl">${escapeHtml(sev.label)} ${escapeHtml(t().pwRiskLabel)}</div>
+                <p class="verdict-note" style="font-size: 14.5px; color: var(--muted);">${escapeHtml(sev.summary)}</p>
+                <div class="section-lbl">${escapeHtml(t().pwWhatToDo)}</div>
+                <ol class="steps-inline">
+                    ${t().pwSteps.map(s => `<li>${escapeHtml(s)}</li>`).join('')}
+                </ol>
+                ${passwordPlanCTA()}`;
         } else {
-            html += `
-                    <div class="auth-required">
-                        <strong>Sign in to see the full picture.</strong><br><br>
-                        Find out exactly how many times this password has leaked, how severe the risk is, and the specific steps to fix it.
-                        <div style="display: flex; gap: 12px; margin-top: 12px;">
-                            <button onclick="openAuthModal('signup')" style="flex: 1; background-color: #1C2B3A; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 600;">Create Account</button>
-                            <button onclick="openAuthModal('signin')" style="flex: 1; background-color: white; color: #1C2B3A; border: 2px solid #1C2B3A; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 600;">Sign In</button>
-                        </div>
+            inner = `
+                <p>${escapeHtml(t().pwExpBodyFree)}</p>
+                <div class="gate">
+                    <h3>${escapeHtml(t().gateTitle)}</h3>
+                    <p>${escapeHtml(t().gateBody)}</p>
+                    <div class="gate-btns">
+                        <button class="btn sm" onclick="openAuthModal('signup')">${escapeHtml(t().gateSignup)}</button>
+                        <button class="ghost-btn" onclick="openAuthModal('signin')">${escapeHtml(t().gateSignin)}</button>
                     </div>
-                </div>
-            </div>
-            `;
+                </div>`;
         }
 
-        resultDiv.innerHTML = html;
+        resultDiv.innerHTML = `
+            <div class="card" style="margin-top: 18px;">
+                <div class="verdict">
+                    <div class="verdict-icon bad">${ICON_BAD}</div>
+                    <div>
+                        <h2>${escapeHtml(t().pwExpTitle)}</h2>
+                    </div>
+                </div>
+                ${inner}
+            </div>`;
         resultDiv.style.display = 'block';
     }
 
@@ -2147,25 +2475,44 @@
         return hashArray.map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
     }
 
-    // Toggle password visibility
-    function togglePasswordVisibility(toggle) {
+    function togglePasswordVisibility() {
         const input = document.getElementById('passwordInput');
-
+        const toggle = document.getElementById('pwShowToggle');
         if (input.type === 'password') {
             input.type = 'text';
-            toggle.textContent = 'Hide password';
+            toggle.textContent = t().pwHide;
         } else {
             input.type = 'password';
-            toggle.textContent = 'Show password';
+            toggle.textContent = t().pwShow;
         }
     }
 
-    // Initialize auth on page load
-    window.addEventListener('DOMContentLoaded', () => {
-        initSupabase();
-        if (window.sbClient) {
-            initAuth();
+    // =======================================================================
+    // BOOT
+    // =======================================================================
+    document.addEventListener('click', (e) => {
+        const langBtn = e.target.closest('[data-lang]');
+        if (langBtn) { setLang(langBtn.dataset.lang); return; }
+
+        // Close the account dropdown when clicking anywhere else.
+        if (!e.target.closest('.user-menu')) {
+            document.getElementById('userDropdown').classList.remove('active');
         }
+    });
+
+    // Enter submits from either input.
+    document.getElementById('emailInput').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') checkEmail();
+    });
+    document.getElementById('passwordInput').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') checkPassword();
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+        applyLang();
+
+        initSupabase();
+        if (window.sbClient) initAuth();
 
         const params = new URLSearchParams(window.location.search);
         if (params.get('demo') === '1') {
@@ -2175,13 +2522,6 @@
                 // ?demo=1&report=1 jumps straight to the action plan.
                 if (params.get('report') === '1' || demoTeaser) openReport();
             });
-        }
-    });
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.user-menu')) {
-            document.getElementById('userDropdown').classList.remove('active');
         }
     });
 </script>
