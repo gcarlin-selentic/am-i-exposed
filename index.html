@@ -2057,6 +2057,31 @@
         };
     }
 
+    // The action plan needs an email result to build from, so this offers the
+    // plan when one exists and points at the email check when it does not.
+    function passwordPlanCTA() {
+        if (lastEmailResult) {
+            return `
+                <div class="plan-cta">
+                    <strong>This is one password. What about everything else?</strong>
+                    <p style="margin: 6px 0 12px;">Your action plan covers every company break-in your email appears in, what was taken in each, and what to do about it, in order.</p>
+                    <button onclick="openReport()" class="plan-cta-btn">Show me what to do</button>
+                </div>`;
+        }
+        return `
+            <div class="plan-cta">
+                <strong>This is one password. What about everything else?</strong>
+                <p style="margin: 6px 0 12px;">Check your email address as well, and we will build you a plan covering every company break-in it appears in, what was taken, and what to do about it.</p>
+                <button onclick="focusEmailCheck()" class="plan-cta-btn">Check my email too</button>
+            </div>`;
+    }
+
+    function focusEmailCheck() {
+        const input = document.getElementById('emailInput');
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => input.focus(), 400);
+    }
+
     // Free tier is told the password is exposed. The exposure count, severity
     // and remediation steps are the gated detail.
     function renderPasswordExposed(count) {
@@ -2091,6 +2116,7 @@
                         <li>Where a website offers it, turn on the second step for logging in. It sends a short code to your phone after your password, and keeps the account safe even when somebody already knows that password.</li>
                         <li>Let your phone or your web browser remember your passwords for you. Then every website can have a different one, and you never have to memorise any of them.</li>
                     </ol>
+                    ${passwordPlanCTA()}
                 </div>
             </div>
             `;
