@@ -61,6 +61,22 @@ function pickLang(value) {
     return value === 'es' ? 'es' : 'en';
 }
 
+// Normally the webhook is registered in the Mercado Pago panel, which is what
+// makes notifications arrive signed. With the test credentials the panel's
+// registration never fires: the preference is created under the application
+// Mercado Pago generates for the test seller, not the one the panel shows, so
+// no notification is produced for a test payment at all.
+//
+// Setting this puts the URL on the preference instead, which Mercado Pago
+// documents as taking priority over the panel. Whether those notifications
+// carry x-signature is not documented, and api/mp-webhook.js rejects an
+// unsigned one either way, so this can only ever add a notification, never
+// weaken the check. Left unset, nothing changes.
+function notificationUrl() {
+    const configured = process.env.MP_NOTIFICATION_URL;
+    return configured ? configured.trim() : null;
+}
+
 export default async function handler(req, res) {
     const origin = req.headers.origin;
     const host = req.headers['x-forwarded-host'] || req.headers.host;
@@ -116,6 +132,8 @@ export default async function handler(req, res) {
 
     const text = ITEM_TEXT[lang];
 
+    const notifyUrl = notificationUrl();
+
     let preference;
     try {
         const response = await fetch(`${MP_API}/checkout/preferences`, {
@@ -148,6 +166,7 @@ export default async function handler(req, res) {
                 },
                 auto_return: 'approved',
                 statement_descriptor: 'AMIEXPOSED',
+                ...(notifyUrl ? { notification_url: notifyUrl } : {}),
             }),
             signal: AbortSignal.timeout(8000),
         });
