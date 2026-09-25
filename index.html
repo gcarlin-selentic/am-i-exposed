@@ -1389,6 +1389,7 @@
             okPwChanged: 'Contraseña actualizada. Ya puedes usarla.',
             errPwMismatch: 'Las dos contraseñas no coinciden.',
             errResetFail: 'No pudimos enviar el enlace. Intenta de nuevo en un momento.',
+            errResetLimit: 'Se enviaron demasiados correos en la última hora. Espera un rato y vuelve a intentarlo.',
             errPwChangeFail: 'No pudimos cambiar la contraseña. Pide un enlace nuevo e intenta otra vez.',
 
             errNoEmail: 'Escribe un correo electrónico.',
@@ -1540,6 +1541,7 @@
             okPwChanged: 'Password updated. You can use it now.',
             errPwMismatch: 'The two passwords do not match.',
             errResetFail: 'We could not send the link. Please try again in a moment.',
+            errResetLimit: 'Too many emails have been sent in the last hour. Please wait a while and try again.',
             errPwChangeFail: 'We could not change the password. Ask for a new link and try again.',
 
             errNoEmail: 'Please enter an email address.',
@@ -1884,10 +1886,20 @@
 
         try {
             const { error } = await window.sbClient.auth.resetPasswordForEmail(email, { redirectTo });
-            // A failure here is reported the same way as a success on purpose.
-            // Supabase says whether an address is registered, and relaying that
-            // would turn this form into a way of checking who has an account.
-            if (error) console.error('Reset request failed:', error.message);
+            if (error) {
+                console.error('Reset request failed:', error.message);
+                // Being rate limited says nothing about whether the address has
+                // an account, so it can be reported plainly. Telling somebody
+                // the link is on its way when nothing was sent leaves them
+                // refreshing an inbox for a mail that is never coming.
+                const limited = error.status === 429
+                    || /rate limit/i.test(error.message || '');
+                if (limited) { showAuthMsg(t().errResetLimit, 'bad'); return; }
+                // Any other failure is reported the same way as a success on
+                // purpose. Supabase says whether an address is registered, and
+                // relaying that would turn this form into a way of checking who
+                // has an account.
+            }
         } catch (e) {
             showAuthMsg(t().errResetFail, 'bad');
             return;
