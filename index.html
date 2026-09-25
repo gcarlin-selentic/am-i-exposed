@@ -841,6 +841,35 @@
             border-radius: var(--r-pill);
             cursor: pointer;
         }
+        /* Same shape as the preview banner, in whatever tone the payment
+           outcome calls for. */
+        .pay-banner {
+            background: var(--accent-soft);
+            border-bottom: 1px solid var(--line);
+            padding: 11px 20px;
+            display: none;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px 14px;
+            justify-content: center;
+            font-size: 13.5px;
+            color: var(--ink-soft);
+            text-align: center;
+        }
+        .pay-banner.show { display: flex; }
+        .pay-banner.warn { background: var(--warn-soft); }
+        .pay-banner button {
+            font: inherit;
+            font-size: 12.5px;
+            font-weight: 600;
+            background: transparent;
+            border: 1px solid var(--line-strong);
+            color: var(--ink);
+            padding: 5px 12px;
+            border-radius: var(--r-pill);
+            cursor: pointer;
+        }
+
         .demo-print-notice { display: none; }
 
         /* ====================================================================
@@ -1067,7 +1096,7 @@
         @media print {
             :root { --bg: #fff; --surface: #fff; --surface-2: #f4f4f5; }
             body { background: #fff; }
-            .wrap, .demo-banner, .report-toolbar, .auth-modal, .paywall { display: none !important; }
+            .wrap, .demo-banner, .pay-banner, .report-toolbar, .auth-modal, .paywall { display: none !important; }
             .report-view { position: static; display: block !important; overflow: visible; background: #fff; }
             .report-body { max-width: none; padding: 0; }
             .plan-action { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
@@ -1092,6 +1121,12 @@
     <strong data-i18n="demoTag">Modo de ejemplo</strong>
     <span data-i18n="demoBody">Todo lo que ves abajo son datos ficticios. No se consultó ninguna base de datos real.</span>
     <button onclick="exitDemo()" data-i18n="demoExit">Salir del ejemplo</button>
+</div>
+
+<!-- Shown on the way back from Mercado Pago, with the outcome of the payment -->
+<div id="payBanner" class="pay-banner">
+    <span id="payBannerText"></span>
+    <button type="button" onclick="dismissPayBanner()" data-i18n="payClose">Cerrar</button>
 </div>
 
 <div class="wrap">
@@ -1184,7 +1219,7 @@
             <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi3">Descargable en PDF para imprimir o compartir</span></li>
         </ul>
         <div class="offer-foot">
-            <span class="price">US$9<small data-i18n="offerPer">por reporte</small></span>
+            <span class="price"><span id="offerPriceAmount">&mdash;</span><small data-i18n="offerPer">por reporte</small></span>
             <button class="btn" onclick="openSampleReport()" data-i18n="offerBtn">Ver un ejemplo</button>
         </div>
     </div>
@@ -1421,7 +1456,15 @@
             paywallBtn: 'Desbloquear mi plan completo',
             paywallFine: 'Un solo pago. Puedes volver y actualizar tu plan durante 30 días.',
 
-            payNotReady: 'El pago todavía no está conectado. Este botón abrirá la caja cuando Mercado Pago esté listo.',
+            payOpening: 'Abriendo la caja',
+            payClose: 'Cerrar',
+            payConfirming: 'Confirmando tu pago con Mercado Pago…',
+            payReady: 'Pago confirmado. Tu plan completo ya está disponible.',
+            paySlow: 'Tu pago se está procesando. Puede tardar unos minutos; vuelve a entrar con la misma cuenta y tu plan estará listo.',
+            payPending: 'Tu pago quedó pendiente de acreditación. Cuando Mercado Pago lo confirme, tu plan completo se desbloquea solo.',
+            payCancelled: 'El pago no se completó. No se cobró nada.',
+            payFail: 'No pudimos abrir la caja. Intenta de nuevo en un momento.',
+            payDemo: 'Estás en el modo de ejemplo. Aquí no se procesa ningún pago.',
         },
         en: {
             docTitle: 'Am I Exposed? — Check for Data Breaches',
@@ -1551,7 +1594,15 @@
             paywallBtn: 'Unlock my full plan',
             paywallFine: 'One payment. You can come back and update your plan for 30 days.',
 
-            payNotReady: 'Payment is not connected yet. This button will open the checkout once Mercado Pago is wired up.',
+            payOpening: 'Opening the checkout',
+            payClose: 'Close',
+            payConfirming: 'Confirming your payment with Mercado Pago…',
+            payReady: 'Payment confirmed. Your full plan is ready.',
+            paySlow: 'Your payment is still processing. It can take a few minutes; come back with the same account and your plan will be waiting.',
+            payPending: 'Your payment has not cleared yet. As soon as Mercado Pago confirms it, your full plan unlocks on its own.',
+            payCancelled: 'The payment was not completed. Nothing was charged.',
+            payFail: 'We could not open the checkout. Please try again in a moment.',
+            payDemo: 'This is preview mode. No payment is processed here.',
         },
     };
 
@@ -1600,6 +1651,10 @@
         document.querySelectorAll('[data-lang]').forEach(b => {
             b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
         });
+
+        // The currency is written differently in each locale, so the price has
+        // to be re-formatted, not just re-inserted.
+        renderPrice();
     }
 
     // Redraw every rendered region. Used after a language change and after a
@@ -2347,13 +2402,211 @@
                 <h2>${escapeHtml(t().paywallTitle(locked.length))}</h2>
                 <div class="locked-list">${lockedHTML}</div>
                 <p class="paywall-pitch">${escapeHtml(t().paywallPitch)}</p>
-                <button class="btn accent" onclick="startPurchase()">${escapeHtml(t().paywallBtn)}</button>
+                <button class="btn accent" onclick="startPurchase(this)">${escapeHtml(t().paywallBtn)}</button>
                 <p class="paywall-fine">${escapeHtml(t().paywallFine)}</p>
             </section>`;
     }
 
-    async function startPurchase() {
-        alert(t().payNotReady);
+    // =======================================================================
+    // PAYMENT (Mercado Pago)
+    // The amount is never written here. It comes from /api/checkout, which
+    // reads it from the environment, so the price exists in one place and a
+    // visitor cannot name their own.
+    // =======================================================================
+    let priceInfo = null;
+
+    async function loadPrice() {
+        try {
+            const response = await fetch('/api/checkout');
+            if (!response.ok) return;
+            const data = await response.json();
+            if (data && data.available) {
+                priceInfo = data;
+                renderPrice();
+            }
+        } catch (e) { /* the card keeps its placeholder */ }
+    }
+
+    // A currency symbol belongs to the currency's own locale, not the reader's.
+    // Intl writes PEN as "S/" only under es-PE; asked in es-CO or en-US the
+    // same call returns "PEN 19", which reads like a foreign price tag on a
+    // Peruvian product. An English-speaking buyer should still see "S/ 19",
+    // because that is what the price is.
+    const CURRENCY_LOCALE = {
+        PEN: 'es-PE', COP: 'es-CO', MXN: 'es-MX', ARS: 'es-AR',
+        CLP: 'es-CL', UYU: 'es-UY', BRL: 'pt-BR', USD: 'en-US',
+    };
+
+    function formatPrice({ amount, currency }) {
+        try {
+            return new Intl.NumberFormat(CURRENCY_LOCALE[currency] || locale(), {
+                style: 'currency',
+                currency,
+                // A whole-sol price should not read as "19.00".
+                maximumFractionDigits: Number.isInteger(amount) ? 0 : 2,
+            }).format(amount);
+        } catch (e) {
+            return `${currency} ${num(amount)}`;
+        }
+    }
+
+    // With no price configured on the server there is nothing to sell, and a
+    // lone placeholder dash on the card looks like a bug. The card still reads
+    // fine without it: its button offers the sample, not the purchase.
+    function renderPrice() {
+        const el = document.getElementById('offerPriceAmount');
+        if (!el) return;
+        const price = el.closest('.price');
+        if (!priceInfo) {
+            if (price) price.style.display = 'none';
+            return;
+        }
+        if (price) price.style.display = '';
+        el.textContent = formatPrice(priceInfo);
+    }
+
+    async function startPurchase(btn) {
+        if (demoMode) {
+            showPayBanner(t().payDemo, 'warn');
+            return;
+        }
+
+        // A purchase has to belong to an account, because that is what the
+        // access is attached to. Asking to sign in first is not a detour: it is
+        // the only way the payment can be honoured afterwards.
+        if (!currentUser) {
+            openAuthModal('signup');
+            return;
+        }
+        if (!requireClient()) return;
+
+        const original = btn ? btn.innerHTML : null;
+        const restore = () => {
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = original;
+            }
+        };
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span>' + escapeHtml(t().payOpening);
+        }
+
+        try {
+            const { data: { session } } = await window.sbClient.auth.getSession();
+            const accessToken = session?.access_token || null;
+            if (!accessToken) {
+                restore();
+                openAuthModal('signin');
+                return;
+            }
+
+            // The checked address does not survive the round trip to Mercado
+            // Pago, so it is parked here and picked up again on the way back.
+            try {
+                if (lastEmailResult) sessionStorage.setItem('aie-pending-email', lastEmailResult.email);
+            } catch (e) { /* not essential */ }
+
+            const response = await fetch('/api/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ accessToken, lang }),
+            });
+            const data = await response.json().catch(() => null);
+            if (!response.ok || !data?.checkoutUrl) {
+                throw new Error(data?.error || t().payFail);
+            }
+            window.location.href = data.checkoutUrl;
+        } catch (error) {
+            restore();
+            showPayBanner(error.message || t().payFail, 'warn');
+        }
+    }
+
+    function showPayBanner(text, tone) {
+        const banner = document.getElementById('payBanner');
+        document.getElementById('payBannerText').textContent = text;
+        banner.classList.toggle('warn', tone === 'warn');
+        banner.classList.add('show');
+    }
+
+    function dismissPayBanner() {
+        document.getElementById('payBanner').classList.remove('show');
+    }
+
+    // Whether this account has access right now, read from its own purchase
+    // rows through RLS. Used only to decide when to stop waiting for the
+    // webhook; /api/report remains the authority on what gets sent.
+    async function hasPaidAccess() {
+        if (!window.sbClient || !currentUser) return false;
+        // Test purchases and real ones share a table, so the check has to say
+        // which of the two this deployment is talking about.
+        const liveMode = priceInfo ? priceInfo.mode === 'live' : true;
+        try {
+            const { data, error } = await window.sbClient
+                .from('purchases')
+                .select('id')
+                .eq('status', 'paid')
+                .eq('live_mode', liveMode)
+                .or(`expires_at.is.null,expires_at.gt.${new Date().toISOString()}`)
+                .limit(1);
+            if (error) return false;
+            return Array.isArray(data) && data.length > 0;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    // Mercado Pago sends the buyer back to the site and the webhook separately,
+    // and the redirect usually wins the race. Polling for a few seconds is the
+    // difference between "your plan is ready" and telling someone who has just
+    // paid that they have not.
+    async function waitForEntitlement(attempts = 8, gapMs = 2000) {
+        for (let i = 0; i < attempts; i++) {
+            if (await hasPaidAccess()) return true;
+            await new Promise(resolve => setTimeout(resolve, gapMs));
+        }
+        return hasPaidAccess();
+    }
+
+    async function handleReturnFromCheckout(outcome) {
+        // Drop the query string so a reload does not replay this.
+        try { history.replaceState(null, '', window.location.pathname); } catch (e) { /* ignore */ }
+
+        let email = null;
+        try {
+            email = sessionStorage.getItem('aie-pending-email');
+            sessionStorage.removeItem('aie-pending-email');
+        } catch (e) { /* ignore */ }
+
+        if (email) document.getElementById('emailInput').value = email;
+
+        if (outcome === 'error') {
+            showPayBanner(t().payCancelled, 'warn');
+            return;
+        }
+        if (outcome === 'pendiente') {
+            showPayBanner(t().payPending, 'warn');
+            return;
+        }
+
+        showPayBanner(t().payConfirming);
+        const paid = await waitForEntitlement();
+
+        if (!paid) {
+            showPayBanner(t().paySlow, 'warn');
+            return;
+        }
+
+        showPayBanner(t().payReady);
+
+        // The cached plan was fetched as a teaser; it has to be asked for again
+        // now that the account is entitled.
+        lastReport = null;
+        if (email) {
+            await checkEmail();
+            await openReport();
+        }
     }
 
     function closeReport() {
@@ -2588,20 +2841,37 @@
         if (e.key === 'Enter') checkPassword();
     });
 
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('DOMContentLoaded', async () => {
         applyLang();
 
+        const priceReady = loadPrice();
+
         initSupabase();
-        if (window.sbClient) initAuth();
 
         const params = new URLSearchParams(window.location.search);
         if (params.get('demo') === '1') {
             // ?demo=1&teaser=1 shows the unpaid view instead of the full plan.
             demoTeaser = params.get('teaser') === '1';
+            if (window.sbClient) initAuth();
             startDemo().then(() => {
                 // ?demo=1&report=1 jumps straight to the action plan.
                 if (params.get('report') === '1' || demoTeaser) openReport();
             });
+            return;
+        }
+
+        // Coming back from Mercado Pago needs the session resolved and the
+        // price loaded first: the first says whose purchase to look for, the
+        // second says whether this deployment is looking at test rows or real
+        // ones.
+        const pago = params.get('pago');
+        if (window.sbClient) {
+            const ready = initAuth();
+            if (pago) await ready;
+        }
+        if (pago) {
+            await priceReady;
+            await handleReturnFromCheckout(pago);
         }
     });
 </script>
