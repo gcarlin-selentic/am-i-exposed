@@ -5,9 +5,8 @@
 //
 // Three rules, in order:
 //
-//   1. The signature is checked before anything else is read. An unsigned or
-//      badly signed notification is rejected outright, so the endpoint cannot
-//      be used to hand out access by posting to it.
+//   1. The caller is authenticated before anything else is read, so the
+//      endpoint cannot be used to hand out access by posting to it.
 //   2. The notification body is never believed. It carries an id; the payment
 //      state is then read back from Mercado Pago's own API. A forged body that
 //      somehow passed step 1 still cannot claim "approved".
@@ -15,9 +14,26 @@
 //      credentials this deployment holds, so a test payment cannot unlock the
 //      real site and a real one cannot be consumed by the preview.
 //
-// Register the URL in the Mercado Pago panel (Tus integraciones > Webhooks),
-// not as notification_url on the preference: the panel is what generates the
-// secret and signs the notifications.
+// On rule 1 there are two routes in, because Mercado Pago has two ways of
+// notifying and only one of them can be verified:
+//
+//   - A notification produced by the panel's own registration (Tus
+//     integraciones > Webhooks) carries x-signature, an HMAC over a documented
+//     manifest keyed by the secret the panel shows. That is checked properly.
+//   - A notification produced by a notification_url on the preference also
+//     carries x-signature, but measured on 2026-09-25 against nine manifest
+//     shapes and both panel secrets, none of them reproduce it. Whatever key
+//     signs that route, the panel does not hand it out. And it is the only
+//     route that fires at all for a test payment: the panel's registration
+//     produced zero notifications for four approved test payments.
+//
+// So that second route is authenticated by a secret of our own instead:
+// MP_NOTIFICATION_TOKEN goes into the notification_url as ?k=..., which only
+// travels inside the preference, and only Mercado Pago ever receives it. It is
+// a shared secret, weaker than a signature, which is why rules 2 and 3 matter:
+// knowing it lets somebody make us re-read a payment, not invent one. Access
+// still lands on the account named by the real payment's external_reference,
+// never on whoever sent the notification.
 
 import crypto from 'node:crypto';
 
@@ -122,33 +138,15 @@ function verifySignature({ dataId, queryId, requestId, ts }, expected, secrets) 
     return { ok: false };
 }
 
-// Diagnostic only, and deliberately separate from verifySignature so that
-// nothing here can widen what the endpoint accepts. When a notification is
-// rejected this walks a list of plausible manifest shapes and reports which one
-// Mercado Pago actually signed, if any. The point is to replace guessing with a
-// measurement; delete it once the shape is known.
-//
-// It logs the shape's name, never a secret and never the computed HMAC.
-function diagnoseSignature({ dataId, queryId, requestId, ts, topic, type }, expected, secrets) {
-    const id = dataId || queryId;
-    const shapes = {
-        'id+request-id+ts': `id:${String(id).toLowerCase()};request-id:${requestId};ts:${ts};`,
-        'id+ts': `id:${String(id).toLowerCase()};ts:${ts};`,
-        'request-id+ts': `request-id:${requestId};ts:${ts};`,
-        'ts': `ts:${ts};`,
-        'id upper+request-id+ts': `id:${id};request-id:${requestId};ts:${ts};`,
-        'id+request-id+ts no trailing': `id:${String(id).toLowerCase()};request-id:${requestId};ts:${ts}`,
-        'topic+id+request-id+ts': `topic:${topic ?? type};id:${String(id).toLowerCase()};request-id:${requestId};ts:${ts};`,
-        'id only': `id:${String(id).toLowerCase()};`,
-        'ts+id': `ts:${ts};id:${String(id).toLowerCase()};`,
-    };
-    for (const [index, secret] of secrets.entries()) {
-        const which = index === 0 ? 'primary' : 'alt';
-        for (const [name, manifest] of Object.entries(shapes)) {
-            if (signatureMatches(manifest, expected, secret)) return `${which}/${name}`;
-        }
-    }
-    return 'none';
+
+// Constant time, so the endpoint does not leak the token one character at a
+// time to somebody timing the responses.
+function matchesToken(given, expected) {
+    if (typeof given !== 'string') return false;
+    const a = Buffer.from(given, 'utf8');
+    const b = Buffer.from(expected, 'utf8');
+    if (a.length !== b.length) return false;
+    return crypto.timingSafeEqual(a, b);
 }
 
 function firstValue(value) {
@@ -187,10 +185,14 @@ export default async function handler(req, res) {
 
     const secrets = webhookSecrets();
     const accessToken = process.env.MP_ACCESS_TOKEN;
-    if (!secrets.length || !accessToken) {
+    // At least one way of authenticating the caller has to exist, or every
+    // notification would be accepted on the strength of nothing.
+    if ((!secrets.length && !process.env.MP_NOTIFICATION_TOKEN) || !accessToken) {
         // 500 rather than 200: Mercado Pago retries, so a notification that
         // arrives before the environment is configured is not lost.
-        console.error('Webhook not configured:', { secrets: secrets.length, token: !!accessToken });
+        console.error('Webhook not configured:',
+            { secrets: secrets.length, token: !!process.env.MP_NOTIFICATION_TOKEN,
+              accessToken: !!accessToken });
         return res.status(500).json({ error: 'Not configured' });
     }
 
@@ -204,33 +206,28 @@ export default async function handler(req, res) {
     const requestId = req.headers['x-request-id'] || null;
 
     const signature = parseSignature(req.headers['x-signature']);
-    if (!signature) {
-        console.error('Webhook rejected: no signature');
-        return res.status(401).json({ error: 'Unsigned' });
-    }
+    const verified = signature
+        ? verifySignature({ dataId: candidateId, queryId, requestId, ts: signature.ts },
+            signature.v1, secrets)
+        : { ok: false };
 
-    const verified = verifySignature(
-        { dataId: candidateId, queryId, requestId, ts: signature.ts }, signature.v1, secrets);
-    if (!verified.ok) {
-        const shape = diagnoseSignature({
-            dataId: candidateId,
-            queryId,
-            requestId,
-            ts: signature.ts,
-            topic: firstValue(query.topic),
-            type: firstValue(query.type),
-        }, signature.v1, secrets);
-        console.error('Webhook rejected: bad signature for', candidateId || queryId,
+    // The token route. Only Mercado Pago has this value, because it only ever
+    // leaves here inside a preference's notification_url.
+    const token = process.env.MP_NOTIFICATION_TOKEN;
+    const tokenOk = Boolean(token) && matchesToken(firstValue(query.k), token);
+
+    if (!verified.ok && !tokenOk) {
+        console.error('Webhook rejected:', signature ? 'bad signature' : 'unsigned',
+            'for', candidateId || queryId,
             JSON.stringify({ dataId: candidateId, queryId, requestId: !!requestId,
-                secrets: secrets.length, shape,
-                env: Object.keys(process.env).filter(k => k.startsWith('MP_')).sort() }));
-        return res.status(401).json({ error: 'Bad signature' });
+                secrets: secrets.length, token: !!token, k: !!firstValue(query.k) }));
+        return res.status(401).json({ error: 'Unauthorised' });
     }
-    console.log('Webhook signature accepted with the', verified.which, 'secret');
 
-    // Everything below acts on the id the signature actually covered, never on
-    // whatever else the query string happened to carry.
-    const dataId = verified.id;
+    // Act on the id the signature covered when there was one. On the token
+    // route nothing binds the id, which is why the payment is read back from
+    // Mercado Pago before any of it is believed.
+    const dataId = verified.ok ? verified.id : (candidateId || queryId);
 
     // Deliberately no freshness window on signature.ts. Mercado Pago retries a
     // failed notification for a long time, and rejecting an old timestamp would
