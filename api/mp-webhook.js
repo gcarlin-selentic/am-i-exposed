@@ -82,15 +82,18 @@ function signatureMatches(manifest, expected, secret) {
 // The one produced by a notification_url on the preference arrives in the older
 // shape, ?id=...&topic=payment, and there is no documentation saying whether
 // that id is part of the manifest or whether the id part is dropped. So rather
-// than assume one shape, try the candidates and accept the first that verifies.
+// than assume one shape, try each id the request carries and report which one
+// verified, so the caller acts on the id that was actually signed.
 //
-// This is not a weakening. Every candidate still has to produce the same HMAC
-// as the header using our own secret; a wrong secret matches none of them.
+// A manifest without an id is deliberately not a candidate. Accepting one would
+// leave the signature unbound to any payment: a captured ts and v1 could then be
+// replayed with somebody else's payment id in the query string, which is exactly
+// what this endpoint exists to prevent. If Mercado Pago really does sign without
+// the id, this rejects and the log says so, which is the safe way to find out.
 function verifySignature({ dataId, queryId, requestId, ts }, expected, secret) {
     const ids = [];
     if (dataId) ids.push(dataId);
     if (queryId && queryId !== dataId) ids.push(queryId);
-    ids.push(null);
 
     for (const id of ids) {
         const manifest = buildManifest({ dataId: id, requestId, ts });
@@ -154,9 +157,8 @@ export default async function handler(req, res) {
 
     // Mercado Pago puts the id in the query string; the body carries it too,
     // and older notifications use topic/id instead of type/data.id.
-    const signedId = firstValue(query['data.id']) || body?.data?.id || null;
+    const candidateId = firstValue(query['data.id']) || body?.data?.id || null;
     const queryId = firstValue(query.id) || null;
-    const dataId = signedId || queryId || null;
     const requestId = req.headers['x-request-id'] || null;
 
     const signature = parseSignature(req.headers['x-signature']);
@@ -166,12 +168,16 @@ export default async function handler(req, res) {
     }
 
     const verified = verifySignature(
-        { dataId: signedId, queryId, requestId, ts: signature.ts }, signature.v1, secret);
+        { dataId: candidateId, queryId, requestId, ts: signature.ts }, signature.v1, secret);
     if (!verified.ok) {
-        console.error('Webhook rejected: bad signature for', dataId,
-            JSON.stringify({ signedId, queryId, requestId: !!requestId }));
+        console.error('Webhook rejected: bad signature for', candidateId || queryId,
+            JSON.stringify({ dataId: candidateId, queryId, requestId: !!requestId }));
         return res.status(401).json({ error: 'Bad signature' });
     }
+
+    // Everything below acts on the id the signature actually covered, never on
+    // whatever else the query string happened to carry.
+    const dataId = verified.id;
 
     // Deliberately no freshness window on signature.ts. Mercado Pago retries a
     // failed notification for a long time, and rejecting an old timestamp would
