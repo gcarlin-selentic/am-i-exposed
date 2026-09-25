@@ -747,6 +747,10 @@
         .auth-form { display: none; }
         .auth-form.active { display: block; }
         .auth-form h2 { font-size: 23px; margin-bottom: 18px; }
+        .auth-hint {
+            font-size: 14px; line-height: 1.5; color: var(--muted);
+            margin: -8px 0 16px;
+        }
         .auth-form input {
             width: 100%;
             font-family: 'Inter', sans-serif;
@@ -1117,6 +1121,7 @@
                 <button class="ghost-btn" onclick="toggleUserMenu()" data-i18n="menu">Mi cuenta</button>
                 <div id="userDropdown" class="user-dropdown">
                     <div class="user-email" id="userEmail"></div>
+                    <button onclick="openChangePassword()" data-i18n="changePw">Cambiar contraseña</button>
                     <button onclick="signOut()" data-i18n="signout">Cerrar sesión</button>
                 </div>
             </div>
@@ -1215,6 +1220,9 @@
             <input type="password" id="signinPassword" placeholder="Contraseña" autocomplete="current-password">
             <button class="btn" onclick="signInWithEmail()" data-i18n="modalSigninBtn">Entrar</button>
             <div class="auth-toggle">
+                <button onclick="switchForm('reset')" data-i18n="modalForgotLink">¿Olvidaste tu contraseña?</button>
+            </div>
+            <div class="auth-toggle">
                 <span data-i18n="modalNoAccount">¿No tienes cuenta?</span>
                 <button onclick="switchForm('signup')" data-i18n="modalSignupLink">Crear una</button>
             </div>
@@ -1231,6 +1239,28 @@
             </div>
         </div>
 
+        <!-- Asking for the link, and setting the new password once the link is
+             followed. Both deliberately stay inside this modal: a separate page
+             would need its own route and its own redirect entry. -->
+        <div id="resetForm" class="auth-form">
+            <h2 data-i18n="modalResetTitle">Recuperar contraseña</h2>
+            <p class="auth-hint" data-i18n="modalResetHint">Escribe tu correo y te enviamos un enlace para poner una contraseña nueva.</p>
+            <input type="email" id="resetEmail" placeholder="tucorreo@ejemplo.com" autocomplete="email">
+            <button class="btn" onclick="sendPasswordReset()" data-i18n="modalResetBtn">Enviar enlace</button>
+            <div class="auth-toggle">
+                <button onclick="switchForm('signin')" data-i18n="modalBackToSignin">Volver a entrar</button>
+            </div>
+        </div>
+
+        <div id="newPasswordForm" class="auth-form">
+            <h2 data-i18n="modalNewPwTitle">Nueva contraseña</h2>
+            <p class="auth-hint" data-i18n="modalNewPwHint">Elige una contraseña nueva. Necesita al menos 6 caracteres.</p>
+            <input type="password" id="newPassword" placeholder="Contraseña (mínimo 6 caracteres)" autocomplete="new-password">
+            <input type="password" id="newPasswordConfirm" placeholder="Repite la contraseña" autocomplete="new-password">
+            <button class="btn" onclick="applyNewPassword()" data-i18n="modalNewPwBtn">Guardar contraseña</button>
+        </div>
+
+        <div id="authProviders">
         <div class="auth-divider"><span data-i18n="modalOr">o continúa con</span></div>
 
         <div class="auth-providers">
@@ -1249,6 +1279,7 @@
                 </svg>
                 GitHub
             </button>
+        </div>
         </div>
 
         <div id="authError" class="auth-msg bad"></div>
@@ -1334,6 +1365,24 @@
             modalEmailPlaceholder: 'tucorreo@ejemplo.com',
             modalPwPlaceholder: 'Contraseña',
             modalNewPwPlaceholder: 'Contraseña (mínimo 6 caracteres)',
+            modalRepeatPwPlaceholder: 'Repite la contraseña',
+
+            changePw: 'Cambiar contraseña',
+            modalForgotLink: '¿Olvidaste tu contraseña?',
+            modalResetTitle: 'Recuperar contraseña',
+            modalResetHint: 'Escribe tu correo y te enviamos un enlace para poner una contraseña nueva.',
+            modalResetBtn: 'Enviar enlace',
+            modalBackToSignin: 'Volver a entrar',
+            modalNewPwTitle: 'Nueva contraseña',
+            modalNewPwHint: 'Elige una contraseña nueva. Necesita al menos 6 caracteres.',
+            modalNewPwBtn: 'Guardar contraseña',
+            // Says the same thing whether or not the address has an account,
+            // so the form cannot be used to find out who is registered.
+            okReset: 'Si esa dirección tiene una cuenta, el enlace ya va en camino. Revisa tu correo, incluida la carpeta de spam.',
+            okPwChanged: 'Contraseña actualizada. Ya puedes usarla.',
+            errPwMismatch: 'Las dos contraseñas no coinciden.',
+            errResetFail: 'No pudimos enviar el enlace. Intenta de nuevo en un momento.',
+            errPwChangeFail: 'No pudimos cambiar la contraseña. Pide un enlace nuevo e intenta otra vez.',
 
             errNoEmail: 'Escribe un correo electrónico.',
             errBadEmail: 'Ese correo no parece válido. Revísalo e intenta de nuevo.',
@@ -1465,6 +1514,24 @@
             modalEmailPlaceholder: 'you@example.com',
             modalPwPlaceholder: 'Password',
             modalNewPwPlaceholder: 'Password (min 6 characters)',
+            modalRepeatPwPlaceholder: 'Repeat the password',
+
+            changePw: 'Change password',
+            modalForgotLink: 'Forgot your password?',
+            modalResetTitle: 'Reset your password',
+            modalResetHint: 'Enter your email and we will send you a link to set a new password.',
+            modalResetBtn: 'Send the link',
+            modalBackToSignin: 'Back to sign in',
+            modalNewPwTitle: 'New password',
+            modalNewPwHint: 'Choose a new password. It needs at least 6 characters.',
+            modalNewPwBtn: 'Save password',
+            // Says the same thing whether or not the address has an account,
+            // so the form cannot be used to find out who is registered.
+            okReset: 'If that address has an account, the link is on its way. Check your email, including the spam folder.',
+            okPwChanged: 'Password updated. You can use it now.',
+            errPwMismatch: 'The two passwords do not match.',
+            errResetFail: 'We could not send the link. Please try again in a moment.',
+            errPwChangeFail: 'We could not change the password. Ask for a new link and try again.',
 
             errNoEmail: 'Please enter an email address.',
             errBadEmail: 'That email does not look right. Check it and try again.',
@@ -1590,6 +1657,9 @@
         document.getElementById('signupEmail').placeholder = t().modalEmailPlaceholder;
         document.getElementById('signinPassword').placeholder = t().modalPwPlaceholder;
         document.getElementById('signupPassword').placeholder = t().modalNewPwPlaceholder;
+        document.getElementById('resetEmail').placeholder = t().modalEmailPlaceholder;
+        document.getElementById('newPassword').placeholder = t().modalNewPwPlaceholder;
+        document.getElementById('newPasswordConfirm').placeholder = t().modalRepeatPwPlaceholder;
 
         // The show/hide label depends on the current input state, not only the
         // language, so it cannot come from the data-i18n sweep above.
@@ -1710,11 +1780,20 @@
 
         // Keeps the UI in sync with token refreshes, sign-out in another tab,
         // and the redirect back from an OAuth provider.
-        window.sbClient.auth.onAuthStateChange((_event, session) => {
+        window.sbClient.auth.onAuthStateChange((event, session) => {
             const was = !!currentUser;
             currentUser = session?.user ?? null;
             updateAuthUI();
             if (was !== !!currentUser) rerenderAll();
+
+            // Following a recovery link signs the visitor in with a session that
+            // exists only to let them set a password. Ask for it straight away,
+            // because leaving them on the page signed in and none the wiser is
+            // how people end up locked out a second time.
+            if (event === 'PASSWORD_RECOVERY') {
+                try { history.replaceState(null, '', window.location.pathname); } catch (e) { /* ignore */ }
+                openAuthModal('newPassword');
+            }
         });
 
         try {
@@ -1765,10 +1844,74 @@
         hideAuthMsg();
     }
 
+    const AUTH_FORMS = ['signin', 'signup', 'reset', 'newPassword'];
+
     function switchForm(form) {
-        document.getElementById('signinForm').classList.remove('active');
-        document.getElementById('signupForm').classList.remove('active');
+        AUTH_FORMS.forEach(name => {
+            document.getElementById(name + 'Form').classList.remove('active');
+        });
         document.getElementById(form + 'Form').classList.add('active');
+        hideAuthMsg();
+
+        // Google and GitHub have nothing to do with recovering a password, and
+        // offering them there only invites the wrong click.
+        const providers = document.getElementById('authProviders');
+        providers.style.display = (form === 'reset' || form === 'newPassword') ? 'none' : '';
+    }
+
+    async function sendPasswordReset() {
+        const email = document.getElementById('resetEmail').value.trim();
+        if (!email) { showAuthMsg(t().errNoEmail, 'bad'); return; }
+        if (!requireClient()) return;
+
+        // The link comes back to this same page. Supabase puts a recovery
+        // session in the URL fragment, which the client picks up and reports
+        // through onAuthStateChange below.
+        const redirectTo = window.location.origin + window.location.pathname;
+
+        try {
+            const { error } = await window.sbClient.auth.resetPasswordForEmail(email, { redirectTo });
+            // A failure here is reported the same way as a success on purpose.
+            // Supabase says whether an address is registered, and relaying that
+            // would turn this form into a way of checking who has an account.
+            if (error) console.error('Reset request failed:', error.message);
+        } catch (e) {
+            showAuthMsg(t().errResetFail, 'bad');
+            return;
+        }
+        showAuthMsg(t().okReset, 'good');
+        document.getElementById('resetEmail').value = '';
+    }
+
+    // Used both after following a recovery link and from the account menu. In
+    // either case Supabase only accepts the change with a live session, which
+    // is what stands in for asking the old password.
+    async function applyNewPassword() {
+        const password = document.getElementById('newPassword').value;
+        const confirm = document.getElementById('newPasswordConfirm').value;
+
+        if (!password || !confirm) { showAuthMsg(t().errFields, 'bad'); return; }
+        if (password.length < 6) { showAuthMsg(t().errShortPw, 'bad'); return; }
+        if (password !== confirm) { showAuthMsg(t().errPwMismatch, 'bad'); return; }
+        if (!requireClient()) return;
+
+        try {
+            const { error } = await window.sbClient.auth.updateUser({ password });
+            if (error) { showAuthMsg(error.message || t().errPwChangeFail, 'bad'); return; }
+        } catch (e) {
+            showAuthMsg(t().errPwChangeFail, 'bad');
+            return;
+        }
+
+        document.getElementById('newPassword').value = '';
+        document.getElementById('newPasswordConfirm').value = '';
+        showAuthMsg(t().okPwChanged, 'good');
+        setTimeout(closeAuthModal, 2000);
+    }
+
+    function openChangePassword() {
+        document.getElementById('userDropdown').classList.remove('active');
+        openAuthModal('newPassword');
     }
 
     function toggleUserMenu() {
