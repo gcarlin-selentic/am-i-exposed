@@ -122,6 +122,35 @@ function verifySignature({ dataId, queryId, requestId, ts }, expected, secrets) 
     return { ok: false };
 }
 
+// Diagnostic only, and deliberately separate from verifySignature so that
+// nothing here can widen what the endpoint accepts. When a notification is
+// rejected this walks a list of plausible manifest shapes and reports which one
+// Mercado Pago actually signed, if any. The point is to replace guessing with a
+// measurement; delete it once the shape is known.
+//
+// It logs the shape's name, never a secret and never the computed HMAC.
+function diagnoseSignature({ dataId, queryId, requestId, ts, topic, type }, expected, secrets) {
+    const id = dataId || queryId;
+    const shapes = {
+        'id+request-id+ts': `id:${String(id).toLowerCase()};request-id:${requestId};ts:${ts};`,
+        'id+ts': `id:${String(id).toLowerCase()};ts:${ts};`,
+        'request-id+ts': `request-id:${requestId};ts:${ts};`,
+        'ts': `ts:${ts};`,
+        'id upper+request-id+ts': `id:${id};request-id:${requestId};ts:${ts};`,
+        'id+request-id+ts no trailing': `id:${String(id).toLowerCase()};request-id:${requestId};ts:${ts}`,
+        'topic+id+request-id+ts': `topic:${topic ?? type};id:${String(id).toLowerCase()};request-id:${requestId};ts:${ts};`,
+        'id only': `id:${String(id).toLowerCase()};`,
+        'ts+id': `ts:${ts};id:${String(id).toLowerCase()};`,
+    };
+    for (const [index, secret] of secrets.entries()) {
+        const which = index === 0 ? 'primary' : 'alt';
+        for (const [name, manifest] of Object.entries(shapes)) {
+            if (signatureMatches(manifest, expected, secret)) return `${which}/${name}`;
+        }
+    }
+    return 'none';
+}
+
 function firstValue(value) {
     return Array.isArray(value) ? value[0] : value;
 }
@@ -183,9 +212,18 @@ export default async function handler(req, res) {
     const verified = verifySignature(
         { dataId: candidateId, queryId, requestId, ts: signature.ts }, signature.v1, secrets);
     if (!verified.ok) {
+        const shape = diagnoseSignature({
+            dataId: candidateId,
+            queryId,
+            requestId,
+            ts: signature.ts,
+            topic: firstValue(query.topic),
+            type: firstValue(query.type),
+        }, signature.v1, secrets);
         console.error('Webhook rejected: bad signature for', candidateId || queryId,
             JSON.stringify({ dataId: candidateId, queryId, requestId: !!requestId,
-                secrets: secrets.length }));
+                secrets: secrets.length, shape,
+                env: Object.keys(process.env).filter(k => k.startsWith('MP_')).sort() }));
         return res.status(401).json({ error: 'Bad signature' });
     }
     console.log('Webhook signature accepted with the', verified.which, 'secret');
