@@ -77,6 +77,35 @@ function signatureMatches(manifest, expected, secret) {
     return crypto.timingSafeEqual(a, b);
 }
 
+// Which id Mercado Pago signed over is not the same on every route. The
+// documented notification carries data.id in the query string and signs that.
+// The one produced by a notification_url on the preference arrives in the older
+// shape, ?id=...&topic=payment, and there is no documentation saying whether
+// that id is part of the manifest or whether the id part is dropped. So rather
+// than assume one shape, try the candidates and accept the first that verifies.
+//
+// This is not a weakening. Every candidate still has to produce the same HMAC
+// as the header using our own secret; a wrong secret matches none of them.
+function verifySignature({ dataId, queryId, requestId, ts }, expected, secret) {
+    const ids = [];
+    if (dataId) ids.push(dataId);
+    if (queryId && queryId !== dataId) ids.push(queryId);
+    ids.push(null);
+
+    for (const id of ids) {
+        const manifest = buildManifest({ dataId: id, requestId, ts });
+        if (signatureMatches(manifest, expected, secret)) return { ok: true, id };
+        // Mercado Pago's own docs show request-id taken from the header, but it
+        // is absent on some notifications and the manifest then drops the part
+        // entirely. Cover the case where the header is present but unsigned.
+        if (requestId) {
+            const without = buildManifest({ dataId: id, requestId: null, ts });
+            if (signatureMatches(without, expected, secret)) return { ok: true, id };
+        }
+    }
+    return { ok: false };
+}
+
 function firstValue(value) {
     return Array.isArray(value) ? value[0] : value;
 }
@@ -125,7 +154,9 @@ export default async function handler(req, res) {
 
     // Mercado Pago puts the id in the query string; the body carries it too,
     // and older notifications use topic/id instead of type/data.id.
-    const dataId = firstValue(query['data.id']) || body?.data?.id || firstValue(query.id) || null;
+    const signedId = firstValue(query['data.id']) || body?.data?.id || null;
+    const queryId = firstValue(query.id) || null;
+    const dataId = signedId || queryId || null;
     const requestId = req.headers['x-request-id'] || null;
 
     const signature = parseSignature(req.headers['x-signature']);
@@ -134,9 +165,11 @@ export default async function handler(req, res) {
         return res.status(401).json({ error: 'Unsigned' });
     }
 
-    const manifest = buildManifest({ dataId, requestId, ts: signature.ts });
-    if (!signatureMatches(manifest, signature.v1, secret)) {
-        console.error('Webhook rejected: bad signature for', dataId);
+    const verified = verifySignature(
+        { dataId: signedId, queryId, requestId, ts: signature.ts }, signature.v1, secret);
+    if (!verified.ok) {
+        console.error('Webhook rejected: bad signature for', dataId,
+            JSON.stringify({ signedId, queryId, requestId: !!requestId }));
         return res.status(401).json({ error: 'Bad signature' });
     }
 
