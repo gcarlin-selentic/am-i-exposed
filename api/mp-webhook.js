@@ -39,6 +39,7 @@ import crypto from 'node:crypto';
 
 import {
     MP_API,
+    credentialOwnerId,
     expectLiveMode,
     readBody,
     sbInsert,
@@ -256,10 +257,15 @@ export default async function handler(req, res) {
     }
 
     // A test payment must never unlock the real site, and a real payment must
-    // never be consumed by the preview deployment.
-    if (Boolean(payment.live_mode) !== expectLiveMode()) {
-        console.error('Webhook ignored: live_mode mismatch for', payment.id, payment.live_mode);
-        return res.status(200).json({ ignored: 'live_mode mismatch' });
+    // never be consumed by the preview deployment. Mercado Pago's live_mode
+    // flag used to be the way to tell, and is not any more: their modern test
+    // credentials belong to a test user that is a real account to their API, so
+    // a sandbox payment arrives with live_mode true. The collector is what
+    // actually separates the two sets of credentials.
+    const owner = credentialOwnerId();
+    if (owner && String(payment.collector_id) !== owner) {
+        console.error('Webhook ignored: collector mismatch for', payment.id, payment.collector_id);
+        return res.status(200).json({ ignored: 'collector mismatch' });
     }
 
     const status = STATUS_MAP[payment.status];

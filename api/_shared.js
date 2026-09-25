@@ -27,6 +27,21 @@ export function expectLiveMode() {
     return mpMode() === 'live';
 }
 
+// The account the deployment's credentials belong to. A Mercado Pago access
+// token ends in the id of its owner, so this needs no API call.
+//
+// This is what separates a test payment from a real one now. Mercado Pago's own
+// live_mode flag no longer does it: the modern test credentials belong to a
+// test user who is a real account as far as their API is concerned, so a
+// sandbox payment comes back with live_mode true. The collector does not lie —
+// a payment made to the other set of credentials simply has a different one.
+export function credentialOwnerId() {
+    const token = process.env.MP_ACCESS_TOKEN;
+    if (!token) return null;
+    const tail = token.split('-').pop();
+    return /^\d+$/.test(tail) ? tail : null;
+}
+
 // The site's own origin, used for the checkout's return URLs. Set explicitly
 // rather than derived from the request, so a request arriving on some other
 // host cannot send the buyer back somewhere else.
