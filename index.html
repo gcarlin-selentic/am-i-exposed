@@ -747,6 +747,11 @@
         .auth-form { display: none; }
         .auth-form.active { display: block; }
         .auth-form h2 { font-size: 23px; margin-bottom: 18px; }
+        .auth-reveal { margin: -4px 0 14px; text-align: right; font-size: 13px; }
+        .auth-hint {
+            font-size: 14px; line-height: 1.5; color: var(--muted);
+            margin: -8px 0 16px;
+        }
         .auth-form input {
             width: 100%;
             font-family: 'Inter', sans-serif;
@@ -1117,6 +1122,7 @@
                 <button class="ghost-btn" onclick="toggleUserMenu()" data-i18n="menu">Mi cuenta</button>
                 <div id="userDropdown" class="user-dropdown">
                     <div class="user-email" id="userEmail"></div>
+                    <button onclick="openChangePassword()" data-i18n="changePw">Cambiar contraseña</button>
                     <button onclick="signOut()" data-i18n="signout">Cerrar sesión</button>
                 </div>
             </div>
@@ -1215,6 +1221,9 @@
             <input type="password" id="signinPassword" placeholder="Contraseña" autocomplete="current-password">
             <button class="btn" onclick="signInWithEmail()" data-i18n="modalSigninBtn">Entrar</button>
             <div class="auth-toggle">
+                <button onclick="switchForm('reset')" data-i18n="modalForgotLink">¿Olvidaste tu contraseña?</button>
+            </div>
+            <div class="auth-toggle">
                 <span data-i18n="modalNoAccount">¿No tienes cuenta?</span>
                 <button onclick="switchForm('signup')" data-i18n="modalSignupLink">Crear una</button>
             </div>
@@ -1223,7 +1232,7 @@
         <div id="signupForm" class="auth-form">
             <h2 data-i18n="modalSignupTitle">Crear cuenta</h2>
             <input type="email" id="signupEmail" placeholder="tucorreo@ejemplo.com" autocomplete="email">
-            <input type="password" id="signupPassword" placeholder="Contraseña (mínimo 6 caracteres)" autocomplete="new-password">
+            <input type="password" id="signupPassword" placeholder="Contraseña (mínimo 8 caracteres)" autocomplete="new-password">
             <button class="btn" onclick="signUpWithEmail()" data-i18n="modalSignupBtn">Crear cuenta</button>
             <div class="auth-toggle">
                 <span data-i18n="modalHaveAccount">¿Ya tienes cuenta?</span>
@@ -1231,6 +1240,34 @@
             </div>
         </div>
 
+        <!-- Asking for the link, and setting the new password once the link is
+             followed. Both deliberately stay inside this modal: a separate page
+             would need its own route and its own redirect entry. -->
+        <div id="resetForm" class="auth-form">
+            <h2 data-i18n="modalResetTitle">Recuperar contraseña</h2>
+            <p class="auth-hint" data-i18n="modalResetHint">Escribe tu correo y te enviamos un enlace para poner una contraseña nueva.</p>
+            <input type="email" id="resetEmail" placeholder="tucorreo@ejemplo.com" autocomplete="email">
+            <button class="btn" onclick="sendPasswordReset()" data-i18n="modalResetBtn">Enviar enlace</button>
+            <div class="auth-toggle">
+                <button onclick="switchForm('signin')" data-i18n="modalBackToSignin">Volver a entrar</button>
+            </div>
+        </div>
+
+        <div id="newPasswordForm" class="auth-form">
+            <h2 data-i18n="modalNewPwTitle">Nueva contraseña</h2>
+            <p class="auth-hint" data-i18n="modalNewPwHint">Elige una contraseña nueva. Necesita al menos 6 caracteres.</p>
+            <input type="password" id="newPassword" placeholder="Contraseña (mínimo 8 caracteres)" autocomplete="new-password">
+            <input type="password" id="newPasswordConfirm" placeholder="Repite la contraseña" autocomplete="new-password">
+            <!-- Two hidden fields and a "they do not match" error is a good way
+                 to make somebody give up on their own account. -->
+            <div class="auth-reveal">
+                <button type="button" class="linkish" id="newPwShowToggle"
+                        onclick="toggleNewPasswordVisibility()" data-i18n="pwShow">Mostrar contraseña</button>
+            </div>
+            <button class="btn" onclick="applyNewPassword()" data-i18n="modalNewPwBtn">Guardar contraseña</button>
+        </div>
+
+        <div id="authProviders">
         <div class="auth-divider"><span data-i18n="modalOr">o continúa con</span></div>
 
         <div class="auth-providers">
@@ -1249,6 +1286,7 @@
                 </svg>
                 GitHub
             </button>
+        </div>
         </div>
 
         <div id="authError" class="auth-msg bad"></div>
@@ -1333,7 +1371,26 @@
             modalOr: 'o continúa con',
             modalEmailPlaceholder: 'tucorreo@ejemplo.com',
             modalPwPlaceholder: 'Contraseña',
-            modalNewPwPlaceholder: 'Contraseña (mínimo 6 caracteres)',
+            modalNewPwPlaceholder: 'Contraseña (mínimo 8 caracteres)',
+            modalRepeatPwPlaceholder: 'Repite la contraseña',
+
+            changePw: 'Cambiar contraseña',
+            modalForgotLink: '¿Olvidaste tu contraseña?',
+            modalResetTitle: 'Recuperar contraseña',
+            modalResetHint: 'Escribe tu correo y te enviamos un enlace para poner una contraseña nueva.',
+            modalResetBtn: 'Enviar enlace',
+            modalBackToSignin: 'Volver a entrar',
+            modalNewPwTitle: 'Nueva contraseña',
+            modalNewPwHint: 'Elige una contraseña nueva. Necesita al menos 6 caracteres.',
+            modalNewPwBtn: 'Guardar contraseña',
+            // Says the same thing whether or not the address has an account,
+            // so the form cannot be used to find out who is registered.
+            okReset: 'Si esa dirección tiene una cuenta, el enlace ya va en camino. Revisa tu correo, incluida la carpeta de spam.',
+            okPwChanged: 'Contraseña actualizada. Ya puedes usarla.',
+            errPwMismatch: 'Las dos contraseñas no coinciden.',
+            errResetFail: 'No pudimos enviar el enlace. Intenta de nuevo en un momento.',
+            errResetLimit: 'Se enviaron demasiados correos en la última hora. Espera un rato y vuelve a intentarlo.',
+            errPwChangeFail: 'No pudimos cambiar la contraseña. Pide un enlace nuevo e intenta otra vez.',
 
             errNoEmail: 'Escribe un correo electrónico.',
             errBadEmail: 'Ese correo no parece válido. Revísalo e intenta de nuevo.',
@@ -1341,7 +1398,9 @@
             errNoPw: 'Escribe una contraseña.',
             errPwFail: 'No pudimos revisar la contraseña. Intenta de nuevo en un momento.',
             errFields: 'Completa los dos campos.',
-            errShortPw: 'La contraseña debe tener al menos 6 caracteres.',
+            errShortPw: 'La contraseña debe tener al menos 8 caracteres.',
+            errPwnedPw: (n) => `Esa contraseña ya apareció en filtraciones conocidas, ${n.toLocaleString('es')} ${n === 1 ? 'vez' : 'veces'}. Elige otra.`,
+            checkingPw: 'Comprobando la contraseña...',
             errBlocked: 'No se puede entrar porque un script necesario fue bloqueado. Desactiva el bloqueador de anuncios para este sitio, o prueba con otro navegador.',
             errSignin: 'No pudimos iniciar sesión. Intenta de nuevo.',
             okSignup: 'Cuenta creada. Revisa tu correo para confirmarla y luego entra.',
@@ -1464,7 +1523,26 @@
             modalOr: 'or continue with',
             modalEmailPlaceholder: 'you@example.com',
             modalPwPlaceholder: 'Password',
-            modalNewPwPlaceholder: 'Password (min 6 characters)',
+            modalNewPwPlaceholder: 'Password (min 8 characters)',
+            modalRepeatPwPlaceholder: 'Repeat the password',
+
+            changePw: 'Change password',
+            modalForgotLink: 'Forgot your password?',
+            modalResetTitle: 'Reset your password',
+            modalResetHint: 'Enter your email and we will send you a link to set a new password.',
+            modalResetBtn: 'Send the link',
+            modalBackToSignin: 'Back to sign in',
+            modalNewPwTitle: 'New password',
+            modalNewPwHint: 'Choose a new password. It needs at least 6 characters.',
+            modalNewPwBtn: 'Save password',
+            // Says the same thing whether or not the address has an account,
+            // so the form cannot be used to find out who is registered.
+            okReset: 'If that address has an account, the link is on its way. Check your email, including the spam folder.',
+            okPwChanged: 'Password updated. You can use it now.',
+            errPwMismatch: 'The two passwords do not match.',
+            errResetFail: 'We could not send the link. Please try again in a moment.',
+            errResetLimit: 'Too many emails have been sent in the last hour. Please wait a while and try again.',
+            errPwChangeFail: 'We could not change the password. Ask for a new link and try again.',
 
             errNoEmail: 'Please enter an email address.',
             errBadEmail: 'That email does not look right. Check it and try again.',
@@ -1472,7 +1550,9 @@
             errNoPw: 'Please enter a password.',
             errPwFail: 'We could not check that password. Please try again in a moment.',
             errFields: 'Please fill in both fields.',
-            errShortPw: 'Password must be at least 6 characters.',
+            errShortPw: 'Password must be at least 8 characters.',
+            errPwnedPw: (n) => `That password has already turned up in known breaches, ${n.toLocaleString('en')} ${n === 1 ? 'time' : 'times'}. Please choose another.`,
+            checkingPw: 'Checking the password...',
             errBlocked: 'Sign-in is unavailable because a required script was blocked. Disable your ad blocker for this site, or try another browser.',
             errSignin: 'Could not start sign-in. Please try again.',
             okSignup: 'Account created. Check your email to confirm, then sign in.',
@@ -1590,12 +1670,17 @@
         document.getElementById('signupEmail').placeholder = t().modalEmailPlaceholder;
         document.getElementById('signinPassword').placeholder = t().modalPwPlaceholder;
         document.getElementById('signupPassword').placeholder = t().modalNewPwPlaceholder;
+        document.getElementById('resetEmail').placeholder = t().modalEmailPlaceholder;
+        document.getElementById('newPassword').placeholder = t().modalNewPwPlaceholder;
+        document.getElementById('newPasswordConfirm').placeholder = t().modalRepeatPwPlaceholder;
 
         // The show/hide label depends on the current input state, not only the
         // language, so it cannot come from the data-i18n sweep above.
         const pwInput = document.getElementById('passwordInput');
         document.getElementById('pwShowToggle').textContent =
             pwInput.type === 'password' ? t().pwShow : t().pwHide;
+        document.getElementById('newPwShowToggle').textContent =
+            document.getElementById('newPassword').type === 'password' ? t().pwShow : t().pwHide;
 
         document.querySelectorAll('[data-lang]').forEach(b => {
             b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
@@ -1710,11 +1795,20 @@
 
         // Keeps the UI in sync with token refreshes, sign-out in another tab,
         // and the redirect back from an OAuth provider.
-        window.sbClient.auth.onAuthStateChange((_event, session) => {
+        window.sbClient.auth.onAuthStateChange((event, session) => {
             const was = !!currentUser;
             currentUser = session?.user ?? null;
             updateAuthUI();
             if (was !== !!currentUser) rerenderAll();
+
+            // Following a recovery link signs the visitor in with a session that
+            // exists only to let them set a password. Ask for it straight away,
+            // because leaving them on the page signed in and none the wiser is
+            // how people end up locked out a second time.
+            if (event === 'PASSWORD_RECOVERY') {
+                try { history.replaceState(null, '', window.location.pathname); } catch (e) { /* ignore */ }
+                openAuthModal('newPassword');
+            }
         });
 
         try {
@@ -1765,10 +1859,108 @@
         hideAuthMsg();
     }
 
+    const AUTH_FORMS = ['signin', 'signup', 'reset', 'newPassword'];
+
     function switchForm(form) {
-        document.getElementById('signinForm').classList.remove('active');
-        document.getElementById('signupForm').classList.remove('active');
+        AUTH_FORMS.forEach(name => {
+            document.getElementById(name + 'Form').classList.remove('active');
+        });
         document.getElementById(form + 'Form').classList.add('active');
+        hideAuthMsg();
+
+        // Google and GitHub have nothing to do with recovering a password, and
+        // offering them there only invites the wrong click.
+        const providers = document.getElementById('authProviders');
+        providers.style.display = (form === 'reset' || form === 'newPassword') ? 'none' : '';
+    }
+
+    async function sendPasswordReset() {
+        const email = document.getElementById('resetEmail').value.trim();
+        if (!email) { showAuthMsg(t().errNoEmail, 'bad'); return; }
+        if (!requireClient()) return;
+
+        // The link comes back to this same page. Supabase puts a recovery
+        // session in the URL fragment, which the client picks up and reports
+        // through onAuthStateChange below.
+        const redirectTo = window.location.origin + window.location.pathname;
+
+        try {
+            const { error } = await window.sbClient.auth.resetPasswordForEmail(email, { redirectTo });
+            if (error) {
+                console.error('Reset request failed:', error.message);
+                // Being rate limited says nothing about whether the address has
+                // an account, so it can be reported plainly. Telling somebody
+                // the link is on its way when nothing was sent leaves them
+                // refreshing an inbox for a mail that is never coming.
+                const limited = error.status === 429
+                    || /rate limit/i.test(error.message || '');
+                if (limited) { showAuthMsg(t().errResetLimit, 'bad'); return; }
+                // Any other failure is reported the same way as a success on
+                // purpose. Supabase says whether an address is registered, and
+                // relaying that would turn this form into a way of checking who
+                // has an account.
+            }
+        } catch (e) {
+            showAuthMsg(t().errResetFail, 'bad');
+            return;
+        }
+        showAuthMsg(t().okReset, 'good');
+        document.getElementById('resetEmail').value = '';
+    }
+
+    // Used both after following a recovery link and from the account menu. In
+    // either case Supabase only accepts the change with a live session, which
+    // is what stands in for asking the old password.
+    // A site that exists to tell people their passwords were leaked has no
+    // business accepting a leaked password. This follows NIST 800-63B: a length
+    // floor and a check against known breaches, instead of composition rules
+    // about symbols and capitals, which mostly produce Password1! and are no
+    // stronger for it.
+    const MIN_PASSWORD = 8;
+
+    async function passwordProblem(password) {
+        if (password.length < MIN_PASSWORD) return t().errShortPw;
+        try {
+            const count = await checkPasswordWithKAnonymity(password);
+            if (count > 0) return t().errPwnedPw(count);
+        } catch (e) {
+            // Fails open on purpose. If Have I Been Pwned is unreachable, the
+            // length floor still applies, and locking somebody out of their own
+            // account over a third party being down would be worse.
+            console.error('Breach check unavailable:', e.name);
+        }
+        return null;
+    }
+
+    async function applyNewPassword() {
+        const password = document.getElementById('newPassword').value;
+        const confirm = document.getElementById('newPasswordConfirm').value;
+
+        if (!password || !confirm) { showAuthMsg(t().errFields, 'bad'); return; }
+        if (password !== confirm) { showAuthMsg(t().errPwMismatch, 'bad'); return; }
+        if (!requireClient()) return;
+
+        showAuthMsg(t().checkingPw, 'good');
+        const problem = await passwordProblem(password);
+        if (problem) { showAuthMsg(problem, 'bad'); return; }
+
+        try {
+            const { error } = await window.sbClient.auth.updateUser({ password });
+            if (error) { showAuthMsg(error.message || t().errPwChangeFail, 'bad'); return; }
+        } catch (e) {
+            showAuthMsg(t().errPwChangeFail, 'bad');
+            return;
+        }
+
+        document.getElementById('newPassword').value = '';
+        document.getElementById('newPasswordConfirm').value = '';
+        showAuthMsg(t().okPwChanged, 'good');
+        setTimeout(closeAuthModal, 2000);
+    }
+
+    function openChangePassword() {
+        document.getElementById('userDropdown').classList.remove('active');
+        openAuthModal('newPassword');
     }
 
     function toggleUserMenu() {
@@ -1800,8 +1992,11 @@
         const password = document.getElementById('signupPassword').value;
 
         if (!email || !password) { showAuthMsg(t().errFields, 'bad'); return; }
-        if (password.length < 6) { showAuthMsg(t().errShortPw, 'bad'); return; }
         if (!requireClient()) return;
+
+        showAuthMsg(t().checkingPw, 'good');
+        const problem = await passwordProblem(password);
+        if (problem) { showAuthMsg(problem, 'bad'); return; }
 
         const { data, error } = await window.sbClient.auth.signUp({ email, password });
 
@@ -2553,6 +2748,17 @@
         const hashBuffer = await crypto.subtle.digest('SHA-1', buffer);
         const hashArray = Array.from(new Uint8Array(hashBuffer));
         return hashArray.map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
+    }
+
+    // Both fields at once: the point is to compare them, so revealing one and
+    // not the other would not help.
+    function toggleNewPasswordVisibility() {
+        const fields = [document.getElementById('newPassword'),
+                        document.getElementById('newPasswordConfirm')];
+        const toggle = document.getElementById('newPwShowToggle');
+        const show = fields[0].type === 'password';
+        fields.forEach(f => { f.type = show ? 'text' : 'password'; });
+        toggle.textContent = show ? t().pwHide : t().pwShow;
     }
 
     function togglePasswordVisibility() {
