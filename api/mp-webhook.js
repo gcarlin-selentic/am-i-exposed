@@ -90,20 +90,33 @@ function signatureMatches(manifest, expected, secret) {
 // replayed with somebody else's payment id in the query string, which is exactly
 // what this endpoint exists to prevent. If Mercado Pago really does sign without
 // the id, this rejects and the log says so, which is the safe way to find out.
-function verifySignature({ dataId, queryId, requestId, ts }, expected, secret) {
+// The panel keeps one secret per tab, test and productive, and it is not
+// documented which one signs a notification that arrives through the older feed
+// rather than through the panel's own registration. Both belong to us, so
+// holding both and accepting either costs nothing in strength.
+function webhookSecrets() {
+    return [process.env.MP_WEBHOOK_SECRET, process.env.MP_WEBHOOK_SECRET_ALT]
+        .filter(value => typeof value === 'string' && value.length > 0);
+}
+
+function verifySignature({ dataId, queryId, requestId, ts }, expected, secrets) {
     const ids = [];
     if (dataId) ids.push(dataId);
     if (queryId && queryId !== dataId) ids.push(queryId);
 
-    for (const id of ids) {
-        const manifest = buildManifest({ dataId: id, requestId, ts });
-        if (signatureMatches(manifest, expected, secret)) return { ok: true, id };
-        // Mercado Pago's own docs show request-id taken from the header, but it
-        // is absent on some notifications and the manifest then drops the part
-        // entirely. Cover the case where the header is present but unsigned.
-        if (requestId) {
-            const without = buildManifest({ dataId: id, requestId: null, ts });
-            if (signatureMatches(without, expected, secret)) return { ok: true, id };
+    for (const [index, secret] of secrets.entries()) {
+        const which = index === 0 ? 'primary' : 'alt';
+        for (const id of ids) {
+            const manifest = buildManifest({ dataId: id, requestId, ts });
+            if (signatureMatches(manifest, expected, secret)) return { ok: true, id, which };
+            // Mercado Pago's own docs show request-id taken from the header, but
+            // it is absent on some notifications and the manifest then drops the
+            // part entirely. Cover the case where the header is present but
+            // was not signed over.
+            if (requestId) {
+                const without = buildManifest({ dataId: id, requestId: null, ts });
+                if (signatureMatches(without, expected, secret)) return { ok: true, id, which };
+            }
         }
     }
     return { ok: false };
@@ -143,12 +156,12 @@ function statusPatch(status, payment) {
 export default async function handler(req, res) {
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-    const secret = process.env.MP_WEBHOOK_SECRET;
+    const secrets = webhookSecrets();
     const accessToken = process.env.MP_ACCESS_TOKEN;
-    if (!secret || !accessToken) {
+    if (!secrets.length || !accessToken) {
         // 500 rather than 200: Mercado Pago retries, so a notification that
         // arrives before the environment is configured is not lost.
-        console.error('Webhook not configured:', { secret: !!secret, token: !!accessToken });
+        console.error('Webhook not configured:', { secrets: secrets.length, token: !!accessToken });
         return res.status(500).json({ error: 'Not configured' });
     }
 
@@ -168,12 +181,14 @@ export default async function handler(req, res) {
     }
 
     const verified = verifySignature(
-        { dataId: candidateId, queryId, requestId, ts: signature.ts }, signature.v1, secret);
+        { dataId: candidateId, queryId, requestId, ts: signature.ts }, signature.v1, secrets);
     if (!verified.ok) {
         console.error('Webhook rejected: bad signature for', candidateId || queryId,
-            JSON.stringify({ dataId: candidateId, queryId, requestId: !!requestId }));
+            JSON.stringify({ dataId: candidateId, queryId, requestId: !!requestId,
+                secrets: secrets.length }));
         return res.status(401).json({ error: 'Bad signature' });
     }
+    console.log('Webhook signature accepted with the', verified.which, 'secret');
 
     // Everything below acts on the id the signature actually covered, never on
     // whatever else the query string happened to carry.
