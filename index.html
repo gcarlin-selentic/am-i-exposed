@@ -1232,7 +1232,7 @@
         <div id="signupForm" class="auth-form">
             <h2 data-i18n="modalSignupTitle">Crear cuenta</h2>
             <input type="email" id="signupEmail" placeholder="tucorreo@ejemplo.com" autocomplete="email">
-            <input type="password" id="signupPassword" placeholder="Contraseña (mínimo 6 caracteres)" autocomplete="new-password">
+            <input type="password" id="signupPassword" placeholder="Contraseña (mínimo 8 caracteres)" autocomplete="new-password">
             <button class="btn" onclick="signUpWithEmail()" data-i18n="modalSignupBtn">Crear cuenta</button>
             <div class="auth-toggle">
                 <span data-i18n="modalHaveAccount">¿Ya tienes cuenta?</span>
@@ -1256,7 +1256,7 @@
         <div id="newPasswordForm" class="auth-form">
             <h2 data-i18n="modalNewPwTitle">Nueva contraseña</h2>
             <p class="auth-hint" data-i18n="modalNewPwHint">Elige una contraseña nueva. Necesita al menos 6 caracteres.</p>
-            <input type="password" id="newPassword" placeholder="Contraseña (mínimo 6 caracteres)" autocomplete="new-password">
+            <input type="password" id="newPassword" placeholder="Contraseña (mínimo 8 caracteres)" autocomplete="new-password">
             <input type="password" id="newPasswordConfirm" placeholder="Repite la contraseña" autocomplete="new-password">
             <!-- Two hidden fields and a "they do not match" error is a good way
                  to make somebody give up on their own account. -->
@@ -1371,7 +1371,7 @@
             modalOr: 'o continúa con',
             modalEmailPlaceholder: 'tucorreo@ejemplo.com',
             modalPwPlaceholder: 'Contraseña',
-            modalNewPwPlaceholder: 'Contraseña (mínimo 6 caracteres)',
+            modalNewPwPlaceholder: 'Contraseña (mínimo 8 caracteres)',
             modalRepeatPwPlaceholder: 'Repite la contraseña',
 
             changePw: 'Cambiar contraseña',
@@ -1397,7 +1397,9 @@
             errNoPw: 'Escribe una contraseña.',
             errPwFail: 'No pudimos revisar la contraseña. Intenta de nuevo en un momento.',
             errFields: 'Completa los dos campos.',
-            errShortPw: 'La contraseña debe tener al menos 6 caracteres.',
+            errShortPw: 'La contraseña debe tener al menos 8 caracteres.',
+            errPwnedPw: (n) => `Esa contraseña ya apareció en filtraciones conocidas, ${n.toLocaleString('es')} ${n === 1 ? 'vez' : 'veces'}. Elige otra.`,
+            checkingPw: 'Comprobando la contraseña...',
             errBlocked: 'No se puede entrar porque un script necesario fue bloqueado. Desactiva el bloqueador de anuncios para este sitio, o prueba con otro navegador.',
             errSignin: 'No pudimos iniciar sesión. Intenta de nuevo.',
             okSignup: 'Cuenta creada. Revisa tu correo para confirmarla y luego entra.',
@@ -1520,7 +1522,7 @@
             modalOr: 'or continue with',
             modalEmailPlaceholder: 'you@example.com',
             modalPwPlaceholder: 'Password',
-            modalNewPwPlaceholder: 'Password (min 6 characters)',
+            modalNewPwPlaceholder: 'Password (min 8 characters)',
             modalRepeatPwPlaceholder: 'Repeat the password',
 
             changePw: 'Change password',
@@ -1546,7 +1548,9 @@
             errNoPw: 'Please enter a password.',
             errPwFail: 'We could not check that password. Please try again in a moment.',
             errFields: 'Please fill in both fields.',
-            errShortPw: 'Password must be at least 6 characters.',
+            errShortPw: 'Password must be at least 8 characters.',
+            errPwnedPw: (n) => `That password has already turned up in known breaches, ${n.toLocaleString('en')} ${n === 1 ? 'time' : 'times'}. Please choose another.`,
+            checkingPw: 'Checking the password...',
             errBlocked: 'Sign-in is unavailable because a required script was blocked. Disable your ad blocker for this site, or try another browser.',
             errSignin: 'Could not start sign-in. Please try again.',
             okSignup: 'Account created. Check your email to confirm, then sign in.',
@@ -1895,14 +1899,38 @@
     // Used both after following a recovery link and from the account menu. In
     // either case Supabase only accepts the change with a live session, which
     // is what stands in for asking the old password.
+    // A site that exists to tell people their passwords were leaked has no
+    // business accepting a leaked password. This follows NIST 800-63B: a length
+    // floor and a check against known breaches, instead of composition rules
+    // about symbols and capitals, which mostly produce Password1! and are no
+    // stronger for it.
+    const MIN_PASSWORD = 8;
+
+    async function passwordProblem(password) {
+        if (password.length < MIN_PASSWORD) return t().errShortPw;
+        try {
+            const count = await checkPasswordWithKAnonymity(password);
+            if (count > 0) return t().errPwnedPw(count);
+        } catch (e) {
+            // Fails open on purpose. If Have I Been Pwned is unreachable, the
+            // length floor still applies, and locking somebody out of their own
+            // account over a third party being down would be worse.
+            console.error('Breach check unavailable:', e.name);
+        }
+        return null;
+    }
+
     async function applyNewPassword() {
         const password = document.getElementById('newPassword').value;
         const confirm = document.getElementById('newPasswordConfirm').value;
 
         if (!password || !confirm) { showAuthMsg(t().errFields, 'bad'); return; }
-        if (password.length < 6) { showAuthMsg(t().errShortPw, 'bad'); return; }
         if (password !== confirm) { showAuthMsg(t().errPwMismatch, 'bad'); return; }
         if (!requireClient()) return;
+
+        showAuthMsg(t().checkingPw, 'good');
+        const problem = await passwordProblem(password);
+        if (problem) { showAuthMsg(problem, 'bad'); return; }
 
         try {
             const { error } = await window.sbClient.auth.updateUser({ password });
@@ -1952,8 +1980,11 @@
         const password = document.getElementById('signupPassword').value;
 
         if (!email || !password) { showAuthMsg(t().errFields, 'bad'); return; }
-        if (password.length < 6) { showAuthMsg(t().errShortPw, 'bad'); return; }
         if (!requireClient()) return;
+
+        showAuthMsg(t().checkingPw, 'good');
+        const problem = await passwordProblem(password);
+        if (problem) { showAuthMsg(problem, 'bad'); return; }
 
         const { data, error } = await window.sbClient.auth.signUp({ email, password });
 
