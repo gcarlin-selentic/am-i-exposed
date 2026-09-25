@@ -1208,8 +1208,9 @@
         </div>
     </div>
 
-    <!-- Paid tier -->
-    <div class="offer">
+    <!-- Paid tier. Hidden once the visitor is known to have bought it: selling
+         somebody something they already own reads as a mistake, and it is. -->
+    <div class="offer" id="offerCard">
         <span class="badge"><span class="dot"></span><span data-i18n="offerBadge">Reporte completo</span></span>
         <h2 data-i18n="offerTitle">Sabes que estás expuesto. Ahora, qué hacer.</h2>
         <p data-i18n="offerLede">Un plan personalizado, escrito en palabras normales, ordenado de lo más urgente a lo que puede esperar.</p>
@@ -2291,6 +2292,18 @@
 
         // Offering "Download PDF" on a paywall makes no sense.
         document.getElementById('reportPrintBtn').style.display = entitled ? '' : 'none';
+
+        if (entitled) hideOffer();
+    }
+
+    // The offer card is the pitch for the paid tier, so it comes down as soon
+    // as we learn this visitor has already bought it. Only ever hidden, never
+    // shown again from here: the server decides entitlement, and the card is
+    // visible by default, so the worst case is a paying customer seeing one
+    // stale pitch until the next report loads.
+    function hideOffer() {
+        const card = document.getElementById('offerCard');
+        if (card) card.style.display = 'none';
     }
 
     function reportHeaderHTML(email) {
