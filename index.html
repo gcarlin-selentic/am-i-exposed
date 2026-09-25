@@ -747,6 +747,7 @@
         .auth-form { display: none; }
         .auth-form.active { display: block; }
         .auth-form h2 { font-size: 23px; margin-bottom: 18px; }
+        .auth-reveal { margin: -4px 0 14px; text-align: right; font-size: 13px; }
         .auth-hint {
             font-size: 14px; line-height: 1.5; color: var(--muted);
             margin: -8px 0 16px;
@@ -1257,6 +1258,12 @@
             <p class="auth-hint" data-i18n="modalNewPwHint">Elige una contraseña nueva. Necesita al menos 6 caracteres.</p>
             <input type="password" id="newPassword" placeholder="Contraseña (mínimo 6 caracteres)" autocomplete="new-password">
             <input type="password" id="newPasswordConfirm" placeholder="Repite la contraseña" autocomplete="new-password">
+            <!-- Two hidden fields and a "they do not match" error is a good way
+                 to make somebody give up on their own account. -->
+            <div class="auth-reveal">
+                <button type="button" class="linkish" id="newPwShowToggle"
+                        onclick="toggleNewPasswordVisibility()" data-i18n="pwShow">Mostrar contraseña</button>
+            </div>
             <button class="btn" onclick="applyNewPassword()" data-i18n="modalNewPwBtn">Guardar contraseña</button>
         </div>
 
@@ -1666,6 +1673,8 @@
         const pwInput = document.getElementById('passwordInput');
         document.getElementById('pwShowToggle').textContent =
             pwInput.type === 'password' ? t().pwShow : t().pwHide;
+        document.getElementById('newPwShowToggle').textContent =
+            document.getElementById('newPassword').type === 'password' ? t().pwShow : t().pwHide;
 
         document.querySelectorAll('[data-lang]').forEach(b => {
             b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
@@ -2696,6 +2705,17 @@
         const hashBuffer = await crypto.subtle.digest('SHA-1', buffer);
         const hashArray = Array.from(new Uint8Array(hashBuffer));
         return hashArray.map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
+    }
+
+    // Both fields at once: the point is to compare them, so revealing one and
+    // not the other would not help.
+    function toggleNewPasswordVisibility() {
+        const fields = [document.getElementById('newPassword'),
+                        document.getElementById('newPasswordConfirm')];
+        const toggle = document.getElementById('newPwShowToggle');
+        const show = fields[0].type === 'password';
+        fields.forEach(f => { f.type = show ? 'text' : 'password'; });
+        toggle.textContent = show ? t().pwHide : t().pwShow;
     }
 
     function togglePasswordVisibility() {
