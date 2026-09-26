@@ -328,10 +328,14 @@ export default async function handler(req, res) {
         if (existing.rows[0].status === status) {
             return res.status(200).json({ ok: true, already: status });
         }
+        // Filtered on the status we just read, so that when two notifications
+        // for the same payment arrive together only one of them changes the
+        // row. The other gets zero rows back and stays quiet.
         const changed = await sbPatch(
-            `purchases?id=eq.${encodeURIComponent(existing.rows[0].id)}`,
+            `purchases?id=eq.${encodeURIComponent(existing.rows[0].id)}`
+            + `&status=eq.${encodeURIComponent(existing.rows[0].status)}`,
             statusPatch(status, payment));
-        if (changed.ok) await notifyBuyer(status, payment, req);
+        if (changed.ok && changed.rows.length) await notifyBuyer(status, payment, req);
         return res.status(changed.ok ? 200 : 500).json({ ok: changed.ok, status });
     }
 
@@ -352,11 +356,15 @@ export default async function handler(req, res) {
         + `&order=created_at.desc&limit=1`);
 
     if (pending.rows.length) {
+        // Same guard as above. Mercado Pago sends two notifications for one
+        // payment, near enough together that both can read this row while it is
+        // still pending; without the filter both would patch it and the buyer
+        // would be thanked twice.
         const changed = await sbPatch(
-            `purchases?id=eq.${encodeURIComponent(pending.rows[0].id)}`,
+            `purchases?id=eq.${encodeURIComponent(pending.rows[0].id)}&status=eq.pending`,
             statusPatch(status, payment));
         if (!changed.ok) return res.status(500).json({ error: 'Could not record payment' });
-        await notifyBuyer(status, payment, req);
+        if (changed.rows.length) await notifyBuyer(status, payment, req);
         return res.status(200).json({ ok: true, status });
     }
 

@@ -2790,6 +2790,23 @@
         return hasPaidAccess();
     }
 
+    // Straight to the plan from the receipt. The buyer's address is taken from
+    // their session, never from the link: an email address in a URL ends up in
+    // server logs and referrer headers, and this one belongs to somebody who
+    // just paid us to take their exposure seriously.
+    async function openPlanForAccount() {
+        try { history.replaceState(null, '', window.location.pathname); } catch (e) { /* ignore */ }
+
+        if (!currentUser?.email) {
+            openAuthModal('signin');
+            return;
+        }
+
+        document.getElementById('emailInput').value = currentUser.email;
+        await checkEmail();
+        await openReport();
+    }
+
     async function handleReturnFromCheckout(outcome) {
         // Drop the query string so a reload does not replay this.
         try { history.replaceState(null, '', window.location.pathname); } catch (e) { /* ignore */ }
@@ -3097,13 +3114,22 @@
         // second says whether this deployment is looking at test rows or real
         // ones.
         const pago = params.get('pago');
+        // ?plan=1 is the link in the purchase receipt. It needs the session
+        // resolved too, because whose plan to open is a question only the
+        // session answers.
+        const wantsPlan = params.get('plan') === '1';
         if (window.sbClient) {
             const ready = initAuth();
-            if (pago) await ready;
+            if (pago || wantsPlan) await ready;
         }
         if (pago) {
             await priceReady;
             await handleReturnFromCheckout(pago);
+            return;
+        }
+        if (wantsPlan) {
+            await priceReady;
+            await openPlanForAccount();
         }
     });
 </script>

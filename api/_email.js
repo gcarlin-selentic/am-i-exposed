@@ -166,7 +166,10 @@ export async function sendReceipt({ to, lang, amount, currency, paidAt, expiresA
             expires: escapeHtml(formatDate(expiresAt, l)),
         }),
         buttonLabel: c.receiptButton,
-        buttonUrl: siteUrl,
+        // ?plan=1 opens the plan straight away instead of dropping the buyer on
+        // the front page to find it themselves. The address is not in the link:
+        // the page reads it from their session.
+        buttonUrl: siteUrl ? `${siteUrl}/?plan=1` : null,
         footer: escapeHtml(c.footer),
     });
     return send({ to, subject: c.receiptSubject, html });
