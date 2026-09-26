@@ -1,39 +1,41 @@
 <!DOCTYPE html>
-<!-- The Spanish page. Its English twin is /en/index.html, which shares
+<!-- The English page. Its Spanish twin is /index.html, which shares
      /app.css and /app.js and differs only in this file's text and metadata.
-     Change behaviour in the shared files; change wording in both of these. -->
-<html lang="es">
+     Change behaviour in the shared files; change wording in both of these.
+     Generated from the Spanish page using the en dictionary in app.js, so the
+     two never drift apart by hand. -->
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>¿Se filtró tu correo? Revísalo gratis | ¿Estoy expuesto?</title>
-    <meta name="description" content="Revisa gratis si tu correo o contraseña aparece en una filtración de datos conocida. Sin cuenta, sin tarjeta y sin guardar tu correo. Te decimos qué hacer.">
+    <title>Check If Your Email Was in a Data Breach | Am I Exposed?</title>
+    <meta name="description" content="Free check to see if your email or password appears in a known data breach. No account, no card, and your email is never stored. We tell you what to do next.">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#FAFAFA">
     <!-- Absolute now, and paired with its English twin. hreflang only counts
          when both sides name the same set, so these four lines are duplicated
          verbatim in /en/index.html. x-default points at Spanish because that is
          the market this was built for. -->
-    <link rel="canonical" href="https://www.am-i-exposed.com/">
+    <link rel="canonical" href="https://www.am-i-exposed.com/en/">
     <link rel="alternate" hreflang="es" href="https://www.am-i-exposed.com/">
     <link rel="alternate" hreflang="en" href="https://www.am-i-exposed.com/en/">
     <link rel="alternate" hreflang="x-default" href="https://www.am-i-exposed.com/">
 
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="¿Estoy expuesto?">
-    <meta property="og:locale" content="es_PE">
-    <meta property="og:locale:alternate" content="en_US">
-    <meta property="og:title" content="¿Se filtró tu correo? Revísalo gratis">
-    <meta property="og:description" content="Revisa si tu correo o contraseña aparece en una filtración conocida, y recibe un plan claro de qué hacer.">
+    <meta property="og:site_name" content="Am I Exposed?">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="es_PE">
+    <meta property="og:title" content="Check If Your Email Was in a Data Breach">
+    <meta property="og:description" content="Check whether your email or password appears in a known breach, and get a clear plan of what to do about it.">
     <!-- DOMAIN CHANGE: update this one line. Social scrapers do not run JS and
          Open Graph requires an absolute URL, so it cannot be made relative. -->
-    <meta property="og:url" content="https://www.am-i-exposed.com/">
+    <meta property="og:url" content="https://www.am-i-exposed.com/en/">
     <!-- No og:image yet, so the card stays "summary". Switching it to
          summary_large_image without an image to put in it just gives the
          scraper a promise nothing keeps. -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="¿Se filtró tu correo? Revísalo gratis">
-    <meta name="twitter:description" content="Revisa si tu correo o contraseña aparece en una filtración conocida, y recibe un plan claro de qué hacer.">
+    <meta name="twitter:title" content="Check If Your Email Was in a Data Breach">
+    <meta name="twitter:description" content="Check whether your email or password appears in a known breach, and get a clear plan of what to do about it.">
 
     <!-- Who publishes this, and what it costs. Without a publisher an assistant
          cannot tell this tool apart from the several others with nearly the
@@ -57,7 +59,7 @@
         "operatingSystem": "Web",
         "browserRequirements": "Requiere JavaScript",
         "inLanguage": ["es", "en"],
-        "description": "Revisa si un correo o una contraseña aparece en una filtración de datos conocida y explica en lenguaje simple qué cambiar primero. No pide cuenta, no guarda el correo, y la contraseña nunca sale del navegador.",
+        "description": "Checks whether an email address or a password appears in a known data breach and explains in plain language what to change first. No account needed, the email is not stored, and the password never leaves the browser.",
         "publisher": {
             "@type": "Organization",
             "@id": "https://www.selenticgroup.com/#org",
@@ -74,13 +76,13 @@
         "offers": [
             {
                 "@type": "Offer",
-                "name": "Revisión de correo y contraseña",
+                "name": "Email and password check",
                 "price": "0",
                 "priceCurrency": "PEN"
             },
             {
                 "@type": "Offer",
-                "name": "Reporte con plan de acción",
+                "name": "Report with action plan",
                 "price": "19.00",
                 "priceCurrency": "PEN"
             }
@@ -105,15 +107,15 @@
      data-i18n sweep in applyLang() fills these in at load, so the banner still
      works and the words are no longer in the markup. -->
 <div id="demoBanner" class="demo-banner" hidden>
-    <strong data-i18n="demoTag"></strong>
-    <span data-i18n="demoBody"></span>
-    <button onclick="exitDemo()" data-i18n="demoExit"></button>
+    <strong data-i18n="demoTag">Preview mode</strong>
+    <span data-i18n="demoBody">Everything below is fictional sample data. Nothing was checked against any real database.</span>
+    <button onclick="exitDemo()" data-i18n="demoExit">Exit preview</button>
 </div>
 
 <!-- Shown on the way back from Mercado Pago, with the outcome of the payment -->
 <div id="payBanner" class="pay-banner">
     <span id="payBannerText"></span>
-    <button type="button" onclick="dismissPayBanner()" data-i18n="payClose">Cerrar</button>
+    <button type="button" onclick="dismissPayBanner()" data-i18n="payClose">Close</button>
 </div>
 
 <div class="wrap">
@@ -125,22 +127,22 @@
                 <circle cx="12" cy="10.6" r="2.6" fill="var(--bg)"/>
                 <path d="M12 13.2c2.1 0 3.8 1.4 3.8 3.1H8.2c0-1.7 1.7-3.1 3.8-3.1z" fill="var(--bg)"/>
             </svg>
-            <span data-i18n="brand">¿Estoy expuesto?</span>
+            <span data-i18n="brand">Am I Exposed?</span>
         </div>
         <div class="topbar-right">
-            <nav class="langtog" aria-label="Idioma">
-                <a href="/" data-lang="es" hreflang="es" aria-current="page">ES</a>
-                <a href="/en/" data-lang="en" hreflang="en" lang="en">EN</a>
+            <nav class="langtog" aria-label="Language">
+                <a href="/" data-lang="es" hreflang="es" lang="es">ES</a>
+                <a href="/en/" data-lang="en" hreflang="en" aria-current="page">EN</a>
             </nav>
             <div id="authUI">
-                <button class="ghost-btn" onclick="openAuthModal('signin')" data-i18n="signin">Entrar</button>
+                <button class="ghost-btn" onclick="openAuthModal('signin')" data-i18n="signin">Sign in</button>
             </div>
             <div id="userUI" class="user-menu" style="display: none;">
-                <button class="ghost-btn" onclick="toggleUserMenu()" data-i18n="menu">Mi cuenta</button>
+                <button class="ghost-btn" onclick="toggleUserMenu()" data-i18n="menu">My account</button>
                 <div id="userDropdown" class="user-dropdown">
                     <div class="user-email" id="userEmail"></div>
-                    <button onclick="openChangePassword()" data-i18n="changePw">Cambiar contraseña</button>
-                    <button onclick="signOut()" data-i18n="signout">Cerrar sesión</button>
+                    <button onclick="openChangePassword()" data-i18n="changePw">Change password</button>
+                    <button onclick="signOut()" data-i18n="signout">Sign out</button>
                 </div>
             </div>
         </div>
@@ -148,21 +150,21 @@
 
     <div class="hero">
         <span class="hook">
-            <span class="hook-tag" data-i18n="heroTag">Gratis</span>
-            <span data-i18n="heroBadge">Sin cuenta · Sin tarjeta</span>
+            <span class="hook-tag" data-i18n="heroTag">Free</span>
+            <span data-i18n="heroBadge">No account · No card</span>
         </span>
-        <h1 data-i18n="heroTitle">¿Se filtraron tus datos?</h1>
-        <p class="lede" data-i18n="heroLede">Escribe tu correo y te decimos en segundos si aparece en alguna filtración conocida, y qué hacer al respecto.</p>
+        <h1 data-i18n="heroTitle">Was your data leaked?</h1>
+        <p class="lede" data-i18n="heroLede">Type your email and we will tell you in seconds whether it shows up in a known breach, and what to do about it.</p>
 
         <div class="search">
             <input type="email" id="emailInput" placeholder="tucorreo@ejemplo.com" autocomplete="email" aria-label="Email">
-            <button class="btn" id="emailCheckBtn" onclick="checkEmail()" data-i18n="heroBtn">Revisar mi correo</button>
+            <button class="btn" id="emailCheckBtn" onclick="checkEmail()" data-i18n="heroBtn">Check my email</button>
         </div>
 
         <div class="trust">
-            <span><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="trust1">No guardamos tu correo</span></span>
-            <span><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="trust2">Resultado inmediato</span></span>
-            <span><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="trust3">Sin publicidad</span></span>
+            <span><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="trust1">We never store your email</span></span>
+            <span><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="trust2">Instant result</span></span>
+            <span><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="trust3">No ads</span></span>
         </div>
     </div>
 
@@ -176,20 +178,20 @@
                 <svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2.5" y="6.8" width="11" height="7" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M5.2 6.8V4.9a2.8 2.8 0 015.6 0v1.9" stroke="currentColor" stroke-width="1.6"/></svg>
             </span>
             <span>
-                <span class="fold-title" data-i18n="pwTitle">Revisar también una contraseña</span><br>
-                <span class="fold-sub" data-i18n="pwSub">Tu contraseña nunca sale de este dispositivo.</span>
+                <span class="fold-title" data-i18n="pwTitle">Check a password too</span><br>
+                <span class="fold-sub" data-i18n="pwSub">Your password never leaves this device.</span>
             </span>
             <svg class="fold-chev" width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="fold-body" id="pwBody" hidden>
             <div class="pw-row">
                 <input type="password" id="passwordInput" placeholder="••••••••••" autocomplete="off" aria-label="Password">
-                <button class="btn sm" id="passwordCheckBtn" onclick="checkPassword()" data-i18n="pwBtn">Revisar</button>
+                <button class="btn sm" id="passwordCheckBtn" onclick="checkPassword()" data-i18n="pwBtn">Check</button>
             </div>
-            <button type="button" class="linkish" id="pwShowToggle" onclick="togglePasswordVisibility()" data-i18n="pwShow">Mostrar contraseña</button>
+            <button type="button" class="linkish" id="pwShowToggle" onclick="togglePasswordVisibility()" data-i18n="pwShow">Show password</button>
             <div class="note">
                 <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.6" stroke="currentColor" stroke-width="1.5"/><path d="M8 7.2v4M8 4.9v.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-                <span data-i18n="pwNote">Solo enviamos las primeras cinco letras de un código calculado en tu navegador. Ni nosotros ni nadie más puede reconstruir tu contraseña a partir de eso.</span>
+                <span data-i18n="pwNote">We only send the first five letters of a code your browser works out. Neither we nor anyone else can rebuild your password from that.</span>
             </div>
             <div id="passwordError" class="error" style="display: none;"></div>
             <div id="passwordResult" style="display: none;"></div>
@@ -199,17 +201,17 @@
     <!-- Paid tier. Hidden once the visitor is known to have bought it: selling
          somebody something they already own reads as a mistake, and it is. -->
     <div class="offer" id="offerCard">
-        <span class="badge"><span class="dot"></span><span data-i18n="offerBadge">Reporte completo</span></span>
-        <h2 data-i18n="offerTitle">Sabes que estás expuesto. Ahora, qué hacer.</h2>
-        <p data-i18n="offerLede">Un plan personalizado, escrito en palabras normales, ordenado de lo más urgente a lo que puede esperar.</p>
+        <span class="badge"><span class="dot"></span><span data-i18n="offerBadge">Full report</span></span>
+        <h2 data-i18n="offerTitle">You know you are exposed. Now, what to do.</h2>
+        <p data-i18n="offerLede">A personal plan written in plain words, ordered from most urgent to what can wait.</p>
         <ul>
-            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi1">Qué cuenta cambiar primero y exactamente cómo hacerlo</span></li>
-            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi2">Pasos numerados, sin palabras técnicas</span></li>
-            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi3">Descargable en PDF para imprimir o compartir</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi1">Which account to fix first, and exactly how</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi2">Numbered steps, no technical words</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi3">Downloadable as a PDF to print or share</span></li>
         </ul>
         <div class="offer-foot">
-            <span class="price"><span id="offerPriceAmount">&mdash;</span><small data-i18n="offerPer">por reporte</small></span>
-            <button class="btn" onclick="openSampleReport()" data-i18n="offerBtn">Ver un ejemplo</button>
+            <span class="price"><span id="offerPriceAmount">&mdash;</span><small data-i18n="offerPer">per report</small></span>
+            <button class="btn" onclick="openSampleReport()" data-i18n="offerBtn">See an example</button>
         </div>
     </div>
 
@@ -218,13 +220,13 @@
              language, so switching the language here has to move the link, not
              only the label. applyLang() does the swap. -->
         <nav class="foot-nav">
-            <a data-i18n="footFaq" data-href-es="/preguntas-frecuentes/" data-href-en="/en/faq/" href="/preguntas-frecuentes/">Preguntas frecuentes</a>
-            <a data-i18n="footLeaked" data-href-es="/que-hacer-si-se-filtro-mi-correo/" data-href-en="/en/what-to-do-if-your-email-was-leaked/" href="/que-hacer-si-se-filtro-mi-correo/">Si se filtró tu correo</a>
-            <a data-i18n="footPassword" data-href-es="/como-saber-si-mi-contrasena-fue-filtrada/" data-href-en="/en/how-to-know-if-your-password-was-leaked/" href="/como-saber-si-mi-contrasena-fue-filtrada/">Si se filtró tu contraseña</a>
-            <a data-i18n="footPrivacy" data-href-es="/privacidad/" data-href-en="/en/privacy/" href="/privacidad/">Privacidad</a>
-            <a data-i18n="footTerms" data-href-es="/terminos/" data-href-en="/en/terms/" href="/terminos/">Términos</a>
+            <a data-i18n="footFaq" data-href-es="/preguntas-frecuentes/" data-href-en="/en/faq/" href="/en/faq/">FAQ</a>
+            <a data-i18n="footLeaked" data-href-es="/que-hacer-si-se-filtro-mi-correo/" data-href-en="/en/what-to-do-if-your-email-was-leaked/" href="/en/what-to-do-if-your-email-was-leaked/">If your email leaked</a>
+            <a data-i18n="footPassword" data-href-es="/como-saber-si-mi-contrasena-fue-filtrada/" data-href-en="/en/how-to-know-if-your-password-was-leaked/" href="/en/how-to-know-if-your-password-was-leaked/">If your password leaked</a>
+            <a data-i18n="footPrivacy" data-href-es="/privacidad/" data-href-en="/en/privacy/" href="/en/privacy/">Privacy</a>
+            <a data-i18n="footTerms" data-href-es="/terminos/" data-href-en="/en/terms/" href="/en/terms/">Terms</a>
         </nav>
-        <span data-i18n="footLeft"><a href="https://www.selenticgroup.com/" rel="noopener">Selentic Group</a> · Datos de filtraciones por <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a></span>
+        <span data-i18n="footLeft"><a href="https://www.selenticgroup.com/" rel="noopener">Selentic Group</a> · Breach data by <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a></span>
     </div>
 
 </div>
@@ -232,8 +234,8 @@
 <!-- Action Plan Report -->
 <div id="reportView" class="report-view">
     <div class="report-toolbar">
-        <button onclick="closeReport()" class="ghost-btn" data-i18n="reportBack">&larr; Volver</button>
-        <button id="reportPrintBtn" onclick="printReport()" class="btn sm" data-i18n="reportPdf">Descargar PDF</button>
+        <button onclick="closeReport()" class="ghost-btn" data-i18n="reportBack">← Back</button>
+        <button id="reportPrintBtn" onclick="printReport()" class="btn sm" data-i18n="reportPdf">Download PDF</button>
     </div>
     <div id="reportBody" class="report-body"></div>
 </div>
@@ -244,27 +246,27 @@
         <button class="auth-modal-close" onclick="closeAuthModal()" aria-label="Close">&times;</button>
 
         <div id="signinForm" class="auth-form active">
-            <h2 data-i18n="modalSigninTitle">Entrar</h2>
+            <h2 data-i18n="modalSigninTitle">Sign in</h2>
             <input type="email" id="signinEmail" placeholder="tucorreo@ejemplo.com" autocomplete="email">
             <input type="password" id="signinPassword" placeholder="Contraseña" autocomplete="current-password">
-            <button class="btn" onclick="signInWithEmail()" data-i18n="modalSigninBtn">Entrar</button>
+            <button class="btn" onclick="signInWithEmail()" data-i18n="modalSigninBtn">Sign in</button>
             <div class="auth-toggle">
-                <button onclick="switchForm('reset')" data-i18n="modalForgotLink">¿Olvidaste tu contraseña?</button>
+                <button onclick="switchForm('reset')" data-i18n="modalForgotLink">Forgot your password?</button>
             </div>
             <div class="auth-toggle">
-                <span data-i18n="modalNoAccount">¿No tienes cuenta?</span>
-                <button onclick="switchForm('signup')" data-i18n="modalSignupLink">Crear una</button>
+                <span data-i18n="modalNoAccount">Don't have an account?</span>
+                <button onclick="switchForm('signup')" data-i18n="modalSignupLink">Create one</button>
             </div>
         </div>
 
         <div id="signupForm" class="auth-form">
-            <h2 data-i18n="modalSignupTitle">Crear cuenta</h2>
+            <h2 data-i18n="modalSignupTitle">Create account</h2>
             <input type="email" id="signupEmail" placeholder="tucorreo@ejemplo.com" autocomplete="email">
             <input type="password" id="signupPassword" placeholder="Contraseña (mínimo 8 caracteres)" autocomplete="new-password">
-            <button class="btn" onclick="signUpWithEmail()" data-i18n="modalSignupBtn">Crear cuenta</button>
+            <button class="btn" onclick="signUpWithEmail()" data-i18n="modalSignupBtn">Create account</button>
             <div class="auth-toggle">
-                <span data-i18n="modalHaveAccount">¿Ya tienes cuenta?</span>
-                <button onclick="switchForm('signin')" data-i18n="modalSigninLink">Entrar</button>
+                <span data-i18n="modalHaveAccount">Already have an account?</span>
+                <button onclick="switchForm('signin')" data-i18n="modalSigninLink">Sign in</button>
             </div>
         </div>
 
@@ -272,31 +274,31 @@
              followed. Both deliberately stay inside this modal: a separate page
              would need its own route and its own redirect entry. -->
         <div id="resetForm" class="auth-form">
-            <h2 data-i18n="modalResetTitle">Recuperar contraseña</h2>
-            <p class="auth-hint" data-i18n="modalResetHint">Escribe tu correo y te enviamos un enlace para poner una contraseña nueva.</p>
+            <h2 data-i18n="modalResetTitle">Reset your password</h2>
+            <p class="auth-hint" data-i18n="modalResetHint">Enter your email and we will send you a link to set a new password.</p>
             <input type="email" id="resetEmail" placeholder="tucorreo@ejemplo.com" autocomplete="email">
-            <button class="btn" onclick="sendPasswordReset()" data-i18n="modalResetBtn">Enviar enlace</button>
+            <button class="btn" onclick="sendPasswordReset()" data-i18n="modalResetBtn">Send the link</button>
             <div class="auth-toggle">
-                <button onclick="switchForm('signin')" data-i18n="modalBackToSignin">Volver a entrar</button>
+                <button onclick="switchForm('signin')" data-i18n="modalBackToSignin">Back to sign in</button>
             </div>
         </div>
 
         <div id="newPasswordForm" class="auth-form">
-            <h2 data-i18n="modalNewPwTitle">Nueva contraseña</h2>
-            <p class="auth-hint" data-i18n="modalNewPwHint">Elige una contraseña nueva. Necesita al menos 8 caracteres.</p>
+            <h2 data-i18n="modalNewPwTitle">New password</h2>
+            <p class="auth-hint" data-i18n="modalNewPwHint">Choose a new password. It needs at least 8 characters.</p>
             <input type="password" id="newPassword" placeholder="Contraseña (mínimo 8 caracteres)" autocomplete="new-password">
             <input type="password" id="newPasswordConfirm" placeholder="Repite la contraseña" autocomplete="new-password">
             <!-- Two hidden fields and a "they do not match" error is a good way
                  to make somebody give up on their own account. -->
             <div class="auth-reveal">
                 <button type="button" class="linkish" id="newPwShowToggle"
-                        onclick="toggleNewPasswordVisibility()" data-i18n="pwShow">Mostrar contraseña</button>
+                        onclick="toggleNewPasswordVisibility()" data-i18n="pwShow">Show password</button>
             </div>
-            <button class="btn" onclick="applyNewPassword()" data-i18n="modalNewPwBtn">Guardar contraseña</button>
+            <button class="btn" onclick="applyNewPassword()" data-i18n="modalNewPwBtn">Save password</button>
         </div>
 
         <div id="authProviders">
-        <div class="auth-divider"><span data-i18n="modalOr">o continúa con</span></div>
+        <div class="auth-divider"><span data-i18n="modalOr">or continue with</span></div>
 
         <div class="auth-providers">
             <button type="button" class="provider-btn" onclick="signInWithProvider('google')">

@@ -13,9 +13,8 @@
 
 ## The tool
 
-- [¿Estoy expuesto? / Am I Exposed?](https://www.am-i-exposed.com/): the checker
-  itself, served in Spanish by default and in English through the language
-  switch.
+- [¿Estoy expuesto?](https://www.am-i-exposed.com/): the checker itself, in Spanish.
+- [Am I Exposed?](https://www.am-i-exposed.com/en/): the same checker, in English.
 
 ## Written pages (Spanish)
 

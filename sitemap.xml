@@ -8,9 +8,8 @@
   at the default. A one-sided hreflang is ignored, so the set has to be
   reciprocal and identical on both sides.
 
-  The home page has no alternates yet: /en/ does not exist, because the tool
-  still switches language in the browser on a single URL. Add its pair here
-  when that page is split.
+  The home pages are a pair like the rest now: the tool no longer switches
+  language in the browser, each version has its own URL.
 
   lastmod is the date the page's content last changed, not the date of the
   deploy. Bumping it on every push teaches the crawler to ignore it.
@@ -20,6 +19,18 @@
 
     <url>
         <loc>https://www.am-i-exposed.com/</loc>
+        <xhtml:link rel="alternate" hreflang="es" href="https://www.am-i-exposed.com/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.am-i-exposed.com/en/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.am-i-exposed.com/"/>
+        <lastmod>2026-09-25</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://www.am-i-exposed.com/en/</loc>
+        <xhtml:link rel="alternate" hreflang="es" href="https://www.am-i-exposed.com/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.am-i-exposed.com/en/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.am-i-exposed.com/"/>
         <lastmod>2026-09-25</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
