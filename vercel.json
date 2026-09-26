@@ -1,41 +1,33 @@
 {
-  "_comment": [
-    "The stylesheets and app.js are cached for an hour and then revalidated.",
-    "Not 'immutable' with a year, which is the usual advice: these filenames",
-    "never change, so a forgotten cache bust would leave a returning visitor",
-    "running last week's payment code for a year. An hour is short enough to",
-    "be safe and long enough to spare the round trips while somebody reads",
-    "three pages in a row. The ?v= query on the tags is the manual override:",
-    "bump it in index.html and en/index.html when a change has to land now.",
-    "Without any of this the browser still revalidates and gets a 304, so the",
-    "saving here is round trips, not bytes."
-  ],
   "headers": [
     {
       "source": "/api/(.*)",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
       ]
     },
     {
-      "source": "/(app|content)\\.(css|js)",
+      "source": "/app.css",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600, must-revalidate"
-        }
+        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/app.js",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/content.css",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
       ]
     },
     {
       "source": "/icon.svg",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400, must-revalidate"
-        }
+        { "key": "Cache-Control", "value": "public, max-age=86400, must-revalidate" }
       ]
     }
   ]

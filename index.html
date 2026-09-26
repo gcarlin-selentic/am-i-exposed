@@ -93,6 +93,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- ?v= is the cache bust. vercel.json caches this and app.js for an hour
+         with revalidation rather than the usual immutable year: these filenames
+         never change, and a forgotten bust on a year-long immutable asset would
+         leave a returning buyer running last week's payment code. Bump the date
+         here and in the other language's page when a change has to land now. -->
     <link rel="stylesheet" href="/app.css?v=2026-09-25">
 </head>
 <body>
