@@ -1335,6 +1335,8 @@
     const SUPABASE_ANON_KEY = 'sb_publishable_agkPOONNtck7k-an-rpwOg_GTXoo5de';
 
     let currentUser = null;
+    // Set once the server confirms this account has bought the report.
+    let knownEntitled = false;
     window.sbClient = null;
 
     // Last email check, kept in memory only so the action plan can be built
@@ -1902,6 +1904,8 @@
             authUI.style.display = 'block';
             userUI.style.display = 'none';
         }
+
+        refreshOfferCard();
     }
 
     function openAuthModal(form) {
@@ -2494,14 +2498,20 @@
         if (entitled) hideOffer();
     }
 
-    // The offer card is the pitch for the paid tier, so it comes down as soon
-    // as we learn this visitor has already bought it. Only ever hidden, never
-    // shown again from here: the server decides entitlement, and the card is
-    // visible by default, so the worst case is a paying customer seeing one
-    // stale pitch until the next report loads.
-    function hideOffer() {
+    // The offer card pitches the paid tier to somebody who has just arrived.
+    // It comes down once they have an account, because from then on the paywall
+    // inside their own report makes the same case with their own data, and two
+    // pitches on one page read as a mistake. It comes down for good once they
+    // have bought it.
+    function refreshOfferCard() {
         const card = document.getElementById('offerCard');
-        if (card) card.style.display = 'none';
+        if (!card) return;
+        card.style.display = (currentUser || knownEntitled) ? 'none' : '';
+    }
+
+    function hideOffer() {
+        knownEntitled = true;
+        refreshOfferCard();
     }
 
     function reportHeaderHTML(email) {
