@@ -1,0 +1,322 @@
+/* Shared stylesheet for the written pages: the FAQ, the guides and the legal
+   texts. Not for the tool itself, which keeps its own inline styles.
+
+   These pages are documents, not the application. They need type, measure and
+   a footer, and none of the modal, report or pricing machinery, which is why
+   this file is a few kilobytes instead of the forty the app carries.
+
+   Tokens are copied from index.html rather than shared with it, because the
+   app's CSS is still inline. When that gets extracted, these should collapse
+   into one set. */
+
+:root {
+    color-scheme: light;
+
+    --bg:          #FAFAFA;
+    --surface:     #FFFFFF;
+    --ink:         #0F0F0F;
+    --ink-soft:    #1E1E1E;
+    --muted:       #6B6B70;
+    --line:        rgba(0,0,0,.09);
+    --accent:      #0098F2;
+    --accent-ink:  #0077C2;
+    --accent-soft: rgba(0,152,242,.11);
+    --btn-bg:      #0F0F0F;
+    --btn-ink:     #FFFFFF;
+
+    --sans:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --display: 'Nunito', var(--sans);
+}
+
+/* The tool has a dark palette, so these pages need the same one. Arriving at a
+   white document from a dark home page is the kind of jolt that reads as "this
+   page belongs to someone else". Values and structure are the app's, including
+   the guard that lets an explicit light choice beat a dark system setting. */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        color-scheme: dark;
+
+        --bg:          #0B0B0D;
+        --surface:     #151518;
+        --ink:         #F6F6F7;
+        --ink-soft:    #E4E4E7;
+        --muted:       #A1A1A8;
+        --line:        rgba(255,255,255,.10);
+        --accent:      #4DB5FF;
+        --accent-ink:  #7CCAFF;
+        --accent-soft: rgba(77,181,255,.14);
+        --btn-bg:      #F6F6F7;
+        --btn-ink:     #0B0B0D;
+    }
+}
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+
+    --bg:          #0B0B0D;
+    --surface:     #151518;
+    --ink:         #F6F6F7;
+    --ink-soft:    #E4E4E7;
+    --muted:       #A1A1A8;
+    --line:        rgba(255,255,255,.10);
+    --accent:      #4DB5FF;
+    --accent-ink:  #7CCAFF;
+    --accent-soft: rgba(77,181,255,.14);
+    --btn-bg:      #F6F6F7;
+    --btn-ink:     #0B0B0D;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink-soft);
+    font-family: var(--sans);
+    /* 17px, not 16: these pages are read, not scanned. */
+    font-size: 17px;
+    line-height: 1.65;
+}
+
+/* One gutter, set once. Everything else lays out inside it. */
+.wrap {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    padding-inline: 20px;
+}
+
+/* ---------------------------------------------------------------- header */
+
+.site-head {
+    border-bottom: 1px solid var(--line);
+    background: var(--surface);
+}
+
+.site-head .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-block: 14px;
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 17px;
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.brand img { width: 26px; height: 26px; display: block; }
+
+.head-links {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 14px;
+}
+
+.head-links a { color: var(--muted); text-decoration: none; }
+.head-links a:hover { color: var(--ink); text-decoration: underline; }
+
+/* The other language is a real link to a real URL, not a button that rewrites
+   the page. That is the whole point of these pages having two versions. */
+.lang-link {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px 11px;
+    font-weight: 600;
+}
+
+/* ------------------------------------------------------------------ text */
+
+main { padding-block: 44px 8px; }
+
+h1 {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(30px, 6vw, 40px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0 0 14px;
+    text-wrap: balance;
+}
+
+.standfirst {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--muted);
+    margin: 0 0 40px;
+    text-wrap: pretty;
+}
+
+h2 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 23px;
+    line-height: 1.25;
+    color: var(--ink);
+    margin: 42px 0 12px;
+    text-wrap: balance;
+}
+
+h3 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--ink);
+    margin: 28px 0 8px;
+}
+
+p { margin: 0 0 18px; }
+
+a { color: var(--accent-ink); }
+a:hover { color: var(--accent); }
+
+ul, ol { margin: 0 0 18px; padding-left: 22px; }
+li { margin-bottom: 9px; }
+
+strong { color: var(--ink); font-weight: 600; }
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--line);
+    margin: 40px 0;
+}
+
+/* A step in a guide: numbered, so the reader can stop and come back. */
+.steps { counter-reset: step; list-style: none; padding: 0; margin: 0 0 18px; }
+
+.steps > li {
+    counter-increment: step;
+    position: relative;
+    padding-left: 44px;
+    margin-bottom: 26px;
+}
+
+.steps > li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 1px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--btn-bg);
+    color: var(--btn-ink);
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.steps > li > h3 { margin-top: 0; }
+
+/* Pulled aside from the argument: a caveat, or a thing people get wrong. */
+.note {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 18px;
+    margin: 0 0 22px;
+    font-size: 16px;
+}
+
+.note p:last-child { margin-bottom: 0; }
+
+/* The FAQ. Open by default: a crawler and a reader in a hurry both get the
+   answer without a click. */
+details {
+    border-bottom: 1px solid var(--line);
+    padding: 4px 0 8px;
+}
+
+summary {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--ink);
+    cursor: pointer;
+    padding: 12px 0;
+    list-style: none;
+}
+
+summary::-webkit-details-marker { display: none; }
+
+summary::after {
+    content: '+';
+    float: right;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+details[open] summary::after { content: '\2212'; }
+
+details > *:not(summary) { font-size: 16px; }
+
+/* ------------------------------------------------------------------- cta */
+
+.cta {
+    background: var(--accent-soft);
+    border-radius: 14px;
+    padding: 26px 24px;
+    margin: 44px 0 0;
+    text-align: center;
+}
+
+.cta h2 { margin-top: 0; }
+
+.cta-btn {
+    display: inline-block;
+    background: var(--btn-bg);
+    color: var(--btn-ink);
+    text-decoration: none;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 16px;
+    padding: 13px 26px;
+    border-radius: 999px;
+}
+
+.cta-btn:hover { color: var(--btn-ink); opacity: .88; }
+
+/* ---------------------------------------------------------------- footer */
+
+.site-foot {
+    border-top: 1px solid var(--line);
+    margin-top: 56px;
+    padding-block: 28px 40px;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.foot-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    margin-bottom: 16px;
+    padding: 0;
+    list-style: none;
+}
+
+.foot-links a { color: var(--muted); text-decoration: none; }
+.foot-links a:hover { color: var(--ink); text-decoration: underline; }
+
+.site-foot p { margin: 0; }
+
+@media (max-width: 480px) {
+    body { font-size: 16px; }
+    main { padding-block: 32px 4px; }
+    .standfirst { font-size: 17px; margin-bottom: 30px; }
+}

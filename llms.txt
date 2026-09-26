@@ -11,11 +11,31 @@
 > filtración de datos conocida, con una explicación clara de qué hacer después.
 > No pide cuenta, no guarda el correo, y la contraseña nunca sale del navegador.
 
-## Pages
+## The tool
 
-- [¿Estoy expuesto? / Am I Exposed?](https://www.am-i-exposed.com/): the tool
-  itself. One page, served in Spanish by default and in English through the
-  language switch.
+- [¿Estoy expuesto? / Am I Exposed?](https://www.am-i-exposed.com/): the checker
+  itself, served in Spanish by default and in English through the language
+  switch.
+
+## Written pages (Spanish)
+
+- [Preguntas frecuentes](https://www.am-i-exposed.com/preguntas-frecuentes/):
+  what happens to your email, how a password is checked without being seen, and
+  what appearing in a breach does and does not mean.
+- [Qué hacer si se filtró mi correo](https://www.am-i-exposed.com/que-hacer-si-se-filtro-mi-correo/):
+  the seven steps in the order that matters, and the three things that do not help.
+- [Cómo saber si mi contraseña fue filtrada](https://www.am-i-exposed.com/como-saber-si-mi-contrasena-fue-filtrada/):
+  k-anonymity explained without jargon, and what the leak count actually means.
+- [Política de privacidad](https://www.am-i-exposed.com/privacidad/)
+- [Términos y condiciones](https://www.am-i-exposed.com/terminos/)
+
+## Written pages (English)
+
+- [FAQ](https://www.am-i-exposed.com/en/faq/)
+- [What to do if your email was leaked](https://www.am-i-exposed.com/en/what-to-do-if-your-email-was-leaked/)
+- [How to know if your password was leaked](https://www.am-i-exposed.com/en/how-to-know-if-your-password-was-leaked/)
+- [Privacy policy](https://www.am-i-exposed.com/en/privacy/)
+- [Terms and conditions](https://www.am-i-exposed.com/en/terms/)
 
 ## What makes it different
 

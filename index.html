@@ -742,6 +742,20 @@
             justify-content: space-between;
         }
 
+        /* The only links out of this page. Without them the written pages are
+           orphans: reachable from the sitemap, reachable by nobody else. */
+        .foot-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+            order: -1;
+            width: 100%;
+            margin-bottom: 4px;
+        }
+
+        .foot-nav a { color: var(--muted-2); text-decoration: none; }
+        .foot-nav a:hover { color: var(--ink); text-decoration: underline; }
+
         /* ====================================================================
            AUTH MODAL
            ==================================================================== */
@@ -1264,6 +1278,16 @@
     </div>
 
     <div class="foot">
+        <!-- data-href-es / data-href-en: the written pages live at real URLs per
+             language, so switching the language here has to move the link, not
+             only the label. applyLang() does the swap. -->
+        <nav class="foot-nav">
+            <a data-i18n="footFaq" data-href-es="/preguntas-frecuentes/" data-href-en="/en/faq/" href="/preguntas-frecuentes/">Preguntas frecuentes</a>
+            <a data-i18n="footLeaked" data-href-es="/que-hacer-si-se-filtro-mi-correo/" data-href-en="/en/what-to-do-if-your-email-was-leaked/" href="/que-hacer-si-se-filtro-mi-correo/">Si se filtró tu correo</a>
+            <a data-i18n="footPassword" data-href-es="/como-saber-si-mi-contrasena-fue-filtrada/" data-href-en="/en/how-to-know-if-your-password-was-leaked/" href="/como-saber-si-mi-contrasena-fue-filtrada/">Si se filtró tu contraseña</a>
+            <a data-i18n="footPrivacy" data-href-es="/privacidad/" data-href-en="/en/privacy/" href="/privacidad/">Privacidad</a>
+            <a data-i18n="footTerms" data-href-es="/terminos/" data-href-en="/en/terms/" href="/terminos/">Términos</a>
+        </nav>
         <span data-i18n="footLeft">Selentic Group · Datos de filtraciones por Have I Been Pwned</span>
     </div>
 
@@ -1427,6 +1451,11 @@
             offerLi3: 'Descargable en PDF para imprimir o compartir',
             offerPer: 'por reporte', offerBtn: 'Ver un ejemplo',
             footLeft: 'Selentic Group · Datos de filtraciones por Have I Been Pwned',
+            footFaq: 'Preguntas frecuentes',
+            footLeaked: 'Si se filtró tu correo',
+            footPassword: 'Si se filtró tu contraseña',
+            footPrivacy: 'Privacidad',
+            footTerms: 'Términos',
 
             demoTag: 'Modo de ejemplo',
             demoBody: 'Todo lo que ves abajo son datos ficticios. No se consultó ninguna base de datos real.',
@@ -1587,6 +1616,11 @@
             offerLi3: 'Downloadable as a PDF to print or share',
             offerPer: 'per report', offerBtn: 'See an example',
             footLeft: 'Selentic Group · Breach data by Have I Been Pwned',
+            footFaq: 'FAQ',
+            footLeaked: 'If your email leaked',
+            footPassword: 'If your password leaked',
+            footPrivacy: 'Privacy',
+            footTerms: 'Terms',
 
             demoTag: 'Preview mode',
             demoBody: 'Everything below is fictional sample data. Nothing was checked against any real database.',
@@ -1748,6 +1782,13 @@
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const value = t()[el.dataset.i18n];
             if (typeof value === 'string') el.innerHTML = value;
+        });
+
+        // The written pages have a URL per language. Translating the label
+        // without moving the link would send a reader in English to a page in
+        // Spanish, which is worse than not offering the link at all.
+        document.querySelectorAll('[data-href-es][data-href-en]').forEach(a => {
+            a.setAttribute('href', lang === 'es' ? a.dataset.hrefEs : a.dataset.hrefEn);
         });
 
         document.getElementById('emailInput').placeholder = t().heroPlaceholder;

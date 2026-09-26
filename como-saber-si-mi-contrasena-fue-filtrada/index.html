@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Cómo saber si tu contraseña fue filtrada | ¿Estoy expuesto?</title>
+    <meta name="description" content="Se puede comprobar si una contraseña está en una filtración sin enviarla a nadie. Cómo funciona el truco, por qué es seguro y qué hacer con el resultado.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#FAFAFA">
+
+    <link rel="canonical" href="https://www.am-i-exposed.com/como-saber-si-mi-contrasena-fue-filtrada/">
+    <link rel="alternate" hreflang="es" href="https://www.am-i-exposed.com/como-saber-si-mi-contrasena-fue-filtrada/">
+    <link rel="alternate" hreflang="en" href="https://www.am-i-exposed.com/en/how-to-know-if-your-password-was-leaked/">
+    <link rel="alternate" hreflang="x-default" href="https://www.am-i-exposed.com/como-saber-si-mi-contrasena-fue-filtrada/">
+
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="¿Estoy expuesto?">
+    <meta property="og:locale" content="es_PE">
+    <meta property="og:title" content="Cómo saber si tu contraseña fue filtrada, sin revelarla">
+    <meta property="og:description" content="Se puede comprobar si una contraseña está en una filtración sin enviarla a nadie. Cómo funciona y qué hacer con el resultado.">
+    <meta property="og:url" content="https://www.am-i-exposed.com/como-saber-si-mi-contrasena-fue-filtrada/">
+
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/content.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Cómo saber si tu contraseña fue filtrada, sin revelarla",
+        "description": "Se puede comprobar si una contraseña está en una filtración sin enviarla a nadie. Cómo funciona el truco, por qué es seguro y qué hacer con el resultado.",
+        "inLanguage": "es",
+        "url": "https://www.am-i-exposed.com/como-saber-si-mi-contrasena-fue-filtrada/",
+        "mainEntityOfPage": "https://www.am-i-exposed.com/como-saber-si-mi-contrasena-fue-filtrada/"
+    }
+    </script>
+</head>
+<body>
+
+<header class="site-head">
+    <div class="wrap">
+        <a class="brand" href="/">
+            <img src="/icon.svg" alt="" width="26" height="26">
+            ¿Estoy expuesto?
+        </a>
+        <nav class="head-links">
+            <a href="/">Revisar mi correo</a>
+            <a class="lang-link" href="/en/how-to-know-if-your-password-was-leaked/" hreflang="en" lang="en">EN</a>
+        </nav>
+    </div>
+</header>
+
+<main class="wrap">
+    <h1>Cómo saber si tu contraseña fue filtrada, sin revelarla</h1>
+    <p class="standfirst">Suena a trampa: para comprobar si tu contraseña está en una
+    filtración, alguien tendría que conocerla. Resulta que no, y el método es bastante
+    elegante.</p>
+
+    <p>Empecemos por lo obvio: <strong>nunca escribas tu contraseña en un sitio que no te
+    explique qué hace con ella</strong>. Una caja que dice "comprueba tu contraseña" y no
+    cuenta nada más es, en el mejor de los casos, una mala idea. Lo que sigue es la
+    explicación que deberías exigirle a cualquiera, incluidos nosotros.</p>
+
+    <h2>Primero, qué es una huella</h2>
+    <p>Existe un procedimiento matemático que convierte cualquier texto en una cadena de
+    letras y números de largo fijo. Siempre el mismo texto da la misma cadena, y cadenas
+    parecidas no significan textos parecidos. Lo llamamos huella porque se comporta como
+    una: identifica sin describir.</p>
+
+    <p>Lo importante es que la operación va en un solo sentido. Del texto sale la huella con
+    facilidad; de la huella no se vuelve al texto. Esa asimetría es la base de casi todo lo
+    que sigue.</p>
+
+    <h2>El truco: preguntar por un grupo, no por ti</h2>
+    <p>Si tu navegador enviara la huella completa de tu contraseña, quien la recibe sabría
+    exactamente por cuál preguntaste. Podría guardarla, y con una lista de contraseñas
+    comunes ya calculadas de antemano, averiguar cuál era. Así que se hace distinto.</p>
+
+    <ol class="steps">
+        <li>
+            <h3>La huella se calcula en tu equipo</h3>
+            <p>Tu navegador hace la cuenta por su lado. Hasta aquí nada ha salido a la red.</p>
+        </li>
+        <li>
+            <h3>Se envían solo los cinco primeros caracteres</h3>
+            <p>Un fragmento del principio de la huella, y nada más. No identifica una
+            contraseña: identifica un vecindario enorme donde caben cientos de ellas.</p>
+        </li>
+        <li>
+            <h3>Llega de vuelta el vecindario completo</h3>
+            <p>El servicio responde con todas las huellas filtradas que empiezan por esos
+            cinco caracteres, típicamente varios cientos, junto con cuántas veces apareció
+            cada una.</p>
+        </li>
+        <li>
+            <h3>La comparación ocurre dentro de tu navegador</h3>
+            <p>Tu equipo busca en esa lista si está la huella completa, que solo él conoce.
+            Quien te respondió nunca se enteró de cuál era.</p>
+        </li>
+    </ol>
+
+    <div class="note">
+        <p>Esta técnica tiene nombre, <strong>k-anonimato</strong>, y la usan también los
+        gestores de contraseñas y los avisos de tu propio navegador cuando te dice que una
+        clave guardada está comprometida. No es un invento nuestro ni un favor que te
+        hacemos: es el estándar de la casa.</p>
+    </div>
+
+    <p>En este sitio esa consulta sale directamente de tu navegador al servicio de
+    contraseñas. Nuestro servidor no participa, así que ni siquiera podría ver el fragmento
+    si quisiera.</p>
+
+    <h2>Qué significa el número que sale</h2>
+    <p>El resultado no es un sí o un no, es una cuenta: cuántas veces esa contraseña apareció
+    en filtraciones conocidas. Y significa algo más incómodo de lo que parece.</p>
+
+    <p>No quiere decir que <em>tu</em> cuenta se filtró. Quiere decir que <strong>esa
+    combinación de caracteres ya está en las listas</strong> que se usan para atacar. Si tu
+    contraseña aparece cuarenta mil veces, no es que cuarenta mil personas te robaron: es que
+    cuarenta mil personas eligieron lo mismo que tú, y por eso está en el primer lugar de
+    cada lista de intentos.</p>
+
+    <p>Una contraseña filtrada es peligrosa aunque nadie sepa que es tuya. El ataque habitual
+    no adivina: toma las contraseñas ya conocidas y las prueba contra millones de cuentas
+    hasta que alguna abre.</p>
+
+    <h2>Si la tuya aparece</h2>
+    <p>Cámbiala donde la uses, empezando por tu correo. Y elige la nueva pensando en largo
+    antes que en símbolos raros: tres o cuatro palabras que no formen una frase conocida
+    resisten mejor que <em>P@ssw0rd!</em> y se recuerdan sin esfuerzo. Si la repetiste en
+    varios sitios, ese es el trabajo de verdad, y está ordenado por prioridad en
+    <a href="/que-hacer-si-se-filtro-mi-correo/">qué hacer si se filtró tu correo</a>.</p>
+
+    <h2>Si no aparece</h2>
+    <p>Buena señal, pero no es un certificado. Que no esté en las listas conocidas significa
+    justo eso: que no está en las listas conocidas. Una contraseña corta y adivinable puede
+    no haberse filtrado nunca y caer igual en un minuto. La prueba mira el pasado, no la
+    calidad.</p>
+
+    <div class="cta">
+        <h2>Compruébalo tú mismo</h2>
+        <p>Gratis y sin cuenta. Tu contraseña no sale de tu navegador.</p>
+        <a class="cta-btn" href="/">Revisar mi contraseña</a>
+    </div>
+</main>
+
+<footer class="site-foot">
+    <div class="wrap">
+        <ul class="foot-links">
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/preguntas-frecuentes/">Preguntas frecuentes</a></li>
+            <li><a href="/que-hacer-si-se-filtro-mi-correo/">Si se filtró tu correo</a></li>
+            <li><a href="/como-saber-si-mi-contrasena-fue-filtrada/">Si se filtró tu contraseña</a></li>
+            <li><a href="/privacidad/">Privacidad</a></li>
+            <li><a href="/terminos/">Términos</a></li>
+        </ul>
+        <p>Selentic Group · Datos de filtraciones por
+        <a href="https://haveibeenpwned.com" rel="noopener">Have I Been Pwned</a></p>
+    </div>
+</footer>
+
+</body>
+</html>

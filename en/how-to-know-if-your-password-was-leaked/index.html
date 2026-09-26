@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>How to know if your password was leaked | Am I Exposed?</title>
+    <meta name="description" content="You can check whether a password appears in a breach without sending it to anyone. How the trick works, why it is safe, and what to do with the answer.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#FAFAFA">
+
+    <link rel="canonical" href="https://www.am-i-exposed.com/en/how-to-know-if-your-password-was-leaked/">
+    <link rel="alternate" hreflang="en" href="https://www.am-i-exposed.com/en/how-to-know-if-your-password-was-leaked/">
+    <link rel="alternate" hreflang="es" href="https://www.am-i-exposed.com/como-saber-si-mi-contrasena-fue-filtrada/">
+    <link rel="alternate" hreflang="x-default" href="https://www.am-i-exposed.com/como-saber-si-mi-contrasena-fue-filtrada/">
+
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Am I Exposed?">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="How to know if your password was leaked, without revealing it">
+    <meta property="og:description" content="You can check whether a password appears in a breach without sending it to anyone. Here is how.">
+    <meta property="og:url" content="https://www.am-i-exposed.com/en/how-to-know-if-your-password-was-leaked/">
+
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/content.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "How to know if your password was leaked, without revealing it",
+        "description": "You can check whether a password appears in a breach without sending it to anyone. How the trick works, why it is safe, and what to do with the answer.",
+        "inLanguage": "en",
+        "url": "https://www.am-i-exposed.com/en/how-to-know-if-your-password-was-leaked/",
+        "mainEntityOfPage": "https://www.am-i-exposed.com/en/how-to-know-if-your-password-was-leaked/"
+    }
+    </script>
+</head>
+<body>
+
+<header class="site-head">
+    <div class="wrap">
+        <a class="brand" href="/">
+            <img src="/icon.svg" alt="" width="26" height="26">
+            Am I Exposed?
+        </a>
+        <nav class="head-links">
+            <a href="/">Check my email</a>
+            <a class="lang-link" href="/como-saber-si-mi-contrasena-fue-filtrada/" hreflang="es" lang="es">ES</a>
+        </nav>
+    </div>
+</header>
+
+<main class="wrap">
+    <h1>How to know if your password was leaked, without revealing it</h1>
+    <p class="standfirst">It sounds like a trick question: to check whether your password is
+    in a breach, somebody would have to know it. It turns out they do not, and the method is
+    rather elegant.</p>
+
+    <p>Start with the obvious: <strong>never type your password into a site that will not
+    explain what it does with it</strong>. A box saying "check your password" and nothing else
+    is, at best, a bad idea. What follows is the explanation you should demand from anyone,
+    ourselves included.</p>
+
+    <h2>First, what a fingerprint is</h2>
+    <p>There is a mathematical procedure that turns any text into a fixed-length string of
+    letters and numbers. The same text always gives the same string, and similar strings do
+    not mean similar texts. We call it a fingerprint because it behaves like one: it
+    identifies without describing.</p>
+
+    <p>The important part is that the operation runs one way. Going from text to fingerprint
+    is easy; going back is not. That asymmetry is the basis of nearly everything below.</p>
+
+    <h2>The trick: ask about a group, not about yourself</h2>
+    <p>If your browser sent the whole fingerprint of your password, whoever received it would
+    know exactly which one you asked about. They could keep it and, with a list of common
+    passwords already worked out, find out what it was. So it is done differently.</p>
+
+    <ol class="steps">
+        <li>
+            <h3>The fingerprint is worked out on your device</h3>
+            <p>Your browser does the sum locally. Nothing has gone out to the network yet.</p>
+        </li>
+        <li>
+            <h3>Only the first five characters are sent</h3>
+            <p>A fragment from the start of the fingerprint, and nothing else. It does not
+            identify a password: it identifies an enormous neighbourhood holding hundreds of
+            them.</p>
+        </li>
+        <li>
+            <h3>The whole neighbourhood comes back</h3>
+            <p>The service replies with every leaked fingerprint beginning with those five
+            characters, typically several hundred, along with how many times each one
+            appeared.</p>
+        </li>
+        <li>
+            <h3>The comparison happens inside your browser</h3>
+            <p>Your device looks through that list for the full fingerprint, which only it
+            knows. Whoever answered never found out which one it was.</p>
+        </li>
+    </ol>
+
+    <div class="note">
+        <p>The technique has a name, <strong>k-anonymity</strong>, and password managers and
+        your own browser's compromised-password warnings use it too. It is not our invention
+        or a favour we are doing you: it is the standard way to do this.</p>
+    </div>
+
+    <p>On this site that query goes straight from your browser to the password service. Our
+    server takes no part in it, so it could not see even the fragment if it wanted to.</p>
+
+    <h2>What the number means</h2>
+    <p>The result is not a yes or no, it is a count: how many times that password appeared in
+    known breaches. And it means something more uncomfortable than it first seems.</p>
+
+    <p>It does not mean <em>your</em> account leaked. It means <strong>that combination of
+    characters is already on the lists</strong> used to attack accounts. If your password
+    appears forty thousand times, it is not that forty thousand people robbed you: it is that
+    forty thousand people chose the same thing you did, which is why it sits at the top of
+    every list of attempts.</p>
+
+    <p>A leaked password is dangerous even if nobody knows it is yours. The usual attack does
+    not guess: it takes passwords already known and tries them against millions of accounts
+    until one opens.</p>
+
+    <h2>If yours appears</h2>
+    <p>Change it everywhere you use it, starting with your email. And choose the new one for
+    length before strange symbols: three or four words that do not form a known phrase hold up
+    better than <em>P@ssw0rd!</em> and are remembered without effort. If you reused it across
+    several sites, that is the real work, and it is put in order of priority in
+    <a href="/en/what-to-do-if-your-email-was-leaked/">what to do if your email was
+    leaked</a>.</p>
+
+    <h2>If it does not appear</h2>
+    <p>Good sign, but not a certificate. Not being on the known lists means exactly that: it
+    is not on the known lists. A short, guessable password may never have leaked and still
+    fall in a minute. The check looks at the past, not at quality.</p>
+
+    <div class="cta">
+        <h2>Check it yourself</h2>
+        <p>Free, no account. Your password never leaves your browser.</p>
+        <a class="cta-btn" href="/">Check my password</a>
+    </div>
+</main>
+
+<footer class="site-foot">
+    <div class="wrap">
+        <ul class="foot-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/en/faq/">FAQ</a></li>
+            <li><a href="/en/what-to-do-if-your-email-was-leaked/">If your email leaked</a></li>
+            <li><a href="/en/how-to-know-if-your-password-was-leaked/">If your password leaked</a></li>
+            <li><a href="/en/privacy/">Privacy</a></li>
+            <li><a href="/en/terms/">Terms</a></li>
+        </ul>
+        <p>Selentic Group · Breach data by
+        <a href="https://haveibeenpwned.com" rel="noopener">Have I Been Pwned</a></p>
+    </div>
+</footer>
+
+</body>
+</html>

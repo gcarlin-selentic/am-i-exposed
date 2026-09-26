@@ -1,18 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  One URL, because there is one page. No /en/ and no content pages yet: a
-  sitemap that lists a URL returning 404 costs trust with the crawler and buys
-  nothing. Add entries here when those pages actually exist, each with its own
-  lastmod and, once the languages are split, its xhtml:link hreflang pair.
+  Eleven URLs: the tool itself, plus five written pages in Spanish and their
+  five counterparts in English.
+
+  Every page except the home page belongs to a language pair, and both members
+  of a pair carry the same three xhtml:link entries pointing at each other and
+  at the default. A one-sided hreflang is ignored, so the set has to be
+  reciprocal and identical on both sides.
+
+  The home page has no alternates yet: /en/ does not exist, because the tool
+  still switches language in the browser on a single URL. Add its pair here
+  when that page is split.
 
   lastmod is the date the page's content last changed, not the date of the
   deploy. Bumping it on every push teaches the crawler to ignore it.
 -->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
     <url>
         <loc>https://www.am-i-exposed.com/</loc>
         <lastmod>2026-09-25</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
+
+    <url>
+        <loc>https://www.am-i-exposed.com/preguntas-frecuentes/</loc>
+        <xhtml:link rel="alternate" hreflang="es" href="https://www.am-i-exposed.com/preguntas-frecuentes/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.am-i-exposed.com/en/faq/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.am-i-exposed.com/preguntas-frecuentes/"/>
+        <lastmod>2026-09-25</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.am-i-exposed.com/en/faq/</loc>
+        <xhtml:link rel="alternate" hreflang="es" href="https://www.am-i-exposed.com/preguntas-frecuentes/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.am-i-exposed.com/en/faq/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.am-i-exposed.com/preguntas-frecuentes/"/>
+        <lastmod>2026-09-25</lastmod>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.am-i-exposed.com/que-hacer-si-se-filtro-mi-correo/</loc>
+        <xhtml:link rel="alternate" hreflang="es" href="https://www.am-i-exposed.com/que-hacer-si-se-filtro-mi-correo/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.am-i-exposed.com/en/what-to-do-if-your-email-was-leaked/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.am-i-exposed.com/que-hacer-si-se-filtro-mi-correo/"/>
+        <lastmod>2026-09-25</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.am-i-exposed.com/en/what-to-do-if-your-email-was-leaked/</loc>
+        <xhtml:link rel="alternate" hreflang="es" href="https://www.am-i-exposed.com/que-hacer-si-se-filtro-mi-correo/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.am-i-exposed.com/en/what-to-do-if-your-email-was-leaked/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.am-i-exposed.com/que-hacer-si-se-filtro-mi-correo/"/>
+        <lastmod>2026-09-25</lastmod>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.am-i-exposed.com/como-saber-si-mi-contrasena-fue-filtrada/</loc>
+        <xhtml:link rel="alternate" hreflang="es" href="https://www.am-i-exposed.com/como-saber-si-mi-contrasena-fue-filtrada/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.am-i-exposed.com/en/how-to-know-if-your-password-was-leaked/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.am-i-exposed.com/como-saber-si-mi-contrasena-fue-filtrada/"/>
+        <lastmod>2026-09-25</lastmod>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.am-i-exposed.com/en/how-to-know-if-your-password-was-leaked/</loc>
+        <xhtml:link rel="alternate" hreflang="es" href="https://www.am-i-exposed.com/como-saber-si-mi-contrasena-fue-filtrada/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.am-i-exposed.com/en/how-to-know-if-your-password-was-leaked/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.am-i-exposed.com/como-saber-si-mi-contrasena-fue-filtrada/"/>
+        <lastmod>2026-09-25</lastmod>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.am-i-exposed.com/privacidad/</loc>
+        <xhtml:link rel="alternate" hreflang="es" href="https://www.am-i-exposed.com/privacidad/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.am-i-exposed.com/en/privacy/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.am-i-exposed.com/privacidad/"/>
+        <lastmod>2026-09-25</lastmod>
+        <priority>0.3</priority>
+    </url>
+    <url>
+        <loc>https://www.am-i-exposed.com/en/privacy/</loc>
+        <xhtml:link rel="alternate" hreflang="es" href="https://www.am-i-exposed.com/privacidad/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.am-i-exposed.com/en/privacy/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.am-i-exposed.com/privacidad/"/>
+        <lastmod>2026-09-25</lastmod>
+        <priority>0.3</priority>
+    </url>
+
+    <url>
+        <loc>https://www.am-i-exposed.com/terminos/</loc>
+        <xhtml:link rel="alternate" hreflang="es" href="https://www.am-i-exposed.com/terminos/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.am-i-exposed.com/en/terms/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.am-i-exposed.com/terminos/"/>
+        <lastmod>2026-09-25</lastmod>
+        <priority>0.3</priority>
+    </url>
+    <url>
+        <loc>https://www.am-i-exposed.com/en/terms/</loc>
+        <xhtml:link rel="alternate" hreflang="es" href="https://www.am-i-exposed.com/terminos/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.am-i-exposed.com/en/terms/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.am-i-exposed.com/terminos/"/>
+        <lastmod>2026-09-25</lastmod>
+        <priority>0.3</priority>
+    </url>
+
 </urlset>
