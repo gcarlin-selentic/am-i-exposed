@@ -24,6 +24,13 @@ create table if not exists public.purchases (
     amount                 numeric(12,2),
     currency               text,
 
+    -- False for a purchase made with Mercado Pago's test credentials. Test and
+    -- real purchases land in the same table, so without this there is no way to
+    -- tell them apart, and a test payment would unlock the real site. The
+    -- entitlement check matches this against the credentials the deployment
+    -- holds.
+    live_mode              boolean not null default false,
+
     paid_at                timestamptz,
     expires_at             timestamptz,
 
@@ -31,8 +38,12 @@ create table if not exists public.purchases (
     updated_at             timestamptz not null default now()
 );
 
+-- For a table created before live_mode existed, so this file stays re-runnable.
+alter table public.purchases
+    add column if not exists live_mode boolean not null default false;
+
 create index if not exists purchases_user_active_idx
-    on public.purchases (user_id, status, expires_at desc);
+    on public.purchases (user_id, status, live_mode, expires_at desc);
 
 create index if not exists purchases_preference_idx
     on public.purchases (provider_preference_id);
@@ -49,7 +60,12 @@ create policy "read own purchases"
     using (auth.uid() = user_id);
 
 -- Keep updated_at honest.
-create or replace function public.touch_updated_at()
+--
+-- Named for this table rather than something generic like touch_updated_at:
+-- "create or replace function" overwrites any function that already answers to
+-- the name, so a generic one risks silently replacing another table's trigger
+-- body.
+create or replace function public.purchases_set_updated_at()
 returns trigger language plpgsql as $$
 begin
     new.updated_at = now();
@@ -60,10 +76,15 @@ $$;
 drop trigger if exists purchases_touch_updated_at on public.purchases;
 create trigger purchases_touch_updated_at
     before update on public.purchases
-    for each row execute function public.touch_updated_at();
+    for each row execute function public.purchases_set_updated_at();
 
 -- Convenience view of whether the current user has access right now.
 -- Reads through RLS, so it can only ever report on the caller.
+--
+-- Deliberately does not filter live_mode: a view has no way to know which
+-- Mercado Pago environment is asking. Anything that must distinguish a test
+-- purchase from a real one has to query purchases directly and say which
+-- live_mode it means. The server's entitlement check does exactly that.
 create or replace view public.my_report_access
 with (security_invoker = true) as
     select

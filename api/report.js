@@ -110,10 +110,16 @@ async function hasActiveAccess(userId) {
     const headers = { apikey: secret };
     if (secret.startsWith('eyJ')) headers.Authorization = `Bearer ${secret}`;
 
+    // Test and real purchases share one table. Matching live_mode to this
+    // deployment's Mercado Pago credentials is what stops a test purchase made
+    // against the preview from unlocking the real site.
+    const liveMode = process.env.MP_MODE === 'live';
+
     const query = `${url}/rest/v1/purchases`
         + `?select=expires_at`
         + `&user_id=eq.${encodeURIComponent(userId)}`
         + `&status=eq.paid`
+        + `&live_mode=eq.${liveMode}`
         + `&or=(expires_at.is.null,expires_at.gt.${encodeURIComponent(new Date().toISOString())})`
         + `&limit=1`;
 
