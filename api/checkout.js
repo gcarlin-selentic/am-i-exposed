@@ -13,6 +13,7 @@
 
 import {
     MP_API,
+    credentialOwnerId,
     expectLiveMode,
     isAllowedOrigin,
     mpMode,
@@ -173,7 +174,14 @@ export default async function handler(req, res) {
 
         const payload = await response.json().catch(() => null);
         if (!response.ok) {
-            console.error('Preference creation failed:', response.status, JSON.stringify(payload).slice(0, 400));
+            // Which account the stored token belongs to, and whether a
+            // notification_url was attached. Both are what a wrong environment
+            // variable gets wrong, and neither is a secret: the owner id is
+            // public in every preference Mercado Pago returns.
+            console.error('Preference creation failed:', response.status,
+                JSON.stringify(payload).slice(0, 400),
+                JSON.stringify({ mode: mpMode(), owner: credentialOwnerId(),
+                    notify: !!notifyUrl, base }));
             return res.status(502).json({ error: 'Could not open the checkout right now' });
         }
         preference = payload;

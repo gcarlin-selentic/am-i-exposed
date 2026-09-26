@@ -1962,6 +1962,9 @@
         }
         showAuthMsg(t().okReset, 'good');
         document.getElementById('resetEmail').value = '';
+        // Long enough to read, then out of the way. There is nothing else to do
+        // on this form once the link has been sent.
+        setTimeout(closeAuthModal, 5000);
     }
 
     // Used both after following a recovery link and from the account menu. In
