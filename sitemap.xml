@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  One URL, because there is one page. No /en/ and no content pages yet: a
+  sitemap that lists a URL returning 404 costs trust with the crawler and buys
+  nothing. Add entries here when those pages actually exist, each with its own
+  lastmod and, once the languages are split, its xhtml:link hreflang pair.
+
+  lastmod is the date the page's content last changed, not the date of the
+  deploy. Bumping it on every push teaches the crawler to ignore it.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://www.am-i-exposed.com/</loc>
+        <lastmod>2026-09-25</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+</urlset>

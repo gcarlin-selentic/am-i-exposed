@@ -1,0 +1,24 @@
+# ¿Estoy expuesto? / Am I Exposed?
+
+> Free tool that checks whether an email address or a password appears in known
+> data breaches, and then explains in plain language what to change first.
+> Available in Spanish and English. No account is needed to run a check, email
+> addresses are not stored, and passwords are checked with k-anonymity: only the
+> first five characters of a SHA-1 hash ever leave the browser, so the password
+> itself is never sent anywhere. A paid report adds a personalised action plan.
+
+> Herramienta gratuita para revisar si un correo o una contraseña aparece en una
+> filtración de datos conocida, con una explicación clara de qué hacer después.
+> No pide cuenta, no guarda el correo, y la contraseña nunca sale del navegador.
+
+## Pages
+
+- [¿Estoy expuesto? / Am I Exposed?](https://www.am-i-exposed.com/): the tool
+  itself. One page, served in Spanish by default and in English through the
+  language switch.
+
+## What makes it different
+
+Most breach checkers answer one question: were you in a breach, yes or no. This
+one is built around the next question, which is what to actually do about it,
+written for someone who is not a security professional and who reads Spanish.
