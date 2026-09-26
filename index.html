@@ -36,7 +36,17 @@
          from structured data. Deliberately minimal: no operator, no publisher
          and no offers, because a price declared here is a second copy of a
          number that lives in an environment variable, and the two drift. -->
-    <script type="application/ld+json">
+    <!-- Who publishes this, and what it costs. Without a publisher an assistant
+         cannot tell this tool apart from the several others with nearly the
+         same name, which is the actual problem being solved here.
+
+         The price is a second copy of a number that really lives in the
+         MP_PRICE environment variable, and there is no build step to keep them
+         in step. renderPrice() rewrites the offer below from the live API on
+         every load, so a rendering crawler always sees the true figure and only
+         a non-rendering one can ever read a stale number. If the price changes,
+         update it here too. -->
+    <script type="application/ld+json" id="appJsonLd">
     {
         "@context": "https://schema.org",
         "@type": "WebApplication",
@@ -48,7 +58,34 @@
         "operatingSystem": "Web",
         "browserRequirements": "Requiere JavaScript",
         "inLanguage": ["es", "en"],
-        "description": "Revisa si un correo o una contraseña aparece en una filtración de datos conocida y explica en lenguaje simple qué cambiar primero. No pide cuenta, no guarda el correo, y la contraseña nunca sale del navegador."
+        "description": "Revisa si un correo o una contraseña aparece en una filtración de datos conocida y explica en lenguaje simple qué cambiar primero. No pide cuenta, no guarda el correo, y la contraseña nunca sale del navegador.",
+        "publisher": {
+            "@type": "Organization",
+            "@id": "https://www.selenticgroup.com/#org",
+            "name": "Selentic Group",
+            "url": "https://www.selenticgroup.com/",
+            "email": "info@selenticgroup.com",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Lima",
+                "addressCountry": "PE"
+            },
+            "sameAs": ["https://github.com/gcarlin-selentic/am-i-exposed"]
+        },
+        "offers": [
+            {
+                "@type": "Offer",
+                "name": "Revisión de correo y contraseña",
+                "price": "0",
+                "priceCurrency": "PEN"
+            },
+            {
+                "@type": "Offer",
+                "name": "Reporte con plan de acción",
+                "price": "19.00",
+                "priceCurrency": "PEN"
+            }
+        ]
     }
     </script>
 
@@ -753,6 +790,8 @@
             margin-bottom: 4px;
         }
 
+        .foot a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+        .foot a:hover { color: var(--ink); }
         .foot-nav a { color: var(--muted-2); text-decoration: none; }
         .foot-nav a:hover { color: var(--ink); text-decoration: underline; }
 
@@ -1168,10 +1207,16 @@
 <body>
 
 <!-- Preview mode banner -->
-<div id="demoBanner" class="demo-banner">
-    <strong data-i18n="demoTag">Modo de ejemplo</strong>
-    <span data-i18n="demoBody">Todo lo que ves abajo son datos ficticios. No se consultó ninguna base de datos real.</span>
-    <button onclick="exitDemo()" data-i18n="demoExit">Salir del ejemplo</button>
+<!-- Left empty on purpose. This banner only ever shows in preview mode, but its
+     text shipped in the served HTML, where a crawler that strips tags reads it
+     as ordinary page copy: "everything below is fictional sample data" is the
+     last sentence that should be quoted as a description of this site. The
+     data-i18n sweep in applyLang() fills these in at load, so the banner still
+     works and the words are no longer in the markup. -->
+<div id="demoBanner" class="demo-banner" hidden>
+    <strong data-i18n="demoTag"></strong>
+    <span data-i18n="demoBody"></span>
+    <button onclick="exitDemo()" data-i18n="demoExit"></button>
 </div>
 
 <!-- Shown on the way back from Mercado Pago, with the outcome of the payment -->
@@ -1288,7 +1333,7 @@
             <a data-i18n="footPrivacy" data-href-es="/privacidad/" data-href-en="/en/privacy/" href="/privacidad/">Privacidad</a>
             <a data-i18n="footTerms" data-href-es="/terminos/" data-href-en="/en/terms/" href="/terminos/">Términos</a>
         </nav>
-        <span data-i18n="footLeft">Selentic Group · Datos de filtraciones por Have I Been Pwned</span>
+        <span data-i18n="footLeft"><a href="https://www.selenticgroup.com/" rel="noopener">Selentic Group</a> · Datos de filtraciones por <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a></span>
     </div>
 
 </div>
@@ -1450,7 +1495,7 @@
             offerLi2: 'Pasos numerados, sin palabras técnicas',
             offerLi3: 'Descargable en PDF para imprimir o compartir',
             offerPer: 'por reporte', offerBtn: 'Ver un ejemplo',
-            footLeft: 'Selentic Group · Datos de filtraciones por Have I Been Pwned',
+            footLeft: '<a href="https://www.selenticgroup.com/" rel="noopener">Selentic Group</a> · Datos de filtraciones por <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a>',
             footFaq: 'Preguntas frecuentes',
             footLeaked: 'Si se filtró tu correo',
             footPassword: 'Si se filtró tu contraseña',
@@ -1615,7 +1660,7 @@
             offerLi2: 'Numbered steps, no technical words',
             offerLi3: 'Downloadable as a PDF to print or share',
             offerPer: 'per report', offerBtn: 'See an example',
-            footLeft: 'Selentic Group · Breach data by Have I Been Pwned',
+            footLeft: '<a href="https://www.selenticgroup.com/" rel="noopener">Selentic Group</a> · Breach data by <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a>',
             footFaq: 'FAQ',
             footLeaked: 'If your email leaked',
             footPassword: 'If your password leaked',
@@ -1847,7 +1892,12 @@
     // =======================================================================
     async function startDemo() {
         demoMode = true;
-        document.getElementById('demoBanner').style.display = 'flex';
+        // hidden has to come off explicitly. Leaving it to the inline display
+        // above works only because an inline style outranks the [hidden] rule,
+        // which is too subtle a thing to depend on.
+        const banner = document.getElementById('demoBanner');
+        banner.hidden = false;
+        banner.style.display = 'flex';
         document.body.classList.add('demo-active');
 
         document.getElementById('passwordInput').value = 'sample-password';
@@ -2757,6 +2807,26 @@
         }
         if (price) price.style.display = '';
         el.textContent = formatPrice(priceInfo);
+        syncJsonLdPrice();
+    }
+
+    // The structured data carries a hardcoded price because a crawler that does
+    // not run scripts still has to read one. This rewrites it from the figure
+    // the API just returned, so the number a rendering crawler indexes comes
+    // from the same place the buyer's checkout does.
+    function syncJsonLdPrice() {
+        const node = document.getElementById('appJsonLd');
+        if (!node || !priceInfo) return;
+        try {
+            const data = JSON.parse(node.textContent);
+            const paid = (data.offers || []).find(o => Number(o.price) > 0);
+            if (!paid) return;
+            paid.price = Number(priceInfo.amount).toFixed(2);
+            paid.priceCurrency = priceInfo.currency;
+            node.textContent = JSON.stringify(data, null, 4);
+        } catch (e) {
+            console.error('Could not sync the structured price:', e.name);
+        }
     }
 
     async function startPurchase(btn) {

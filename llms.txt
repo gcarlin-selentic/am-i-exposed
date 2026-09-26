@@ -37,6 +37,18 @@
 - [Privacy policy](https://www.am-i-exposed.com/en/privacy/)
 - [Terms and conditions](https://www.am-i-exposed.com/en/terms/)
 
+## Who runs it
+
+- Operator: Selentic Group S.A.C., a cybersecurity company based in Lima, Peru.
+  https://www.selenticgroup.com/
+- Contact: info@selenticgroup.com
+- Breach data: Have I Been Pwned (https://haveibeenpwned.com), used under its
+  Creative Commons Attribution 4.0 licence.
+- Price: checking an email address or a password is free. The personalised
+  action plan report costs S/ 19.00 PEN and includes 30 days of access.
+- Not to be confused with ami.exposed, am-i.exposed or "How Exposed Am I",
+  which are different tools run by other people.
+
 ## What makes it different
 
 Most breach checkers answer one question: were you in a breach, yes or no. This
