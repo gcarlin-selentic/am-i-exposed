@@ -37,10 +37,13 @@
 
 import crypto from 'node:crypto';
 
+import { sendReceipt, sendRefundNotice } from './_email.js';
+
 import {
     MP_API,
     credentialOwnerId,
     expectLiveMode,
+    publicBaseUrl,
     readBody,
     sbInsert,
     sbPatch,
@@ -181,6 +184,47 @@ function statusPatch(status, payment) {
     return patch;
 }
 
+
+// The mail the product sends on its own behalf, once a purchase actually
+// changes state. Deliberately awaited but never allowed to matter: if Brevo is
+// down, the money is still recorded and access is still granted, and returning
+// an error here would only make Mercado Pago retry a notification that was
+// already handled correctly.
+//
+// Called only on a real transition. A repeated notification returns earlier,
+// so nobody is thanked for the same purchase twice.
+async function notifyBuyer(status, payment, req) {
+    const to = payment.payer?.email || null;
+    if (!to) return;
+
+    const lang = payment.metadata?.lang;
+    const patch = statusPatch(status, payment);
+
+    try {
+        if (status === 'paid') {
+            await sendReceipt({
+                to,
+                lang,
+                amount: payment.transaction_amount,
+                currency: payment.currency_id,
+                paidAt: patch.paid_at,
+                expiresAt: patch.expires_at,
+                siteUrl: publicBaseUrl(req),
+            });
+        } else if (status === 'refunded') {
+            await sendRefundNotice({
+                to,
+                lang,
+                amount: payment.transaction_amount,
+                currency: payment.currency_id,
+                paidAt: payment.date_approved,
+            });
+        }
+    } catch (error) {
+        console.error('Buyer notification failed:', error.name);
+    }
+}
+
 export default async function handler(req, res) {
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
@@ -287,6 +331,7 @@ export default async function handler(req, res) {
         const changed = await sbPatch(
             `purchases?id=eq.${encodeURIComponent(existing.rows[0].id)}`,
             statusPatch(status, payment));
+        if (changed.ok) await notifyBuyer(status, payment, req);
         return res.status(changed.ok ? 200 : 500).json({ ok: changed.ok, status });
     }
 
@@ -311,6 +356,7 @@ export default async function handler(req, res) {
             `purchases?id=eq.${encodeURIComponent(pending.rows[0].id)}`,
             statusPatch(status, payment));
         if (!changed.ok) return res.status(500).json({ error: 'Could not record payment' });
+        await notifyBuyer(status, payment, req);
         return res.status(200).json({ ok: true, status });
     }
 
@@ -329,5 +375,6 @@ export default async function handler(req, res) {
         if (created.status === 409) return res.status(200).json({ ok: true, already: status });
         return res.status(500).json({ error: 'Could not record payment' });
     }
+    await notifyBuyer(status, payment, req);
     return res.status(200).json({ ok: true, status });
 }
