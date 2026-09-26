@@ -1,24 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- Spanish, because that is what this file actually says. The language switch
+     rewrites the page in the browser and applyLang() corrects this attribute
+     along with it, but a crawler reads the markup as served and never runs
+     that code. Until the two languages get their own URLs, the served page is
+     the Spanish one and has to declare itself as such. -->
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Am I Exposed? — Check for Data Breaches</title>
-    <meta name="description" content="Check instantly whether your email address or password has appeared in a known data breach. Free, no account needed, and your data is never stored.">
+    <title>¿Se filtró tu correo? Revísalo gratis | ¿Estoy expuesto?</title>
+    <meta name="description" content="Revisa gratis si tu correo o contraseña aparece en una filtración de datos conocida. Sin cuenta, sin tarjeta y sin guardar tu correo. Te decimos qué hacer.">
     <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#FAFAFA">
     <!-- Relative canonical resolves against whatever domain serves the page,
          so a domain change cannot point search engines at the old URL. -->
     <link rel="canonical" href="/">
 
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Am I Exposed? — Check for Data Breaches">
-    <meta property="og:description" content="Check instantly whether your email address or password has appeared in a known data breach. Free, no account needed.">
+    <meta property="og:site_name" content="¿Estoy expuesto?">
+    <meta property="og:locale" content="es_PE">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:title" content="¿Se filtró tu correo? Revísalo gratis">
+    <meta property="og:description" content="Revisa si tu correo o contraseña aparece en una filtración conocida, y recibe un plan claro de qué hacer.">
     <!-- DOMAIN CHANGE: update this one line. Social scrapers do not run JS and
          Open Graph requires an absolute URL, so it cannot be made relative. -->
     <meta property="og:url" content="https://www.am-i-exposed.com/">
+    <!-- No og:image yet, so the card stays "summary". Switching it to
+         summary_large_image without an image to put in it just gives the
+         scraper a promise nothing keeps. -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Am I Exposed? — Check for Data Breaches">
-    <meta name="twitter:description" content="Check instantly whether your email address or password has appeared in a known data breach.">
+    <meta name="twitter:title" content="¿Se filtró tu correo? Revísalo gratis">
+    <meta name="twitter:description" content="Revisa si tu correo o contraseña aparece en una filtración conocida, y recibe un plan claro de qué hacer.">
+
+    <!-- Describes the tool to search engines and to the assistants that answer
+         from structured data. Deliberately minimal: no operator, no publisher
+         and no offers, because a price declared here is a second copy of a
+         number that lives in an environment variable, and the two drift. -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "@id": "https://www.am-i-exposed.com/#app",
+        "name": "¿Estoy expuesto?",
+        "alternateName": "Am I Exposed?",
+        "url": "https://www.am-i-exposed.com/",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Web",
+        "browserRequirements": "Requiere JavaScript",
+        "inLanguage": ["es", "en"],
+        "description": "Revisa si un correo o una contraseña aparece en una filtración de datos conocida y explica en lenguaje simple qué cambiar primero. No pide cuenta, no guarda el correo, y la contraseña nunca sale del navegador."
+    }
+    </script>
 
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230F0F0F'/%3E%3Cpath d='M16 5l8 3v6.6c0 5-3.4 8.8-8 10-4.6-1.2-8-5-8-10V8l8-3z' fill='%23FAFAFA'/%3E%3Ccircle cx='16' cy='13.6' r='2.4' fill='%230F0F0F'/%3E%3Cpath d='M16 16c2 0 3.6 1.3 3.6 2.9h-7.2C12.4 17.3 14 16 16 16z' fill='%230F0F0F'/%3E%3C/svg%3E">
 
@@ -1291,7 +1323,7 @@
 
         <div id="newPasswordForm" class="auth-form">
             <h2 data-i18n="modalNewPwTitle">Nueva contraseña</h2>
-            <p class="auth-hint" data-i18n="modalNewPwHint">Elige una contraseña nueva. Necesita al menos 6 caracteres.</p>
+            <p class="auth-hint" data-i18n="modalNewPwHint">Elige una contraseña nueva. Necesita al menos 8 caracteres.</p>
             <input type="password" id="newPassword" placeholder="Contraseña (mínimo 8 caracteres)" autocomplete="new-password">
             <input type="password" id="newPasswordConfirm" placeholder="Repite la contraseña" autocomplete="new-password">
             <!-- Two hidden fields and a "they do not match" error is a good way
@@ -1369,7 +1401,7 @@
     // =======================================================================
     const COPY = {
         es: {
-            docTitle: '¿Estoy expuesto? — Revisa si tus datos se filtraron',
+            docTitle: '¿Se filtró tu correo? Revísalo gratis | ¿Estoy expuesto?',
             brand: '¿Estoy expuesto?',
             signin: 'Entrar', signout: 'Cerrar sesión', menu: 'Mi cuenta',
             heroTag: 'Gratis',
@@ -1419,7 +1451,7 @@
             modalResetBtn: 'Enviar enlace',
             modalBackToSignin: 'Volver a entrar',
             modalNewPwTitle: 'Nueva contraseña',
-            modalNewPwHint: 'Elige una contraseña nueva. Necesita al menos 6 caracteres.',
+            modalNewPwHint: 'Elige una contraseña nueva. Necesita al menos 8 caracteres.',
             modalNewPwBtn: 'Guardar contraseña',
             // Says the same thing whether or not the address has an account,
             // so the form cannot be used to find out who is registered.
@@ -1529,7 +1561,7 @@
             payDemo: 'Estás en el modo de ejemplo. Aquí no se procesa ningún pago.',
         },
         en: {
-            docTitle: 'Am I Exposed? — Check for Data Breaches',
+            docTitle: 'Check If Your Email Was in a Data Breach | Am I Exposed?',
             brand: 'Am I Exposed?',
             signin: 'Sign in', signout: 'Sign out', menu: 'My account',
             heroTag: 'Free',
@@ -1579,7 +1611,7 @@
             modalResetBtn: 'Send the link',
             modalBackToSignin: 'Back to sign in',
             modalNewPwTitle: 'New password',
-            modalNewPwHint: 'Choose a new password. It needs at least 6 characters.',
+            modalNewPwHint: 'Choose a new password. It needs at least 8 characters.',
             modalNewPwBtn: 'Save password',
             // Says the same thing whether or not the address has an account,
             // so the form cannot be used to find out who is registered.
