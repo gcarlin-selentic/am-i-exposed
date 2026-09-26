@@ -159,7 +159,10 @@ export default async function handler(req, res) {
                 payer: { email: user.email },
                 // The webhook maps a payment back to an account through this.
                 external_reference: user.id,
-                metadata: { user_id: user.id },
+                // lang rides along so the receipt can be written in the
+                // language the buyer was actually reading. It comes back on the
+                // payment, which saves a column on purchases and a migration.
+                metadata: { user_id: user.id, lang },
                 back_urls: {
                     success: `${base}/?pago=ok`,
                     failure: `${base}/?pago=error`,
