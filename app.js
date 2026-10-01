@@ -797,7 +797,14 @@ async function signUpWithEmail() {
     const problem = await passwordProblem(password);
     if (problem) { showAuthMsg(problem, 'bad'); return; }
 
-    const { data, error } = await window.sbClient.auth.signUp({ email, password });
+    // The language travels with the account so the CRM, and anything written
+    // to this person later, knows which one to use. It is the only thing we
+    // know about them beyond the address.
+    const { data, error } = await window.sbClient.auth.signUp({
+        email,
+        password,
+        options: { data: { lang } },
+    });
 
     if (error) { showAuthMsg(authErrorMessage(error), 'bad'); return; }
 

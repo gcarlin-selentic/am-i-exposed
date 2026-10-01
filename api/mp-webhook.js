@@ -38,6 +38,7 @@
 import crypto from 'node:crypto';
 
 import { sendReceipt, sendRefundNotice } from './_email.js';
+import { syncPurchase } from './_zoho.js';
 
 import {
     MP_API,
@@ -210,6 +211,17 @@ async function notifyBuyer(status, payment, req) {
                 paidAt: patch.paid_at,
                 expiresAt: patch.expires_at,
                 siteUrl: publicBaseUrl(req),
+            });
+            // Same rule as the mail above: awaited so the function does not
+            // exit mid-request, and never allowed to matter. A sale that is
+            // not in the CRM is a nuisance; a sale rejected because the CRM
+            // was unreachable is not.
+            await syncPurchase({
+                email: to,
+                lang,
+                amount: payment.transaction_amount,
+                currency: payment.currency_id,
+                paidAt: patch.paid_at,
             });
         } else if (status === 'refunded') {
             await sendRefundNotice({
