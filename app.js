@@ -28,9 +28,33 @@ let lastPasswordCount = null;
 // It never touches auth state and never calls the breach API.
 let demoMode = false;
 
-// Set when somebody asks to buy without an account yet. Signing in or
-// confirming a new one then carries straight on to the checkout.
+// Set when somebody asks to buy without an account yet, so that getting one
+// carries straight on to the checkout. Kept in sessionStorage as well as in
+// memory because Google and GitHub leave the page entirely and come back,
+// which a variable does not survive.
+const PURCHASE_INTENT = 'aie-buy-after-signin';
+
+function wantsToBuy(value) {
+    try {
+        if (value) sessionStorage.setItem(PURCHASE_INTENT, '1');
+        else sessionStorage.removeItem(PURCHASE_INTENT);
+    } catch (e) { /* private browsing; the in-memory half still works */ }
+    pendingPurchase = value;
+}
+
 let pendingPurchase = false;
+try { pendingPurchase = sessionStorage.getItem(PURCHASE_INTENT) === '1'; } catch (e) { /* ignore */ }
+
+// Called from every route into a session: the email forms, which set
+// currentUser themselves, and onAuthStateChange, which covers Google and
+// GitHub. The flag is cleared first, so whichever arrives second does
+// nothing.
+function resumePendingPurchase() {
+    if (!pendingPurchase || !currentUser) return;
+    wantsToBuy(false);
+    // A beat for the modal to close, so the checkout does not open behind it.
+    setTimeout(() => startPurchase(null), 400);
+}
 let demoTeaser = false;
 
 // Gated content renders when the user is signed in, or in preview mode.
@@ -137,6 +161,7 @@ const COPY = {
         errTooMany: 'Demasiados intentos. Espera unos minutos y vuelve a probar.',
         errEmailTaken: 'Ya existe una cuenta con ese correo. Entra, o usa "¿Olvidaste tu contraseña?".',
         okSignup: 'Cuenta creada. Revisa tu correo para confirmarla y luego entra.',
+        okSignupThenBuy: 'Cuenta creada. Confirma el enlace que te mandamos al correo, vuelve a entrar y seguimos con la compra.',
 
         cleanTitle: 'Buenas noticias: no apareces',
         cleanBody: (email) => `No encontramos <span class="who">${email}</span> en ninguna filtración conocida. Esto no garantiza que nunca pase, así que vale la pena repetir el chequeo de vez en cuando.`,
@@ -313,6 +338,7 @@ const COPY = {
         errTooMany: 'Too many attempts. Wait a few minutes and try again.',
         errEmailTaken: 'An account with that email already exists. Sign in, or use "Forgot your password?".',
         okSignup: 'Account created. Check your email to confirm, then sign in.',
+        okSignupThenBuy: 'Account created. Follow the link we emailed you, sign back in, and we will pick the purchase up from there.',
 
         cleanTitle: 'Good news: you are not in there',
         cleanBody: (email) => `We did not find <span class="who">${email}</span> in any known breach. That is no guarantee for the future, so it is worth checking again now and then.`,
@@ -587,14 +613,7 @@ async function initAuth() {
         // somebody halfway through getting back into their account.
         if (!was && currentUser && event !== 'PASSWORD_RECOVERY') {
             announceAccount(session.access_token);
-
-            // They clicked buy, had no account, and have just got one. Carry
-            // on where they were instead of leaving them to find the button
-            // again. Deferred a tick so the modal has closed first.
-            if (pendingPurchase) {
-                pendingPurchase = false;
-                setTimeout(() => startPurchase(null), 400);
-            }
+            resumePendingPurchase();
         }
 
         // Following a recovery link signs the visitor in with a session that
@@ -824,6 +843,10 @@ async function signInWithEmail() {
         closeAuthModal();
         document.getElementById('signinEmail').value = '';
         document.getElementById('signinPassword').value = '';
+        // Setting currentUser here can beat onAuthStateChange to it, which
+        // would make the sign-in look like it was already in progress and
+        // skip the resume. Asking twice is harmless; the flag sees to that.
+        resumePendingPurchase();
     }
 }
 
@@ -856,6 +879,18 @@ async function signUpWithEmail() {
         currentUser = data.session.user;
         updateAuthUI();
         closeAuthModal();
+        document.getElementById('signupEmail').value = '';
+        document.getElementById('signupPassword').value = '';
+        resumePendingPurchase();
+        return;
+    }
+
+    // No session means email confirmation is switched on in Supabase, so the
+    // account is not usable yet. Somebody who was on their way to paying
+    // needs telling that, rather than being left looking at a modal that
+    // closed and a purchase that never happened.
+    if (pendingPurchase) {
+        showAuthMsg(t().okSignupThenBuy, 'good');
         document.getElementById('signupEmail').value = '';
         document.getElementById('signupPassword').value = '';
         return;
@@ -1519,7 +1554,7 @@ async function startPurchase(btn) {
     // remembered so that signing in carries on to the checkout instead of
     // dropping them back where they started, wondering what happened.
     if (!currentUser) {
-        pendingPurchase = true;
+        wantsToBuy(true);
         openAuthModal('signup');
         return;
     }
