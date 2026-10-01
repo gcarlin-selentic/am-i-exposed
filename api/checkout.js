@@ -23,7 +23,6 @@ import {
     sbInsert,
     userFromToken,
 } from './_shared.js';
-import { syncUserOnce } from './_zoho.js';
 
 const RATE_LIMIT_MAX = 10;
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;
@@ -132,11 +131,6 @@ export default async function handler(req, res) {
     const user = await userFromToken(body?.accessToken);
     if (!user) return res.status(401).json({ error: 'Sign in first' });
 
-    // Catches somebody who signs up and goes straight to the checkout without
-    // running a report first, including if they then abandon it. Marked unpaid
-    // because nothing has been charged yet; the webhook rewrites the record if
-    // the payment goes through.
-    await syncUserOnce(user, { paid: false, lang });
 
     const text = ITEM_TEXT[lang];
 

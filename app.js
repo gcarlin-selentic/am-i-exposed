@@ -811,10 +811,20 @@ function authErrorMessage(error) {
 // sign-in never touch our server otherwise, and nothing the visitor is doing
 // should wait on this, so it is not awaited and its failures stay in the
 // console. Once per page load: a token refresh is not a new account.
+// Keyed on the account and kept in localStorage, which other tabs can see.
+// Two tabs open at once each announced the same sign-in, and both reached
+// Zoho before either had written anything, so the person was created twice.
 let accountAnnounced = false;
 
 function announceAccount(accessToken) {
     if (accountAnnounced || !accessToken) return;
+
+    const key = currentUser ? `aie-announced-${currentUser.id}` : null;
+    try {
+        if (key && localStorage.getItem(key)) { accountAnnounced = true; return; }
+        if (key) localStorage.setItem(key, '1');
+    } catch (e) { /* private browsing; the server-side mark still holds */ }
+
     accountAnnounced = true;
 
     fetch('/api/account-sync', {

@@ -117,12 +117,37 @@ function langLabel(lang) {
     return lang === 'en' ? 'Ingles' : 'Espanol';
 }
 
-// Accounts already pushed by this warm instance. Zoho's upsert is keyed on the
-// address, so a repeat would be harmless rather than duplicated, but it would
-// still be a pair of API calls on a request that is waiting on us. A cold start
-// empties this and somebody gets written again, which is the right way round
-// for the mistake to go.
+// Accounts already pushed by this warm instance. This is the cheap half of
+// the guard and not the one that matters: each route is its own function with
+// its own instance, so three of them pushed the same person into Zoho three
+// times on the first real purchase. The durable half is below.
 const seen = new Set();
+
+// Written on the Supabase user once the push has happened, and read back on
+// every later request through user_metadata, which userFromToken already
+// returns. A Set in memory cannot do this job: it does not survive a cold
+// start and is not shared between routes.
+async function markSynced(userId) {
+    const url = process.env.SUPABASE_URL;
+    const secret = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!url || !secret || !userId) return;
+
+    const headers = { apikey: secret, 'Content-Type': 'application/json' };
+    if (secret.startsWith('eyJ')) headers.Authorization = `Bearer ${secret}`;
+
+    try {
+        await fetch(`${url}/auth/v1/admin/users/${encodeURIComponent(userId)}`, {
+            method: 'PUT',
+            headers,
+            body: JSON.stringify({ user_metadata: { zoho_synced: true } }),
+            signal: AbortSignal.timeout(4000),
+        });
+    } catch (error) {
+        // Worst case the mark is missed and this person is pushed again on a
+        // later request, which Zoho's upsert turns into an update.
+        console.error('Could not mark the account as synced:', error.name);
+    }
+}
 
 // Called when a signed-in visitor reaches the server, which is the first moment
 // our own code learns that an account exists: sign-up happens in the browser,
@@ -134,6 +159,7 @@ const seen = new Set();
 // gratuita". So a paying customer is left to the webhook and skipped here.
 export async function syncUserOnce(user, { paid, lang } = {}) {
     if (!configured() || !user?.email || paid) return;
+    if (user.user_metadata?.zoho_synced) return;
     if (seen.has(user.id)) return;
 
     seen.add(user.id);
@@ -141,11 +167,12 @@ export async function syncUserOnce(user, { paid, lang } = {}) {
     // long-lived one cannot grow the set without bound.
     if (seen.size > 2000) seen.clear();
 
-    await syncSignup({
+    const ok = await syncSignup({
         email: user.email,
         lang: user.user_metadata?.lang || lang,
         createdAt: user.created_at,
     });
+    if (ok) await markSynced(user.id);
 }
 
 // Called when somebody creates an account. There is no payment yet and may
@@ -165,8 +192,10 @@ export async function syncSignup({ email, lang, createdAt }) {
             ].filter(Boolean)),
         });
         console.log(`Zoho signup sync: ${action}`);
+        return true;
     } catch (error) {
         console.error('Zoho signup sync failed:', error.message);
+        return false;
     }
 }
 
