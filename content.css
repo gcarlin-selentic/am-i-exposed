@@ -235,8 +235,9 @@ hr {
 
 .note p:last-child { margin-bottom: 0; }
 
-/* The FAQ. Open by default: a crawler and a reader in a hurry both get the
-   answer without a click. */
+/* The FAQ. Only the first one is open: the list is long enough now that all of
+   them open is a wall of text. The answers are in the markup either way, so
+   crawlers and assistants read them closed. */
 details {
     border-bottom: 1px solid var(--line);
     padding: 4px 0 8px;
