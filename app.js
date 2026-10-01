@@ -573,6 +573,13 @@ async function initAuth() {
         updateAuthUI();
         if (was !== !!currentUser) rerenderAll();
 
+        // Only when somebody has just become signed in, not on every token
+        // refresh, and never on the recovery session, which belongs to
+        // somebody halfway through getting back into their account.
+        if (!was && currentUser && event !== 'PASSWORD_RECOVERY') {
+            announceAccount(session.access_token);
+        }
+
         // Following a recovery link signs the visitor in with a session that
         // exists only to let them set a password. Ask for it straight away,
         // because leaving them on the page signed in and none the wiser is
@@ -762,6 +769,23 @@ function authErrorMessage(error) {
 
     console.error('Auth error:', raw);
     return t().errSignin;
+}
+
+// Lets the server know an account exists, so it can reach the CRM. Sign-up and
+// sign-in never touch our server otherwise, and nothing the visitor is doing
+// should wait on this, so it is not awaited and its failures stay in the
+// console. Once per page load: a token refresh is not a new account.
+let accountAnnounced = false;
+
+function announceAccount(accessToken) {
+    if (accountAnnounced || !accessToken) return;
+    accountAnnounced = true;
+
+    fetch('/api/account-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ accessToken, lang }),
+    }).catch(e => console.error('Account sync failed:', e.name));
 }
 
 async function signInWithEmail() {
