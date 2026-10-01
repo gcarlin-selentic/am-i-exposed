@@ -862,7 +862,19 @@ img { max-width: 100%; }
     color: var(--ink-soft);
     text-align: center;
 }
-.pay-banner.show { display: flex; }
+/* Pinned, and above the report view's 1500. Everything that raises this
+   banner is a button inside that view, which is fixed and covers the whole
+   screen: left in the normal flow the answer rendered underneath it, and the
+   button looked dead. */
+.pay-banner.show {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    padding-top: calc(11px + env(safe-area-inset-top, 0px));
+}
 .pay-banner.warn { background: var(--warn-soft); }
 .pay-banner button {
     font: inherit;

@@ -1554,17 +1554,9 @@ function showPayBanner(text, tone) {
     const banner = document.getElementById('payBanner');
     document.getElementById('payBannerText').textContent = text;
     banner.classList.toggle('warn', tone === 'warn');
+    // .show also pins it to the top of the viewport, above the report view,
+    // because that is where the buttons that raise it live.
     banner.classList.add('show');
-
-    // This banner sits at the top of the page, and everything that raises it
-    // is a button near the bottom: the plan's paywall is some two thousand
-    // pixels further down. Showing the answer where the reader is not looking
-    // is the same as not answering, and it reads as a dead button. So the
-    // page goes to the message.
-    const rect = banner.getBoundingClientRect();
-    if (rect.top < 0 || rect.bottom > window.innerHeight) {
-        banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
 }
 
 function dismissPayBanner() {
