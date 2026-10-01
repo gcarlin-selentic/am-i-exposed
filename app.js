@@ -114,6 +114,10 @@ const COPY = {
         checkingPw: 'Comprobando la contraseña...',
         errBlocked: 'No se puede entrar porque un script necesario fue bloqueado. Desactiva el bloqueador de anuncios para este sitio, o prueba con otro navegador.',
         errSignin: 'No pudimos iniciar sesión. Intenta de nuevo.',
+        errBadCreds: 'Correo o contraseña incorrectos. Si no la recuerdas, usa "¿Olvidaste tu contraseña?".',
+        errUnconfirmed: 'Falta confirmar tu correo. Busca el mensaje que te enviamos al crear la cuenta.',
+        errTooMany: 'Demasiados intentos. Espera unos minutos y vuelve a probar.',
+        errEmailTaken: 'Ya existe una cuenta con ese correo. Entra, o usa "¿Olvidaste tu contraseña?".',
         okSignup: 'Cuenta creada. Revisa tu correo para confirmarla y luego entra.',
 
         cleanTitle: 'Buenas noticias: no apareces',
@@ -279,6 +283,10 @@ const COPY = {
         checkingPw: 'Checking the password...',
         errBlocked: 'Sign-in is unavailable because a required script was blocked. Disable your ad blocker for this site, or try another browser.',
         errSignin: 'Could not start sign-in. Please try again.',
+        errBadCreds: 'Wrong email or password. If you cannot remember it, use "Forgot your password?".',
+        errUnconfirmed: 'Your email is not confirmed yet. Look for the message we sent when you created the account.',
+        errTooMany: 'Too many attempts. Wait a few minutes and try again.',
+        errEmailTaken: 'An account with that email already exists. Sign in, or use "Forgot your password?".',
         okSignup: 'Account created. Check your email to confirm, then sign in.',
 
         cleanTitle: 'Good news: you are not in there',
@@ -412,6 +420,11 @@ function applyLang() {
         pwInput.type === 'password' ? t().pwShow : t().pwHide;
     document.getElementById('newPwShowToggle').textContent =
         document.getElementById('newPassword').type === 'password' ? t().pwShow : t().pwHide;
+    [['signinPassword', 'signinPwShowToggle'],
+     ['signupPassword', 'signupPwShowToggle']].forEach(([inputId, toggleId]) => {
+        document.getElementById(toggleId).textContent =
+            document.getElementById(inputId).type === 'password' ? t().pwShow : t().pwHide;
+    });
 
     // The switch is a pair of links now, one per language, so the current one
     // is aria-current="page" rather than a pressed button.
@@ -602,6 +615,7 @@ function openAuthModal(form) {
 function closeAuthModal() {
     document.getElementById('authModal').classList.remove('active');
     hideAuthMsg();
+    hideAuthPasswords();
 }
 
 const AUTH_FORMS = ['signin', 'signup', 'reset', 'newPassword'];
@@ -715,8 +729,29 @@ function toggleUserMenu() {
     document.getElementById('userDropdown').classList.toggle('active');
 }
 
+// Supabase answers in English, with wording aimed at whoever built the site
+// rather than whoever is trying to get into their account. These are the
+// cases that actually reach people; anything else falls back to a generic
+// line and the real text goes to the console, where it is of some use.
+function authErrorMessage(error) {
+    const raw = (error && error.message) || '';
+    const status = error && error.status;
+
+    if (status === 429 || /rate limit|too many/i.test(raw)) return t().errTooMany;
+    if (/invalid login credentials/i.test(raw))              return t().errBadCreds;
+    if (/email not confirmed|not confirmed/i.test(raw))      return t().errUnconfirmed;
+    if (/already registered|already exists/i.test(raw))      return t().errEmailTaken;
+    if (/at least \d+ characters|password.*short/i.test(raw)) return t().errShortPw;
+    if (/validate email|invalid format/i.test(raw))          return t().errBadEmail;
+
+    console.error('Auth error:', raw);
+    return t().errSignin;
+}
+
 async function signInWithEmail() {
-    const email = document.getElementById('signinEmail').value;
+    // Trimmed because a trailing space from autofill or a phone keyboard is
+    // invisible, and the only thing that comes back is "wrong password".
+    const email = document.getElementById('signinEmail').value.trim();
     const password = document.getElementById('signinPassword').value;
 
     if (!email || !password) { showAuthMsg(t().errFields, 'bad'); return; }
@@ -725,7 +760,7 @@ async function signInWithEmail() {
     const { data, error } = await window.sbClient.auth.signInWithPassword({ email, password });
 
     if (error) {
-        showAuthMsg(error.message, 'bad');
+        showAuthMsg(authErrorMessage(error), 'bad');
     } else {
         currentUser = data.user;
         updateAuthUI();
@@ -736,7 +771,7 @@ async function signInWithEmail() {
 }
 
 async function signUpWithEmail() {
-    const email = document.getElementById('signupEmail').value;
+    const email = document.getElementById('signupEmail').value.trim();
     const password = document.getElementById('signupPassword').value;
 
     if (!email || !password) { showAuthMsg(t().errFields, 'bad'); return; }
@@ -748,7 +783,7 @@ async function signUpWithEmail() {
 
     const { data, error } = await window.sbClient.auth.signUp({ email, password });
 
-    if (error) { showAuthMsg(error.message, 'bad'); return; }
+    if (error) { showAuthMsg(authErrorMessage(error), 'bad'); return; }
 
     // When email confirmation is enabled, signUp returns a user but no
     // session. The account is not usable yet, so it must not unlock gated
@@ -1753,6 +1788,33 @@ async function sha1(str) {
 
 // Both fields at once: the point is to compare them, so revealing one and
 // not the other would not help.
+// Sign in and sign up. Somebody who cannot see what they are typing has no
+// way to tell a wrong password from a stuck shift key, and the error we get
+// back says the same thing either way.
+function togglePwField(inputId, toggleId) {
+    const input = document.getElementById(inputId);
+    const toggle = document.getElementById(toggleId);
+    const show = input.type === 'password';
+    input.type = show ? 'text' : 'password';
+    toggle.textContent = show ? t().pwHide : t().pwShow;
+}
+
+// Closing the modal must put every revealed field back, or the next person to
+// open it finds a password sitting there in plain text.
+function hideAuthPasswords() {
+    [['signinPassword', 'signinPwShowToggle'],
+     ['signupPassword', 'signupPwShowToggle'],
+     ['newPassword',    'newPwShowToggle'],
+     ['newPasswordConfirm', null]].forEach(([inputId, toggleId]) => {
+        const input = document.getElementById(inputId);
+        if (input) input.type = 'password';
+        if (toggleId) {
+            const toggle = document.getElementById(toggleId);
+            if (toggle) toggle.textContent = t().pwShow;
+        }
+    });
+}
+
 function toggleNewPasswordVisibility() {
     const fields = [document.getElementById('newPassword'),
                     document.getElementById('newPasswordConfirm')];

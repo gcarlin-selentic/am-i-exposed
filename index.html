@@ -98,7 +98,7 @@
          never change, and a forgotten bust on a year-long immutable asset would
          leave a returning buyer running last week's payment code. Bump the date
          here and in the other language's page when a change has to land now. -->
-    <link rel="stylesheet" href="/app.css?v=2026-09-25">
+    <link rel="stylesheet" href="/app.css?v=2026-10-01">
 </head>
 <body>
 
@@ -252,6 +252,10 @@
             <h2 data-i18n="modalSigninTitle">Entrar</h2>
             <input type="email" id="signinEmail" placeholder="tucorreo@ejemplo.com" autocomplete="email">
             <input type="password" id="signinPassword" placeholder="Contraseña" autocomplete="current-password">
+            <div class="auth-reveal">
+                <button type="button" class="linkish" id="signinPwShowToggle"
+                        onclick="togglePwField('signinPassword', 'signinPwShowToggle')" data-i18n="pwShow">Mostrar contraseña</button>
+            </div>
             <button class="btn" onclick="signInWithEmail()" data-i18n="modalSigninBtn">Entrar</button>
             <div class="auth-toggle">
                 <button onclick="switchForm('reset')" data-i18n="modalForgotLink">¿Olvidaste tu contraseña?</button>
@@ -266,6 +270,10 @@
             <h2 data-i18n="modalSignupTitle">Crear cuenta</h2>
             <input type="email" id="signupEmail" placeholder="tucorreo@ejemplo.com" autocomplete="email">
             <input type="password" id="signupPassword" placeholder="Contraseña (mínimo 8 caracteres)" autocomplete="new-password">
+            <div class="auth-reveal">
+                <button type="button" class="linkish" id="signupPwShowToggle"
+                        onclick="togglePwField('signupPassword', 'signupPwShowToggle')" data-i18n="pwShow">Mostrar contraseña</button>
+            </div>
             <button class="btn" onclick="signUpWithEmail()" data-i18n="modalSignupBtn">Crear cuenta</button>
             <div class="auth-toggle">
                 <span data-i18n="modalHaveAccount">¿Ya tienes cuenta?</span>
@@ -326,7 +334,7 @@
     </div>
 </div>
 
-<script src="/app.js?v=2026-09-25" defer></script>
+<script src="/app.js?v=2026-10-01" defer></script>
 
 </body>
 </html>
