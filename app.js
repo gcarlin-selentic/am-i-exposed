@@ -27,6 +27,10 @@ let lastPasswordCount = null;
 // the report can be reviewed without signing in or spending an API call.
 // It never touches auth state and never calls the breach API.
 let demoMode = false;
+
+// Set when somebody asks to buy without an account yet. Signing in or
+// confirming a new one then carries straight on to the checkout.
+let pendingPurchase = false;
 let demoTeaser = false;
 
 // Gated content renders when the user is signed in, or in preview mode.
@@ -213,11 +217,11 @@ const COPY = {
         payClose: 'Cerrar',
         payConfirming: 'Confirmando tu pago con Mercado Pago…',
         payReady: 'Pago confirmado. Tu plan completo ya está disponible.',
+        payReadyCheck: 'Pago confirmado. Escribe tu correo arriba y te damos el plan completo.',
         paySlow: 'Tu pago se está procesando. Puede tardar unos minutos; vuelve a entrar con la misma cuenta y tu plan estará listo.',
         payPending: 'Tu pago quedó pendiente de acreditación. Cuando Mercado Pago lo confirme, tu plan completo se desbloquea solo.',
         payCancelled: 'El pago no se completó. No se cobró nada.',
         payFail: 'No pudimos abrir la caja. Intenta de nuevo en un momento.',
-        payDemo: 'Estás en el modo de ejemplo. Aquí no se procesa ningún pago.',
     },
     en: {
         docTitle: 'Check If Your Email Was in a Data Breach | Am I Exposed?',
@@ -388,11 +392,11 @@ const COPY = {
         payClose: 'Close',
         payConfirming: 'Confirming your payment with Mercado Pago…',
         payReady: 'Payment confirmed. Your full plan is ready.',
+        payReadyCheck: 'Payment confirmed. Type your email above and we will build your full plan.',
         paySlow: 'Your payment is still processing. It can take a few minutes; come back with the same account and your plan will be waiting.',
         payPending: 'Your payment has not cleared yet. As soon as Mercado Pago confirms it, your full plan unlocks on its own.',
         payCancelled: 'The payment was not completed. Nothing was charged.',
         payFail: 'We could not open the checkout. Please try again in a moment.',
-        payDemo: 'This is preview mode. No payment is processed here.',
     },
 };
 
@@ -583,6 +587,14 @@ async function initAuth() {
         // somebody halfway through getting back into their account.
         if (!was && currentUser && event !== 'PASSWORD_RECOVERY') {
             announceAccount(session.access_token);
+
+            // They clicked buy, had no account, and have just got one. Carry
+            // on where they were instead of leaving them to find the button
+            // again. Deferred a tick so the modal has closed first.
+            if (pendingPurchase) {
+                pendingPurchase = false;
+                setTimeout(() => startPurchase(null), 400);
+            }
         }
 
         // Following a recovery link signs the visitor in with a session that
@@ -1493,15 +1505,21 @@ function syncJsonLdPrice() {
 }
 
 async function startPurchase(btn) {
-    if (demoMode) {
-        showPayBanner(t().payDemo, 'warn');
-        return;
-    }
+    // The sample sells. Somebody reading it has seen exactly what the plan
+    // looks like, which is the best moment they will ever be in to buy one,
+    // and refusing them there because the page they are on is an example was
+    // turning the strongest pitch on the site into a dead end. What they buy
+    // is 30 days of access on their account, not a plan for one address, so
+    // buying from the sample and checking their own address afterwards is a
+    // perfectly ordinary order of events.
 
     // A purchase has to belong to an account, because that is what the
     // access is attached to. Asking to sign in first is not a detour: it is
-    // the only way the payment can be honoured afterwards.
+    // the only way the payment can be honoured afterwards. The intent is
+    // remembered so that signing in carries on to the checkout instead of
+    // dropping them back where they started, wondering what happened.
     if (!currentUser) {
+        pendingPurchase = true;
         openAuthModal('signup');
         return;
     }
@@ -1644,15 +1662,25 @@ async function handleReturnFromCheckout(outcome) {
         return;
     }
 
-    showPayBanner(t().payReady);
-
     // The cached plan was fetched as a teaser; it has to be asked for again
     // now that the account is entitled.
     lastReport = null;
-    if (email) {
-        await checkEmail();
-        await openReport();
+
+    if (!email) {
+        // Bought from the sample, so there is no address of their own to
+        // build a plan from yet. Say what to do rather than announcing that
+        // something is ready and showing nothing.
+        showPayBanner(t().payReadyCheck);
+        closeReport();
+        const input = document.getElementById('emailInput');
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        input.focus();
+        return;
     }
+
+    showPayBanner(t().payReady);
+    await checkEmail();
+    await openReport();
 }
 
 function closeReport() {
