@@ -55,6 +55,15 @@ const COPY = {
         pwBtn: 'Revisar', pwShow: 'Mostrar contraseña', pwHide: 'Ocultar contraseña',
         pwNote: 'Solo enviamos las primeras cinco letras de un código calculado en tu navegador. Ni nosotros ni nadie más puede reconstruir tu contraseña a partir de eso.',
 
+        // Same wording as the first answer on the FAQ page, deliberately. Two
+        // versions of the same paragraph on one site reads as carelessness.
+        explainBadge: 'Antes de empezar',
+        explainTitle: '¿Qué cosa es estar expuesto?',
+        explainP1: 'Cuando te registras en una tienda, una red social o un banco por internet, esa empresa guarda tus datos: tu correo, a veces tu contraseña, tu teléfono, tu dirección.',
+        explainP2: 'Si a esa empresa le roban su base de datos, tus datos salen de ahí y empiezan a circular en listas que pasan de mano en mano entre desconocidos. Eso es estar expuesto: que información tuya ande dando vueltas por ahí sin que tú lo sepas.',
+        explainP3: 'No lo causaste tú. Lo causó la empresa a la que le confiaste tus datos.',
+        explainBtn: 'Ver todas las preguntas',
+
         offerBadge: 'Reporte completo',
         offerTitle: 'Sabes que estás expuesto. Ahora, qué hacer.',
         offerLede: 'Un plan personalizado, escrito en palabras normales, ordenado de lo más urgente a lo que puede esperar.',
@@ -223,6 +232,13 @@ const COPY = {
         pwPlaceholder: '••••••••••',
         pwBtn: 'Check', pwShow: 'Show password', pwHide: 'Hide password',
         pwNote: 'We only send the first five letters of a code your browser works out. Neither we nor anyone else can rebuild your password from that.',
+
+        explainBadge: 'Before you start',
+        explainTitle: 'What does being exposed actually mean?',
+        explainP1: 'When you sign up with a shop, a social network or an online bank, that company stores your details: your email address, sometimes your password, your phone number, your home address.',
+        explainP2: "If that company's database is stolen, your details leave it and start circulating in lists that get passed from one stranger to the next. That is what being exposed means: information about you is out there without you knowing.",
+        explainP3: 'You did not cause it. The company you trusted with your details did.',
+        explainBtn: 'See all the questions',
 
         offerBadge: 'Full report',
         offerTitle: 'You know you are exposed. Now, what to do.',

@@ -98,7 +98,7 @@
          never change, and a forgotten bust on a year-long immutable asset would
          leave a returning buyer running last week's payment code. Bump the date
          here and in the other language's page when a change has to land now. -->
-    <link rel="stylesheet" href="/app.css?v=2026-10-01">
+    <link rel="stylesheet" href="/app.css?v=2026-10-01b">
 </head>
 <body>
 
@@ -198,6 +198,23 @@
             </div>
             <div id="passwordError" class="error" style="display: none;"></div>
             <div id="passwordResult" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Plain-language explainer, for the visitor who does not yet know what a
+         data breach is. It borrows the paid card's look through .offer and
+         keeps .explain of its own, so changing the paid card later does not
+         silently change this one. -->
+    <div class="offer explain">
+        <span class="badge"><span class="dot"></span><span data-i18n="explainBadge">Antes de empezar</span></span>
+        <h2 data-i18n="explainTitle">¿Qué cosa es estar expuesto?</h2>
+        <p data-i18n="explainP1">Cuando te registras en una tienda, una red social o un banco por internet, esa empresa guarda tus datos: tu correo, a veces tu contraseña, tu teléfono, tu dirección.</p>
+        <p data-i18n="explainP2">Si a esa empresa le roban su base de datos, tus datos salen de ahí y empiezan a circular en listas que pasan de mano en mano entre desconocidos. Eso es estar expuesto: que información tuya ande dando vueltas por ahí sin que tú lo sepas.</p>
+        <p data-i18n="explainP3">No lo causaste tú. Lo causó la empresa a la que le confiaste tus datos.</p>
+        <div class="offer-foot">
+            <a class="btn" data-i18n="explainBtn"
+               data-href-es="/preguntas-frecuentes/" data-href-en="/en/faq/"
+               href="/preguntas-frecuentes/">Ver todas las preguntas</a>
         </div>
     </div>
 
@@ -334,7 +351,7 @@
     </div>
 </div>
 
-<script src="/app.js?v=2026-10-01" defer></script>
+<script src="/app.js?v=2026-10-01b" defer></script>
 
 </body>
 </html>
