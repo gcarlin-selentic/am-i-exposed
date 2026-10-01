@@ -110,6 +110,37 @@ function langLabel(lang) {
     return lang === 'en' ? 'Ingles' : 'Espanol';
 }
 
+// Accounts already pushed by this warm instance. Zoho's upsert is keyed on the
+// address, so a repeat would be harmless rather than duplicated, but it would
+// still be a pair of API calls on a request that is waiting on us. A cold start
+// empties this and somebody gets written again, which is the right way round
+// for the mistake to go.
+const seen = new Set();
+
+// Called when a signed-in visitor reaches the server, which is the first moment
+// our own code learns that an account exists: sign-up happens in the browser,
+// against Supabase, with nothing of ours in the path.
+//
+// `paid` decides whether this runs at all. The payment webhook writes the
+// authoritative record, with the amount and the date, and this one knows
+// neither; letting it run over a buyer would replace that with "cuenta
+// gratuita". So a paying customer is left to the webhook and skipped here.
+export async function syncUserOnce(user, { paid, lang } = {}) {
+    if (!configured() || !user?.email || paid) return;
+    if (seen.has(user.id)) return;
+
+    seen.add(user.id);
+    // A warm instance never approaches this; the cap is only here so a very
+    // long-lived one cannot grow the set without bound.
+    if (seen.size > 2000) seen.clear();
+
+    await syncSignup({
+        email: user.email,
+        lang: user.user_metadata?.lang || lang,
+        createdAt: user.created_at,
+    });
+}
+
 // Called when somebody creates an account. There is no payment yet and may
 // never be one.
 export async function syncSignup({ email, lang, createdAt }) {

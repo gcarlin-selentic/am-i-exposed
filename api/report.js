@@ -9,6 +9,8 @@
 // languages here rather than in the page means the paid prose stays on the
 // server in every language, not only in English.
 
+import { syncUserOnce } from './_zoho.js';
+
 const HIBP_ENDPOINT = 'https://haveibeenpwned.com/api/v3/breachedaccount';
 
 // Publishable key. Already public in the page source; used only to satisfy the
@@ -725,6 +727,12 @@ export default async function handler(req, res) {
 
     const user = await userFromToken(body?.accessToken);
     const entitled = user ? await hasActiveAccess(user.id) : false;
+
+    // The CRM learns about a free account here, because this is the first
+    // place our own server sees one: sign-up talks to Supabase from the
+    // browser. Awaited so the function does not exit mid-flight, and it
+    // swallows its own failures, so it cannot cost anybody their report.
+    if (user) await syncUserOnce(user, { paid: entitled, lang });
 
     let breaches;
     try {
