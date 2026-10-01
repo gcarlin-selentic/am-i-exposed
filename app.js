@@ -1278,8 +1278,14 @@ async function openReport() {
 // good.
 function refreshOfferCard() {
     const card = document.getElementById('offerCard');
-    if (!card) return;
-    card.hidden = !lastEmailResult || !!currentUser || knownEntitled;
+    if (card) card.hidden = !lastEmailResult || !!currentUser || knownEntitled;
+
+    // The explainer answers "what does this even mean", which is a question
+    // people have before they check, not after being told they are in a
+    // breach. From that moment the next step is the plan, so the explainer
+    // steps aside rather than sitting above the offer repeating itself.
+    const explain = document.getElementById('explainCard');
+    if (explain) explain.hidden = !!lastEmailResult;
 }
 
 function hideOffer() {
