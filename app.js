@@ -1010,6 +1010,7 @@ async function checkEmail() {
             renderCleanEmail(email);
         }
         refreshPasswordCTA();
+        refreshOfferCard();
     } catch (error) {
         errorDiv.textContent = error.message || t().errEmailFail;
         errorDiv.style.display = 'block';
@@ -1234,15 +1235,20 @@ async function openReport() {
     if (entitled) hideOffer();
 }
 
-// The offer card pitches the paid tier to somebody who has just arrived.
-// It comes down once they have an account, because from then on the paywall
-// inside their own report makes the same case with their own data, and two
-// pitches on one page read as a mistake. It comes down for good once they
-// have bought it.
+// The offer card only appears once an address has actually come back exposed.
+// Selling a plan of action to somebody who has not checked anything yet, or
+// who checked and came back clean, is selling them a solution to a problem
+// they do not have. So it starts hidden, in the markup rather than here, and
+// a clean result puts it away again.
+//
+// It also stays down once they have an account, because from then on the
+// paywall inside their own report makes the same case with their own data,
+// and two pitches on one page read as a mistake. Once bought, it is gone for
+// good.
 function refreshOfferCard() {
     const card = document.getElementById('offerCard');
     if (!card) return;
-    card.style.display = (currentUser || knownEntitled) ? 'none' : '';
+    card.hidden = !lastEmailResult || !!currentUser || knownEntitled;
 }
 
 function hideOffer() {
