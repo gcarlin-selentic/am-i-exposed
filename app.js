@@ -11,6 +11,11 @@ window.sbClient = null;
 // without re-querying. Nothing is persisted.
 let lastEmailResult = null;
 
+// Whether an address has been looked up at all, which is not the same as
+// lastEmailResult: a clean result clears that one. The explainer needs the
+// distinction, because it belongs to the moment before anybody has asked.
+let hasSearched = false;
+
 // Last plan returned by /api/report, full or teaser depending on access.
 let lastReport = null;
 
@@ -1040,6 +1045,7 @@ async function checkEmail() {
             lastReport = null;
             renderCleanEmail(email);
         }
+        hasSearched = true;
         refreshPasswordCTA();
         refreshOfferCard();
     } catch (error) {
@@ -1281,11 +1287,12 @@ function refreshOfferCard() {
     if (card) card.hidden = !lastEmailResult || !!currentUser || knownEntitled;
 
     // The explainer answers "what does this even mean", which is a question
-    // people have before they check, not after being told they are in a
-    // breach. From that moment the next step is the plan, so the explainer
-    // steps aside rather than sitting above the offer repeating itself.
+    // people have before they check. Once there is a result on the page, of
+    // either kind, it has been overtaken: a breach puts the plan next, and a
+    // clean result ends the matter. So it belongs only to the page nobody has
+    // asked anything of yet.
     const explain = document.getElementById('explainCard');
-    if (explain) explain.hidden = !!lastEmailResult;
+    if (explain) explain.hidden = hasSearched;
 }
 
 function hideOffer() {
