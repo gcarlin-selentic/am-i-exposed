@@ -43,7 +43,10 @@ async function accessToken() {
         grant_type: 'refresh_token',
     });
 
-    const response = await fetch(`${ACCOUNTS_URL}/oauth/v2/token?${params}`, { method: 'POST' });
+    const response = await fetch(`${ACCOUNTS_URL}/oauth/v2/token?${params}`, {
+        method: 'POST',
+        signal: AbortSignal.timeout(4000),
+    });
     const data = await response.json().catch(() => ({}));
 
     // Zoho answers 200 with an error body when a refresh token has been
@@ -91,6 +94,10 @@ async function upsert(fields) {
             data: [fields],
             duplicate_check_fields: ['Email'],
         }),
+        // Bounded like every other outbound call here. This one runs inside
+        // the checkout request, so a slow CRM must not become a buyer staring
+        // at a button that never opens Mercado Pago.
+        signal: AbortSignal.timeout(5000),
     });
 
     const body = await response.json().catch(() => ({}));
