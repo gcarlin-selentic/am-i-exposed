@@ -74,14 +74,21 @@ export default async function handler(req, res) {
         return res.status(429).json({ error: 'Too many requests' });
     }
 
-    // 204 first, because the page has nothing to do with the answer. Then the
-    // count is awaited: the response is already out, so nobody is waiting on
-    // it, and the invocation lives long enough for the write to complete.
-    res.status(204).end();
-    return recordCheck({
+    // Awaited before responding, which is the only arrangement that actually
+    // writes. Counting after res.end() was tried twice and the logs answered
+    // both times with TimeoutError: Vercel stops the invocation when the
+    // response goes out, the in-flight fetch freezes with it, and the abort
+    // timer is what eventually fires. Eight seconds instead of three only
+    // made the wrong design fail more slowly.
+    //
+    // It costs the visitor nothing here, because nobody is waiting: the page
+    // sends this and forgets it, with keepalive, and never reads the reply.
+    await recordCheck({
         lang: body?.lang,
         tipo: 'contrasena',
         resultado,
         origen: body?.origen,
     });
+
+    return res.status(204).end();
 }
