@@ -432,6 +432,22 @@ const COPY = {
 // what used to happen and is why only one of the two was ever indexable.
 let lang = document.documentElement.lang === 'en' ? 'en' : 'es';
 
+// Where this visitor came from, for the daily counters. utm_source when the
+// link carried one, otherwise the referring site's host. Worked out once, on
+// load, because a later navigation inside the page would lose the referrer.
+const visitOrigin = (() => {
+    try {
+        const utm = new URLSearchParams(location.search).get('utm_source');
+        if (utm) return utm.slice(0, 50);
+        if (!document.referrer) return 'desconocido';
+        const host = new URL(document.referrer).hostname.replace(/^www\./, '');
+        // Arriving from our own pages is not an origin.
+        return host === location.hostname.replace(/^www\./, '') ? 'desconocido' : host;
+    } catch (e) {
+        return 'desconocido';
+    }
+})();
+
 const t = () => COPY[lang];
 const locale = () => (lang === 'es' ? 'es-CO' : 'en-US');
 const num = (n) => Number(n).toLocaleString(locale());
@@ -1087,7 +1103,7 @@ async function checkEmail() {
         const response = await fetch('/api/check-email', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email }),
+            body: JSON.stringify({ email, lang, origen: visitOrigin }),
         });
         const data = await response.json();
 
@@ -1777,6 +1793,11 @@ async function checkPassword() {
             lastPasswordCount = null;
             renderCleanPassword();
         }
+        // Counted from here because this check never reaches our server: the
+        // browser talks to api.pwnedpasswords.com directly, which is what
+        // keeps the password on this device. Only the outcome is reported,
+        // never the password or its hash.
+        countPasswordCheck(exposureCount > 0 ? 'expuesto' : 'limpio');
     } catch (error) {
         errorDiv.textContent = error.message || t().errPwFail;
         errorDiv.style.display = 'block';
@@ -1785,6 +1806,19 @@ async function checkPassword() {
         btn.disabled = false;
         btn.textContent = t().pwBtn;
     }
+}
+
+// Fire and forget, with no await anywhere near the result the person is
+// waiting for. A lost count is worth nothing next to a slow answer.
+function countPasswordCheck(resultado) {
+    try {
+        fetch('/api/track-check', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ lang, resultado, origen: visitOrigin }),
+            keepalive: true,
+        }).catch(() => { /* counters are not worth reporting */ });
+    } catch (e) { /* ignore */ }
 }
 
 async function checkPasswordWithKAnonymity(password) {

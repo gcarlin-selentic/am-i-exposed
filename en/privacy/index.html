@@ -140,8 +140,10 @@
     </ul>
 
     <h2>7. Cookies and browser storage</h2>
-    <p>This site <strong>uses no advertising cookies and no third-party analytics</strong>.
-    There is no cross-site tracking and no profiling.</p>
+    <p><strong>We use no advertising cookies.</strong> To know how many people visit the site
+    we use Vercel Web Analytics, which uses no cookies and stores nothing that identifies you.
+    We also count how many checks are run and whether the result was exposed or clean, without
+    storing the address. There is no cross-site tracking and no profiling.</p>
     <p>One thing is kept in your browser's local storage, and it never reaches our servers on
     its own: your session token if you signed in, without which you would have to sign in
     again on every page. You can clear it at any time from your browser settings. The
@@ -202,6 +204,13 @@
         <a href="https://haveibeenpwned.com" rel="noopener">Have I Been Pwned</a></p>
     </div>
 </footer>
+
+<!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
+     a visitor, which is why the privacy policy can still promise no tracking
+     and no profiling. Served from this same domain, so no third-party request
+     leaves the page. -->
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
 
 </body>
 </html>

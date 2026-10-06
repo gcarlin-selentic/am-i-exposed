@@ -5,6 +5,8 @@
 // written to Vercel's access logs. The landing page promises the email is not
 // stored; putting it in a URL would break that promise.
 
+import { recordCheck } from './_stats.js';
+
 const HIBP_ENDPOINT = 'https://haveibeenpwned.com/api/v3/breachedaccount';
 
 // Requests from the site that serves this function are always allowed, on any
@@ -185,6 +187,15 @@ export default async function handler(req, res) {
         );
 
         if (response.status === 404) {
+            // Counted here rather than from the page because the server is
+            // the only side that knows the outcome without being told, and a
+            // number the browser supplies is a number anybody can supply.
+            recordCheck({
+                lang: body?.lang,
+                tipo: 'correo',
+                resultado: 'limpio',
+                origen: body?.origen,
+            });
             return res.status(200).json({
                 found: false,
                 message: 'Email not found in breaches',
@@ -212,6 +223,13 @@ export default async function handler(req, res) {
 
             // Newest breach first.
             sanitized.sort((a, b) => (b.breachDate || '').localeCompare(a.breachDate || ''));
+
+            recordCheck({
+                lang: body?.lang,
+                tipo: 'correo',
+                resultado: 'expuesto',
+                origen: body?.origen,
+            });
 
             return res.status(200).json({
                 found: true,
