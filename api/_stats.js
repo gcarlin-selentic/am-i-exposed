@@ -78,7 +78,12 @@ export function recordCheck({ lang, tipo, resultado, origen }) {
                 p_resultado: resultado,
                 p_origen: normaliseOrigin(origen),
             }),
-            signal: AbortSignal.timeout(3000),
+            // Eight seconds, not three. Three was measured at the edge: the
+            // function runs in São Paulo and this round trip takes about two,
+            // so most calls timed out and the counters stayed near empty.
+            // The visitor already has their answer by now, so waiting longer
+            // costs them nothing.
+            signal: AbortSignal.timeout(8000),
         })
             .then(async (response) => {
                 if (!response.ok) {
