@@ -74,14 +74,14 @@ export default async function handler(req, res) {
         return res.status(429).json({ error: 'Too many requests' });
     }
 
-    recordCheck({
+    // 204 first, because the page has nothing to do with the answer. Then the
+    // count is awaited: the response is already out, so nobody is waiting on
+    // it, and the invocation lives long enough for the write to complete.
+    res.status(204).end();
+    return recordCheck({
         lang: body?.lang,
         tipo: 'contrasena',
         resultado,
         origen: body?.origen,
     });
-
-    // 204, because the page has nothing to do with the answer and should not
-    // be kept waiting for one.
-    return res.status(204).end();
 }

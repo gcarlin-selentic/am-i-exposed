@@ -190,15 +190,18 @@ export default async function handler(req, res) {
             // Counted here rather than from the page because the server is
             // the only side that knows the outcome without being told, and a
             // number the browser supplies is a number anybody can supply.
-            recordCheck({
+            // Answered first, counted second. The response is already on its
+            // way, so this adds nothing to what the visitor waits for, and
+            // the invocation stays alive long enough for the write to land.
+            res.status(200).json({
+                found: false,
+                message: 'Email not found in breaches',
+            });
+            return recordCheck({
                 lang: body?.lang,
                 tipo: 'correo',
                 resultado: 'limpio',
                 origen: body?.origen,
-            });
-            return res.status(200).json({
-                found: false,
-                message: 'Email not found in breaches',
             });
         }
 
@@ -224,17 +227,16 @@ export default async function handler(req, res) {
             // Newest breach first.
             sanitized.sort((a, b) => (b.breachDate || '').localeCompare(a.breachDate || ''));
 
-            recordCheck({
+            res.status(200).json({
+                found: true,
+                breachCount: sanitized.length,
+                breaches: sanitized,
+            });
+            return recordCheck({
                 lang: body?.lang,
                 tipo: 'correo',
                 resultado: 'expuesto',
                 origen: body?.origen,
-            });
-
-            return res.status(200).json({
-                found: true,
-                breachCount: sanitized.length,
-                breaches: sanitized,
             });
         }
 

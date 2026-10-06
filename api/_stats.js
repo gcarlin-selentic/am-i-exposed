@@ -45,15 +45,15 @@ export function pickLang(value) {
     return value === 'en' ? 'en' : 'es';
 }
 
-// Never awaited by its callers and never throws: a count is worth nothing next
-// to somebody's result, so this must not delay the response and must not be
-// able to fail it. The whole body is inside try/catch, including the fetch
-// setup, so even a malformed argument dies here.
+// Returns a promise and never rejects. Callers send their response first and
+// await this afterwards, which costs the visitor nothing and still gets the
+// count written: the response is already flushed, and the serverless
+// invocation stays alive until the handler's promise settles.
 //
-// The cost of not awaiting: the serverless instance can be frozen once the
-// response has gone out, so a count made on a request that was the last of its
-// instance may never land. These are usage figures, not accounting, and a
-// missed one is the right thing to lose.
+// Firing this without awaiting looks equivalent and is not. It was tried, and
+// it dropped nearly every count: Vercel freezes the instance once the handler
+// returns, and an unawaited fetch dies with it. A count is worth nothing
+// beside somebody's result, but it is also worth nothing if it never lands.
 export function recordCheck({ lang, tipo, resultado, origen }) {
     try {
         const url = process.env.SUPABASE_URL;
@@ -69,7 +69,7 @@ export function recordCheck({ lang, tipo, resultado, origen }) {
         const headers = { apikey: secret, 'Content-Type': 'application/json' };
         if (secret.startsWith('eyJ')) headers.Authorization = `Bearer ${secret}`;
 
-        fetch(`${url}/rest/v1/rpc/record_check`, {
+        return fetch(`${url}/rest/v1/rpc/record_check`, {
             method: 'POST',
             headers,
             body: JSON.stringify({
