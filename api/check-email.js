@@ -15,7 +15,16 @@ const HIBP_ENDPOINT = 'https://haveibeenpwned.com/api/v3/breachedaccount';
 // by the ALLOWED_ORIGINS env var, comma separated.
 const DEFAULT_ALLOWED_ORIGINS = [];
 
-const RATE_LIMIT_MAX = 10;
+// Four per minute per address, against a Have I Been Pwned plan that allows
+// ten per minute in total, across every visitor at once. At ten, which is what
+// this was, one person could spend the entire site's quota in a minute and
+// everybody else got rate limited by HIBP, with no bad intent needed: somebody
+// checking a few of their own addresses would do it.
+//
+// Four is generous for the real case, which is one address and maybe a
+// partner's. Raise it when the HIBP plan is raised, not before: these two
+// numbers belong together and the one here must stay well under the other.
+const RATE_LIMIT_MAX = 4;
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;
 
 // Shared limiter, backed by Postgres so the count holds across every Vercel
