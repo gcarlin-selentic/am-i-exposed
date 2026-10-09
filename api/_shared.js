@@ -27,6 +27,27 @@ export function expectLiveMode() {
     return mpMode() === 'live';
 }
 
+// Whether a purchase row from this provider was made with real money.
+//
+// One flag was enough while Mercado Pago was the only seller: live_mode
+// meant MP_MODE. With two, it means something different per row. Mercado
+// Pago's environment is MP_MODE; Paddle's is written into its own client
+// token, test_ or live_. The two move independently, and they already have:
+// Mercado Pago is live in production while Paddle is still in sandbox, so
+// a real Paddle purchase and a test one are told apart by Paddle's setting,
+// not by Mercado Pago's.
+//
+// Comparing every row against MP_MODE is what made a paid Paddle report
+// read as unpaid: the buyer saw their own confirmation and then the
+// padlocks, because the browser matched on one rule and the server on
+// another.
+export function liveModeFor(provider) {
+    if (provider === 'paddle') {
+        return (process.env.PADDLE_CLIENT_TOKEN || '').startsWith('live_');
+    }
+    return mpMode() === 'live';
+}
+
 // The account the deployment's credentials belong to. A Mercado Pago access
 // token ends in the id of its owner, so this needs no API call.
 //

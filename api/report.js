@@ -10,6 +10,12 @@
 // server in every language, not only in English.
 
 
+// Imported rather than repeated. Deciding "was this real money" in two
+// places is what broke entitlement for Paddle: the browser used one rule
+// and this file another, so a buyer saw their own payment confirmed and
+// then the padlocks.
+import { liveModeFor } from './_shared.js';
+
 const HIBP_ENDPOINT = 'https://haveibeenpwned.com/api/v3/breachedaccount';
 
 // Publishable key. Already public in the page source; used only to satisfy the
@@ -111,18 +117,21 @@ async function hasActiveAccess(userId) {
     const headers = { apikey: secret };
     if (secret.startsWith('eyJ')) headers.Authorization = `Bearer ${secret}`;
 
-    // Test and real purchases share one table. Matching live_mode to this
-    // deployment's Mercado Pago credentials is what stops a test purchase made
-    // against the preview from unlocking the real site.
-    const liveMode = process.env.MP_MODE === 'live';
-
+    // Test and real purchases share one table, and live_mode is what stops a
+    // test purchase unlocking the real site. What it has to be compared
+    // against is the environment of the provider that took the money, which
+    // is why the filter is not in the query: Mercado Pago can be live while
+    // Paddle is still in sandbox, and one SQL predicate cannot say that.
+    //
+    // Filtered here instead of in PostgREST because a person has a handful of
+    // purchase rows at most, and a readable loop beats a nested or() that
+    // nobody will be able to check by eye later.
     const query = `${url}/rest/v1/purchases`
-        + `?select=expires_at`
+        + `?select=provider,live_mode,expires_at`
         + `&user_id=eq.${encodeURIComponent(userId)}`
         + `&status=eq.paid`
-        + `&live_mode=eq.${liveMode}`
         + `&or=(expires_at.is.null,expires_at.gt.${encodeURIComponent(new Date().toISOString())})`
-        + `&limit=1`;
+        + `&limit=20`;
 
     try {
         const response = await fetch(query, { headers, signal: AbortSignal.timeout(4000) });
@@ -131,7 +140,8 @@ async function hasActiveAccess(userId) {
             return false;
         }
         const rows = await response.json();
-        return Array.isArray(rows) && rows.length > 0;
+        if (!Array.isArray(rows)) return false;
+        return rows.some(row => row.live_mode === liveModeFor(row.provider));
     } catch (error) {
         console.error('Entitlement lookup error:', error.name);
         return false;

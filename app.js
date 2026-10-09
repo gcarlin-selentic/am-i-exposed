@@ -2056,15 +2056,20 @@ function dismissPayBanner() {
 // webhook; /api/report remains the authority on what gets sent.
 async function hasPaidAccess() {
     if (!window.sbClient || !currentUser) return false;
-    // Test purchases and real ones share a table, so the check has to say
-    // which of the two this deployment is talking about.
-    const liveMode = priceInfo ? priceInfo.mode === 'live' : true;
+    // Test purchases and real ones share a table, and which is which depends
+    // on the provider that took the money. Matching on the provider being
+    // offered right now as well as its mode is what keeps this agreeing with
+    // /api/report, which is the actual authority: this only decides when to
+    // stop waiting, and a check that disagrees with the server announces a
+    // plan that is then refused.
+    if (!priceInfo) return false;
     try {
         const { data, error } = await window.sbClient
             .from('purchases')
             .select('id')
             .eq('status', 'paid')
-            .eq('live_mode', liveMode)
+            .eq('provider', priceInfo.provider)
+            .eq('live_mode', priceInfo.mode === 'live')
             .or(`expires_at.is.null,expires_at.gt.${new Date().toISOString()}`)
             .limit(1);
         if (error) return false;
