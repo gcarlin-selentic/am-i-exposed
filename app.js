@@ -50,6 +50,11 @@ try { pendingPurchase = sessionStorage.getItem(PURCHASE_INTENT) === '1'; } catch
 // GitHub. The flag is cleared first, so whichever arrives second does
 // nothing.
 function resumePendingPurchase() {
+    // The alert subscription takes the same route back from sign-in, and the
+    // two are mutually exclusive: whichever button was pressed cleared the
+    // other's flag before leaving.
+    resumePendingAlerts();
+
     if (!pendingPurchase || !currentUser) return;
     wantsToBuy(false);
     // A beat for the modal to close, so the checkout does not open behind it.
@@ -104,6 +109,24 @@ const COPY = {
         offerLi2: 'Pasos numerados, sin palabras técnicas',
         offerLi3: 'Descargable en PDF para imprimir o compartir',
         offerPer: 'por reporte', offerBtn: 'Ver un ejemplo',
+
+        alertsBadge: 'Alertas &middot; solo EE.&nbsp;UU.',
+        alertsTitle: 'Si demandan a una empresa que filtró tus datos, te avisamos.',
+        alertsLede: 'Las empresas que pierden datos terminan pagando acuerdos colectivos. El dinero existe y casi nadie lo reclama, porque el aviso llega por correo postal y se confunde con publicidad.',
+        alertsLi1: '1.614 casos en seguimiento, 307 todavía abiertos',
+        alertsLi2: 'Un aviso al mes, y uno aparte cuando haya algo que reclamar',
+        alertsLi3: 'Si vives en California, te marcamos el pago estatutario extra',
+        alertsFirstName: 'Nombre', alertsLastName: 'Apellido',
+        alertsStateLabel: 'Estado donde resides',
+        alertsStatePick: 'Elige tu estado',
+        alertsConsent: 'Acepto que usen mi nombre y estado para cruzarlos con los casos activos y avisarme. Puedo darme de baja cuando quiera.',
+        alertsPer: 'al mes', alertsBtn: 'Activar alertas',
+        alertsOpening: 'Abriendo…',
+        alertsErrName: 'Escribe tu nombre y apellido.',
+        alertsErrState: 'Elige el estado donde resides.',
+        alertsErrConsent: 'Marca la casilla para continuar.',
+        alertsErrFail: 'No pudimos abrir el pago. Inténtalo de nuevo en un momento.',
+        alertsActive: 'Tus alertas están activas.',
         footLeft: '<a href="https://www.selenticgroup.com/" rel="noopener">Selentic Group</a> · Datos de filtraciones por <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a>',
         footFaq: 'Preguntas frecuentes',
         footLeaked: 'Si se filtró tu correo',
@@ -281,6 +304,24 @@ const COPY = {
         offerLi2: 'Numbered steps, no technical words',
         offerLi3: 'Downloadable as a PDF to print or share',
         offerPer: 'per report', offerBtn: 'See an example',
+
+        alertsBadge: 'Alerts &middot; US only',
+        alertsTitle: 'If a company that leaked your data gets sued, we’ll let you know.',
+        alertsLede: 'Companies that lose data end up paying class action settlements. The money is real and almost nobody claims it, because the notice arrives by post and looks like junk mail.',
+        alertsLi1: '1,614 cases tracked, 307 still open',
+        alertsLi2: 'One note a month, and a separate one when there is something to claim',
+        alertsLi3: 'If you live in California, we flag the extra statutory payment',
+        alertsFirstName: 'First name', alertsLastName: 'Last name',
+        alertsStateLabel: 'State you live in',
+        alertsStatePick: 'Choose your state',
+        alertsConsent: 'I agree that my name and state may be used to match me against active cases and alert me. I can unsubscribe at any time.',
+        alertsPer: 'a month', alertsBtn: 'Turn on alerts',
+        alertsOpening: 'Opening…',
+        alertsErrName: 'Enter your first and last name.',
+        alertsErrState: 'Choose the state you live in.',
+        alertsErrConsent: 'Tick the box to continue.',
+        alertsErrFail: 'We could not open the payment. Try again in a moment.',
+        alertsActive: 'Your alerts are on.',
         footLeft: '<a href="https://www.selenticgroup.com/" rel="noopener">Selentic Group</a> · Breach data by <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a>',
         footFaq: 'FAQ',
         footLeaked: 'If your email leaked',
@@ -1366,11 +1407,225 @@ function refreshOfferCard() {
     // asked anything of yet.
     const explain = document.getElementById('explainCard');
     if (explain) explain.hidden = hasSearched;
+
+    // Not awaited: it asks the server whether this visitor is in the United
+    // States, and the rest of the page has no reason to wait for that.
+    refreshAlertsCard();
 }
 
 function hideOffer() {
     knownEntitled = true;
     refreshOfferCard();
+}
+
+// =======================================================================
+// ALERT SUBSCRIPTION
+//
+// Offered only to visitors the server places in the United States, because
+// the thing being sold is notice of United States class action settlements.
+// The country is decided in /api/alerts-config and never comes back to the
+// page: the answer is eligible or not, and the page cannot tell the
+// difference between "you are in Peru" and "this is not configured yet".
+// =======================================================================
+
+// Written out rather than fetched: it is fifty one strings that have not
+// changed since 1959 and are the same in both languages.
+const US_STATES = [
+    'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado',
+    'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia',
+    'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
+    'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan',
+    'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada',
+    'New Hampshire', 'New Jersey', 'New Mexico', 'New York',
+    'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon',
+    'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota',
+    'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington',
+    'West Virginia', 'Wisconsin', 'Wyoming',
+];
+
+// Same shape as PURCHASE_INTENT above, and for the same reason: Google and
+// GitHub sign-in leave the page entirely, so a variable does not survive the
+// trip. The form values ride along, because being sent to sign in and coming
+// back to three empty fields is a good way to lose somebody.
+const ALERTS_INTENT = 'aie-alerts-after-signin';
+
+let alertsConfig = null;      // null until asked, then {eligible, ...}
+let alertsConfigAsked = false;
+let paddleReady = false;
+let alertsDone = false;       // checkout completed in this session
+
+function stashAlertsIntent(value) {
+    try {
+        if (value) sessionStorage.setItem(ALERTS_INTENT, JSON.stringify(value));
+        else sessionStorage.removeItem(ALERTS_INTENT);
+    } catch (e) { /* private browsing; the click simply will not resume */ }
+}
+
+function readAlertsIntent() {
+    try {
+        const raw = sessionStorage.getItem(ALERTS_INTENT);
+        return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+}
+
+function fillAlertStates() {
+    const select = document.getElementById('alertsState');
+    if (!select || select.options.length) return;
+    select.appendChild(new Option(t().alertsStatePick, ''));
+    for (const name of US_STATES) select.appendChild(new Option(name, name));
+}
+
+// Asked once per visit, and only after somebody has actually run a check, so
+// a visitor who reads the page and leaves never costs an invocation.
+async function loadAlertsConfig() {
+    if (alertsConfigAsked) return alertsConfig;
+    alertsConfigAsked = true;
+    try {
+        const response = await fetch('/api/alerts-config');
+        alertsConfig = response.ok ? await response.json() : { eligible: false };
+    } catch (e) {
+        // Not eligible rather than an error: a visitor should see no card,
+        // not a card that breaks when they press it.
+        alertsConfig = { eligible: false };
+    }
+    return alertsConfig;
+}
+
+async function refreshAlertsCard() {
+    const card = document.getElementById('alertsCard');
+    if (!card) return;
+
+    // Same trigger as the paid card: only once a check has actually found
+    // something. Before that the pitch has nothing to attach itself to.
+    if (!lastEmailResult || alertsDone) { card.hidden = true; return; }
+
+    const config = await loadAlertsConfig();
+    card.hidden = !config.eligible;
+    if (config.eligible) fillAlertStates();
+}
+
+function alertsError(message) {
+    const box = document.getElementById('alertsError');
+    if (!box) return;
+    box.textContent = message || '';
+    box.style.display = message ? 'block' : 'none';
+}
+
+function loadPaddle() {
+    if (paddleReady) return Promise.resolve();
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.paddle.com/paddle/v2/paddle.js';
+        script.onload = () => { paddleReady = true; resolve(); };
+        script.onerror = () => reject(new Error('paddle.js'));
+        document.head.appendChild(script);
+    });
+}
+
+function alertsFormValues() {
+    return {
+        firstName: (document.getElementById('alertsFirstName')?.value || '').trim(),
+        lastName: (document.getElementById('alertsLastName')?.value || '').trim(),
+        state: document.getElementById('alertsState')?.value || '',
+        consent: !!document.getElementById('alertsConsent')?.checked,
+    };
+}
+
+function applyAlertsForm(values) {
+    if (!values) return;
+    const set = (id, value) => {
+        const el = document.getElementById(id);
+        if (el && value) el.value = value;
+    };
+    set('alertsFirstName', values.firstName);
+    set('alertsLastName', values.lastName);
+    set('alertsState', values.state);
+    const consent = document.getElementById('alertsConsent');
+    if (consent && values.consent) consent.checked = true;
+}
+
+async function startAlertsCheckout() {
+    const form = alertsFormValues();
+
+    // Checked before anything else, so somebody is never sent off to create
+    // an account only to be told on the way back that a field was empty.
+    if (!form.firstName || !form.lastName) return alertsError(t().alertsErrName);
+    if (!form.state) return alertsError(t().alertsErrState);
+    if (!form.consent) return alertsError(t().alertsErrConsent);
+    alertsError('');
+
+    // No account yet. The subscription has to belong to one: user_id is what
+    // the webhook writes the row against, and without it the event arrives
+    // with nowhere to put it.
+    if (!currentUser) {
+        stashAlertsIntent(form);
+        wantsToBuy(false);   // the two intents are mutually exclusive
+        openAuthModal('signup');
+        return;
+    }
+
+    await openAlertsCheckout(form);
+}
+
+async function openAlertsCheckout(form) {
+    const button = document.getElementById('alertsBtn');
+    const config = await loadAlertsConfig();
+    if (!config.eligible) return alertsError(t().alertsErrFail);
+
+    if (button) { button.disabled = true; button.textContent = t().alertsOpening; }
+
+    try {
+        await loadPaddle();
+
+        if (config.environment === 'sandbox') Paddle.Environment.set('sandbox');
+
+        Paddle.Initialize({
+            token: config.token,
+            eventCallback: (event) => {
+                if (event?.name !== 'checkout.completed') return;
+                // The row is written by the webhook, not here: this only
+                // stops the page still offering something just bought.
+                alertsDone = true;
+                refreshAlertsCard();
+            },
+        });
+
+        Paddle.Checkout.open({
+            items: [{ priceId: config.priceId, quantity: 1 }],
+            customer: { email: currentUser.email },
+            // Paddle copies this onto the subscription when it is created,
+            // which is how /api/paddle-webhook knows whose account this is.
+            // Nothing else carries the link.
+            customData: {
+                user_id: currentUser.id,
+                email: currentUser.email,
+                first_name: form.firstName,
+                last_name: form.lastName,
+                state: form.state,
+            },
+            settings: {
+                displayMode: 'overlay',
+                theme: document.documentElement.dataset.theme === 'dark'
+                    || window.matchMedia('(prefers-color-scheme: dark)').matches
+                    ? 'dark' : 'light',
+                locale: lang,
+            },
+        });
+    } catch (error) {
+        alertsError(t().alertsErrFail);
+    } finally {
+        if (button) { button.disabled = false; button.textContent = t().alertsBtn; }
+    }
+}
+
+// Called from the same places as resumePendingPurchase, for the same reason.
+function resumePendingAlerts() {
+    const form = readAlertsIntent();
+    if (!form || !currentUser) return;
+    stashAlertsIntent(null);
+    applyAlertsForm(form);
+    // A beat for the modal to close, so the checkout does not open behind it.
+    setTimeout(() => openAlertsCheckout(form), 400);
 }
 
 function reportHeaderHTML(email) {
@@ -1581,6 +1836,7 @@ async function startPurchase(btn) {
     // dropping them back where they started, wondering what happened.
     if (!currentUser) {
         wantsToBuy(true);
+        stashAlertsIntent(null);   // the two intents are mutually exclusive
         openAuthModal('signup');
         return;
     }

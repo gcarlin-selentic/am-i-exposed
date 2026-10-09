@@ -98,7 +98,7 @@
          never change, and a forgotten bust on a year-long immutable asset would
          leave a returning buyer running last week's payment code. Bump the date
          here and in the other language's page when a change has to land now. -->
-    <link rel="stylesheet" href="/app.css?v=2026-10-06a">
+    <link rel="stylesheet" href="/app.css?v=2026-10-09a">
 </head>
 <body>
 
@@ -235,6 +235,52 @@
         </div>
     </div>
 
+    <!-- Alert subscription. Shown only to visitors the server says are in the
+         United States, and only after a check has found something: the pitch
+         is about money from US settlements, so anywhere else it would be
+         selling something that cannot pay out.
+
+         The state list is built in app.js rather than written out here. Fifty
+         one options in two language versions is a hundred and two lines that
+         would drift apart the first time one of them is edited. -->
+    <div class="offer" id="alertsCard" hidden>
+        <span class="badge"><span class="dot"></span><span data-i18n="alertsBadge">Alertas &middot; solo EE.&nbsp;UU.</span></span>
+        <h2 data-i18n="alertsTitle">Si demandan a una empresa que filtró tus datos, te avisamos.</h2>
+        <p data-i18n="alertsLede">Las empresas que pierden datos terminan pagando acuerdos colectivos. El dinero existe y casi nadie lo reclama, porque el aviso llega por correo postal y se confunde con publicidad.</p>
+        <ul>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="alertsLi1">1.614 casos en seguimiento, 307 todavía abiertos</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="alertsLi2">Un aviso al mes, y uno aparte cuando haya algo que reclamar</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="alertsLi3">Si vives en California, te marcamos el pago estatutario extra</span></li>
+        </ul>
+
+        <div class="alerts-form">
+            <div>
+                <label for="alertsFirstName" data-i18n="alertsFirstName">Nombre</label>
+                <input id="alertsFirstName" autocomplete="given-name" maxlength="60">
+            </div>
+            <div>
+                <label for="alertsLastName" data-i18n="alertsLastName">Apellido</label>
+                <input id="alertsLastName" autocomplete="family-name" maxlength="60">
+            </div>
+            <div class="wide">
+                <label for="alertsState" data-i18n="alertsStateLabel">Estado donde resides</label>
+                <select id="alertsState"></select>
+            </div>
+        </div>
+
+        <div class="alerts-consent">
+            <input type="checkbox" id="alertsConsent">
+            <label for="alertsConsent" data-i18n="alertsConsent">Acepto que usen mi nombre y estado para cruzarlos con los casos activos y avisarme. Puedo darme de baja cuando quiera.</label>
+        </div>
+
+        <div class="offer-foot">
+            <span class="price">US$&nbsp;3<small data-i18n="alertsPer">al mes</small></span>
+            <button class="btn" id="alertsBtn" onclick="startAlertsCheckout()" data-i18n="alertsBtn">Activar alertas</button>
+        </div>
+
+        <div class="error" id="alertsError" style="display:none"></div>
+    </div>
+
     <div class="foot">
         <!-- data-href-es / data-href-en: the written pages live at real URLs per
              language, so switching the language here has to move the link, not
@@ -351,7 +397,7 @@
     </div>
 </div>
 
-<script src="/app.js?v=2026-10-06a" defer></script>
+<script src="/app.js?v=2026-10-09a" defer></script>
 
 <!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
      a visitor, which is why the privacy policy can still promise no tracking

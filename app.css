@@ -679,6 +679,67 @@ img { max-width: 100%; }
 .explain .offer-foot { margin-top: 22px; }
 .explain .btn { text-decoration: none; }
 
+/* ---------------- alert subscription ----------------
+   Shares .offer entirely: same ground, radius and shadow, so the two cards
+   read as one family rather than as a second pitch bolted on. Only the form
+   grid is its own. */
+.alerts-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 22px 0 18px;
+}
+.alerts-form label { display: block; font-size: 12.5px; opacity: .62; margin-bottom: 6px; }
+.alerts-form .wide { grid-column: 1 / -1; }
+.alerts-form input,
+.alerts-form select {
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.18);
+    color: var(--bg);
+    border-radius: var(--r-sm);
+    padding: 12px 13px;
+    font: inherit;
+    font-size: 15px;
+}
+.alerts-form input::placeholder { color: rgba(255,255,255,.35); }
+/* The option list is drawn by the operating system on its own white ground,
+   so it does not inherit the card's inverted colours and needs the ink back. */
+.alerts-form select option { color: #0F0F0F; }
+
+/* In dark mode .offer inverts to a light card, so these fields have to invert
+   with it or they would be white text on white. */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .alerts-form input,
+    :root:not([data-theme="light"]) .alerts-form select {
+        background: rgba(0,0,0,.05);
+        border-color: var(--line-strong);
+        color: var(--ink);
+    }
+    :root:not([data-theme="light"]) .alerts-form input::placeholder { color: var(--muted-2); }
+}
+:root[data-theme="dark"] .alerts-form input,
+:root[data-theme="dark"] .alerts-form select {
+    background: rgba(0,0,0,.05);
+    border-color: var(--line-strong);
+    color: var(--ink);
+}
+:root[data-theme="dark"] .alerts-form input::placeholder { color: var(--muted-2); }
+
+@media (max-width: 480px) { .alerts-form { grid-template-columns: 1fr; } }
+
+.alerts-consent {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 13px;
+    opacity: .72;
+    margin-bottom: 20px;
+}
+.alerts-consent input { margin-top: 3px; flex-shrink: 0; }
+.alerts-consent label { font-size: 13px; }
+
 .price { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 26px; letter-spacing: -.02em; }
 .price small { font-size: 13px; font-weight: 600; opacity: .6; margin-left: 5px; }
 
