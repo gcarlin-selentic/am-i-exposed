@@ -1549,6 +1549,14 @@ async function startPaddle(config) {
                 // or a checkout reopened after a cancel, would both make a
                 // flag lie.
                 const kind = event?.data?.custom_data?.kind;
+
+                // Paddle leaves its own success screen up, and everything
+                // below happens behind it: the plan opened under the
+                // overlay and the buyer saw a tick and a sentence about
+                // email. Closing it first is what makes the next screen
+                // theirs rather than Paddle's.
+                try { Paddle.Checkout.close(); } catch (e) { /* already gone */ }
+
                 if (kind === 'alerts') {
                     // The row is written by the webhook, not here. This only
                     // stops the page offering something just bought.
@@ -2096,6 +2104,14 @@ async function onReportPaid() {
     // The cached plan was fetched as a teaser; it has to be asked for again
     // now that the account is entitled.
     lastReport = null;
+
+    // And the teaser has to be switched off, not just uncached. openReport
+    // sends `teaser: demoTeaser` to the server, so while this stays true the
+    // server keeps returning the locked version and the buyer pays to see
+    // the same padlocks again. The sample is the strongest pitch on the
+    // site and people do buy straight from it.
+    demoTeaser = false;
+
     hideOffer();
 
     // Bought from the sample, so there is no address of their own to build a
