@@ -904,19 +904,42 @@ let accountAnnounced = false;
 function announceAccount(accessToken) {
     if (accountAnnounced || !accessToken) return;
 
-    const key = currentUser ? `aie-announced-${currentUser.id}` : null;
+    // The "2" is a reset. The previous key was written before the request
+    // was made, so every account that signed in while the CRM was down got
+    // marked as announced anyway, and would never have been sent again from
+    // that browser. Changing the name retires all of those marks and gives
+    // each of them one more attempt.
+    const key = currentUser ? `aie-announced2-${currentUser.id}` : null;
     try {
         if (key && localStorage.getItem(key)) { accountAnnounced = true; return; }
-        if (key) localStorage.setItem(key, '1');
     } catch (e) { /* private browsing; the server-side mark still holds */ }
 
+    // In memory immediately, on disk only after the server says it worked.
+    // The first stops this tab asking twice. Not writing the second until
+    // there is something to remember is the whole fix: a failure recorded as
+    // a success is a customer who never reaches the CRM and no sign that
+    // anything went wrong.
     accountAnnounced = true;
 
     fetch('/api/account-sync', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ accessToken, lang }),
-    }).catch(e => console.error('Account sync failed:', e.name));
+    }).then(async response => {
+        // synced, not ok. The endpoint answers 200 whether or not the CRM
+        // took the record, and it is the CRM that this mark is about.
+        const body = response.ok ? await response.json().catch(() => null) : null;
+        if (body?.synced) {
+            try {
+                if (key) localStorage.setItem(key, '1');
+            } catch (e) { /* ignore */ }
+            return;
+        }
+        // Left unmarked on purpose, so the next visit tries again.
+        console.error('Account not synced:', response.status);
+    }).catch(e => {
+        console.error('Account sync failed:', e.name);
+    });
 }
 
 async function signInWithEmail() {

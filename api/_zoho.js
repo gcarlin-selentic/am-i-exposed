@@ -157,10 +157,28 @@ async function markSynced(userId) {
 // authoritative record, with the amount and the date, and this one knows
 // neither; letting it run over a buyer would replace that with "cuenta
 // gratuita". So a paying customer is left to the webhook and skipped here.
+// Returns true only when this account is known to be in the CRM, either
+// because it was just put there or because it was already marked.
+//
+// It used to return nothing, and the endpoint above it answered 200 either
+// way. The browser took that as done and wrote a permanent "already
+// announced" mark, so every account that signed in during the weeks the
+// Zoho client was dead was recorded as synced and would never be sent
+// again. A silent failure that erases its own evidence is worse than a loud
+// one, and this is what the caller needs to tell them apart.
 export async function syncUserOnce(user, { paid, lang } = {}) {
-    if (!configured() || !user?.email || paid) return;
-    if (user.user_metadata?.zoho_synced) return;
-    if (seen.has(user.id)) return;
+    // Nothing to do, and nothing to retry either: the purchase path writes
+    // the authoritative record for a buyer, and an unconfigured CRM has
+    // nowhere to put anybody.
+    if (paid) return true;
+    if (!configured() || !user?.email) return false;
+
+    // Already in, durably. Worth saying so, or the browser keeps asking.
+    if (user.user_metadata?.zoho_synced) return true;
+
+    // Another request for this account is already in flight on this
+    // instance. Not done, and not this request's to claim.
+    if (seen.has(user.id)) return false;
 
     seen.add(user.id);
     // A warm instance never approaches this; the cap is only here so a very
@@ -172,7 +190,14 @@ export async function syncUserOnce(user, { paid, lang } = {}) {
         lang: user.user_metadata?.lang || lang,
         createdAt: user.created_at,
     });
-    if (ok) await markSynced(user.id);
+    if (!ok) {
+        // Let the next visit try again rather than leaving the account
+        // stranded on this instance's memory of a failure.
+        seen.delete(user.id);
+        return false;
+    }
+    await markSynced(user.id);
+    return true;
 }
 
 // Called when somebody creates an account. There is no payment yet and may

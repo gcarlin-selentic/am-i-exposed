@@ -46,10 +46,17 @@ export default async function handler(req, res) {
     if (!user) return res.status(401).json({ error: 'Sign in first' });
 
     const paid = await hasActiveAccess(user.id);
-    await syncUserOnce(user, { paid, lang: body.lang });
+    const synced = await syncUserOnce(user, { paid, lang: body.lang });
 
-    // Says nothing about what was or was not written. The page has no use for
-    // it, and a caller probing for whether an account already exists in the
-    // CRM would learn nothing either.
-    return res.status(200).json({ ok: true });
+    // This used to answer the same thing either way, on the grounds that the
+    // page had no use for the answer and a caller should learn nothing about
+    // who is in the CRM. The first half turned out to be wrong: the page
+    // writes a permanent mark on the strength of this reply and stops asking,
+    // so an unqualified ok after a failed write loses that account for good.
+    //
+    // The second half costs nothing to keep. Reaching here at all takes an
+    // access token for this very account, so the only thing anybody can learn
+    // is whether they themselves are in the CRM, which is not a secret worth
+    // breaking the retry for.
+    return res.status(200).json({ ok: true, synced });
 }
