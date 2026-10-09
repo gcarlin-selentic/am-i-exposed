@@ -127,6 +127,14 @@ const COPY = {
         alertsErrConsent: 'Marca la casilla para continuar.',
         alertsErrFail: 'No pudimos abrir el pago. Inténtalo de nuevo en un momento.',
         alertsActive: 'Tus alertas están activas.',
+
+        // Deliberately in English inside the Spanish copy. It is shown to
+        // somebody the server places in the United States who landed here,
+        // and it has one job: to be understood by a reader who may not read
+        // the page it is sitting on. The English page carries no equivalent,
+        // so these two have no counterpart in the en block below.
+        langHintText: 'This page is also available in',
+        langHintLink: 'English',
         footLeft: '<a href="https://www.selenticgroup.com/" rel="noopener">Selentic Group</a> · Datos de filtraciones por <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a>',
         footFaq: 'Preguntas frecuentes',
         footLeaked: 'Si se filtró tu correo',
@@ -1522,6 +1530,48 @@ function loadPaddle() {
     });
 }
 
+// Loaded and initialised once, whichever of the two things is bought first.
+// Paddle.Initialize registers the event callback, and calling it twice would
+// mean handling every completion twice.
+let paddleStarted = null;
+
+async function startPaddle(config) {
+    if (paddleStarted) return paddleStarted;
+    paddleStarted = (async () => {
+        await loadPaddle();
+        if (config.environment === 'sandbox') Paddle.Environment.set('sandbox');
+        Paddle.Initialize({
+            token: config.token,
+            eventCallback: (event) => {
+                if (event?.name !== 'checkout.completed') return;
+                // Which of the two was bought is read back from the data the
+                // checkout was opened with, not from a variable: two tabs,
+                // or a checkout reopened after a cancel, would both make a
+                // flag lie.
+                const kind = event?.data?.custom_data?.kind;
+                if (kind === 'alerts') {
+                    // The row is written by the webhook, not here. This only
+                    // stops the page offering something just bought.
+                    alertsDone = true;
+                    refreshAlertsCard();
+                } else if (kind === 'report') {
+                    onReportPaid();
+                }
+            },
+        });
+    })();
+    return paddleStarted;
+}
+
+// The theme Paddle should draw its overlay in, so it does not arrive as a
+// white sheet over a dark page.
+function paddleTheme() {
+    return document.documentElement.dataset.theme === 'dark'
+        || (document.documentElement.dataset.theme !== 'light'
+            && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ? 'dark' : 'light';
+}
+
 function alertsFormValues() {
     return {
         firstName: (document.getElementById('alertsFirstName')?.value || '').trim(),
@@ -1575,20 +1625,7 @@ async function openAlertsCheckout(form) {
     if (button) { button.disabled = true; button.textContent = t().alertsOpening; }
 
     try {
-        await loadPaddle();
-
-        if (config.environment === 'sandbox') Paddle.Environment.set('sandbox');
-
-        Paddle.Initialize({
-            token: config.token,
-            eventCallback: (event) => {
-                if (event?.name !== 'checkout.completed') return;
-                // The row is written by the webhook, not here: this only
-                // stops the page still offering something just bought.
-                alertsDone = true;
-                refreshAlertsCard();
-            },
-        });
+        await startPaddle(config);
 
         Paddle.Checkout.open({
             items: [{ priceId: config.priceId, quantity: 1 }],
@@ -1596,7 +1633,13 @@ async function openAlertsCheckout(form) {
             // Paddle copies this onto the subscription when it is created,
             // which is how /api/paddle-webhook knows whose account this is.
             // Nothing else carries the link.
+            //
+            // kind is what keeps this apart from a report purchase. Paddle
+            // raises transaction.completed for both, and without it the
+            // first payment of a subscription would read as somebody buying
+            // a report.
             customData: {
+                kind: 'alerts',
                 user_id: currentUser.id,
                 email: currentUser.email,
                 first_name: form.firstName,
@@ -1605,9 +1648,7 @@ async function openAlertsCheckout(form) {
             },
             settings: {
                 displayMode: 'overlay',
-                theme: document.documentElement.dataset.theme === 'dark'
-                    || window.matchMedia('(prefers-color-scheme: dark)').matches
-                    ? 'dark' : 'light',
+                theme: paddleTheme(),
                 locale: lang,
             },
         });
@@ -1758,8 +1799,34 @@ async function loadPrice() {
         if (data && data.available) {
             priceInfo = data;
             renderPrice();
+            maybeShowLangHint();
         }
     } catch (e) { /* the card keeps its placeholder */ }
+}
+
+const LANG_HINT_DISMISSED = 'aie-lang-hint-off';
+
+// Suggested, never forced. A redirect by IP would hand Googlebot, which
+// crawls almost entirely from United States addresses, the English page
+// every time it asked for this Spanish one.
+//
+// provider is the signal because /api/checkout already runs on load and
+// already has to say who takes the money, so this costs no extra request
+// and no extra fact about the visitor: a page that must open the right
+// checkout cannot avoid knowing which one that is.
+function maybeShowLangHint() {
+    const hint = document.getElementById('langHint');
+    if (!hint || priceInfo?.provider !== 'paddle') return;
+    try {
+        if (localStorage.getItem(LANG_HINT_DISMISSED) === '1') return;
+    } catch (e) { /* private browsing; show it, it is only a suggestion */ }
+    hint.hidden = false;
+}
+
+function dismissLangHint() {
+    const hint = document.getElementById('langHint');
+    if (hint) hint.hidden = true;
+    try { localStorage.setItem(LANG_HINT_DISMISSED, '1'); } catch (e) { /* ignore */ }
 }
 
 // A currency symbol belongs to the currency's own locale, not the reader's.
@@ -1797,8 +1864,52 @@ function renderPrice() {
         return;
     }
     if (price) price.style.display = '';
+
+    // Paddle owns its price, so it is asked rather than remembered. Hidden
+    // until the answer arrives: a dash that turns into a figure looks like a
+    // glitch, and a stale figure that corrects itself looks like a trick.
+    if (priceInfo.provider === 'paddle') {
+        if (price) price.style.display = 'none';
+        renderPaddlePrice();
+        return;
+    }
+
     el.textContent = formatPrice(priceInfo);
     syncJsonLdPrice();
+}
+
+// Paddle returns the price already formatted for the buyer's location, with
+// tax worked out, which is more than a currency symbol: it is the figure
+// their card will actually be charged.
+async function renderPaddlePrice() {
+    const el = document.getElementById('offerPriceAmount');
+    if (!el) return;
+    try {
+        await startPaddle(priceInfo);
+        const preview = await Paddle.PricePreview({
+            items: [{ priceId: priceInfo.priceId, quantity: 1 }],
+        });
+        const item = (preview?.data?.details?.lineItems || [])[0];
+        const shown = item?.formattedTotals?.total;
+        if (!shown) return;
+
+        el.textContent = shown;
+        const box = el.closest('.price');
+        if (box) box.style.display = '';
+
+        // The raw total, so the structured data can carry the same number
+        // rather than the soles price baked into the HTML.
+        const cents = Number(item?.totals?.total);
+        if (Number.isFinite(cents)) {
+            priceInfo.amount = cents / 100;
+            priceInfo.currency = preview?.data?.currencyCode || 'USD';
+            syncJsonLdPrice();
+        }
+    } catch (e) {
+        // The card still reads fine without a figure: its button offers the
+        // sample, and the real amount is shown in Paddle's own overlay.
+        console.error('Could not read the Paddle price:', e?.name || e);
+    }
 }
 
 // The structured data carries a hardcoded price because a crawler that does
@@ -1852,6 +1963,35 @@ async function startPurchase(btn) {
     if (btn) {
         btn.disabled = true;
         btn.innerHTML = '<span class="spinner"></span>' + escapeHtml(t().payOpening);
+    }
+
+    // Paddle, for a buyer in the United States. It opens over the page
+    // instead of sending them away, so there is no round trip to park
+    // anything across and no return URL to come back to: the overlay closes
+    // and they are still where they were.
+    if (priceInfo?.provider === 'paddle') {
+        try {
+            await startPaddle(priceInfo);
+            Paddle.Checkout.open({
+                items: [{ priceId: priceInfo.priceId, quantity: 1 }],
+                customer: { email: currentUser.email },
+                customData: {
+                    kind: 'report',
+                    user_id: currentUser.id,
+                    email: currentUser.email,
+                },
+                settings: {
+                    displayMode: 'overlay',
+                    theme: paddleTheme(),
+                    locale: lang,
+                },
+            });
+        } catch (error) {
+            showPayBanner(t().payFail, 'warn');
+        } finally {
+            restore();
+        }
+        return;
     }
 
     try {
@@ -1931,6 +2071,44 @@ async function waitForEntitlement(attempts = 8, gapMs = 2000) {
         await new Promise(resolve => setTimeout(resolve, gapMs));
     }
     return hasPaidAccess();
+}
+
+// A report bought through Paddle, which never leaves the page: the overlay
+// closes and the buyer is still standing where they were.
+//
+// So there is no return URL to handle and nothing parked in sessionStorage,
+// but the wait is the same as Mercado Pago's. The webhook is what grants
+// access, and it is still in flight while the overlay is closing.
+async function onReportPaid() {
+    showPayBanner(t().payConfirming);
+
+    const paid = await waitForEntitlement();
+    if (!paid) {
+        showPayBanner(t().paySlow, 'warn');
+        return;
+    }
+
+    // The cached plan was fetched as a teaser; it has to be asked for again
+    // now that the account is entitled.
+    lastReport = null;
+    hideOffer();
+
+    // Bought from the sample, so there is no address of their own to build a
+    // plan from yet. Say what to do rather than announcing that something is
+    // ready and showing nothing.
+    if (!lastEmailResult) {
+        showPayBanner(t().payReadyCheck);
+        closeReport();
+        const input = document.getElementById('emailInput');
+        if (input) {
+            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            input.focus();
+        }
+        return;
+    }
+
+    showPayBanner(t().payReady);
+    await openReport();
 }
 
 // Straight to the plan from the receipt. The buyer's address is taken from

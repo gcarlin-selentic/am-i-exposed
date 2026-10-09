@@ -16,7 +16,9 @@ import {
     credentialOwnerId,
     expectLiveMode,
     isAllowedOrigin,
+    isUnitedStates,
     mpMode,
+    paddleConfig,
     priceConfig,
     publicBaseUrl,
     readBody,
@@ -96,12 +98,46 @@ export default async function handler(req, res) {
 
     const price = priceConfig();
 
-    // GET: what the report costs. The page asks for this on load to fill in the
-    // offer card, so the amount lives in exactly one place.
+    // GET: what the report costs and who takes the money. The page asks on
+    // load to fill in the offer card.
     if (req.method === 'GET') {
+        // Per visitor: the answer now depends on where they are, so a shared
+        // cache would serve one country's checkout to another's buyer.
+        res.setHeader('Cache-Control', 'private, no-store');
+
+        // United States: Paddle, in dollars, as merchant of record. Mercado
+        // Pago does not operate there and settles in soles, so a buyer in
+        // Miami would see S/ 19 and a foreign transaction fee on their
+        // statement, which is a good way to lose the sale.
+        //
+        // Deliberately no amount in this branch. Paddle owns the price, and
+        // keeping a copy of it here would be a number that silently stops
+        // matching the one actually charged the day it changes in the Paddle
+        // panel. The page asks Paddle instead, through Paddle.PricePreview,
+        // which also returns it already formatted for the buyer's location.
+        if (isUnitedStates(req)) {
+            const paddle = paddleConfig('PADDLE_REPORT_PRICE_ID');
+            if (paddle) {
+                return res.status(200).json({
+                    available: true,
+                    provider: 'paddle',
+                    priceId: paddle.priceId,
+                    token: paddle.token,
+                    environment: paddle.environment,
+                    // The entitlement check matches purchases on live_mode,
+                    // and knows this word, not Paddle's.
+                    mode: paddle.environment === 'production' ? 'live' : 'test',
+                });
+            }
+            // Falls through to Mercado Pago when Paddle is not configured
+            // yet. A buyer who can pay in the wrong currency is better than
+            // a buyer who cannot pay at all.
+        }
+
         if (!price) return res.status(200).json({ available: false });
         return res.status(200).json({
             available: true,
+            provider: 'mercadopago',
             amount: price.amount,
             currency: price.currency,
             mode: mpMode(),

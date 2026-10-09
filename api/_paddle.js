@@ -122,11 +122,89 @@ function fromCustomData(data) {
 
     return {
         userId,
+        // Which of the two things was bought. Set by the checkout, and the
+        // only thing separating a report transaction from the first payment
+        // of an alerts subscription.
+        kind: custom.kind === 'report' || custom.kind === 'alerts'
+            ? custom.kind : null,
         email: text(custom.email),
         firstName: text(custom.first_name),
         lastName: text(custom.last_name),
         state: text(custom.state),
     };
+}
+
+// One purchase buys thirty days of report access, the same as a Mercado Pago
+// purchase does. The two providers write into the same purchases table and
+// the entitlement check does not care which paid.
+const ACCESS_DAYS = 30;
+
+// A completed transaction, which is the report bought once rather than the
+// alerts billed monthly.
+//
+// Paddle also raises transaction.completed for the first payment of a
+// subscription, and that one must not land here: it would grant report
+// access to somebody who bought alerts. Two things keep them apart, and both
+// are required rather than either, because this is the function that hands
+// out paid access:
+//
+//   - custom_data.kind, which the checkout sets explicitly
+//   - subscription_id, which Paddle sets on anything recurring
+async function applyTransaction(event, liveMode) {
+    const data = event?.data;
+    const transactionId = data?.id;
+    if (!transactionId) return { handled: false, reason: 'no transaction id' };
+
+    if (data.subscription_id) {
+        return { handled: false, reason: 'belongs to a subscription' };
+    }
+
+    const custom = fromCustomData(data);
+    if (custom.kind !== 'report') {
+        return { handled: false, reason: `kind=${custom.kind ?? 'none'}` };
+    }
+    if (!custom.userId) {
+        console.error('Paddle transaction with no account:', transactionId);
+        return { handled: false, reason: 'no account on transaction' };
+    }
+
+    // Already recorded? provider_payment_id is unique, so this is the
+    // idempotency check and the constraint is the backstop behind it.
+    const existing = await sbSelect(
+        'purchases?select=id,status'
+        + `&provider_payment_id=eq.${encodeURIComponent(transactionId)}&limit=1`);
+    if (existing.rows.length) {
+        return { handled: true, reason: 'already recorded' };
+    }
+
+    // The amount Paddle actually charged, in the lowest denomination, which
+    // is what every Paddle total is. Read back from the event rather than
+    // from anything the page said: the page can be edited, the event is
+    // signed.
+    const totals = data.details?.totals || {};
+    const cents = Number(totals.grand_total ?? totals.total);
+    const paidAt = data.billed_at || event.occurred_at || new Date().toISOString();
+    const expires = new Date(new Date(paidAt).getTime()
+        + ACCESS_DAYS * 24 * 60 * 60 * 1000).toISOString();
+
+    const created = await sbInsert('purchases', {
+        user_id: custom.userId,
+        email: custom.email || null,
+        provider: 'paddle',
+        live_mode: liveMode,
+        provider_payment_id: transactionId,
+        status: 'paid',
+        amount: Number.isFinite(cents) ? cents / 100 : null,
+        currency: data.currency_code || null,
+        paid_at: paidAt,
+        expires_at: expires,
+    });
+
+    if (created.ok) return { handled: true, status: 'paid', created: true };
+    // A concurrent delivery of the same event won the race, which is a
+    // success rather than a failure.
+    if (created.status === 409) return { handled: true, reason: 'conflict' };
+    return { handled: false, reason: 'insert failed', retry: true };
 }
 
 async function applyEvent(event, liveMode) {
@@ -260,14 +338,18 @@ export function paddleWebhookHandler({ secretEnv, liveMode }) {
         }
 
         const type = event?.event_type;
-        if (typeof type !== 'string' || !type.startsWith('subscription.')) {
-            // Transactions, products, adjustments: not subscribed to today,
-            // and answered 200 so Paddle does not retry something we chose to
+
+        let result;
+        if (typeof type === 'string' && type.startsWith('subscription.')) {
+            result = await applyEvent(event, liveMode);
+        } else if (type === 'transaction.completed') {
+            result = await applyTransaction(event, liveMode);
+        } else {
+            // Products, adjustments, anything else: not subscribed to, and
+            // answered 200 so Paddle does not retry something we chose to
             // ignore.
             return res.status(200).json({ ignored: `event_type=${type ?? 'none'}` });
         }
-
-        const result = await applyEvent(event, liveMode);
 
         // Only a database failure asks for a retry. Everything else is a
         // decision we made and repeating it would not change the outcome.

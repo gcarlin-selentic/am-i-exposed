@@ -16,17 +16,7 @@
 // written for United States law. Offering it anywhere else would be selling
 // something that cannot pay out.
 
-// Vercel sets this on every request from its edge. It is not a header a
-// browser can forge: Vercel overwrites whatever arrives with its own value.
-const COUNTRY_HEADER = 'x-vercel-ip-country';
-
-// Paddle's client-side tokens are prefixed test_ in sandbox and live_ in
-// production. Reading the environment off the token means the two can never
-// disagree: there is no second setting to forget to change on the day this
-// goes live.
-function environmentFor(token) {
-    return token.startsWith('test_') ? 'sandbox' : 'production';
-}
+import { isUnitedStates, paddleConfig } from './_shared.js';
 
 export default function handler(req, res) {
     if (req.method !== 'GET') {
@@ -39,27 +29,18 @@ export default function handler(req, res) {
     // says so explicitly rather than relying on that staying true.
     res.setHeader('Cache-Control', 'private, no-store');
 
-    const country = req.headers[COUNTRY_HEADER];
-    if (country !== 'US') {
+    if (!isUnitedStates(req)) {
         return res.status(200).json({ eligible: false });
     }
-
-    const token = process.env.PADDLE_CLIENT_TOKEN;
-    const priceId = process.env.PADDLE_PRICE_ID;
 
     // Eligible by country but not configured yet. Answered as not eligible
     // rather than as an error: a visitor should see no card at all, not a
     // card that fails when they click it.
-    if (!token || !priceId) {
-        console.error('Alerts not configured:',
-            { token: !!token, priceId: !!priceId });
+    const paddle = paddleConfig('PADDLE_PRICE_ID');
+    if (!paddle) {
+        console.error('Alerts not configured');
         return res.status(200).json({ eligible: false });
     }
 
-    return res.status(200).json({
-        eligible: true,
-        token,
-        priceId,
-        environment: environmentFor(token),
-    });
+    return res.status(200).json({ eligible: true, ...paddle });
 }

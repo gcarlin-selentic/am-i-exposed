@@ -52,6 +52,36 @@ export function publicBaseUrl(req) {
     return host ? `https://${host}` : null;
 }
 
+// Where the visitor is, as Vercel's edge sees it. Not a header a browser can
+// forge: Vercel overwrites whatever arrives with its own value.
+//
+// Used to decide which payment provider a visitor is offered. Mercado Pago
+// settles in soles and does not operate in the United States; Paddle is the
+// merchant of record there and charges in dollars. Sending a buyer in Miami
+// to a checkout that says S/ 19 costs the sale, and sending a buyer in Lima
+// to one that says $5 charges them a foreign transaction fee.
+//
+// Absent on a local request, which therefore falls through to Mercado Pago.
+// That is the right default: it is the path that has been taking real money
+// for weeks.
+export function isUnitedStates(req) {
+    return req?.headers?.['x-vercel-ip-country'] === 'US';
+}
+
+// Paddle's client-side tokens are prefixed test_ in sandbox and live_ in
+// production, so the environment is read off the token rather than kept as a
+// second setting that can disagree with it.
+export function paddleConfig(priceEnv) {
+    const token = process.env.PADDLE_CLIENT_TOKEN;
+    const priceId = process.env[priceEnv];
+    if (!token || !priceId) return null;
+    return {
+        token,
+        priceId,
+        environment: token.startsWith('test_') ? 'sandbox' : 'production',
+    };
+}
+
 // The price lives on the server. If the browser could name the amount, the
 // report could be bought for one sol.
 export function priceConfig() {

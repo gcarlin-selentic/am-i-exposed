@@ -740,6 +740,38 @@ img { max-width: 100%; }
 .alerts-consent input { margin-top: 3px; flex-shrink: 0; }
 .alerts-consent label { font-size: 13px; }
 
+/* ---------------- language hint ----------------
+   A suggestion for a visitor who landed on the wrong language, not an
+   announcement. Quiet enough to ignore, close enough to the top to see. */
+.lang-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 9px 44px 9px 16px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+    font-size: 13.5px;
+    color: var(--muted);
+    position: relative;
+}
+.lang-hint a { color: var(--accent-ink); font-weight: 600; }
+.lang-hint button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: 0;
+    color: var(--muted-2);
+    font-size: 20px;
+    line-height: 1;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+.lang-hint button:hover { color: var(--ink); }
+
 .price { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 26px; letter-spacing: -.02em; }
 .price small { font-size: 13px; font-weight: 600; opacity: .6; margin-left: 5px; }
 
