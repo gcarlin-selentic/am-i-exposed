@@ -1,0 +1,156 @@
+[
+ {
+  "hibp": "Yahoo",
+  "titulo": "Yahoo",
+  "empresa": "Yahoo",
+  "porPersona": 25000,
+  "fondo": null,
+  "plazo": "2020-07-20",
+  "sitio": "YahooDataBreachSettlement.com",
+  "fuente": "https://topclassactions.com/lawsuit-settlements/closed-settlements/yahoo-data-breach-class-action-settlement/",
+  "elegible": "Those who used Yahoo services, including Yahoo Fantasy Sports, Yahoo Finance, Tumblr, and Flickr, between Jan. 1, 2012 and Dec. 31, 2016 and received notice that they had been affected by a data breach in 2016 or 2017."
+ },
+ {
+  "hibp": "MGM",
+  "titulo": "MGM Resorts",
+  "empresa": "Mgm Resorts",
+  "porPersona": 15000,
+  "fondo": 45000000,
+  "plazo": "2025-06-03",
+  "sitio": "MGMdataSettlement.com",
+  "fuente": "https://topclassactions.com/lawsuit-settlements/closed-settlements/45m-mgm-resorts-data-breach-class-action-settlement/",
+  "elegible": "The MGM Resorts settlement benefits individuals whose personal information was compromised in July 2019 and September 2023 data breaches and who received a notice from MGM informing them of their inclusion in the settlem"
+ },
+ {
+  "hibp": "Comcast",
+  "titulo": "Comcast",
+  "empresa": "Comcast",
+  "porPersona": 10000,
+  "fondo": 117500000,
+  "plazo": "2026-09-14",
+  "sitio": "ComcastBreachSettlement.com",
+  "fuente": "https://topclassactions.com/lawsuit-settlements/closed-settlements/117-5m-comcast-data-breach-class-action-settlement/",
+  "elegible": "The class action settlement benefits consumers who received a data breach notification from Comcast informing them their information may have been compromised in a data breach between Oct. 16 and 19, 2023."
+ },
+ {
+  "hibp": "AdvanceAutoParts",
+  "titulo": "Advance Auto Parts",
+  "empresa": "Advance Auto Parts",
+  "porPersona": 5200,
+  "fondo": null,
+  "plazo": "2025-10-08",
+  "sitio": "AAPDataSettlement.com",
+  "fuente": "https://topclassactions.com/lawsuit-settlements/closed-settlements/advance-auto-parts-data-breach-class-action-settlement/",
+  "elegible": "Individuals in the United States who were sent a notification from Advance Stores Company Inc. that their private information was potentially compromised as a result of a data incident."
+ },
+ {
+  "hibp": "Sysco",
+  "titulo": "Sysco",
+  "empresa": "Sysco",
+  "porPersona": 5000,
+  "fondo": 2300000,
+  "plazo": "2025-09-08",
+  "sitio": null,
+  "fuente": "https://topclassactions.com/lawsuit-settlements/closed-settlements/2-3m-sysco-data-breach-class-action-settlement/",
+  "elegible": "Individuals who reside in the United States and to whom Sysco sent notice of the cybersecurity event in or around May 2023."
+ },
+ {
+  "hibp": "AshleyMadison",
+  "titulo": "Ashley Madison",
+  "empresa": "Ashley Madison",
+  "porPersona": 3500,
+  "fondo": null,
+  "plazo": "2018-01-02",
+  "sitio": "www.WebsiteDataBreach.com",
+  "fuente": "https://topclassactions.com/lawsuit-settlements/closed-settlements/ashley-madison-data-breach-class-action-settlement/",
+  "elegible": "Class Members include all persons in the U.S. who used Ashley Madison on or before July 20, 2015. Within that group, those who may be entitled to receive monetary benefits include but aren’t limited to: Those whose perso"
+ },
+ {
+  "hibp": "NeimanMarcus",
+  "titulo": "Neiman Marcus",
+  "empresa": "Neiman Marcus",
+  "porPersona": 2500,
+  "fondo": 3500000,
+  "plazo": "2025-10-08",
+  "sitio": "NMGSettlement.com",
+  "fuente": "https://topclassactions.com/lawsuit-settlements/closed-settlements/3-5m-neiman-marcus-data-breach-class-action-settlement/",
+  "elegible": "Consumers whose personal information was compromised in the Neiman Marcus data breach in May 2024."
+ },
+ {
+  "hibp": "Robinhood",
+  "titulo": "Robinhood",
+  "empresa": "Robinhood",
+  "porPersona": 260,
+  "fondo": null,
+  "plazo": "2023-01-17",
+  "sitio": null,
+  "fuente": "https://topclassactions.com/lawsuit-settlements/closed-settlements/robinhood-data-breach-class-action-settlement/",
+  "elegible": "The settlement benefits individuals who experienced an unauthorized access incident on their Robinhood account between Jan. 1, 2020, and April 27, 2022, that was either reported to Robinhood by customers or reported to c"
+ },
+ {
+  "hibp": "Minted",
+  "titulo": "Minted",
+  "empresa": "Minted",
+  "porPersona": 43,
+  "fondo": 5000000,
+  "plazo": "2021-09-16",
+  "sitio": "MintedSettlement.com",
+  "fuente": "https://topclassactions.com/lawsuit-settlements/closed-settlements/minted-data-breach-5m-class-action-settlement/",
+  "elegible": "Any United States resident with a Minted account, or those who provided Minted with their name, email and street addresses, or other personal information via email, the Minted website, or other online communication on or"
+ },
+ {
+  "hibp": "ParkMobile",
+  "titulo": "ParkMobile",
+  "empresa": "Parkmobile",
+  "porPersona": 25,
+  "fondo": 32799999,
+  "plazo": "2025-03-05",
+  "sitio": "ParkMobileSettlement.com",
+  "fuente": "https://topclassactions.com/lawsuit-settlements/closed-settlements/32-8m-parkmobile-data-breach-class-action-settlement/",
+  "elegible": "The settlement benefits individuals who received a data breach notification from ParkMobile regarding a March 2021 data breach"
+ },
+ {
+  "hibp": "Drizly",
+  "titulo": "Drizly",
+  "empresa": "Drizly",
+  "porPersona": 14,
+  "fondo": 7100000,
+  "plazo": "2021-07-28",
+  "sitio": "AlcoholDeliveryDataBreach.com",
+  "fuente": "https://topclassactions.com/lawsuit-settlements/closed-settlements/drizly-data-breach-7-1m-class-action-settlement/",
+  "elegible": "The Class is made up of anyone in the United States whose customer data was compromised during the data intrusion security incident Drizly made public on July 28, 2020, in which an unauthorized party accessed certain per"
+ },
+ {
+  "hibp": "Luxottica",
+  "titulo": "Luxottica",
+  "empresa": "Luxottica",
+  "porPersona": null,
+  "fondo": 250000,
+  "plazo": "2025-01-02",
+  "sitio": null,
+  "fuente": "https://topclassactions.com/lawsuit-settlements/closed-settlements/250k-luxottica-data-breach-class-action-settlement/",
+  "elegible": "Patients of a Luxottica-owned or affiliated eye care practice in the United States who scheduled an appointment on or before Aug. 5, 2020"
+ },
+ {
+  "hibp": "CafePress",
+  "titulo": "CafePress",
+  "empresa": "Cafepress",
+  "porPersona": null,
+  "fondo": 500000,
+  "plazo": "2024-03-10",
+  "sitio": "FTC.gov/enforcement/refunds/cafepress-settlement",
+  "fuente": "https://topclassactions.com/lawsuit-settlements/closed-settlements/cafepress-data-breach-500k-ftc-settlement/",
+  "elegible": "Consumers whose Social Security numbers were exposed in a CafePress data breach in 2019."
+ },
+ {
+  "hibp": "Kemper",
+  "titulo": "Kemper",
+  "empresa": "Kemper Corp Infinity Insurance",
+  "porPersona": null,
+  "fondo": null,
+  "plazo": "2022-03-15",
+  "sitio": "InfinityClassSettlement.com",
+  "fuente": "https://topclassactions.com/lawsuit-settlements/closed-settlements/kemper-corp-infinity-insurance-data-breaches-class-action-settlement/",
+  "elegible": "Class Members include U.S. citizens who were affected by a data incident involving the Kemper Corp. and Infinity Insurance Co. that occurred Dec. 14, 2020, and March 25, 2021, and who received notifications by mail that "
+ }
+]

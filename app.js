@@ -128,6 +128,16 @@ const COPY = {
         alertsErrFail: 'No pudimos abrir el pago. Inténtalo de nuevo en un momento.',
         alertsActive: 'Tus alertas están activas.',
 
+        // La cara con coincidencia. El titular cambia porque un hecho ya
+        // ocurrido convence mas que una promesa: "pudiste haber cobrado" es
+        // comprobable, "te avisaremos" hay que creerlo.
+        alertsMissedTitle: 'Ya pudiste haber cobrado, y nadie te avisó.',
+        alertsMissedLede: 'Tu correo aparece en filtraciones que terminaron en acuerdo. Esto es lo que se pagaba, y cuándo venció el plazo:',
+        alertsCaveat: 'Para cobrar había que pertenecer a la clase, lo que normalmente exige haber recibido la carta de aviso de la empresa. Aparecer en la filtración no lo garantiza. No somos abogados y no reclamamos por ti.',
+        alertsMissedMax: 'hasta',
+        alertsMissedClosed: 'El plazo cerró el',
+        alertsMissedNoAmount: 'con acuerdo pagado',
+
         // Deliberately in English inside the Spanish copy. It is shown to
         // somebody the server places in the United States who landed here,
         // and it has one job: to be understood by a reader who may not read
@@ -330,6 +340,16 @@ const COPY = {
         alertsErrConsent: 'Tick the box to continue.',
         alertsErrFail: 'We could not open the payment. Try again in a moment.',
         alertsActive: 'Your alerts are on.',
+
+        // The matched face. The headline changes because something that
+        // already happened persuades better than a promise: "you could have
+        // claimed" can be checked, "we will tell you" has to be believed.
+        alertsMissedTitle: 'You could already have claimed, and nobody told you.',
+        alertsMissedLede: 'Your email appears in breaches that ended in a settlement. This is what they paid, and when the window closed:',
+        alertsCaveat: 'Claiming required being in the class, which usually means having received the company&rsquo;s notice letter. Appearing in the breach does not guarantee it. We are not lawyers and we do not claim on your behalf.',
+        alertsMissedMax: 'up to',
+        alertsMissedClosed: 'The window closed on',
+        alertsMissedNoAmount: 'settled and paid out',
         footLeft: '<a href="https://www.selenticgroup.com/" rel="noopener">Selentic Group</a> · Breach data by <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a>',
         footFaq: 'FAQ',
         footLeaked: 'If your email leaked',
@@ -1499,6 +1519,78 @@ async function loadAlertsConfig() {
     return alertsConfig;
 }
 
+// Settlements that have already paid out, matched against the breaches this
+// address is in. Fetched once, and only for a visitor who is going to be
+// shown the card at all.
+let settlements = null;
+
+async function loadSettlements() {
+    if (settlements) return settlements;
+    try {
+        const response = await fetch('/settlements.json');
+        settlements = response.ok ? await response.json() : [];
+    } catch (e) {
+        settlements = [];
+    }
+    return settlements;
+}
+
+// Matched on the breach's machine name, which Have I Been Pwned keeps
+// stable, rather than on its display title. Title matching is what produced
+// Canva against "canvas" and Apollo against ApolloMD while this catalogue
+// was being built; getting it wrong here would tell somebody they had money
+// coming from a company they have never used.
+async function missedSettlements() {
+    if (!lastEmailResult?.breaches?.length) return [];
+    const list = await loadSettlements();
+    if (!list.length) return [];
+
+    const mine = new Set(lastEmailResult.breaches.map(b => b.name));
+    return list
+        .filter(s => mine.has(s.hibp))
+        .sort((a, b) => (b.porPersona || 0) - (a.porPersona || 0));
+}
+
+function renderMissed(rows) {
+    const box = document.getElementById('alertsMatch');
+    const generic = document.getElementById('alertsGeneric');
+    const title = document.getElementById('alertsTitle');
+    if (!box || !generic) return;
+
+    if (!rows.length) {
+        box.hidden = true;
+        generic.hidden = false;
+        if (title) title.innerHTML = t().alertsTitle;
+        return;
+    }
+
+    const fmt = n => new Intl.NumberFormat(lang === 'en' ? 'en-US' : 'es-CO',
+        { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
+    const when = iso => {
+        // Parsed as parts rather than through Date(iso), which reads a bare
+        // date as UTC midnight and then prints the day before in any
+        // timezone west of London. This date is the whole point of the line.
+        const [y, m, d] = (iso || '').split('-').map(Number);
+        if (!y) return '';
+        return new Date(y, m - 1, d).toLocaleDateString(
+            lang === 'en' ? 'en-US' : 'es-ES',
+            { year: 'numeric', month: 'long', day: 'numeric' });
+    };
+
+    document.getElementById('alertsMissedList').innerHTML = rows.map(s => `
+        <li>
+            <span class="m-co">${escapeHtml(s.titulo || s.empresa)}</span>
+            <span class="m-amt">${s.porPersona
+                ? escapeHtml(t().alertsMissedMax + ' ' + fmt(s.porPersona))
+                : escapeHtml(t().alertsMissedNoAmount)}</span>
+            ${s.plazo ? `<span class="m-when">${escapeHtml(t().alertsMissedClosed + ' ' + when(s.plazo))}</span>` : ''}
+        </li>`).join('');
+
+    box.hidden = false;
+    generic.hidden = true;
+    if (title) title.innerHTML = t().alertsMissedTitle;
+}
+
 async function refreshAlertsCard() {
     const card = document.getElementById('alertsCard');
     if (!card) return;
@@ -1509,7 +1601,10 @@ async function refreshAlertsCard() {
 
     const config = await loadAlertsConfig();
     card.hidden = !config.eligible;
-    if (config.eligible) fillAlertStates();
+    if (!config.eligible) return;
+
+    fillAlertStates();
+    renderMissed(await missedSettlements());
 }
 
 function alertsError(message) {

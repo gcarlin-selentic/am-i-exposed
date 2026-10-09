@@ -100,7 +100,7 @@
          never change, and a forgotten bust on a year-long immutable asset would
          leave a returning buyer running last week's payment code. Bump the date
          here and in the other language's page when a change has to land now. -->
-    <link rel="stylesheet" href="/app.css?v=2026-10-09f">
+    <link rel="stylesheet" href="/app.css?v=2026-10-09g">
 </head>
 <body>
 
@@ -247,9 +247,18 @@
          would drift apart the first time one of them is edited. -->
     <div class="offer" id="alertsCard" hidden>
         <span class="badge"><span class="dot"></span><span data-i18n="alertsBadge">Alerts &middot; US only</span></span>
-        <h2 data-i18n="alertsTitle">If a company that leaked your data gets sued, we&rsquo;ll let you know.</h2>
+        <h2 id="alertsTitle" data-i18n="alertsTitle">If a company that leaked your data gets sued, we&rsquo;ll let you know.</h2>
         <p data-i18n="alertsLede">Companies that lose data end up paying class action settlements. The money is real and almost nobody claims it, because the notice arrives by post and looks like junk mail.</p>
-        <ul>
+                <!-- The face shown when the address checked matches a settlement that
+             has already paid out. Built in app.js from settlements.json,
+             because the browser already holds the breach list and nothing has
+             to be sent anywhere to match it. -->
+        <div id="alertsMatch" hidden>
+            <p data-i18n="alertsMissedLede">Your email appears in breaches that ended in a settlement. This is what they paid, and when the window closed:</p>
+            <ul class="alerts-missed" id="alertsMissedList"></ul>
+            <p class="alerts-caveat" data-i18n="alertsCaveat">Claiming required being in the class, which usually means having received the company's notice letter. Appearing in the breach does not guarantee it. We are not lawyers and we do not claim on your behalf.</p>
+        </div>
+        <ul id="alertsGeneric">
             <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="alertsLi1">1,614 cases tracked, 307 still open</span></li>
             <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="alertsLi2">One note a month, and a separate one when there is something to claim</span></li>
             <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="alertsLi3">If you live in California, we flag the extra statutory payment</span></li>
@@ -399,7 +408,7 @@
     </div>
 </div>
 
-<script src="/app.js?v=2026-10-09f" defer></script>
+<script src="/app.js?v=2026-10-09g" defer></script>
 
 <!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
      a visitor, which is why the privacy policy can still promise no tracking

@@ -98,7 +98,7 @@
          never change, and a forgotten bust on a year-long immutable asset would
          leave a returning buyer running last week's payment code. Bump the date
          here and in the other language's page when a change has to land now. -->
-    <link rel="stylesheet" href="/app.css?v=2026-10-09f">
+    <link rel="stylesheet" href="/app.css?v=2026-10-09g">
 </head>
 <body>
 
@@ -263,9 +263,18 @@
          would drift apart the first time one of them is edited. -->
     <div class="offer" id="alertsCard" hidden>
         <span class="badge"><span class="dot"></span><span data-i18n="alertsBadge">Alertas &middot; solo EE.&nbsp;UU.</span></span>
-        <h2 data-i18n="alertsTitle">Si demandan a una empresa que filtró tus datos, te avisamos.</h2>
+        <h2 id="alertsTitle" data-i18n="alertsTitle">Si demandan a una empresa que filtró tus datos, te avisamos.</h2>
         <p data-i18n="alertsLede">Las empresas que pierden datos terminan pagando acuerdos colectivos. El dinero existe y casi nadie lo reclama, porque el aviso llega por correo postal y se confunde con publicidad.</p>
-        <ul>
+                <!-- La cara que aparece cuando el correo buscado coincide con un
+             acuerdo ya pagado. Construida en app.js desde settlements.json,
+             porque el navegador ya tiene la lista de filtraciones y no hace
+             falta mandarla a ningun sitio para cruzarla. -->
+        <div id="alertsMatch" hidden>
+            <p data-i18n="alertsMissedLede">Tu correo aparece en filtraciones que terminaron en acuerdo. Esto es lo que se pagaba, y cuándo venció el plazo:</p>
+            <ul class="alerts-missed" id="alertsMissedList"></ul>
+            <p class="alerts-caveat" data-i18n="alertsCaveat">Para cobrar había que pertenecer a la clase, lo que normalmente exige haber recibido la carta de aviso de la empresa. Aparecer en la filtración no lo garantiza. No somos abogados y no reclamamos por ti.</p>
+        </div>
+        <ul id="alertsGeneric">
             <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="alertsLi1">1.614 casos en seguimiento, 307 todavía abiertos</span></li>
             <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="alertsLi2">Un aviso al mes, y uno aparte cuando haya algo que reclamar</span></li>
             <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="alertsLi3">Si vives en California, te marcamos el pago estatutario extra</span></li>
@@ -415,7 +424,7 @@
     </div>
 </div>
 
-<script src="/app.js?v=2026-10-09f" defer></script>
+<script src="/app.js?v=2026-10-09g" defer></script>
 
 <!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
      a visitor, which is why the privacy policy can still promise no tracking

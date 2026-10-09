@@ -764,6 +764,47 @@ img { max-width: 100%; }
     opacity: .72;
     margin-bottom: 20px;
 }
+/* The settlements this address already missed. Deliberately not styled as
+   the tick list above it: those are things the subscription will do, these
+   are things that already happened and were lost, and reading as the same
+   kind of item would blunt the only concrete evidence on the card. */
+.alerts-missed {
+    list-style: none;
+    margin: 18px 0;
+    display: grid;
+    gap: 10px;
+}
+.alerts-missed li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 10px;
+    padding: 12px 14px;
+    border-radius: var(--r-sm);
+    background: var(--field-bg);
+    border: 1.5px solid var(--field-line);
+    color: var(--field-ink);
+    font-size: 14.5px;
+}
+.alerts-missed .m-co { font-weight: 700; }
+.alerts-missed .m-amt {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 17px;
+    letter-spacing: -.01em;
+}
+/* The date is the point of the line, not a footnote: it is what turns
+   "there was money" into "there was money and it is gone". */
+.alerts-missed .m-when { opacity: .62; font-size: 13px; width: 100%; }
+
+.alerts-caveat {
+    font-size: 12.5px;
+    opacity: .6;
+    margin: 14px 0 18px;
+    padding-left: 12px;
+    border-left: 2px solid var(--accent);
+}
+
 .alerts-consent input {
     margin-top: 2px;
     flex-shrink: 0;
