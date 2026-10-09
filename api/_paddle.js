@@ -13,7 +13,9 @@
 
 import crypto from 'node:crypto';
 
-import { sbInsert, sbPatch, sbSelect } from './_shared.js';
+import { sendReceipt } from './_email.js';
+import { syncPurchase } from './_zoho.js';
+import { publicBaseUrl, sbInsert, sbPatch, sbSelect } from './_shared.js';
 
 // Paddle's own status values, passed through untranslated. The table's check
 // constraint lists the same five.
@@ -128,6 +130,9 @@ function fromCustomData(data) {
         kind: custom.kind === 'report' || custom.kind === 'alerts'
             ? custom.kind : null,
         email: text(custom.email),
+        // Which language to write the receipt in. The page knows; the
+        // transaction would not otherwise carry it.
+        lang: custom.lang === 'en' ? 'en' : 'es',
         firstName: text(custom.first_name),
         lastName: text(custom.last_name),
         state: text(custom.state),
@@ -150,7 +155,7 @@ const ACCESS_DAYS = 30;
 //
 //   - custom_data.kind, which the checkout sets explicitly
 //   - subscription_id, which Paddle sets on anything recurring
-async function applyTransaction(event, liveMode) {
+async function applyTransaction(event, liveMode, req) {
     const data = event?.data;
     const transactionId = data?.id;
     if (!transactionId) return { handled: false, reason: 'no transaction id' };
@@ -200,11 +205,46 @@ async function applyTransaction(event, liveMode) {
         expires_at: expires,
     });
 
-    if (created.ok) return { handled: true, status: 'paid', created: true };
-    // A concurrent delivery of the same event won the race, which is a
-    // success rather than a failure.
-    if (created.status === 409) return { handled: true, reason: 'conflict' };
-    return { handled: false, reason: 'insert failed', retry: true };
+    if (!created.ok) {
+        // A concurrent delivery of the same event won the race, which is a
+        // success rather than a failure, and the winner already sent the
+        // mail. Returning here is also what stops a retry thanking somebody
+        // twice for one purchase.
+        if (created.status === 409) return { handled: true, reason: 'conflict' };
+        return { handled: false, reason: 'insert failed', retry: true };
+    }
+
+    // Paddle sends its own receipt as merchant of record. This is the other
+    // one: ours, with the link that opens the plan they just paid for.
+    //
+    // Awaited but never allowed to matter, exactly as the Mercado Pago
+    // webhook does it. If Brevo is down the money is still recorded and the
+    // access is still granted, and failing here would only make Paddle retry
+    // an event that was handled correctly.
+    if (custom.email) {
+        try {
+            await sendReceipt({
+                to: custom.email,
+                lang: custom.lang,
+                amount: Number.isFinite(cents) ? cents / 100 : null,
+                currency: data.currency_code,
+                paidAt,
+                expiresAt: expires,
+                siteUrl: publicBaseUrl(req),
+            });
+            await syncPurchase({
+                email: custom.email,
+                lang: custom.lang,
+                amount: Number.isFinite(cents) ? cents / 100 : null,
+                currency: data.currency_code,
+                paidAt,
+            });
+        } catch (error) {
+            console.error('Buyer notification failed:', error.name);
+        }
+    }
+
+    return { handled: true, status: 'paid', created: true };
 }
 
 async function applyEvent(event, liveMode) {
@@ -343,7 +383,7 @@ export function paddleWebhookHandler({ secretEnv, liveMode }) {
         if (typeof type === 'string' && type.startsWith('subscription.')) {
             result = await applyEvent(event, liveMode);
         } else if (type === 'transaction.completed') {
-            result = await applyTransaction(event, liveMode);
+            result = await applyTransaction(event, liveMode, req);
         } else {
             // Products, adjustments, anything else: not subscribed to, and
             // answered 200 so Paddle does not retry something we chose to

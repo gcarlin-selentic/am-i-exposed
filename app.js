@@ -1642,6 +1642,7 @@ async function openAlertsCheckout(form) {
                 kind: 'alerts',
                 user_id: currentUser.id,
                 email: currentUser.email,
+                lang,
                 first_name: form.firstName,
                 last_name: form.lastName,
                 state: form.state,
@@ -1979,6 +1980,10 @@ async function startPurchase(btn) {
                     kind: 'report',
                     user_id: currentUser.id,
                     email: currentUser.email,
+                    // So the receipt is written in the language they were
+                    // reading. The transaction carries nothing else that
+                    // says which page this was bought from.
+                    lang,
                 },
                 settings: {
                     displayMode: 'overlay',
