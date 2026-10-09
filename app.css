@@ -691,41 +691,68 @@ img { max-width: 100%; }
 }
 .alerts-form label { display: block; font-size: 12.5px; opacity: .62; margin-bottom: 6px; }
 .alerts-form .wide { grid-column: 1 / -1; }
+
+/* Field colours are the card's own, not the page's.
+   .offer inverts against the page, so --line-strong and friends point the
+   wrong way inside it: in dark mode that token is white at 20%, and the card
+   underneath it is near-white. The first version used it and the fields were
+   invisible. These four are defined against the card's ground instead, and
+   redefined wherever the card flips. */
+.offer {
+    --field-bg:   rgba(255,255,255,.10);
+    --field-line: rgba(255,255,255,.34);
+    --field-ink:  var(--bg);
+    --field-ph:   rgba(255,255,255,.50);
+}
+/* color-scheme comes with them. The page is dark, so the browser draws every
+   native control inside it for a dark ground, and the checkbox arrived as a
+   solid grey block on a card that is light. Measured in the browser: the
+   computed colour-scheme on these fields was "dark" while they sat on
+   #F6F6F7. The card is light here, so it says so. */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .offer {
+        color-scheme: light;
+        --field-bg:   #FFFFFF;
+        --field-line: rgba(0,0,0,.30);
+        --field-ink:  #0F0F0F;
+        --field-ph:   rgba(0,0,0,.45);
+    }
+}
+:root[data-theme="dark"] .offer {
+    color-scheme: light;
+    --field-bg:   #FFFFFF;
+    --field-line: rgba(0,0,0,.30);
+    --field-ink:  #0F0F0F;
+    --field-ph:   rgba(0,0,0,.45);
+}
+
 .alerts-form input,
 .alerts-form select {
     width: 100%;
     box-sizing: border-box;
-    background: rgba(255,255,255,.07);
-    border: 1px solid rgba(255,255,255,.18);
-    color: var(--bg);
+    background: var(--field-bg);
+    border: 1.5px solid var(--field-line);
+    color: var(--field-ink);
     border-radius: var(--r-sm);
     padding: 12px 13px;
     font: inherit;
     font-size: 15px;
 }
-.alerts-form input::placeholder { color: rgba(255,255,255,.35); }
-/* The option list is drawn by the operating system on its own white ground,
-   so it does not inherit the card's inverted colours and needs the ink back. */
-.alerts-form select option { color: #0F0F0F; }
+.alerts-form input::placeholder { color: var(--field-ph); }
+.alerts-form select:invalid { color: var(--field-ph); }
 
-/* In dark mode .offer inverts to a light card, so these fields have to invert
-   with it or they would be white text on white. */
-@media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .alerts-form input,
-    :root:not([data-theme="light"]) .alerts-form select {
-        background: rgba(0,0,0,.05);
-        border-color: var(--line-strong);
-        color: var(--ink);
-    }
-    :root:not([data-theme="light"]) .alerts-form input::placeholder { color: var(--muted-2); }
+/* Which field is in use, said with the card's own accent rather than the
+   browser's default ring, which draws in its own blue regardless of theme. */
+.alerts-form input:focus,
+.alerts-form select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
 }
-:root[data-theme="dark"] .alerts-form input,
-:root[data-theme="dark"] .alerts-form select {
-    background: rgba(0,0,0,.05);
-    border-color: var(--line-strong);
-    color: var(--ink);
-}
-:root[data-theme="dark"] .alerts-form input::placeholder { color: var(--muted-2); }
+
+/* The option list is drawn by the operating system on its own white ground,
+   so it does not inherit the card's colours and needs the ink back. */
+.alerts-form select option { color: #0F0F0F; }
 
 @media (max-width: 480px) { .alerts-form { grid-template-columns: 1fr; } }
 
@@ -737,7 +764,16 @@ img { max-width: 100%; }
     opacity: .72;
     margin-bottom: 20px;
 }
-.alerts-consent input { margin-top: 3px; flex-shrink: 0; }
+.alerts-consent input {
+    margin-top: 2px;
+    flex-shrink: 0;
+    /* Sized up and given the brand colour. The native box at its default
+       size, unchecked, on an inverted card, was as easy to miss as the
+       fields were. */
+    width: 17px;
+    height: 17px;
+    accent-color: var(--accent);
+}
 .alerts-consent label { font-size: 13px; }
 
 /* ---------------- language hint ----------------
