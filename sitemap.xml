@@ -105,6 +105,23 @@
     </url>
 
     <url>
+        <loc>https://www.am-i-exposed.com/aviso-privacidad-eeuu/</loc>
+        <xhtml:link rel="alternate" hreflang="es" href="https://www.am-i-exposed.com/aviso-privacidad-eeuu/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.am-i-exposed.com/en/us-privacy-notice/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.am-i-exposed.com/en/us-privacy-notice/"/>
+        <lastmod>2026-10-09</lastmod>
+        <priority>0.3</priority>
+    </url>
+    <url>
+        <loc>https://www.am-i-exposed.com/en/us-privacy-notice/</loc>
+        <xhtml:link rel="alternate" hreflang="es" href="https://www.am-i-exposed.com/aviso-privacidad-eeuu/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.am-i-exposed.com/en/us-privacy-notice/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.am-i-exposed.com/en/us-privacy-notice/"/>
+        <lastmod>2026-10-09</lastmod>
+        <priority>0.3</priority>
+    </url>
+
+    <url>
         <loc>https://www.am-i-exposed.com/terminos/</loc>
         <xhtml:link rel="alternate" hreflang="es" href="https://www.am-i-exposed.com/terminos/"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://www.am-i-exposed.com/en/terms/"/>

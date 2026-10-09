@@ -150,6 +150,7 @@ const COPY = {
         footLeaked: 'Si se filtró tu correo',
         footPassword: 'Si se filtró tu contraseña',
         footPrivacy: 'Privacidad',
+        footPrivacyUs: 'Privacidad EE.&nbsp;UU.',
         footTerms: 'Términos',
 
         demoTag: 'Modo de ejemplo',
@@ -355,6 +356,7 @@ const COPY = {
         footLeaked: 'If your email leaked',
         footPassword: 'If your password leaked',
         footPrivacy: 'Privacy',
+        footPrivacyUs: 'U.S. privacy',
         footTerms: 'Terms',
 
         demoTag: 'Preview mode',
