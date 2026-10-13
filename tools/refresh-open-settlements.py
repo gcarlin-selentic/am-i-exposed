@@ -271,6 +271,40 @@ def enlazado(host, enlaces):
     return False
 
 
+def host_de(u):
+    try:
+        h = urllib.parse.urlsplit(str(u) if '://' in str(u) else '//' + str(u)).hostname
+        return (h or '').lower().removeprefix('www.')
+    except Exception:
+        return ''
+
+
+def mismo_sitio(a, b):
+    """La ficha de un acuerdo de classaction.org vive en classaction.org."""
+    ha, hb = host_de(a), host_de(b)
+    return bool(ha) and bool(hb) and (ha == hb or ha.endswith('.' + hb) or hb.endswith('.' + ha))
+
+
+def clave_empresa(s):
+    return tuple(w for w in re.sub(r'[^a-z0-9]+', ' ', (s or '').lower()).split()
+                 if w not in ('the', 'inc', 'llc', 'corp', 'company', 'co', 'and', 'of',
+                              'class', 'action', 'settlement', 'data', 'breach', 'lawsuit')
+                 and len(w) > 2)
+
+
+def mismo_acuerdo(cand, r):
+    """El candidato de la ficha tiene que ser el mismo acuerdo que la fila.
+
+    Una ficha puede listar varios: el suyo y los "otros acuerdos que te pueden
+    interesar". Coger el primero y fundirlo mezcla el plazo de uno con el
+    enlace de reclamo de otro, y eso publica el sitio equivocado bajo el
+    nombre equivocado, que es justo el dano que todo esto intenta evitar.
+    """
+    a = set(clave_empresa(cand.get('company')) + clave_empresa(cand.get('name')))
+    b = set(clave_empresa(r.get('company')) + clave_empresa(r.get('name')))
+    return bool(a & b)
+
+
 def nombre_plausible(host, empresa):
     """Filtro de calidad, no de seguridad.
 
@@ -390,8 +424,15 @@ def main():
             if detalle and motivo in ('el sitio es del agregador, no del administrador',
                                       'sin sitio de reclamo valido',
                                       'enlace de gobierno sin caso concreto'):
-                segunda.append((nombre, detalle, r))
-                continue
+                # Y esta URL tambien la propone el modelo leyendo la misma
+                # pagina, asi que tiene que quedarse en el sitio del que
+                # salio. Sin esto, un texto inyectado elige donde vamos a
+                # buscar la corroboracion, nos manda a una pagina suya, y la
+                # comprobacion se aprueba a si misma.
+                if mismo_sitio(detalle, url):
+                    segunda.append((nombre, detalle, r))
+                    continue
+                motivo = 'la ficha apunta fuera del sitio de origen'
             descartes[motivo] = descartes.get(motivo, 0) + 1
 
     if segunda:
@@ -402,7 +443,11 @@ def main():
             # caso y no del catalogo entero. Corroborar aqui es mas estrecho
             # que hacerlo contra un indice lleno de anuncios y patrocinios.
             filas = d.get('settlements') or []
-            cand = filas[0] if filas else {}
+            cand = next((c for c in filas if mismo_acuerdo(c, r)), None)
+            if cand is None:
+                descartes['la ficha no habla del mismo acuerdo (2a pasada)'] = \
+                    descartes.get('la ficha no habla del mismo acuerdo (2a pasada)', 0) + 1
+                continue
             fundido = {**r, **{k: v for k, v in cand.items() if v}}
             limpio, motivo = verificar(fundido, nombre, enlaces)
             if limpio:
