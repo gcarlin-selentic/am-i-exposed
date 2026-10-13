@@ -232,28 +232,57 @@ def courtlistener(caso):
         return False
 
 
-def parece_administrador(host, empresa, nombre):
-    """El dominio tiene que decir algo del caso, no solo existir."""
+def enlazado(host, enlaces):
+    """El dominio aparece como enlace de verdad en la pagina.
+
+    Esta es la frontera de seguridad, no el nombre del dominio. Un texto
+    inyectado puede decirle al modelo que conteste lo que sea; no puede crear
+    un <a href>. Para poner aqui un dominio propio hay que controlar la pagina
+    de la fuente, que es otro problema y mucho mas ruidoso.
+
+    Compara el host entero, no por subcadena: "landsenddatasettlement.com"
+    aparece dentro de "evil.com/?r=landsenddatasettlement.com" y eso no es
+    estar enlazado, es estar citado en el parametro de otro.
+    """
+    objetivo = host.lower().removeprefix('www.')
+    for u in enlaces or ():
+        try:
+            h = urllib.parse.urlsplit(u if '://' in str(u) else '//' + str(u)).hostname
+        except Exception:
+            continue
+        if not h:
+            continue
+        h = h.lower().removeprefix('www.')
+        if h == objetivo or h.endswith('.' + objetivo):
+            return True
+    return False
+
+
+def nombre_plausible(host, empresa):
+    """Filtro de calidad, no de seguridad.
+
+    Atrapa errores de extraccion: un dominio que no se llama como ningun
+    acuerdo probablemente es que el modelo cogio el enlace equivocado. No
+    atrapa a un atacante, porque registrar "algo-settlement.com" cuesta diez
+    dolares. Lo que detiene a un atacante es enlazado(), de ahi que las dos
+    tengan que pasar y no valga con una.
+    """
     h = host.lower().removeprefix('www.')
     if any(h == g or h.endswith('.' + g) for g in GOBIERNO):
         return True
     if any(p in h for p in PISTAS_DOMINIO):
         return True
-    # O que el dominio lleve el nombre de la empresa dentro.
     plano = re.sub(r'[^a-z0-9]', '', (empresa or '').lower())
-    if len(plano) >= 5 and plano in re.sub(r'[^a-z0-9]', '', h):
-        return True
-    return False
+    return len(plano) >= 5 and plano in re.sub(r'[^a-z0-9]', '', h)
 
 
 def verificar(r, fuente, enlaces):
     """Devuelve (registro limpio, None) o (None, motivo del descarte).
 
-    `enlaces` son los href reales de la pagina. El sitio de reclamo lo propone
-    un modelo leyendo texto de terceros, asi que puede venir de una inyeccion:
-    basta con que la pagina contenga una frase que diga que el sitio oficial es
-    otro. Exigir que el dominio aparezca ademas como enlace de verdad cierra
-    eso, porque un texto inyectado no crea un <a href>.
+    `enlaces` son los href reales de la pagina, y son obligatorios. Sin ellos
+    no hay forma de corroborar lo que dijo el modelo, asi que no se publica
+    nada: una comprobacion que se salta sola cuando le falta su entrada no es
+    una comprobacion, y seria el modo de desactivarla.
     """
     sitio = claim_site.mostrar(r.get('claim_site'))
     if not sitio:
@@ -269,10 +298,13 @@ def verificar(r, fuente, enlaces):
             return None, 'enlace de gobierno sin caso concreto'
     elif host in AGREGADORES or host.removeprefix('www.') in AGREGADORES:
         return None, 'el sitio es del agregador, no del administrador'
-    if not parece_administrador(host, r.get('company'), r.get('name')):
+    # Las dos, no una. enlazado() es la que detiene a un atacante;
+    # nombre_plausible() solo descarta extracciones torcidas.
+    if not nombre_plausible(host, r.get('company')):
         return None, f'el dominio no parece de un acuerdo: {host}'
-    base = host.removeprefix('www.')
-    if enlaces and not any(base in (u or '').lower() for u in enlaces):
+    if not enlaces:
+        return None, 'la pagina no devolvio enlaces: no se puede corroborar'
+    if not enlazado(host, enlaces):
         return None, f'el dominio no aparece enlazado en la pagina: {host}'
     if not resuelve(host):
         return None, f'el dominio no resuelve: {host}'
