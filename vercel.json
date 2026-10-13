@@ -1,14 +1,32 @@
 {
   "redirects": [
     { "source": "/en", "destination": "/", "permanent": true },
-    { "source": "/en/:path*", "destination": "/:path*", "permanent": true },
+    { "source": "/en/", "destination": "/", "permanent": true },
+    { "source": "/en/faq", "destination": "/faq/", "permanent": true },
+    { "source": "/en/faq/", "destination": "/faq/", "permanent": true },
+    { "source": "/en/what-to-do-if-your-email-was-leaked", "destination": "/what-to-do-if-your-email-was-leaked/", "permanent": true },
+    { "source": "/en/what-to-do-if-your-email-was-leaked/", "destination": "/what-to-do-if-your-email-was-leaked/", "permanent": true },
+    { "source": "/en/how-to-know-if-your-password-was-leaked", "destination": "/how-to-know-if-your-password-was-leaked/", "permanent": true },
+    { "source": "/en/how-to-know-if-your-password-was-leaked/", "destination": "/how-to-know-if-your-password-was-leaked/", "permanent": true },
+    { "source": "/en/privacy", "destination": "/privacy/", "permanent": true },
+    { "source": "/en/privacy/", "destination": "/privacy/", "permanent": true },
+    { "source": "/en/us-privacy-notice", "destination": "/us-privacy-notice/", "permanent": true },
+    { "source": "/en/us-privacy-notice/", "destination": "/us-privacy-notice/", "permanent": true },
+    { "source": "/en/terms", "destination": "/terms/", "permanent": true },
+    { "source": "/en/terms/", "destination": "/terms/", "permanent": true },
 
-    { "source": "/preguntas-frecuentes", "destination": "/es/preguntas-frecuentes", "permanent": true },
-    { "source": "/que-hacer-si-se-filtro-mi-correo", "destination": "/es/que-hacer-si-se-filtro-mi-correo", "permanent": true },
-    { "source": "/como-saber-si-mi-contrasena-fue-filtrada", "destination": "/es/como-saber-si-mi-contrasena-fue-filtrada", "permanent": true },
-    { "source": "/privacidad", "destination": "/es/privacidad", "permanent": true },
-    { "source": "/aviso-privacidad-eeuu", "destination": "/es/aviso-privacidad-eeuu", "permanent": true },
-    { "source": "/terminos", "destination": "/es/terminos", "permanent": true }
+    { "source": "/preguntas-frecuentes", "destination": "/es/preguntas-frecuentes/", "permanent": true },
+    { "source": "/preguntas-frecuentes/", "destination": "/es/preguntas-frecuentes/", "permanent": true },
+    { "source": "/que-hacer-si-se-filtro-mi-correo", "destination": "/es/que-hacer-si-se-filtro-mi-correo/", "permanent": true },
+    { "source": "/que-hacer-si-se-filtro-mi-correo/", "destination": "/es/que-hacer-si-se-filtro-mi-correo/", "permanent": true },
+    { "source": "/como-saber-si-mi-contrasena-fue-filtrada", "destination": "/es/como-saber-si-mi-contrasena-fue-filtrada/", "permanent": true },
+    { "source": "/como-saber-si-mi-contrasena-fue-filtrada/", "destination": "/es/como-saber-si-mi-contrasena-fue-filtrada/", "permanent": true },
+    { "source": "/privacidad", "destination": "/es/privacidad/", "permanent": true },
+    { "source": "/privacidad/", "destination": "/es/privacidad/", "permanent": true },
+    { "source": "/aviso-privacidad-eeuu", "destination": "/es/aviso-privacidad-eeuu/", "permanent": true },
+    { "source": "/aviso-privacidad-eeuu/", "destination": "/es/aviso-privacidad-eeuu/", "permanent": true },
+    { "source": "/terminos", "destination": "/es/terminos/", "permanent": true },
+    { "source": "/terminos/", "destination": "/es/terminos/", "permanent": true }
   ],
   "headers": [
     {
