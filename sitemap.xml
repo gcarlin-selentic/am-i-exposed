@@ -2,7 +2,7 @@
 <!--
   Generado por tools/build-sitemap.py. No editar a mano.
 
-  7 pares de idioma mas 1102 paginas de acuerdos.
+  7 pares de idioma mas 1091 paginas de acuerdos.
   x-default apunta al ingles: es el mercado por defecto del producto.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -358,7 +358,7 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.am-i-exposed.com/settlements/creation-entertainment-950k/</loc>
+        <loc>https://www.am-i-exposed.com/settlements/creation-entertainment/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
@@ -483,7 +483,7 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.am-i-exposed.com/settlements/dominion-national-4-7m/</loc>
+        <loc>https://www.am-i-exposed.com/settlements/dominion-national/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
@@ -599,11 +599,6 @@
     </url>
     <url>
         <loc>https://www.am-i-exposed.com/settlements/francescas/</loc>
-        <lastmod>2026-10-12</lastmod>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.am-i-exposed.com/settlements/vi/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
@@ -998,7 +993,7 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.am-i-exposed.com/settlements/group-1001/</loc>
+        <loc>https://www.am-i-exposed.com/settlements/group/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
@@ -1178,7 +1173,7 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.am-i-exposed.com/settlements/hudsons-bay-company-saks-2m/</loc>
+        <loc>https://www.am-i-exposed.com/settlements/hudsons-bay-company-saks/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
@@ -1753,7 +1748,7 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.am-i-exposed.com/settlements/taconic-employee-w-2/</loc>
+        <loc>https://www.am-i-exposed.com/settlements/taconic-employee-w/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
@@ -2193,7 +2188,7 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.am-i-exposed.com/settlements/deloitte-consulting-4-95m/</loc>
+        <loc>https://www.am-i-exposed.com/settlements/deloitte-consulting/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
@@ -2313,22 +2308,12 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.am-i-exposed.com/settlements/altaba-must-set-aside-400m-for-verizon-over-yahoo/</loc>
-        <lastmod>2026-10-12</lastmod>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.am-i-exposed.com/settlements/google-to-pay-350m/</loc>
+        <loc>https://www.am-i-exposed.com/settlements/google-to/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://www.am-i-exposed.com/settlements/comcast-cable-communications-llc/</loc>
-        <lastmod>2026-10-12</lastmod>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.am-i-exposed.com/settlements/yahoo-agrees-revised-117-5m/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
@@ -2339,11 +2324,6 @@
     </url>
     <url>
         <loc>https://www.am-i-exposed.com/settlements/marriott/</loc>
-        <lastmod>2026-10-12</lastmod>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.am-i-exposed.com/settlements/judge-denies-50m-yahoo/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
@@ -2373,11 +2353,6 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.am-i-exposed.com/settlements/wawa-agrees-to-13m/</loc>
-        <lastmod>2026-10-12</lastmod>
-        <priority>0.7</priority>
-    </url>
-    <url>
         <loc>https://www.am-i-exposed.com/settlements/pepsi-kronos/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
@@ -2389,11 +2364,6 @@
     </url>
     <url>
         <loc>https://www.am-i-exposed.com/settlements/lemonade/</loc>
-        <lastmod>2026-10-12</lastmod>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.am-i-exposed.com/settlements/eddie-bauer-agrees-10m/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
@@ -2478,11 +2448,6 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.am-i-exposed.com/settlements/kroger-agrees-to-5m/</loc>
-        <lastmod>2026-10-12</lastmod>
-        <priority>0.7</priority>
-    </url>
-    <url>
         <loc>https://www.am-i-exposed.com/settlements/kroger-can-move-forward-with-5m-accellion/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
@@ -2554,11 +2519,6 @@
     </url>
     <url>
         <loc>https://www.am-i-exposed.com/settlements/illinois-bone-joint-institute-llc/</loc>
-        <lastmod>2026-10-12</lastmod>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.am-i-exposed.com/settlements/numotion-2025/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
@@ -2703,11 +2663,6 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.am-i-exposed.com/settlements/dickeys-barbecue-reaches-2-35m/</loc>
-        <lastmod>2026-10-12</lastmod>
-        <priority>0.7</priority>
-    </url>
-    <url>
         <loc>https://www.am-i-exposed.com/settlements/consulting-radiologists-ltd/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
@@ -2724,11 +2679,6 @@
     </url>
     <url>
         <loc>https://www.am-i-exposed.com/settlements/pacific-guardian-life-insurance-company-limited/</loc>
-        <lastmod>2026-10-12</lastmod>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.am-i-exposed.com/settlements/saks-lord-taylor-customers-urge-judge-to-approve-2m/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
@@ -2778,7 +2728,7 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.am-i-exposed.com/settlements/san-dieguito-high-school-1-75m/</loc>
+        <loc>https://www.am-i-exposed.com/settlements/san-dieguito-high-school/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
@@ -3263,7 +3213,7 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.am-i-exposed.com/settlements/ags-get-1-4m/</loc>
+        <loc>https://www.am-i-exposed.com/settlements/ags/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
@@ -3453,7 +3403,7 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.am-i-exposed.com/settlements/chick-fil-a-agrees-to/</loc>
+        <loc>https://www.am-i-exposed.com/settlements/chick-fil-a/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
@@ -3483,7 +3433,7 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.am-i-exposed.com/settlements/companies-agree-to/</loc>
+        <loc>https://www.am-i-exposed.com/settlements/companies/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
@@ -3543,7 +3493,7 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.am-i-exposed.com/settlements/excellus-agrees-to/</loc>
+        <loc>https://www.am-i-exposed.com/settlements/excellus/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
@@ -3563,7 +3513,7 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.am-i-exposed.com/settlements/forever-21/</loc>
+        <loc>https://www.am-i-exposed.com/settlements/forever/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
@@ -3664,11 +3614,6 @@
     </url>
     <url>
         <loc>https://www.am-i-exposed.com/settlements/joy-cone/</loc>
-        <lastmod>2026-10-12</lastmod>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.am-i-exposed.com/settlements/judge-oks-hy-vee/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
@@ -3838,12 +3783,12 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.am-i-exposed.com/settlements/st-francis-college/</loc>
+        <loc>https://www.am-i-exposed.com/settlements/st-andrew-s-resources-for-seniors-system/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://www.am-i-exposed.com/settlements/st-andrew-s-resources-for-seniors-system/</loc>
+        <loc>https://www.am-i-exposed.com/settlements/st-francis-college/</loc>
         <lastmod>2026-10-12</lastmod>
         <priority>0.7</priority>
     </url>

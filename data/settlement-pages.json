@@ -611,8 +611,8 @@
   "priority": "0.7"
  },
  {
-  "ruta": "/settlements/creation-entertainment-950k/",
-  "empresa": "Creation Entertainment 950k",
+  "ruta": "/settlements/creation-entertainment/",
+  "empresa": "Creation Entertainment",
   "tipo": "acuerdo",
   "fondo": 950000,
   "pago": 10000,
@@ -936,8 +936,8 @@
   "priority": "0.7"
  },
  {
-  "ruta": "/settlements/dominion-national-4-7m/",
-  "empresa": "Dominion National 4 7m",
+  "ruta": "/settlements/dominion-national/",
+  "empresa": "Dominion National",
   "tipo": "acuerdo",
   "fondo": 4700000,
   "pago": 7500,
@@ -1243,19 +1243,6 @@
   "plazo": "2025-11-10",
   "abierto": false,
   "sitio": "FrancescasDataSettlement.com",
-  "en_hibp": false,
-  "lastmod": "2026-10-12",
-  "priority": "0.7"
- },
- {
-  "ruta": "/settlements/vi/",
-  "empresa": "Vi",
-  "tipo": "acuerdo",
-  "fondo": null,
-  "pago": 6500,
-  "plazo": "2025-02-03",
-  "abierto": false,
-  "sitio": "ViSettlement.com",
   "en_hibp": false,
   "lastmod": "2026-10-12",
   "priority": "0.7"
@@ -2275,8 +2262,8 @@
   "priority": "0.7"
  },
  {
-  "ruta": "/settlements/group-1001/",
-  "empresa": "Group 1001",
+  "ruta": "/settlements/group/",
+  "empresa": "Group",
   "tipo": "acuerdo",
   "fondo": 4760000,
   "pago": 5000,
@@ -2743,8 +2730,8 @@
   "priority": "0.7"
  },
  {
-  "ruta": "/settlements/hudsons-bay-company-saks-2m/",
-  "empresa": "Hudsons Bay Company Saks 2m",
+  "ruta": "/settlements/hudsons-bay-company-saks/",
+  "empresa": "Hudsons Bay Company Saks",
   "tipo": "acuerdo",
   "fondo": 2000000,
   "pago": 5000,
@@ -4238,8 +4225,8 @@
   "priority": "0.7"
  },
  {
-  "ruta": "/settlements/taconic-employee-w-2/",
-  "empresa": "Taconic Employee W 2",
+  "ruta": "/settlements/taconic-employee-w/",
+  "empresa": "Taconic Employee W",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": 3000,
@@ -4941,7 +4928,7 @@
  },
  {
   "ruta": "/settlements/medical-associates-of-brevard-llc/",
-  "empresa": "Medical Associates of Brevard, LLC",
+  "empresa": "Medical Associates Of Brevard Llc",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": 1500,
@@ -5382,8 +5369,8 @@
   "priority": "0.7"
  },
  {
-  "ruta": "/settlements/deloitte-consulting-4-95m/",
-  "empresa": "Deloitte Consulting 4 95m",
+  "ruta": "/settlements/deloitte-consulting/",
+  "empresa": "Deloitte Consulting",
   "tipo": "acuerdo",
   "fondo": 4950000,
   "pago": 160,
@@ -5694,21 +5681,8 @@
   "priority": "0.7"
  },
  {
-  "ruta": "/settlements/altaba-must-set-aside-400m-for-verizon-over-yahoo/",
-  "empresa": "Altaba Must Set Aside 400m For Verizon Over Yahoo",
-  "tipo": "acuerdo",
-  "fondo": 400000000,
-  "pago": null,
-  "plazo": null,
-  "abierto": false,
-  "sitio": null,
-  "en_hibp": false,
-  "lastmod": "2026-10-12",
-  "priority": "0.7"
- },
- {
-  "ruta": "/settlements/google-to-pay-350m/",
-  "empresa": "Google To Pay 350m",
+  "ruta": "/settlements/google-to/",
+  "empresa": "Google To",
   "tipo": "acuerdo",
   "fondo": 350000000,
   "pago": null,
@@ -5721,20 +5695,7 @@
  },
  {
   "ruta": "/settlements/comcast-cable-communications-llc/",
-  "empresa": "Comcast Cable Communications LLC",
-  "tipo": "acuerdo",
-  "fondo": 117500000,
-  "pago": null,
-  "plazo": null,
-  "abierto": false,
-  "sitio": null,
-  "en_hibp": false,
-  "lastmod": "2026-10-12",
-  "priority": "0.7"
- },
- {
-  "ruta": "/settlements/yahoo-agrees-revised-117-5m/",
-  "empresa": "Yahoo Agrees Revised 117 5m",
+  "empresa": "Comcast Cable Communications Llc",
   "tipo": "acuerdo",
   "fondo": 117500000,
   "pago": null,
@@ -5772,21 +5733,8 @@
   "priority": "0.7"
  },
  {
-  "ruta": "/settlements/judge-denies-50m-yahoo/",
-  "empresa": "Judge Denies 50m Yahoo",
-  "tipo": "acuerdo",
-  "fondo": 50000000,
-  "pago": null,
-  "plazo": null,
-  "abierto": false,
-  "sitio": null,
-  "en_hibp": false,
-  "lastmod": "2026-10-12",
-  "priority": "0.7"
- },
- {
   "ruta": "/settlements/cencora-inc/",
-  "empresa": "Cencora, Inc.",
+  "empresa": "Cencora Inc",
   "tipo": "acuerdo",
   "fondo": 40000000,
   "pago": null,
@@ -5799,7 +5747,7 @@
  },
  {
   "ruta": "/settlements/infosys-mccamish-systems-llc/",
-  "empresa": "Infosys McCamish Systems LLC",
+  "empresa": "Infosys Mccamish Systems Llc",
   "tipo": "acuerdo",
   "fondo": 17500000,
   "pago": null,
@@ -5825,7 +5773,7 @@
  },
  {
   "ruta": "/settlements/mclaren-health-care/",
-  "empresa": "McLaren Health Care",
+  "empresa": "Mclaren Health Care",
   "tipo": "acuerdo",
   "fondo": 14000000,
   "pago": null,
@@ -5838,22 +5786,9 @@
  },
  {
   "ruta": "/settlements/webtpa-employer-services-llc/",
-  "empresa": "WebTPA Employer Services, LLC",
+  "empresa": "Webtpa Employer Services Llc",
   "tipo": "acuerdo",
   "fondo": 13750000,
-  "pago": null,
-  "plazo": null,
-  "abierto": false,
-  "sitio": null,
-  "en_hibp": false,
-  "lastmod": "2026-10-12",
-  "priority": "0.7"
- },
- {
-  "ruta": "/settlements/wawa-agrees-to-13m/",
-  "empresa": "Wawa Agrees To 13m",
-  "tipo": "acuerdo",
-  "fondo": 13000000,
   "pago": null,
   "plazo": null,
   "abierto": false,
@@ -5893,19 +5828,6 @@
   "empresa": "Lemonade",
   "tipo": "acuerdo",
   "fondo": 10500000,
-  "pago": null,
-  "plazo": null,
-  "abierto": false,
-  "sitio": null,
-  "en_hibp": false,
-  "lastmod": "2026-10-12",
-  "priority": "0.7"
- },
- {
-  "ruta": "/settlements/eddie-bauer-agrees-10m/",
-  "empresa": "Eddie Bauer Agrees 10m",
-  "tipo": "acuerdo",
-  "fondo": 10000000,
   "pago": null,
   "plazo": null,
   "abierto": false,
@@ -5968,7 +5890,7 @@
  },
  {
   "ruta": "/settlements/thompson-coburn-llp/",
-  "empresa": "Thompson Coburn LLP",
+  "empresa": "Thompson Coburn Llp",
   "tipo": "acuerdo",
   "fondo": 7500000,
   "pago": null,
@@ -5981,7 +5903,7 @@
  },
  {
   "ruta": "/settlements/navvis-company-llc/",
-  "empresa": "Navvis & Company, LLC",
+  "empresa": "Navvis Company Llc",
   "tipo": "acuerdo",
   "fondo": 6500000,
   "pago": null,
@@ -6020,7 +5942,7 @@
  },
  {
   "ruta": "/settlements/landmark-admin-llc/",
-  "empresa": "Landmark Admin, LLC",
+  "empresa": "Landmark Admin Llc",
   "tipo": "acuerdo",
   "fondo": 6000000,
   "pago": null,
@@ -6059,7 +5981,7 @@
  },
  {
   "ruta": "/settlements/frontier-communications-parent-inc/",
-  "empresa": "Frontier Communications Parent, Inc.",
+  "empresa": "Frontier Communications Parent Inc",
   "tipo": "acuerdo",
   "fondo": 5600000,
   "pago": null,
@@ -6085,7 +6007,7 @@
  },
  {
   "ruta": "/settlements/doxim-inc/",
-  "empresa": "Doxim, Inc",
+  "empresa": "Doxim Inc",
   "tipo": "acuerdo",
   "fondo": 5500000,
   "pago": null,
@@ -6111,22 +6033,9 @@
  },
  {
   "ruta": "/settlements/americold-logistics-llc/",
-  "empresa": "Americold Logistics LLC",
+  "empresa": "Americold Logistics Llc",
   "tipo": "acuerdo",
   "fondo": 5250000,
-  "pago": null,
-  "plazo": null,
-  "abierto": false,
-  "sitio": null,
-  "en_hibp": false,
-  "lastmod": "2026-10-12",
-  "priority": "0.7"
- },
- {
-  "ruta": "/settlements/kroger-agrees-to-5m/",
-  "empresa": "Kroger Agrees To 5m",
-  "tipo": "acuerdo",
-  "fondo": 5000000,
   "pago": null,
   "plazo": null,
   "abierto": false,
@@ -6150,7 +6059,7 @@
  },
  {
   "ruta": "/settlements/medusind-inc/",
-  "empresa": "Medusind, Inc.",
+  "empresa": "Medusind Inc",
   "tipo": "acuerdo",
   "fondo": 5000000,
   "pago": null,
@@ -6163,7 +6072,7 @@
  },
  {
   "ruta": "/settlements/connectoncall-com/",
-  "empresa": "ConnectOnCall.com",
+  "empresa": "Connectoncall Com",
   "tipo": "acuerdo",
   "fondo": 4950000,
   "pago": null,
@@ -6202,7 +6111,7 @@
  },
  {
   "ruta": "/settlements/prudential-insurance-company-of-america/",
-  "empresa": "Prudential Insurance Company of America",
+  "empresa": "Prudential Insurance Company Of America",
   "tipo": "acuerdo",
   "fondo": 4750000,
   "pago": null,
@@ -6228,7 +6137,7 @@
  },
  {
   "ruta": "/settlements/hub-international-limited/",
-  "empresa": "HUB International Limited",
+  "empresa": "Hub International Limited",
   "tipo": "acuerdo",
   "fondo": 4650000,
   "pago": null,
@@ -6254,7 +6163,7 @@
  },
  {
   "ruta": "/settlements/wellnow-urgent-care-and-aspen-dental/",
-  "empresa": "WellNow Urgent Care and Aspen Dental",
+  "empresa": "Wellnow Urgent Care And Aspen Dental",
   "tipo": "acuerdo",
   "fondo": 4400000,
   "pago": null,
@@ -6319,20 +6228,7 @@
  },
  {
   "ruta": "/settlements/illinois-bone-joint-institute-llc/",
-  "empresa": "Illinois Bone & Joint Institute, LLC",
-  "tipo": "acuerdo",
-  "fondo": 4000000,
-  "pago": null,
-  "plazo": null,
-  "abierto": false,
-  "sitio": null,
-  "en_hibp": false,
-  "lastmod": "2026-10-12",
-  "priority": "0.7"
- },
- {
-  "ruta": "/settlements/numotion-2025/",
-  "empresa": "Numotion (2025)",
+  "empresa": "Illinois Bone Joint Institute Llc",
   "tipo": "acuerdo",
   "fondo": 4000000,
   "pago": null,
@@ -6358,7 +6254,7 @@
  },
  {
   "ruta": "/settlements/northbay-healthcare-corporation/",
-  "empresa": "NorthBay Healthcare Corporation",
+  "empresa": "Northbay Healthcare Corporation",
   "tipo": "acuerdo",
   "fondo": 3600000,
   "pago": null,
@@ -6371,7 +6267,7 @@
  },
  {
   "ruta": "/settlements/retina-group-of-washington-pllc/",
-  "empresa": "Retina Group of Washington, PLLC",
+  "empresa": "Retina Group Of Washington Pllc",
   "tipo": "acuerdo",
   "fondo": 3600000,
   "pago": null,
@@ -6384,7 +6280,7 @@
  },
  {
   "ruta": "/settlements/university-of-hawai-i-cancer-center/",
-  "empresa": "University of Hawai'i Cancer Center",
+  "empresa": "University Of Hawai I Cancer Center",
   "tipo": "acuerdo",
   "fondo": 3500000,
   "pago": null,
@@ -6397,7 +6293,7 @@
  },
  {
   "ruta": "/settlements/mt-baker-imaging-northwest-radiologists/",
-  "empresa": "Mt. Baker Imaging, Northwest Radiologists",
+  "empresa": "Mt Baker Imaging Northwest Radiologists",
   "tipo": "acuerdo",
   "fondo": 3300000,
   "pago": null,
@@ -6436,7 +6332,7 @@
  },
  {
   "ruta": "/settlements/eastern-radiologists-inc/",
-  "empresa": "Eastern Radiologists, Inc.",
+  "empresa": "Eastern Radiologists Inc",
   "tipo": "acuerdo",
   "fondo": 3200000,
   "pago": null,
@@ -6488,7 +6384,7 @@
  },
  {
   "ruta": "/settlements/stiiizy-inc/",
-  "empresa": "STIIIZY, Inc.",
+  "empresa": "Stiiizy Inc",
   "tipo": "acuerdo",
   "fondo": 2950000,
   "pago": null,
@@ -6514,7 +6410,7 @@
  },
  {
   "ruta": "/settlements/finwise-bank/",
-  "empresa": "FinWise Bank",
+  "empresa": "Finwise Bank",
   "tipo": "acuerdo",
   "fondo": 2800000,
   "pago": null,
@@ -6527,7 +6423,7 @@
  },
  {
   "ruta": "/settlements/gryphon-healthcare-llc/",
-  "empresa": "Gryphon Healthcare, LLC",
+  "empresa": "Gryphon Healthcare Llc",
   "tipo": "acuerdo",
   "fondo": 2800000,
   "pago": null,
@@ -6540,7 +6436,7 @@
  },
  {
   "ruta": "/settlements/mngi-digestive-health/",
-  "empresa": "MNGI Digestive Health",
+  "empresa": "Mngi Digestive Health",
   "tipo": "acuerdo",
   "fondo": 2800000,
   "pago": null,
@@ -6566,7 +6462,7 @@
  },
  {
   "ruta": "/settlements/long-island-plastic-surgical-group-pc/",
-  "empresa": "Long Island Plastic Surgical Group, PC",
+  "empresa": "Long Island Plastic Surgical Group Pc",
   "tipo": "acuerdo",
   "fondo": 2600000,
   "pago": null,
@@ -6579,7 +6475,7 @@
  },
  {
   "ruta": "/settlements/specialty-networks-inc/",
-  "empresa": "Specialty Networks, Inc.",
+  "empresa": "Specialty Networks Inc",
   "tipo": "acuerdo",
   "fondo": 2600000,
   "pago": null,
@@ -6592,7 +6488,7 @@
  },
  {
   "ruta": "/settlements/octapharma-plasma-usa/",
-  "empresa": "Octapharma Plasma USA",
+  "empresa": "Octapharma Plasma Usa",
   "tipo": "acuerdo",
   "fondo": 2550000,
   "pago": null,
@@ -6618,7 +6514,7 @@
  },
  {
   "ruta": "/settlements/general-physician-p-c/",
-  "empresa": "General Physician, P.C.",
+  "empresa": "General Physician P C",
   "tipo": "acuerdo",
   "fondo": 2500000,
   "pago": null,
@@ -6631,7 +6527,7 @@
  },
  {
   "ruta": "/settlements/panera-llc/",
-  "empresa": "Panera, LLC",
+  "empresa": "Panera Llc",
   "tipo": "acuerdo",
   "fondo": 2500000,
   "pago": null,
@@ -6657,7 +6553,7 @@
  },
  {
   "ruta": "/settlements/panda-restaurant-group-inc/",
-  "empresa": "Panda Restaurant Group, Inc.",
+  "empresa": "Panda Restaurant Group Inc",
   "tipo": "acuerdo",
   "fondo": 2450000,
   "pago": null,
@@ -6670,7 +6566,7 @@
  },
  {
   "ruta": "/settlements/excelsior-orthopaedics-llp/",
-  "empresa": "Excelsior Orthopaedics, LLP",
+  "empresa": "Excelsior Orthopaedics Llp",
   "tipo": "acuerdo",
   "fondo": 2400000,
   "pago": null,
@@ -6683,7 +6579,7 @@
  },
  {
   "ruta": "/settlements/bradford-scott-data-llc/",
-  "empresa": "Bradford-Scott Data, LLC",
+  "empresa": "Bradford Scott Data Llc",
   "tipo": "acuerdo",
   "fondo": 2390000,
   "pago": null,
@@ -6696,20 +6592,7 @@
  },
  {
   "ruta": "/settlements/cornerstone-healthcare-group-management-services-llc/",
-  "empresa": "Cornerstone Healthcare Group Management Services, LLC",
-  "tipo": "acuerdo",
-  "fondo": 2350000,
-  "pago": null,
-  "plazo": null,
-  "abierto": false,
-  "sitio": null,
-  "en_hibp": false,
-  "lastmod": "2026-10-12",
-  "priority": "0.7"
- },
- {
-  "ruta": "/settlements/dickeys-barbecue-reaches-2-35m/",
-  "empresa": "Dickeys Barbecue Reaches 2 35m",
+  "empresa": "Cornerstone Healthcare Group Management Services Llc",
   "tipo": "acuerdo",
   "fondo": 2350000,
   "pago": null,
@@ -6722,7 +6605,7 @@
  },
  {
   "ruta": "/settlements/consulting-radiologists-ltd/",
-  "empresa": "Consulting Radiologists, Ltd.",
+  "empresa": "Consulting Radiologists Ltd",
   "tipo": "acuerdo",
   "fondo": 2200000,
   "pago": null,
@@ -6735,7 +6618,7 @@
  },
  {
   "ruta": "/settlements/greater-rochester-independent-practice-association-inc/",
-  "empresa": "Greater Rochester Independent Practice Association, Inc.",
+  "empresa": "Greater Rochester Independent Practice Association Inc",
   "tipo": "acuerdo",
   "fondo": 2150000,
   "pago": null,
@@ -6748,7 +6631,7 @@
  },
  {
   "ruta": "/settlements/onepoint-patient-care/",
-  "empresa": "OnePoint Patient Care",
+  "empresa": "Onepoint Patient Care",
   "tipo": "acuerdo",
   "fondo": 2115000,
   "pago": null,
@@ -6761,20 +6644,7 @@
  },
  {
   "ruta": "/settlements/pacific-guardian-life-insurance-company-limited/",
-  "empresa": "Pacific Guardian Life Insurance Company, Limited",
-  "tipo": "acuerdo",
-  "fondo": 2000000,
-  "pago": null,
-  "plazo": null,
-  "abierto": false,
-  "sitio": null,
-  "en_hibp": false,
-  "lastmod": "2026-10-12",
-  "priority": "0.7"
- },
- {
-  "ruta": "/settlements/saks-lord-taylor-customers-urge-judge-to-approve-2m/",
-  "empresa": "Saks Lord Taylor Customers Urge Judge To Approve 2m",
+  "empresa": "Pacific Guardian Life Insurance Company Limited",
   "tipo": "acuerdo",
   "fondo": 2000000,
   "pago": null,
@@ -6839,7 +6709,7 @@
  },
  {
   "ruta": "/settlements/serviceaide-inc/",
-  "empresa": "Serviceaide, Inc.",
+  "empresa": "Serviceaide Inc",
   "tipo": "acuerdo",
   "fondo": 1800000,
   "pago": null,
@@ -6865,7 +6735,7 @@
  },
  {
   "ruta": "/settlements/calibrated-healthcare-llc/",
-  "empresa": "Calibrated Healthcare, LLC",
+  "empresa": "Calibrated Healthcare Llc",
   "tipo": "acuerdo",
   "fondo": 1750000,
   "pago": null,
@@ -6903,8 +6773,8 @@
   "priority": "0.7"
  },
  {
-  "ruta": "/settlements/san-dieguito-high-school-1-75m/",
-  "empresa": "San Dieguito High School 1 75m",
+  "ruta": "/settlements/san-dieguito-high-school/",
+  "empresa": "San Dieguito High School",
   "tipo": "acuerdo",
   "fondo": 1750000,
   "pago": null,
@@ -6917,7 +6787,7 @@
  },
  {
   "ruta": "/settlements/outcomes-one-inc/",
-  "empresa": "Outcomes One, Inc.",
+  "empresa": "Outcomes One Inc",
   "tipo": "acuerdo",
   "fondo": 1700000,
   "pago": null,
@@ -6930,7 +6800,7 @@
  },
  {
   "ruta": "/settlements/trc-talent-solutions/",
-  "empresa": "TRC Talent Solutions",
+  "empresa": "Trc Talent Solutions",
   "tipo": "acuerdo",
   "fondo": 1700000,
   "pago": null,
@@ -6969,7 +6839,7 @@
  },
  {
   "ruta": "/settlements/nissan-north-america-inc/",
-  "empresa": "Nissan North America, Inc.",
+  "empresa": "Nissan North America Inc",
   "tipo": "acuerdo",
   "fondo": 1500000,
   "pago": null,
@@ -6982,7 +6852,7 @@
  },
  {
   "ruta": "/settlements/team-software/",
-  "empresa": "TEAM Software",
+  "empresa": "Team Software",
   "tipo": "acuerdo",
   "fondo": 1500000,
   "pago": null,
@@ -6995,7 +6865,7 @@
  },
  {
   "ruta": "/settlements/orthopedicsny-llp/",
-  "empresa": "OrthopedicsNY, LLP",
+  "empresa": "Orthopedicsny Llp",
   "tipo": "acuerdo",
   "fondo": 1450000,
   "pago": null,
@@ -7060,7 +6930,7 @@
  },
  {
   "ruta": "/settlements/dap-health/",
-  "empresa": "DAP Health",
+  "empresa": "Dap Health",
   "tipo": "acuerdo",
   "fondo": 1300000,
   "pago": null,
@@ -7073,7 +6943,7 @@
  },
  {
   "ruta": "/settlements/montlick-associates-pc/",
-  "empresa": "Montlick & Associates, PC",
+  "empresa": "Montlick Associates Pc",
   "tipo": "acuerdo",
   "fondo": 1300000,
   "pago": null,
@@ -7086,7 +6956,7 @@
  },
  {
   "ruta": "/settlements/on-q-financial-llc/",
-  "empresa": "On Q Financial, LLC",
+  "empresa": "On Q Financial Llc",
   "tipo": "acuerdo",
   "fondo": 1250000,
   "pago": null,
@@ -7112,7 +6982,7 @@
  },
  {
   "ruta": "/settlements/first-financial-security-inc/",
-  "empresa": "First Financial Security, Inc.",
+  "empresa": "First Financial Security Inc",
   "tipo": "acuerdo",
   "fondo": 1200000,
   "pago": null,
@@ -7177,7 +7047,7 @@
  },
  {
   "ruta": "/settlements/knight-barry-title-inc/",
-  "empresa": "Knight Barry Title, Inc.",
+  "empresa": "Knight Barry Title Inc",
   "tipo": "acuerdo",
   "fondo": 1100000,
   "pago": null,
@@ -7216,7 +7086,7 @@
  },
  {
   "ruta": "/settlements/south-texas-oncology-and-hematology-pllc/",
-  "empresa": "South Texas Oncology and Hematology, PLLC",
+  "empresa": "South Texas Oncology And Hematology Pllc",
   "tipo": "acuerdo",
   "fondo": 1075000,
   "pago": null,
@@ -7242,7 +7112,7 @@
  },
  {
   "ruta": "/settlements/kimco-staffing-services-inc/",
-  "empresa": "Kimco Staffing Services Inc.",
+  "empresa": "Kimco Staffing Services Inc",
   "tipo": "acuerdo",
   "fondo": 1040000,
   "pago": null,
@@ -7255,7 +7125,7 @@
  },
  {
   "ruta": "/settlements/avis-rent-a-car-system-llc/",
-  "empresa": "Avis Rent A Car System LLC",
+  "empresa": "Avis Rent A Car System Llc",
   "tipo": "acuerdo",
   "fondo": 1020000,
   "pago": null,
@@ -7307,7 +7177,7 @@
  },
  {
   "ruta": "/settlements/oneblood/",
-  "empresa": "OneBlood",
+  "empresa": "Oneblood",
   "tipo": "acuerdo",
   "fondo": 1000000,
   "pago": null,
@@ -7346,7 +7216,7 @@
  },
  {
   "ruta": "/settlements/enroll-confidently-inc/",
-  "empresa": "Enroll Confidently, Inc.",
+  "empresa": "Enroll Confidently Inc",
   "tipo": "acuerdo",
   "fondo": 990000,
   "pago": null,
@@ -7359,7 +7229,7 @@
  },
  {
   "ruta": "/settlements/berman-rabin/",
-  "empresa": "Berman & Rabin",
+  "empresa": "Berman Rabin",
   "tipo": "acuerdo",
   "fondo": 980000,
   "pago": null,
@@ -7398,7 +7268,7 @@
  },
  {
   "ruta": "/settlements/sag-aftra-health-plan/",
-  "empresa": "SAG-AFTRA Health Plan",
+  "empresa": "Sag Aftra Health Plan",
   "tipo": "acuerdo",
   "fondo": 950000,
   "pago": null,
@@ -7476,7 +7346,7 @@
  },
  {
   "ruta": "/settlements/compex-legal-services-inc/",
-  "empresa": "Compex Legal Services Inc.",
+  "empresa": "Compex Legal Services Inc",
   "tipo": "acuerdo",
   "fondo": 872500,
   "pago": null,
@@ -7515,7 +7385,7 @@
  },
  {
   "ruta": "/settlements/educators-benefit-consultants-llc-aviben/",
-  "empresa": "Educators Benefit Consultants, LLC (Aviben)",
+  "empresa": "Educators Benefit Consultants Llc Aviben",
   "tipo": "acuerdo",
   "fondo": 850000,
   "pago": null,
@@ -7541,7 +7411,7 @@
  },
  {
   "ruta": "/settlements/bms-holdings/",
-  "empresa": "BMS Holdings",
+  "empresa": "Bms Holdings",
   "tipo": "acuerdo",
   "fondo": 825000,
   "pago": null,
@@ -7593,7 +7463,7 @@
  },
  {
   "ruta": "/settlements/eso-solutions-inc/",
-  "empresa": "ESO Solutions, Inc.",
+  "empresa": "Eso Solutions Inc",
   "tipo": "acuerdo",
   "fondo": 757500,
   "pago": null,
@@ -7606,7 +7476,7 @@
  },
  {
   "ruta": "/settlements/aod-federal-credit-union/",
-  "empresa": "AOD Federal Credit Union",
+  "empresa": "Aod Federal Credit Union",
   "tipo": "acuerdo",
   "fondo": 750000,
   "pago": null,
@@ -7632,7 +7502,7 @@
  },
  {
   "ruta": "/settlements/rumpke-waste-recycling/",
-  "empresa": "Rumpke Waste & Recycling",
+  "empresa": "Rumpke Waste Recycling",
   "tipo": "acuerdo",
   "fondo": 750000,
   "pago": null,
@@ -7645,7 +7515,7 @@
  },
  {
   "ruta": "/settlements/sgs-co/",
-  "empresa": "SGS & Co.",
+  "empresa": "Sgs Co",
   "tipo": "acuerdo",
   "fondo": 750000,
   "pago": null,
@@ -7658,7 +7528,7 @@
  },
  {
   "ruta": "/settlements/visionpoint-eye-center/",
-  "empresa": "VisionPoint Eye Center",
+  "empresa": "Visionpoint Eye Center",
   "tipo": "acuerdo",
   "fondo": 750000,
   "pago": null,
@@ -7671,7 +7541,7 @@
  },
  {
   "ruta": "/settlements/fraser-child-and-family-center/",
-  "empresa": "Fraser Child and Family Center",
+  "empresa": "Fraser Child And Family Center",
   "tipo": "acuerdo",
   "fondo": 725000,
   "pago": null,
@@ -7684,7 +7554,7 @@
  },
  {
   "ruta": "/settlements/la-financial-federal-credit-union/",
-  "empresa": "LA Financial Federal Credit Union",
+  "empresa": "La Financial Federal Credit Union",
   "tipo": "acuerdo",
   "fondo": 725000,
   "pago": null,
@@ -7697,7 +7567,7 @@
  },
  {
   "ruta": "/settlements/american-association-of-colleges-of-osteopathic-medicine/",
-  "empresa": "American Association of Colleges of Osteopathic Medicine",
+  "empresa": "American Association Of Colleges Of Osteopathic Medicine",
   "tipo": "acuerdo",
   "fondo": 700000,
   "pago": null,
@@ -7710,7 +7580,7 @@
  },
  {
   "ruta": "/settlements/jefferson-blount-st-clair-mental-health-authority/",
-  "empresa": "Jefferson-Blount-St. Clair Mental Health Authority",
+  "empresa": "Jefferson Blount St Clair Mental Health Authority",
   "tipo": "acuerdo",
   "fondo": 700000,
   "pago": null,
@@ -7723,7 +7593,7 @@
  },
  {
   "ruta": "/settlements/recology-inc/",
-  "empresa": "Recology Inc.",
+  "empresa": "Recology Inc",
   "tipo": "acuerdo",
   "fondo": 700000,
   "pago": null,
@@ -7736,7 +7606,7 @@
  },
  {
   "ruta": "/settlements/equinox-inc/",
-  "empresa": "Equinox Inc.",
+  "empresa": "Equinox Inc",
   "tipo": "acuerdo",
   "fondo": 685000,
   "pago": null,
@@ -7762,7 +7632,7 @@
  },
  {
   "ruta": "/settlements/r1-rcm-inc/",
-  "empresa": "R1 RCM Inc.",
+  "empresa": "R1 Rcm Inc",
   "tipo": "acuerdo",
   "fondo": 675000,
   "pago": null,
@@ -7775,7 +7645,7 @@
  },
  {
   "ruta": "/settlements/chimienti-associates/",
-  "empresa": "Chimienti & Associates",
+  "empresa": "Chimienti Associates",
   "tipo": "acuerdo",
   "fondo": 650000,
   "pago": null,
@@ -7788,7 +7658,7 @@
  },
  {
   "ruta": "/settlements/form-i-9-compliance/",
-  "empresa": "Form I-9 Compliance",
+  "empresa": "Form I 9 Compliance",
   "tipo": "acuerdo",
   "fondo": 650000,
   "pago": null,
@@ -7827,7 +7697,7 @@
  },
  {
   "ruta": "/settlements/hypertension-nephrology-associates-p-c/",
-  "empresa": "Hypertension-Nephrology Associates, P.C.",
+  "empresa": "Hypertension Nephrology Associates P C",
   "tipo": "acuerdo",
   "fondo": 625000,
   "pago": null,
@@ -7853,7 +7723,7 @@
  },
  {
   "ruta": "/settlements/the-computer-merchant-ltd/",
-  "empresa": "The Computer Merchant, Ltd.",
+  "empresa": "The Computer Merchant Ltd",
   "tipo": "acuerdo",
   "fondo": 610000,
   "pago": null,
@@ -7905,7 +7775,7 @@
  },
  {
   "ruta": "/settlements/dg3-north-america-inc/",
-  "empresa": "DG3 North America, Inc.",
+  "empresa": "Dg3 North America Inc",
   "tipo": "acuerdo",
   "fondo": 600000,
   "pago": null,
@@ -7944,7 +7814,7 @@
  },
  {
   "ruta": "/settlements/ott-cone-redpath/",
-  "empresa": "Ott Cone & Redpath",
+  "empresa": "Ott Cone Redpath",
   "tipo": "acuerdo",
   "fondo": 600000,
   "pago": null,
@@ -7957,7 +7827,7 @@
  },
  {
   "ruta": "/settlements/ciuni-panichi/",
-  "empresa": "Ciuni & Panichi",
+  "empresa": "Ciuni Panichi",
   "tipo": "acuerdo",
   "fondo": 592500,
   "pago": null,
@@ -7970,7 +7840,7 @@
  },
  {
   "ruta": "/settlements/drug-and-alcohol-treatment-services/",
-  "empresa": "Drug and Alcohol Treatment Services",
+  "empresa": "Drug And Alcohol Treatment Services",
   "tipo": "acuerdo",
   "fondo": 549000,
   "pago": null,
@@ -8009,7 +7879,7 @@
  },
  {
   "ruta": "/settlements/the-ambulatory-surgery-center-of-westchester/",
-  "empresa": "The Ambulatory Surgery Center of Westchester",
+  "empresa": "The Ambulatory Surgery Center Of Westchester",
   "tipo": "acuerdo",
   "fondo": 527500,
   "pago": null,
@@ -8074,7 +7944,7 @@
  },
  {
   "ruta": "/settlements/cr-r-incorporated/",
-  "empresa": "CR&R Incorporated",
+  "empresa": "Cr R Incorporated",
   "tipo": "acuerdo",
   "fondo": 500000,
   "pago": null,
@@ -8100,7 +7970,7 @@
  },
  {
   "ruta": "/settlements/western-electrical-contractors-association-inc/",
-  "empresa": "Western Electrical Contractors Association, Inc.",
+  "empresa": "Western Electrical Contractors Association Inc",
   "tipo": "acuerdo",
   "fondo": 500000,
   "pago": null,
@@ -8113,7 +7983,7 @@
  },
  {
   "ruta": "/settlements/whitman-hospital-medical-clinics/",
-  "empresa": "Whitman Hospital & Medical Clinics",
+  "empresa": "Whitman Hospital Medical Clinics",
   "tipo": "acuerdo",
   "fondo": 500000,
   "pago": null,
@@ -8126,7 +7996,7 @@
  },
  {
   "ruta": "/settlements/lcptracker-inc/",
-  "empresa": "LCPtracker, Inc.",
+  "empresa": "Lcptracker Inc",
   "tipo": "acuerdo",
   "fondo": 495000,
   "pago": null,
@@ -8152,7 +8022,7 @@
  },
  {
   "ruta": "/settlements/obi-seafoods/",
-  "empresa": "OBI Seafoods",
+  "empresa": "Obi Seafoods",
   "tipo": "acuerdo",
   "fondo": 380280,
   "pago": null,
@@ -8164,8 +8034,8 @@
   "priority": "0.7"
  },
  {
-  "ruta": "/settlements/ags-get-1-4m/",
-  "empresa": "Ags Get 1 4m",
+  "ruta": "/settlements/ags/",
+  "empresa": "Ags",
   "tipo": "acuerdo",
   "fondo": 350000,
   "pago": null,
@@ -8204,7 +8074,7 @@
  },
  {
   "ruta": "/settlements/word-brown-insurance-administrators/",
-  "empresa": "Word & Brown Insurance Administrators",
+  "empresa": "Word Brown Insurance Administrators",
   "tipo": "acuerdo",
   "fondo": 330000,
   "pago": null,
@@ -8360,7 +8230,7 @@
  },
  {
   "ruta": "/settlements/advanced-recovery-equipment-supplies-llc/",
-  "empresa": "Advanced Recovery Equipment & Supplies, LLC",
+  "empresa": "Advanced Recovery Equipment Supplies Llc",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -8373,7 +8243,7 @@
  },
  {
   "ruta": "/settlements/affiliated-dermatologists-and-dermatologic-surgeons-p-a/",
-  "empresa": "Affiliated Dermatologists and Dermatologic Surgeons, P.A.",
+  "empresa": "Affiliated Dermatologists And Dermatologic Surgeons P A",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -8386,7 +8256,7 @@
  },
  {
   "ruta": "/settlements/albany-college-of-pharmacy-and-health-sciences/",
-  "empresa": "Albany College of Pharmacy and Health Sciences",
+  "empresa": "Albany College Of Pharmacy And Health Sciences",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -8399,7 +8269,7 @@
  },
  {
   "ruta": "/settlements/alltrust/",
-  "empresa": "AllTrust",
+  "empresa": "Alltrust",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -8412,7 +8282,7 @@
  },
  {
   "ruta": "/settlements/alpine-ear-nose-and-throat/",
-  "empresa": "Alpine Ear, Nose, and Throat",
+  "empresa": "Alpine Ear Nose And Throat",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -8438,7 +8308,7 @@
  },
  {
   "ruta": "/settlements/american-national-bank-trust/",
-  "empresa": "American National Bank & Trust",
+  "empresa": "American National Bank Trust",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -8464,7 +8334,7 @@
  },
  {
   "ruta": "/settlements/autobell-car-wash-llc/",
-  "empresa": "Autobell Car Wash, LLC",
+  "empresa": "Autobell Car Wash Llc",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -8477,7 +8347,7 @@
  },
  {
   "ruta": "/settlements/baker-drywall-partnership-llp/",
-  "empresa": "Baker Drywall Partnership, LLP",
+  "empresa": "Baker Drywall Partnership Llp",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -8658,8 +8528,8 @@
   "priority": "0.7"
  },
  {
-  "ruta": "/settlements/chick-fil-a-agrees-to/",
-  "empresa": "Chick Fil A Agrees To",
+  "ruta": "/settlements/chick-fil-a/",
+  "empresa": "Chick Fil A",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -8736,8 +8606,8 @@
   "priority": "0.7"
  },
  {
-  "ruta": "/settlements/companies-agree-to/",
-  "empresa": "Companies Agree To",
+  "ruta": "/settlements/companies/",
+  "empresa": "Companies",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -8763,7 +8633,7 @@
  },
  {
   "ruta": "/settlements/continental-cafe-holdings-llc/",
-  "empresa": "Continental Cafe Holdings, LLC",
+  "empresa": "Continental Cafe Holdings Llc",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -8789,7 +8659,7 @@
  },
  {
   "ruta": "/settlements/cpap-medical-supplies-and-services/",
-  "empresa": "CPAP Medical Supplies and Services",
+  "empresa": "Cpap Medical Supplies And Services",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -8815,7 +8685,7 @@
  },
  {
   "ruta": "/settlements/des-moines-orthopaedic-surgeons-p-c/",
-  "empresa": "Des Moines Orthopaedic Surgeons, P.C.",
+  "empresa": "Des Moines Orthopaedic Surgeons P C",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -8854,7 +8724,7 @@
  },
  {
   "ruta": "/settlements/e-benefit-solution/",
-  "empresa": "E-Benefit Solution",
+  "empresa": "E Benefit Solution",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -8880,7 +8750,7 @@
  },
  {
   "ruta": "/settlements/evening-post-publishing-inc/",
-  "empresa": "Evening Post Publishing Inc.",
+  "empresa": "Evening Post Publishing Inc",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -8892,8 +8762,8 @@
   "priority": "0.7"
  },
  {
-  "ruta": "/settlements/excellus-agrees-to/",
-  "empresa": "Excellus Agrees To",
+  "ruta": "/settlements/excellus/",
+  "empresa": "Excellus",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -8944,8 +8814,8 @@
   "priority": "0.7"
  },
  {
-  "ruta": "/settlements/forever-21/",
-  "empresa": "Forever 21",
+  "ruta": "/settlements/forever/",
+  "empresa": "Forever",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -8971,7 +8841,7 @@
  },
  {
   "ruta": "/settlements/furman-foods-inc/",
-  "empresa": "Furman Foods, Inc.",
+  "empresa": "Furman Foods Inc",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -8984,7 +8854,7 @@
  },
  {
   "ruta": "/settlements/furniture-mart-usa/",
-  "empresa": "Furniture Mart USA",
+  "empresa": "Furniture Mart Usa",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9036,7 +8906,7 @@
  },
  {
   "ruta": "/settlements/geologics-corporation/",
-  "empresa": "GeoLogics Corporation",
+  "empresa": "Geologics Corporation",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9049,7 +8919,7 @@
  },
  {
   "ruta": "/settlements/gramercy-surgery-center-inc/",
-  "empresa": "Gramercy Surgery Center, Inc.",
+  "empresa": "Gramercy Surgery Center Inc",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9062,7 +8932,7 @@
  },
  {
   "ruta": "/settlements/hcf-management/",
-  "empresa": "HCF Management",
+  "empresa": "Hcf Management",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9217,19 +9087,6 @@
   "priority": "0.7"
  },
  {
-  "ruta": "/settlements/judge-oks-hy-vee/",
-  "empresa": "Judge Oks Hy Vee",
-  "tipo": "acuerdo",
-  "fondo": null,
-  "pago": null,
-  "plazo": null,
-  "abierto": false,
-  "sitio": null,
-  "en_hibp": false,
-  "lastmod": "2026-10-12",
-  "priority": "0.7"
- },
- {
   "ruta": "/settlements/kemper-corp-infinity-insurance/",
   "empresa": "Kemper Corp Infinity Insurance",
   "tipo": "acuerdo",
@@ -9257,7 +9114,7 @@
  },
  {
   "ruta": "/settlements/la-jolla-group-inc/",
-  "empresa": "La Jolla Group, Inc.",
+  "empresa": "La Jolla Group Inc",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9296,7 +9153,7 @@
  },
  {
   "ruta": "/settlements/mckenzie-memorial-hospital/",
-  "empresa": "McKenzie Memorial Hospital",
+  "empresa": "Mckenzie Memorial Hospital",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9309,7 +9166,7 @@
  },
  {
   "ruta": "/settlements/mclean-mortgage-corporation/",
-  "empresa": "McLean Mortgage Corporation",
+  "empresa": "Mclean Mortgage Corporation",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9335,7 +9192,7 @@
  },
  {
   "ruta": "/settlements/mizuno-usa/",
-  "empresa": "Mizuno USA",
+  "empresa": "Mizuno Usa",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9348,7 +9205,7 @@
  },
  {
   "ruta": "/settlements/nations-direct-mortgage-llc/",
-  "empresa": "Nations Direct Mortgage, LLC",
+  "empresa": "Nations Direct Mortgage Llc",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9374,7 +9231,7 @@
  },
  {
   "ruta": "/settlements/nj-lenders-corp/",
-  "empresa": "NJ Lenders Corp.",
+  "empresa": "Nj Lenders Corp",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9439,7 +9296,7 @@
  },
  {
   "ruta": "/settlements/payactiv-inc/",
-  "empresa": "Payactiv, Inc.",
+  "empresa": "Payactiv Inc",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9465,7 +9322,7 @@
  },
  {
   "ruta": "/settlements/peerstar-llc/",
-  "empresa": "Peerstar LLC",
+  "empresa": "Peerstar Llc",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9478,7 +9335,7 @@
  },
  {
   "ruta": "/settlements/physicians-primary-care-of-southwest-florida/",
-  "empresa": "Physicians’ Primary Care of Southwest Florida",
+  "empresa": "Physicians Primary Care Of Southwest Florida",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9608,7 +9465,7 @@
  },
  {
   "ruta": "/settlements/scrubs-beyond/",
-  "empresa": "Scrubs & Beyond",
+  "empresa": "Scrubs Beyond",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9659,6 +9516,19 @@
   "priority": "0.7"
  },
  {
+  "ruta": "/settlements/st-andrew-s-resources-for-seniors-system/",
+  "empresa": "St Andrew S Resources For Seniors System",
+  "tipo": "acuerdo",
+  "fondo": null,
+  "pago": null,
+  "plazo": null,
+  "abierto": false,
+  "sitio": null,
+  "en_hibp": false,
+  "lastmod": "2026-10-12",
+  "priority": "0.7"
+ },
+ {
   "ruta": "/settlements/st-francis-college/",
   "empresa": "St Francis College",
   "tipo": "acuerdo",
@@ -9672,21 +9542,8 @@
   "priority": "0.7"
  },
  {
-  "ruta": "/settlements/st-andrew-s-resources-for-seniors-system/",
-  "empresa": "St. Andrew’s Resources for Seniors System",
-  "tipo": "acuerdo",
-  "fondo": null,
-  "pago": null,
-  "plazo": null,
-  "abierto": false,
-  "sitio": null,
-  "en_hibp": false,
-  "lastmod": "2026-10-12",
-  "priority": "0.7"
- },
- {
   "ruta": "/settlements/st-joseph-s-college-of-maine/",
-  "empresa": "St. Joseph’s College of Maine",
+  "empresa": "St Joseph S College Of Maine",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9751,7 +9608,7 @@
  },
  {
   "ruta": "/settlements/the-dufresne-spencer-group-llc/",
-  "empresa": "The Dufresne Spencer Group, LLC",
+  "empresa": "The Dufresne Spencer Group Llc",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9764,7 +9621,7 @@
  },
  {
   "ruta": "/settlements/the-medibase-group-inc/",
-  "empresa": "The Medibase Group, Inc.",
+  "empresa": "The Medibase Group Inc",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9816,7 +9673,7 @@
  },
  {
   "ruta": "/settlements/u-s-dermatology-partners/",
-  "empresa": "U.S. Dermatology Partners",
+  "empresa": "U S Dermatology Partners",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9907,7 +9764,7 @@
  },
  {
   "ruta": "/settlements/waterstreet-company/",
-  "empresa": "WaterStreet Company",
+  "empresa": "Waterstreet Company",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9959,7 +9816,7 @@
  },
  {
   "ruta": "/settlements/yes-communities-inc/",
-  "empresa": "Yes Communities, Inc.",
+  "empresa": "Yes Communities Inc",
   "tipo": "acuerdo",
   "fondo": null,
   "pago": null,
@@ -9985,7 +9842,7 @@
  },
  {
   "ruta": "/settlements/abc-supply/",
-  "empresa": "ABC Supply",
+  "empresa": "Abc Supply",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -9998,7 +9855,7 @@
  },
  {
   "ruta": "/settlements/about-women-ob-gyn/",
-  "empresa": "About Women OB-Gyn",
+  "empresa": "About Women Ob Gyn",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10011,7 +9868,7 @@
  },
  {
   "ruta": "/settlements/adapthealth/",
-  "empresa": "AdaptHealth",
+  "empresa": "Adapthealth",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10037,7 +9894,7 @@
  },
  {
   "ruta": "/settlements/aecom/",
-  "empresa": "AECOM",
+  "empresa": "Aecom",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10063,7 +9920,7 @@
  },
  {
   "ruta": "/settlements/ahead/",
-  "empresa": "AHEAD",
+  "empresa": "Ahead",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10167,7 +10024,7 @@
  },
  {
   "ruta": "/settlements/anatomic-and-clinical-laboratory-associates/",
-  "empresa": "Anatomic and Clinical Laboratory Associates",
+  "empresa": "Anatomic And Clinical Laboratory Associates",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10180,7 +10037,7 @@
  },
  {
   "ruta": "/settlements/angmar/",
-  "empresa": "AngMar",
+  "empresa": "Angmar",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10193,7 +10050,7 @@
  },
  {
   "ruta": "/settlements/anmed/",
-  "empresa": "AnMed",
+  "empresa": "Anmed",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10258,7 +10115,7 @@
  },
  {
   "ruta": "/settlements/associated-gastroenterologists-of-central-new-york/",
-  "empresa": "Associated Gastroenterologists of Central New York",
+  "empresa": "Associated Gastroenterologists Of Central New York",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10271,7 +10128,7 @@
  },
  {
   "ruta": "/settlements/assuranceamerica/",
-  "empresa": "AssuranceAmerica",
+  "empresa": "Assuranceamerica",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10323,7 +10180,7 @@
  },
  {
   "ruta": "/settlements/atlantic-tomorrow-s-office/",
-  "empresa": "Atlantic Tomorrow's Office",
+  "empresa": "Atlantic Tomorrow S Office",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10401,7 +10258,7 @@
  },
  {
   "ruta": "/settlements/bee-bergvall-co/",
-  "empresa": "Bee, Bergvall & Co.",
+  "empresa": "Bee Bergvall Co",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10440,7 +10297,7 @@
  },
  {
   "ruta": "/settlements/black-s-insurance-and-financial-services/",
-  "empresa": "Black's Insurance and Financial Services",
+  "empresa": "Black S Insurance And Financial Services",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10453,7 +10310,7 @@
  },
  {
   "ruta": "/settlements/blackburn-s-physicians-pharmacy/",
-  "empresa": "Blackburn's Physicians Pharmacy",
+  "empresa": "Blackburn S Physicians Pharmacy",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10492,7 +10349,7 @@
  },
  {
   "ruta": "/settlements/boyd-bros-transportation-and-wti-transport/",
-  "empresa": "Boyd Bros. Transportation and WTI Transport",
+  "empresa": "Boyd Bros Transportation And Wti Transport",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10505,7 +10362,7 @@
  },
  {
   "ruta": "/settlements/brown-jake-mcdaniel-p-c/",
-  "empresa": "Brown, Jake & McDaniel, P.C.",
+  "empresa": "Brown Jake Mcdaniel P C",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10596,7 +10453,7 @@
  },
  {
   "ruta": "/settlements/cardiovascular-institute-of-new-england/",
-  "empresa": "Cardiovascular Institute of New England",
+  "empresa": "Cardiovascular Institute Of New England",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10622,7 +10479,7 @@
  },
  {
   "ruta": "/settlements/carient-heart-vascular/",
-  "empresa": "Carient Heart & Vascular",
+  "empresa": "Carient Heart Vascular",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10635,7 +10492,7 @@
  },
  {
   "ruta": "/settlements/carolina-asthma-and-allergy-center/",
-  "empresa": "Carolina Asthma and Allergy Center",
+  "empresa": "Carolina Asthma And Allergy Center",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10648,7 +10505,7 @@
  },
  {
   "ruta": "/settlements/case-associates-properties/",
-  "empresa": "Case & Associates Properties",
+  "empresa": "Case Associates Properties",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10765,7 +10622,7 @@
  },
  {
   "ruta": "/settlements/cleaver-brooks/",
-  "empresa": "Cleaver-Brooks",
+  "empresa": "Cleaver Brooks",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10804,7 +10661,7 @@
  },
  {
   "ruta": "/settlements/comhar/",
-  "empresa": "COMHAR",
+  "empresa": "Comhar",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10830,7 +10687,7 @@
  },
  {
   "ruta": "/settlements/community-health-center-of-buffalo/",
-  "empresa": "Community Health Center of Buffalo",
+  "empresa": "Community Health Center Of Buffalo",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10895,7 +10752,7 @@
  },
  {
   "ruta": "/settlements/comprehensive-orthopaedics-musculoskeletal-care/",
-  "empresa": "Comprehensive Orthopaedics & Musculoskeletal Care",
+  "empresa": "Comprehensive Orthopaedics Musculoskeletal Care",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10921,7 +10778,7 @@
  },
  {
   "ruta": "/settlements/consolidated-medical-practices-of-memphis/",
-  "empresa": "Consolidated Medical Practices of Memphis",
+  "empresa": "Consolidated Medical Practices Of Memphis",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10986,7 +10843,7 @@
  },
  {
   "ruta": "/settlements/cottrill-s-specialty-pharmacy/",
-  "empresa": "Cottrill’s Specialty Pharmacy",
+  "empresa": "Cottrill S Specialty Pharmacy",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -10999,7 +10856,7 @@
  },
  {
   "ruta": "/settlements/country-wide-insurance/",
-  "empresa": "Country-Wide Insurance",
+  "empresa": "Country Wide Insurance",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11012,7 +10869,7 @@
  },
  {
   "ruta": "/settlements/covantage-credit-union/",
-  "empresa": "CoVantage Credit Union",
+  "empresa": "Covantage Credit Union",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11077,7 +10934,7 @@
  },
  {
   "ruta": "/settlements/delek-us/",
-  "empresa": "Delek US",
+  "empresa": "Delek Us",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11103,7 +10960,7 @@
  },
  {
   "ruta": "/settlements/doctor-s-choice-home-care-hospice/",
-  "empresa": "Doctor's Choice Home Care & Hospice",
+  "empresa": "Doctor S Choice Home Care Hospice",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11129,7 +10986,7 @@
  },
  {
   "ruta": "/settlements/doxa/",
-  "empresa": "DOXA",
+  "empresa": "Doxa",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11142,7 +10999,7 @@
  },
  {
   "ruta": "/settlements/eassist-dental-solutions/",
-  "empresa": "eAssist Dental Solutions",
+  "empresa": "Eassist Dental Solutions",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11155,7 +11012,7 @@
  },
  {
   "ruta": "/settlements/ecbm/",
-  "empresa": "ECBM",
+  "empresa": "Ecbm",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11207,7 +11064,7 @@
  },
  {
   "ruta": "/settlements/ernst-young/",
-  "empresa": "Ernst & Young",
+  "empresa": "Ernst Young",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11220,7 +11077,7 @@
  },
  {
   "ruta": "/settlements/eteam/",
-  "empresa": "eTeam",
+  "empresa": "Eteam",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11311,7 +11168,7 @@
  },
  {
   "ruta": "/settlements/family-medical-associates-of-raleigh/",
-  "empresa": "Family Medical Associates of Raleigh",
+  "empresa": "Family Medical Associates Of Raleigh",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11324,7 +11181,7 @@
  },
  {
   "ruta": "/settlements/farmers-bank-trust-of-atwood-kansas/",
-  "empresa": "Farmers Bank & Trust of Atwood, Kansas",
+  "empresa": "Farmers Bank Trust Of Atwood Kansas",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11337,7 +11194,7 @@
  },
  {
   "ruta": "/settlements/figure-technology-solutions-inc/",
-  "empresa": "Figure Technology Solutions, Inc.",
+  "empresa": "Figure Technology Solutions Inc",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11428,7 +11285,7 @@
  },
  {
   "ruta": "/settlements/firstsource-healthplans-and-healthcare-services/",
-  "empresa": "Firstsource Healthplans and Healthcare Services",
+  "empresa": "Firstsource Healthplans And Healthcare Services",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11454,7 +11311,7 @@
  },
  {
   "ruta": "/settlements/forrestall-cpas/",
-  "empresa": "Forrestall CPAs",
+  "empresa": "Forrestall Cpas",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11467,7 +11324,7 @@
  },
  {
   "ruta": "/settlements/gastroenterology-hepatology-of-central-new-york/",
-  "empresa": "Gastroenterology & Hepatology of Central New York",
+  "empresa": "Gastroenterology Hepatology Of Central New York",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11480,7 +11337,7 @@
  },
  {
   "ruta": "/settlements/gibson-area-hospital-health-services/",
-  "empresa": "Gibson Area Hospital & Health Services",
+  "empresa": "Gibson Area Hospital Health Services",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11519,7 +11376,7 @@
  },
  {
   "ruta": "/settlements/golden-state-orthopedics-spine/",
-  "empresa": "Golden State Orthopedics & Spine",
+  "empresa": "Golden State Orthopedics Spine",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11558,7 +11415,7 @@
  },
  {
   "ruta": "/settlements/harbisonwalker-international/",
-  "empresa": "HarbisonWalker International",
+  "empresa": "Harbisonwalker International",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11571,7 +11428,7 @@
  },
  {
   "ruta": "/settlements/harley-davidson/",
-  "empresa": "Harley-Davidson",
+  "empresa": "Harley Davidson",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11636,7 +11493,7 @@
  },
  {
   "ruta": "/settlements/healthstream/",
-  "empresa": "HealthStream",
+  "empresa": "Healthstream",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11649,7 +11506,7 @@
  },
  {
   "ruta": "/settlements/heart-care-centers-of-illinois/",
-  "empresa": "Heart Care Centers of Illinois",
+  "empresa": "Heart Care Centers Of Illinois",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11662,7 +11519,7 @@
  },
  {
   "ruta": "/settlements/heart-of-america-eye-care/",
-  "empresa": "Heart of America Eye Care",
+  "empresa": "Heart Of America Eye Care",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11675,7 +11532,7 @@
  },
  {
   "ruta": "/settlements/heart-of-america-medical-center/",
-  "empresa": "Heart of America Medical Center",
+  "empresa": "Heart Of America Medical Center",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11688,7 +11545,7 @@
  },
  {
   "ruta": "/settlements/heart-vascular-leg-center/",
-  "empresa": "Heart Vascular & Leg Center",
+  "empresa": "Heart Vascular Leg Center",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11805,7 +11662,7 @@
  },
  {
   "ruta": "/settlements/hudson-md-group/",
-  "empresa": "Hudson MD Group",
+  "empresa": "Hudson Md Group",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11818,7 +11675,7 @@
  },
  {
   "ruta": "/settlements/humanedge/",
-  "empresa": "HumanEdge",
+  "empresa": "Humanedge",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -11831,7 +11688,7 @@
  },
  {
   "ruta": "/settlements/idscan-net/",
-  "empresa": "IDScan.net",
+  "empresa": "Idscan Net",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12000,7 +11857,7 @@
  },
  {
   "ruta": "/settlements/kerberrose/",
-  "empresa": "KerberRose",
+  "empresa": "Kerberrose",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12039,7 +11896,7 @@
  },
  {
   "ruta": "/settlements/labpharma/",
-  "empresa": "LabPharma",
+  "empresa": "Labpharma",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12091,7 +11948,7 @@
  },
  {
   "ruta": "/settlements/larry-flynt-s-lucky-lady-casino/",
-  "empresa": "Larry Flynt's Lucky Lady Casino",
+  "empresa": "Larry Flynt S Lucky Lady Casino",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12104,7 +11961,7 @@
  },
  {
   "ruta": "/settlements/legacy-bank-and-trust/",
-  "empresa": "Legacy Bank and Trust",
+  "empresa": "Legacy Bank And Trust",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12143,7 +12000,7 @@
  },
  {
   "ruta": "/settlements/lhc-group/",
-  "empresa": "LHC Group",
+  "empresa": "Lhc Group",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12247,7 +12104,7 @@
  },
  {
   "ruta": "/settlements/magmutual/",
-  "empresa": "MagMutual",
+  "empresa": "Magmutual",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12273,7 +12130,7 @@
  },
  {
   "ruta": "/settlements/mcewen-and-associates/",
-  "empresa": "McEwen and Associates",
+  "empresa": "Mcewen And Associates",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12286,7 +12143,7 @@
  },
  {
   "ruta": "/settlements/mckesson-corporation/",
-  "empresa": "McKesson Corporation",
+  "empresa": "Mckesson Corporation",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12299,7 +12156,7 @@
  },
  {
   "ruta": "/settlements/mcleod-health/",
-  "empresa": "McLeod Health",
+  "empresa": "Mcleod Health",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12312,7 +12169,7 @@
  },
  {
   "ruta": "/settlements/medevolve/",
-  "empresa": "MedEvolve",
+  "empresa": "Medevolve",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12325,7 +12182,7 @@
  },
  {
   "ruta": "/settlements/medical-arts-chemists-and-surgicals/",
-  "empresa": "Medical Arts Chemists and Surgicals",
+  "empresa": "Medical Arts Chemists And Surgicals",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12338,7 +12195,7 @@
  },
  {
   "ruta": "/settlements/medimpact-healthcare-systems/",
-  "empresa": "MedImpact Healthcare Systems",
+  "empresa": "Medimpact Healthcare Systems",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12351,7 +12208,7 @@
  },
  {
   "ruta": "/settlements/medlink-georgia/",
-  "empresa": "MedLink Georgia",
+  "empresa": "Medlink Georgia",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12364,7 +12221,7 @@
  },
  {
   "ruta": "/settlements/membersource-credit-union/",
-  "empresa": "MemberSource Credit Union",
+  "empresa": "Membersource Credit Union",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12377,7 +12234,7 @@
  },
  {
   "ruta": "/settlements/membersown-credit-union/",
-  "empresa": "MembersOwn Credit Union",
+  "empresa": "Membersown Credit Union",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12390,7 +12247,7 @@
  },
  {
   "ruta": "/settlements/meridian-health-plan-of-illinois/",
-  "empresa": "Meridian Health Plan of Illinois",
+  "empresa": "Meridian Health Plan Of Illinois",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12403,7 +12260,7 @@
  },
  {
   "ruta": "/settlements/midwest-spine-and-brain-institute/",
-  "empresa": "Midwest Spine and Brain Institute",
+  "empresa": "Midwest Spine And Brain Institute",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12481,7 +12338,7 @@
  },
  {
   "ruta": "/settlements/minnesota-ent/",
-  "empresa": "Minnesota ENT",
+  "empresa": "Minnesota Ent",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12533,7 +12390,7 @@
  },
  {
   "ruta": "/settlements/morselife-health-system/",
-  "empresa": "MorseLife Health System",
+  "empresa": "Morselife Health System",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12546,7 +12403,7 @@
  },
  {
   "ruta": "/settlements/nai-earle-furman/",
-  "empresa": "NAI Earle Furman",
+  "empresa": "Nai Earle Furman",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12559,7 +12416,7 @@
  },
  {
   "ruta": "/settlements/national-association-of-credit-management-intermountain/",
-  "empresa": "National Association of Credit Management Intermountain",
+  "empresa": "National Association Of Credit Management Intermountain",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12572,7 +12429,7 @@
  },
  {
   "ruta": "/settlements/national-center-for-construction-education-and-research/",
-  "empresa": "National Center for Construction Education and Research",
+  "empresa": "National Center For Construction Education And Research",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12637,7 +12494,7 @@
  },
  {
   "ruta": "/settlements/nephrology-associates-m-d-p-a/",
-  "empresa": "Nephrology Associates, M.D., P.A.",
+  "empresa": "Nephrology Associates M D P A",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12650,7 +12507,7 @@
  },
  {
   "ruta": "/settlements/nevro-corp/",
-  "empresa": "Nevro Corp.",
+  "empresa": "Nevro Corp",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12676,7 +12533,7 @@
  },
  {
   "ruta": "/settlements/nfi-north/",
-  "empresa": "NFI North",
+  "empresa": "Nfi North",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12689,7 +12546,7 @@
  },
  {
   "ruta": "/settlements/nfm-lending/",
-  "empresa": "NFM Lending",
+  "empresa": "Nfm Lending",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12715,7 +12572,7 @@
  },
  {
   "ruta": "/settlements/northern-nj-eye-institute/",
-  "empresa": "Northern NJ Eye Institute",
+  "empresa": "Northern Nj Eye Institute",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12728,7 +12585,7 @@
  },
  {
   "ruta": "/settlements/nse-insurance-agencies/",
-  "empresa": "NSE Insurance Agencies",
+  "empresa": "Nse Insurance Agencies",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12767,7 +12624,7 @@
  },
  {
   "ruta": "/settlements/ocean-edge-resort-golf-club/",
-  "empresa": "Ocean Edge Resort & Golf Club",
+  "empresa": "Ocean Edge Resort Golf Club",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12858,7 +12715,7 @@
  },
  {
   "ruta": "/settlements/our-hospice-of-south-central-indiana/",
-  "empresa": "Our Hospice of South Central Indiana",
+  "empresa": "Our Hospice Of South Central Indiana",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12871,7 +12728,7 @@
  },
  {
   "ruta": "/settlements/pacific-accounting-business-services/",
-  "empresa": "Pacific Accounting & Business Services",
+  "empresa": "Pacific Accounting Business Services",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12884,7 +12741,7 @@
  },
  {
   "ruta": "/settlements/palacio-palacio-zimmerman/",
-  "empresa": "Palacio, Palacio & Zimmerman",
+  "empresa": "Palacio Palacio Zimmerman",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12897,7 +12754,7 @@
  },
  {
   "ruta": "/settlements/pantherx-rare/",
-  "empresa": "PANTHERx Rare",
+  "empresa": "Pantherx Rare",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -12949,7 +12806,7 @@
  },
  {
   "ruta": "/settlements/pdcm-insurance/",
-  "empresa": "PDCM Insurance",
+  "empresa": "Pdcm Insurance",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13053,7 +12910,7 @@
  },
  {
   "ruta": "/settlements/powerschool/",
-  "empresa": "PowerSchool",
+  "empresa": "Powerschool",
   "tipo": "demanda presentada",
   "fondo": null,
   "pago": null,
@@ -13079,7 +12936,7 @@
  },
  {
   "ruta": "/settlements/praxis-emr/",
-  "empresa": "Praxis EMR",
+  "empresa": "Praxis Emr",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13105,7 +12962,7 @@
  },
  {
   "ruta": "/settlements/promantra/",
-  "empresa": "ProMantra",
+  "empresa": "Promantra",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13144,7 +13001,7 @@
  },
  {
   "ruta": "/settlements/r-g-brenner/",
-  "empresa": "R&G Brenner",
+  "empresa": "R G Brenner",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13209,7 +13066,7 @@
  },
  {
   "ruta": "/settlements/river-bank-trust/",
-  "empresa": "River Bank & Trust",
+  "empresa": "River Bank Trust",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13274,7 +13131,7 @@
  },
  {
   "ruta": "/settlements/rood-riddle-equine-hospital/",
-  "empresa": "Rood & Riddle Equine Hospital",
+  "empresa": "Rood Riddle Equine Hospital",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13300,7 +13157,7 @@
  },
  {
   "ruta": "/settlements/safetyfirst-systems/",
-  "empresa": "SafetyFirst Systems",
+  "empresa": "Safetyfirst Systems",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13417,7 +13274,7 @@
  },
  {
   "ruta": "/settlements/southern-illinois-ob-gyn-associates/",
-  "empresa": "Southern Illinois Ob-Gyn Associates",
+  "empresa": "Southern Illinois Ob Gyn Associates",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13430,7 +13287,7 @@
  },
  {
   "ruta": "/settlements/st-francis-healthcare-system-of-hawaii/",
-  "empresa": "St. Francis Healthcare System of Hawaii",
+  "empresa": "St Francis Healthcare System Of Hawaii",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13534,7 +13391,7 @@
  },
  {
   "ruta": "/settlements/the-center-for-kidney-care/",
-  "empresa": "The Center for Kidney Care",
+  "empresa": "The Center For Kidney Care",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13599,7 +13456,7 @@
  },
  {
   "ruta": "/settlements/tlc-perinatal/",
-  "empresa": "TLC Perinatal",
+  "empresa": "Tlc Perinatal",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13612,7 +13469,7 @@
  },
  {
   "ruta": "/settlements/transglobal-insurance-agency/",
-  "empresa": "TransGlobal Insurance Agency",
+  "empresa": "Transglobal Insurance Agency",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13625,7 +13482,7 @@
  },
  {
   "ruta": "/settlements/triniti-home-health-and-hospice/",
-  "empresa": "Triniti Home Health and Hospice",
+  "empresa": "Triniti Home Health And Hospice",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13638,7 +13495,7 @@
  },
  {
   "ruta": "/settlements/truamerica-multifamily/",
-  "empresa": "TruAmerica Multifamily",
+  "empresa": "Truamerica Multifamily",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13651,7 +13508,7 @@
  },
  {
   "ruta": "/settlements/uei-college/",
-  "empresa": "UEI College",
+  "empresa": "Uei College",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13664,7 +13521,7 @@
  },
  {
   "ruta": "/settlements/united-group-of-companies/",
-  "empresa": "United Group of Companies",
+  "empresa": "United Group Of Companies",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13729,7 +13586,7 @@
  },
  {
   "ruta": "/settlements/university-of-san-francisco/",
-  "empresa": "University of San Francisco",
+  "empresa": "University Of San Francisco",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13755,7 +13612,7 @@
  },
  {
   "ruta": "/settlements/usa-debusk/",
-  "empresa": "USA DeBusk",
+  "empresa": "Usa Debusk",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13794,7 +13651,7 @@
  },
  {
   "ruta": "/settlements/vernon-waldrep-ob-gyn-associates/",
-  "empresa": "Vernon & Waldrep OB-Gyn Associates",
+  "empresa": "Vernon Waldrep Ob Gyn Associates",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13820,7 +13677,7 @@
  },
  {
   "ruta": "/settlements/vista-del-mar-child-and-family-services/",
-  "empresa": "Vista Del Mar Child and Family Services",
+  "empresa": "Vista Del Mar Child And Family Services",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13885,7 +13742,7 @@
  },
  {
   "ruta": "/settlements/westside-gi/",
-  "empresa": "Westside GI",
+  "empresa": "Westside Gi",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13911,7 +13768,7 @@
  },
  {
   "ruta": "/settlements/winn-dixie/",
-  "empresa": "Winn-Dixie",
+  "empresa": "Winn Dixie",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13924,7 +13781,7 @@
  },
  {
   "ruta": "/settlements/women-s-center-for-radiology/",
-  "empresa": "Women's Center for Radiology",
+  "empresa": "Women S Center For Radiology",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13950,7 +13807,7 @@
  },
  {
   "ruta": "/settlements/youlend-us/",
-  "empresa": "YouLend US",
+  "empresa": "Youlend Us",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,
@@ -13963,7 +13820,7 @@
  },
  {
   "ruta": "/settlements/zhealth/",
-  "empresa": "zHealth",
+  "empresa": "Zhealth",
   "tipo": "investigacion abierta",
   "fondo": null,
   "pago": null,

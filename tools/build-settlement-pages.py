@@ -50,6 +50,35 @@ def slugify(s):
     return re.sub(r'-+', '-', s).strip('-')
 
 
+# Trece de los 568 no son empresas, son titulares. La fuente mezcla sus
+# noticias con sus fichas de acuerdo y el slug lo arrastra.
+#
+# Dos tratos distintos, porque son dos cosas distintas. "Judge denies $50M
+# Yahoo settlement" es una noticia sobre un acuerdo que no ocurrio: no merece
+# pagina. "Wawa agrees to $13M" si es un acuerdo real al que se le pego el
+# titular al nombre: se le quita la cola y queda Wawa.
+NOTICIA = re.compile(r'^(judge|court)-|urge-judge|must-set-aside|-denies-|-denied-', re.I)
+COLA_TITULAR = re.compile(
+    r'-(agrees?(-to)?|reaches?|gets?|get|settles?|oks?|approves?|revised|'
+    r'must|pays?)(-to)?(-\$?[\d.,]+[mkb]?)?$', re.I)
+
+
+def nombre_limpio(empresa):
+    """Quita la cola de titular del nombre, o None si la ficha es una noticia."""
+    s = (empresa or '').strip()
+    if not s or NOTICIA.search(slugify(s)):
+        return None
+    sl = slugify(s)
+    antes = None
+    while antes != sl:
+        antes = sl
+        sl = COLA_TITULAR.sub('', sl)
+        sl = re.sub(r'-\$?[\d.,]+[mkb]?$', '', sl)
+    if len(sl) < 3:
+        return None
+    return ' '.join(w.capitalize() for w in sl.split('-') if w)
+
+
 def core(s):
     return tuple(w for w in re.sub(r'[^a-z0-9]+', ' ', (s or '').lower()).split()
                  if w not in STOP and len(w) > 2)
@@ -112,7 +141,7 @@ paginas = {}
 
 # 1. acuerdos: hay dinero, plazo y administrador
 for r in tca:
-    emp = (r.get('empresa') or '').strip()
+    emp = nombre_limpio(r.get('empresa'))
     if not emp:
         continue
     s = slugify(emp)
@@ -136,7 +165,7 @@ for r in tca:
 for r in cao:
     if r.get('estado_caso') not in ('investigacion abierta', 'acuerdo', 'demanda presentada'):
         continue
-    emp = (r.get('empresa') or '').strip()
+    emp = nombre_limpio(r.get('empresa'))
     if not emp:
         continue
     s = slugify(emp)
