@@ -274,15 +274,41 @@ def enlazado(host, enlaces):
 def host_de(u):
     try:
         h = urllib.parse.urlsplit(str(u) if '://' in str(u) else '//' + str(u)).hostname
-        return (h or '').lower().removeprefix('www.')
+        return (h or '').lower().rstrip('.').removeprefix('www.')
     except Exception:
         return ''
 
 
-def mismo_sitio(a, b):
-    """La ficha de un acuerdo de classaction.org vive en classaction.org."""
-    ha, hb = host_de(a), host_de(b)
-    return bool(ha) and bool(hb) and (ha == hb or ha.endswith('.' + hb) or hb.endswith('.' + ha))
+def mismo_sitio(detalle, fuente):
+    """La ficha de un acuerdo de classaction.org vive en classaction.org.
+
+    Esta URL la propone el modelo leyendo una pagina ajena, y de aqui sale la
+    siguiente descarga. Sin atarla al sitio de origen, el texto de esa pagina
+    elige a donde vamos, que es lo que convierte una extraccion en una
+    peticion forjada desde el servidor.
+
+    Dos condiciones, y las dos hacen falta. El esquema tiene que ser http o
+    https, porque ftp:// y gopher:// pasaban la comprobacion de host sin ser
+    nunca una pagina que queramos leer. Y la ficha tiene que estar en el host
+    de la fuente o por debajo, nunca por encima: con la fuente en
+    cases.ra.kroll.com, subir a kroll.com seria ampliar el destino en vez de
+    acotarlo.
+
+    Devuelve la URL absoluta a descargar, o None. Una ruta relativa se
+    resuelve contra la fuente, que es seguro porque una URL absoluta de otro
+    dominio sigue siendo absoluta despues de resolverla y cae igual.
+    """
+    try:
+        abs_url = urllib.parse.urljoin(str(fuente), str(detalle).strip())
+        d = urllib.parse.urlsplit(abs_url)
+    except Exception:
+        return None
+    if d.scheme.lower() not in ('http', 'https'):
+        return None
+    hd, hf = host_de(abs_url), host_de(fuente)
+    if not hd or not hf:
+        return None
+    return abs_url if (hd == hf or hd.endswith('.' + hf)) else None
 
 
 def clave_empresa(s):
@@ -429,8 +455,9 @@ def main():
                 # salio. Sin esto, un texto inyectado elige donde vamos a
                 # buscar la corroboracion, nos manda a una pagina suya, y la
                 # comprobacion se aprueba a si misma.
-                if mismo_sitio(detalle, url):
-                    segunda.append((nombre, detalle, r))
+                ficha = mismo_sitio(detalle, url)
+                if ficha:
+                    segunda.append((nombre, ficha, r))
                     continue
                 motivo = 'la ficha apunta fuera del sitio de origen'
             descartes[motivo] = descartes.get(motivo, 0) + 1
