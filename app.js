@@ -137,6 +137,7 @@ const COPY = {
         alertsMissedMax: 'hasta',
         alertsMissedClosed: 'El plazo cerró el',
         alertsMissedNoAmount: 'con acuerdo pagado',
+        alertsMissedClaim: 'Reclamar en',
 
         // Deliberately in English inside the Spanish copy. It is shown to
         // somebody the server places in the United States who landed here,
@@ -351,6 +352,7 @@ const COPY = {
         alertsMissedMax: 'up to',
         alertsMissedClosed: 'The window closed on',
         alertsMissedNoAmount: 'settled and paid out',
+        alertsMissedClaim: 'Claim at',
 
         // In Spanish inside the English copy, for the same reason its twin in
         // the es block is in English: it addresses a reader who may not read
@@ -1608,14 +1610,36 @@ function renderMissed(rows) {
             { year: 'numeric', month: 'long', day: 'numeric' });
     };
 
-    document.getElementById('alertsMissedList').innerHTML = rows.map(s => `
+    // The claim link is the whole point of telling somebody this. A line that
+    // says money existed and then stops is worse than saying nothing: it
+    // leaves the reader to search for the administrator themselves, which is
+    // exactly where the sites that charge to file a free claim are waiting.
+    //
+    // Two links, because they answer different questions. The company name
+    // opens our own page for the case, which says who was covered and whether
+    // the window is shut. "Claim at" goes straight to the court-appointed
+    // administrator, with nofollow and noopener, because that is the only
+    // place a claim counts and we take nothing from it.
+    document.getElementById('alertsMissedList').innerHTML = rows.map(s => {
+        const nombre = escapeHtml(s.titulo || s.empresa);
+        const co = s.slug
+            ? `<a class="m-co" href="/settlements/${encodeURIComponent(s.slug)}/">${nombre}</a>`
+            : `<span class="m-co">${nombre}</span>`;
+        const sitio = (s.sitio || '').trim();
+        const href = sitio && (/^https?:\/\//i.test(sitio) ? sitio : 'https://' + sitio.replace(/^\/+/, ''));
+        const reclamo = href
+            ? `<a class="m-claim" href="${escapeHtml(href)}" rel="nofollow noopener" target="_blank">${escapeHtml(t().alertsMissedClaim)} ${escapeHtml(sitio)}</a>`
+            : '';
+        return `
         <li>
-            <span class="m-co">${escapeHtml(s.titulo || s.empresa)}</span>
+            ${co}
             <span class="m-amt">${s.porPersona
                 ? escapeHtml(t().alertsMissedMax + ' ' + fmt(s.porPersona))
                 : escapeHtml(t().alertsMissedNoAmount)}</span>
             ${s.plazo ? `<span class="m-when">${escapeHtml(t().alertsMissedClosed + ' ' + when(s.plazo))}</span>` : ''}
-        </li>`).join('');
+            ${reclamo}
+        </li>`;
+    }).join('');
 
     box.hidden = false;
     generic.hidden = true;

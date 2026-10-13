@@ -9238,7 +9238,7 @@
   "plazo": "2022-03-15",
   "abierto": false,
   "sitio": "InfinityClassSettlement.com",
-  "en_hibp": false,
+  "en_hibp": true,
   "lastmod": "2026-10-12",
   "priority": "0.7"
  },

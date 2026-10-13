@@ -12,12 +12,10 @@
   "estado": "investigacion cerrada",
   "fondo": null,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "Florida",
   "datos_afectados": [],
-  "desc": "At A Glance What's Going On? Attorneys are looking into claims from hackers that billions of records were stolen from Florida-based background check firm National Public Data. Does This Cost Anything? It costs nothing to get in touch or to talk to someone about your rights. What Can I Get? If National Public Data was indeed breached by hackers, a class action lawsuit could provide those affected with money for any resulting harm. National Public Data: Possible Hack? Lawsuit Investigation Attorneys working with ClassAction.org are looking into whether a class action lawsuit can be filed in ligh"
+  "estado_sede": "Florida"
  },
  {
   "hibp": "AdvanceAutoParts",
@@ -52,10 +50,8 @@
   "estado": "acuerdo",
   "fondo": 10000000,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "",
   "datos_afectados": [
    "Social Security Number",
    "Date of Birth",
@@ -63,7 +59,7 @@
    "Government-Issued ID Number",
    "Name"
   ],
-  "desc": "At A Glance What's Going On? Attorneys need to hear from people affected by the Advance Auto Parts data breach as they investigate whether a class action lawsuit can be filed. Does This Cost Anything? It costs nothing to get in touch or to talk to someone about your rights. What Can I Get? If filed and successful, a class action lawsuit could provide consumers with money for any harm resulting from the breach. Advance Auto Parts Data Breach: Lawsuit Investigation Attorneys working with ClassAction.org are looking into whether a class action lawsuit can be filed in light of the Advance Auto Par"
+  "estado_sede": ""
  },
  {
   "hibp": "Luxottica",
@@ -98,12 +94,10 @@
   "estado": "investigacion cerrada",
   "fondo": null,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "",
   "datos_afectados": [],
-  "desc": "At A Glance What's Going On? Attorneys need to hear from customers of Hot Topic, Torrid and BoxLunch as they investigate whether a class action lawsuit can be filed over a potential data breach of customer information. Does This Cost Anything? It costs nothing to get in touch or to talk to someone about your rights. What Can I Get? If filed and successful, a class action lawsuit could provide consumers with money for any harm resulting from the possible breach. Hot Topic Data Breach?: Lawsuit Investigation Attorneys working with ClassAction.org are looking into whether a class action lawsuit c"
+  "estado_sede": ""
  },
  {
   "hibp": "NeimanMarcus",
@@ -218,15 +212,13 @@
   "estado": "investigacion abierta",
   "fondo": null,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "",
   "datos_afectados": [
    "Social Security Number",
    "Personal Information"
   ],
-  "desc": "At A Glance What's Going On? Attorneys are gathering people affected by the Prosper data breach to take legal action via mass arbitration. What You Can Do If you're a current or former Prosper member or accountholder and live in California, New York or Virginia, fill out this quick form to sign up. Though there are no guarantees, you could be owed $100s under state law. What Am I Signing Up For, Exactly? You are signing up for what’s known as mass arbitration, which is different from a class action and involves hundreds or thousands of consumers filing individual arbitration claims against the"
+  "estado_sede": ""
  },
  {
   "hibp": "Carhartt",
@@ -241,12 +233,10 @@
   "estado": "investigacion abierta",
   "fondo": null,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "Michigan",
   "datos_afectados": [],
-  "desc": "At A Glance What's Going On? Attorneys need to hear from people who believe their information may have been put at risk amid reports of a possible Carhartt data breach . What You Can Do If you're affiliated with Carhartt and believe your information could have been exposed, fill out the form on this page to learn more about the investigation and how you can help. Does This Cost Anything? It costs nothing to get in touch or to talk to someone about your rights. What Can I Get? If filed and successful, a class action lawsuit could provide consumers with money for any harm resulting from the alle"
+  "estado_sede": "Michigan"
  },
  {
   "hibp": "ExactSciences",
@@ -261,12 +251,10 @@
   "estado": "investigacion abierta",
   "fondo": null,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "",
   "datos_afectados": [],
-  "desc": "At A Glance What's Going On? Attorneys need to hear from people who believe their information may have been impacted amid reports of a possible Exact Sciences data breach . What You Can Do If you're affiliated with Exact Sciences and suspect your information may have been put at risk, fill out the form on this page to learn more about the investigation and how you can help. Does This Cost Anything? It costs nothing to get in touch or to talk to someone about your rights. What Can I Get? If filed and successful, a class action lawsuit could provide consumers with money for any harm resulting fr"
+  "estado_sede": ""
  },
  {
   "hibp": "Experian",
@@ -301,12 +289,10 @@
   "estado": "investigacion abierta",
   "fondo": null,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "Texas",
   "datos_afectados": [],
-  "desc": "At A Glance What's Going On? Attorneys need to hear from people affected by the McKesson data breach as they investigate whether a class action lawsuit can be filed. What You Can Do If you believe your information may have been compromised in the McKesson data breach, fill out the form on this page to learn more about the investigation and how you can help. Does This Cost Anything? It costs nothing to get in touch or to talk to someone about your rights. What Can I Get? If filed and successful, a class action lawsuit could provide consumers with money for any harm resulting from the McKesson b"
+  "estado_sede": "Texas"
  },
  {
   "hibp": "ZenBusiness",
@@ -321,12 +307,10 @@
   "estado": "investigacion cerrada",
   "fondo": null,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "",
   "datos_afectados": [],
-  "desc": "At A Glance What's Going On? Attorneys need to hear from people who believe they were affected by the possible ZenBusiness data breach as they investigate whether a class action lawsuit can be filed. Does This Cost Anything? It costs nothing to get in touch or to talk to someone about your rights. What Can I Get? If filed and successful, a class action lawsuit could provide consumers with money for any harm resulting from the reported ZenBusiness breach. ZenBusiness Cyberattack: Lawsuit Investigation Attorneys working with ClassAction.org are looking into whether a class action lawsuit can be "
+  "estado_sede": ""
  },
  {
   "hibp": "Robinhood",
@@ -421,10 +405,8 @@
   "estado": "investigacion cerrada",
   "fondo": null,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "",
   "datos_afectados": [
    "Social Security Number",
    "Date of Birth",
@@ -437,7 +419,7 @@
    "Medicare/Medicaid Number",
    "Medical Treatment"
   ],
-  "desc": "At A Glance What's Going On? Attorneys need to hear from people who may have been affected by the DentaQuest data breach as they investigate whether a class action lawsuit can be filed. Does This Cost Anything? It costs nothing to get in touch or to talk to someone about your rights. What Can I Get? If filed and successful, a class action lawsuit could provide consumers with money for any harm resulting from the DentaQuest breach. DentaQuest Data Breach: Lawsuit Investigation Attorneys working with ClassAction.org are looking into whether a class action lawsuit can be filed in light of the Den"
+  "estado_sede": ""
  },
  {
   "hibp": "Drizly",
@@ -492,14 +474,12 @@
   "estado": "investigacion abierta",
   "fondo": null,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "",
   "datos_afectados": [
    "Name"
   ],
-  "desc": "At A Glance What's Going On? Attorneys need to hear from people affected by the Moody Bible Institute data breach as they investigate whether a class action lawsuit can be filed. What You Can Do If you believe your information may have been compromised in the Moody Bible Institute data breach, fill out the form on this page to learn more about the investigation and how you can help. Does This Cost Anything? It costs nothing to get in touch or to talk to someone about your rights. What Can I Get? If filed and successful, a class action lawsuit could provide consumers with money for any harm res"
+  "estado_sede": ""
  },
  {
   "hibp": "MC2Data",
@@ -514,10 +494,8 @@
   "estado": "investigacion cerrada",
   "fondo": null,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "",
   "datos_afectados": [
    "Date of Birth",
    "Address",
@@ -532,7 +510,7 @@
    "Property Records",
    "Family, Relatives, Neighbors Data"
   ],
-  "desc": "At A Glance What's Going On? Attorneys need to hear from people affected by the reported MC2 Data leak as they investigate whether a class action lawsuit can be filed. Does This Cost Anything? It costs nothing to get in touch or to talk to someone about your rights. What Can I Get? If filed and successful, a class action lawsuit could provide consumers with money for any harm resulting from the reported data leak. MC2 Data - Data Leak: Lawsuit Investigation Attorneys working with ClassAction.org are looking into whether a class action lawsuit can be filed in light of the reported MC2 Data leak"
+  "estado_sede": ""
  },
  {
   "hibp": "SpyX",
@@ -547,12 +525,10 @@
   "estado": "investigacion cerrada",
   "fondo": null,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "",
   "datos_afectados": [],
-  "desc": "At A Glance What's Going On? Attorneys need to hear from customers who may be affected by the potential SpyX data breach as they investigate whether a class action lawsuit can be filed. Does This Cost Anything? It costs nothing to get in touch or to talk to someone about your rights. What Can I Get? If filed and successful, a class action lawsuit over the potential SpyX data breach could provide consumers with money for any resulting harm. SpyX Data Breach?: Lawsuit Investigation Attorneys working with ClassAction.org are looking into whether a class action lawsuit can be filed in light of rep"
+  "estado_sede": ""
  },
  {
   "hibp": "AllianzLife",
@@ -567,14 +543,12 @@
   "estado": "investigacion cerrada",
   "fondo": null,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "",
   "datos_afectados": [
    "Personal Information"
   ],
-  "desc": "At A Glance What's Going On? Attorneys need to hear from people affected by the Allianz Life data breach as they investigate whether a class action lawsuit can be filed. Does This Cost Anything? It costs nothing to get in touch or to talk to someone about your rights. What Can I Get? If filed and successful, a class action lawsuit could provide consumers with money for any harm resulting from the breach. Allianz Life Data Breach: Lawsuit Investigation Attorneys working with ClassAction.org are looking into whether a class action lawsuit can be filed in light of the Allianz Life data breach. As"
+  "estado_sede": ""
  },
  {
   "hibp": "Fluke",
@@ -589,16 +563,14 @@
   "estado": "investigacion cerrada",
   "fondo": null,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "",
   "datos_afectados": [
    "Social Security Number",
    "Date of Birth",
    "Self-Identification of a Disability"
   ],
-  "desc": "At A Glance What's Going On? Attorneys need to hear from people affected by the Fluke data breach as they investigate whether a class action lawsuit can be filed. Does This Cost Anything? It costs nothing to get in touch or to talk to someone about your rights. What Can I Get? If filed and successful, a class action lawsuit could provide consumers with money for any harm resulting from the Fluke breach. Fluke Data Breach: Lawsuit Investigation Attorneys working with ClassAction.org are looking into whether a class action lawsuit can be filed in light of the Fluke data breach. As part of their "
+  "estado_sede": ""
  },
  {
   "hibp": "mSpy",
@@ -613,12 +585,10 @@
   "estado": "investigacion cerrada",
   "fondo": null,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "",
   "datos_afectados": [],
-  "desc": "At A Glance What's Going On? Attorneys need to hear from people affected by the mSpy data breach as they investigate whether a class action lawsuit can be filed. Does This Cost Anything? It costs nothing to get in touch or to talk to someone about your rights. What Can I Get? If filed and successful, a class action lawsuit could provide consumers with money for any harm resulting from the breach. mSpy Data Breach: Lawsuit Investigation Attorneys working with ClassAction.org are looking into whether a class action lawsuit can be filed in light of the mSpy data breach. As part of their investiga"
+  "estado_sede": ""
  },
  {
   "hibp": "UniversityOfPennsylvania",
@@ -633,12 +603,10 @@
   "estado": "investigacion cerrada",
   "fondo": null,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "",
   "datos_afectados": [],
-  "desc": "At A Glance What's Going On? Attorneys need to hear from people who may have been affected by the University of Pennsylvania data breach as they investigate whether a class action lawsuit can be filed. Does This Cost Anything? It costs nothing to get in touch or to talk to someone about your rights. What Can I Get? If filed and successful, a class action lawsuit could provide consumers with money for any harm resulting from the breach. University of Pennsylvania Data Breach: Lawsuit Investigation Attorneys working with ClassAction.org are looking into whether a class action lawsuit can be file"
+  "estado_sede": ""
  },
  {
   "hibp": "Comcast",
@@ -713,12 +681,10 @@
   "estado": "investigacion cerrada",
   "fondo": null,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "",
   "datos_afectados": [],
-  "desc": "At A Glance What's Going On? Attorneys need to hear from people affected by the Life360 data breach as they investigate whether a class action lawsuit can be filed. Does This Cost Anything? It costs nothing to get in touch or to talk to someone about your rights. What Can I Get? If filed and successful, a class action lawsuit could provide consumers with money for any harm resulting from the breach. Life360 Data Breach: Lawsuit Investigation Attorneys working with ClassAction.org are looking into whether a class action lawsuit can be filed in light of the Life360 data breach. As part of their "
+  "estado_sede": ""
  },
  {
   "hibp": "Neogen",
@@ -733,12 +699,10 @@
   "estado": "investigacion abierta",
   "fondo": null,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "Michigan",
   "datos_afectados": [],
-  "desc": "At A Glance What's Going On? Attorneys need to hear from people who believe their information may have been exposed amid reports of a possible Neogen data breach . What You Can Do If you are affiliated with Neogen and believe your information may have been put at risk, fill out the form on this page to learn more about the investigation and how you can help. Does This Cost Anything? It costs nothing to get in touch or to talk to someone about your rights. What Can I Get? If filed and successful, a class action lawsuit could provide consumers with money for any harm resulting from the alleged N"
+  "estado_sede": "Michigan"
  },
  {
   "hibp": "JCPenney",
@@ -753,12 +717,10 @@
   "estado": "investigacion cerrada",
   "fondo": null,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "",
   "datos_afectados": [],
-  "desc": "At A Glance What's Going On? Attorneys need to hear from people who believe they may have been affected by the reported JCPenney data breach as they investigate whether a class action can be filed. Does This Cost Anything? It costs nothing to get in touch or to talk to someone about your rights. What Can I Get? If filed and successful, a class action lawsuit could provide consumers with money for any harm resulting from the reported JCPenney breach. JCPenney Data Breach?: Lawsuit Investigation Attorneys working with ClassAction.org are looking into whether a class action lawsuit can be filed i"
+  "estado_sede": ""
  },
  {
   "hibp": "Sharecare",
@@ -773,12 +735,30 @@
   "estado": "investigacion abierta",
   "fondo": null,
   "pago_por_persona": null,
-  "elegible": null,
   "plazo": null,
   "sitio_reclamo": null,
-  "estado_sede": "",
   "datos_afectados": [],
-  "desc": "At A Glance What's Going On? Attorneys need to hear from people who believe their information could have been exposed amid reports of a potential Sharecare data breach . What You Can Do If you're affiliated with Sharecare and believe your information may have been put at risk, fill out the form on this page to learn more about the investigation and how you can help. Does This Cost Anything? It costs nothing to get in touch or to talk to someone about your rights. What Can I Get? If filed and successful, a class action lawsuit could provide consumers with money for any harm resulting from the a"
+  "estado_sede": ""
+ },
+ {
+  "hibp": "Kemper",
+  "titulo_hibp": "Kemper",
+  "cuentas": 269299,
+  "dominio": "kemper.com",
+  "fecha_filtracion": "2026-04-15",
+  "empresa": "Kemper Corp Infinity Insurance",
+  "fuente_catalogo": "topclassactions",
+  "url_caso": "https://topclassactions.com/lawsuit-settlements/closed-settlements/kemper-corp-infinity-insurance-data-breaches-class-action-settlement/",
+  "dudoso": false,
+  "estado": "acuerdo",
+  "fondo": null,
+  "pago_por_persona": null,
+  "premio": "Varies",
+  "elegible": "Class Members include U.S. citizens who were affected by a data incident involving the Kemper Corp. and Infinity Insurance Co. that occurred Dec. 14, 2020, and March 25, 2021, and who received notifications by mail that explained their information was compromised during the incident. There is also a Subclass for California residents.",
+  "plazo": "2022-03-15",
+  "audiencia_final": "2022-03-15",
+  "sitio_reclamo": "InfinityClassSettlement.com",
+  "caso": "Aguallo, et al. v. Kemper Corp. and Infinity Insurance Co. Inc. , Case No. 1:21-cv-01883 in the U.S. District Court for the Northern District of Illinois, Eastern Division"
  },
  {
   "hibp": "Wendys",

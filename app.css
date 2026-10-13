@@ -786,7 +786,24 @@ img { max-width: 100%; }
     color: var(--field-ink);
     font-size: 14.5px;
 }
-.alerts-missed .m-co { font-weight: 700; }
+.alerts-missed .m-co { font-weight: 700; color: inherit; }
+a.alerts-missed .m-co,
+.alerts-missed a.m-co { text-decoration: underline; text-underline-offset: 2px; }
+.alerts-missed a.m-co:hover { text-decoration-thickness: 2px; }
+
+/* Where the money is actually claimed. It sits on its own line under the
+   amount because it is the one thing on this card somebody can act on, and
+   a reader who finds it two lines later has already stopped reading. */
+.alerts-missed .m-claim {
+    width: 100%;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--field-ink);
+    opacity: .85;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+.alerts-missed .m-claim:hover { opacity: 1; }
 .alerts-missed .m-amt {
     font-family: 'Nunito', sans-serif;
     font-weight: 900;
