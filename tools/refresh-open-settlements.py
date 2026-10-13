@@ -118,6 +118,12 @@ PETICION = ('Extract every settlement listed on this page that is currently OPEN
             'ransomware or a privacy violation. Skip anything that is a news story '
             'about a proposed or rejected settlement rather than one accepting claims.')
 
+# Solo filtraciones de datos, por decision del 12 de octubre. El sitio
+# engancha por filtraciones y una alerta sobre jabon mal anunciado no es lo
+# que nadie vino a buscar aqui. Los demas se siguen extrayendo y se cuentan,
+# pero no se publican: cambiar de criterio es poner esto en False.
+SOLO_FILTRACIONES = True
+
 FUENTES = [
     ('classaction.org', 'https://www.classaction.org/settlements'),
     ('topclassactions', 'https://topclassactions.com/lawsuit-settlements/open-lawsuit-settlements/'),
@@ -144,16 +150,21 @@ def firecrawl(url):
             with urllib.request.urlopen(req, timeout=180) as r:
                 d = json.loads(r.read())
             dd = d.get('data') or {}
-            return dd.get('json') or {}, dd.get('links') or []
+            # Donde acabo de verdad. La fuente puede tener un /out?url= y
+            # Firecrawl sigue los 30x, asi que una URL que valido como propia
+            # puede terminar sirviendo otra pagina.
+            final = ((dd.get('metadata') or {}).get('url')
+                     or (dd.get('metadata') or {}).get('sourceURL') or url)
+            return dd.get('json') or {}, dd.get('links') or [], final
         except urllib.error.HTTPError as e:
             print(f'    HTTP {e.code} en {url}', file=sys.stderr)
             if e.code in (402, 401, 403):
-                return {}, []
+                return {}, [], url, url
             time.sleep(10 * (n + 1))
         except Exception as e:
             print(f'    {e} en {url}', file=sys.stderr)
             time.sleep(10 * (n + 1))
-    return {}, []
+    return {}, [], url
 
 
 MESES = ('january february march april may june july august september october '
@@ -298,17 +309,35 @@ def mismo_sitio(detalle, fuente):
     resuelve contra la fuente, que es seguro porque una URL absoluta de otro
     dominio sigue siendo absoluta despues de resolverla y cae igual.
     """
+    bruto = str(detalle).strip()
+    # Python y el navegador no leen igual la misma cadena, y de ahi sale el
+    # agujero: urljoin dice que https:/\/\evil.com/x esta en classaction.org
+    # porque trata la barra invertida como un caracter cualquiera, mientras
+    # que un navegador la convierte en barra y termina en evil.com. Quien
+    # descarga es un navegador, asi que lo que no se lea igual en los dos no
+    # entra.
+    if any(c in bruto for c in '\\\t\n\r ') or '%2f' in bruto.lower() or '%5c' in bruto.lower():
+        return None
+    if any(ord(c) < 32 or ord(c) == 127 for c in bruto):
+        return None
     try:
-        abs_url = urllib.parse.urljoin(str(fuente), str(detalle).strip())
+        abs_url = urllib.parse.urljoin(str(fuente), bruto)
         d = urllib.parse.urlsplit(abs_url)
     except Exception:
         return None
     if d.scheme.lower() not in ('http', 'https'):
         return None
+    if '@' in d.netloc or d.port is not None:
+        return None
     hd, hf = host_de(abs_url), host_de(fuente)
     if not hd or not hf:
         return None
-    return abs_url if (hd == hf or hd.endswith('.' + hf)) else None
+    if hd != hf and not hd.endswith('.' + hf):
+        return None
+    # Se reconstruye en vez de devolver la cadena original, para que lo que se
+    # descargue sea exactamente lo que se valido y no otra lectura de ella.
+    return urllib.parse.urlunsplit((d.scheme.lower(), d.hostname.lower(),
+                                    d.path or '/', d.query, ''))
 
 
 def clave_empresa(s):
@@ -433,12 +462,16 @@ def main():
 
     for nombre, url in FUENTES:
         print(f'{nombre} ...', flush=True)
-        d, enlaces = firecrawl(url)
+        d, enlaces, _ = firecrawl(url)
         filas = d.get('settlements') or []
         print(f'  {len(filas)} extraidos', flush=True)
         for r in filas:
             limpio, motivo = verificar(r, nombre, enlaces)
             if limpio:
+                if SOLO_FILTRACIONES and not limpio['filtracion']:
+                    descartes['no es por filtracion de datos'] = \
+                        descartes.get('no es por filtracion de datos', 0) + 1
+                    continue
                 guardar_vivo(limpio)
                 continue
             # La pagina indice a menudo no muestra el enlace del administrador,
@@ -465,7 +498,11 @@ def main():
     if segunda:
         print(f'\nsegunda pasada: {len(segunda)} fichas por abrir', flush=True)
         for nombre, detalle, r in segunda:
-            d, enlaces = firecrawl(detalle)
+            d, enlaces, final = firecrawl(detalle)
+            if not mismo_sitio(final, detalle):
+                descartes['la ficha redirigio fuera del sitio'] = \
+                    descartes.get('la ficha redirigio fuera del sitio', 0) + 1
+                continue
             # La ficha habla de un solo acuerdo, asi que sus enlaces son del
             # caso y no del catalogo entero. Corroborar aqui es mas estrecho
             # que hacerlo contra un indice lleno de anuncios y patrocinios.
@@ -477,7 +514,10 @@ def main():
                 continue
             fundido = {**r, **{k: v for k, v in cand.items() if v}}
             limpio, motivo = verificar(fundido, nombre, enlaces)
-            if limpio:
+            if limpio and SOLO_FILTRACIONES and not limpio['filtracion']:
+                descartes['no es por filtracion de datos'] = \
+                    descartes.get('no es por filtracion de datos', 0) + 1
+            elif limpio:
                 guardar_vivo(limpio)
             else:
                 descartes[f'{motivo} (2a pasada)'] = descartes.get(f'{motivo} (2a pasada)', 0) + 1
@@ -493,6 +533,8 @@ def main():
             continue
         pl = viejo.get('plazo')
         if pl and pl < HOY.isoformat():
+            continue
+        if SOLO_FILTRACIONES and not viejo.get('filtracion'):
             continue
         viejo['revisto'] = False
         vivos[k] = viejo
