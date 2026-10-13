@@ -2,7 +2,7 @@
 <!--
   Generado por tools/build-sitemap.py. No editar a mano.
 
-  7 pares de idioma mas 1091 paginas de acuerdos.
+  7 pares de idioma mas 1092 paginas de acuerdos.
   x-default apunta al ingles: es el mercado por defecto del producto.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -121,6 +121,11 @@
         <xhtml:link rel="alternate" hreflang="x-default" href="https://www.am-i-exposed.com/terms/"/>
         <lastmod>2026-09-25</lastmod>
         <priority>0.3</priority>
+    </url>
+    <url>
+        <loc>https://www.am-i-exposed.com/settlements/lands-end/</loc>
+        <lastmod>2026-10-12</lastmod>
+        <priority>0.9</priority>
     </url>
     <url>
         <loc>https://www.am-i-exposed.com/settlements/tracfone-wireless/</loc>

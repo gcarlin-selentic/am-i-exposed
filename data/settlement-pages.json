@@ -1,5 +1,18 @@
 [
  {
+  "ruta": "/settlements/lands-end/",
+  "empresa": "Lands End",
+  "tipo": "abierto",
+  "fondo": null,
+  "pago": 5000,
+  "plazo": "2026-10-22",
+  "abierto": true,
+  "sitio": "landsenddatasettlement.com",
+  "en_hibp": false,
+  "lastmod": "2026-10-12",
+  "priority": "0.9"
+ },
+ {
   "ruta": "/settlements/tracfone-wireless/",
   "empresa": "Tracfone Wireless",
   "tipo": "acuerdo",

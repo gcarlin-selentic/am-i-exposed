@@ -1,0 +1,20 @@
+[
+ {
+  "empresa": "Lands End",
+  "nombre": "Lands End Data Breach Class Action Settlement",
+  "cubre": "You may be included if your information was compromised in the December 2024 Lands End data breach.",
+  "plazo": "2026-10-22",
+  "plazo_texto": "10/22/26",
+  "pago_por_persona": 5000,
+  "pago_texto": "$60 - $5,000",
+  "fondo": null,
+  "comprobante": "no",
+  "sitio_reclamo": "landsenddatasettlement.com",
+  "caso": "",
+  "filtracion": true,
+  "fuente": "classaction.org",
+  "visto": "2026-10-12",
+  "visto_primero": "2026-10-12",
+  "en_tribunal": false
+ }
+]

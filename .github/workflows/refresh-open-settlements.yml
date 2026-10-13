@@ -1,0 +1,106 @@
+name: Refresh open settlements
+
+# Semanal. La frecuencia la fija el ritmo de los plazos, no nuestra comodidad:
+# el de Lands' End cierra diez dias despues de que lo encontramos. Una pagina
+# que dice "reclama hasta el 22 de octubre" leida el 30 es peor que no tenerla.
+#
+# Lo que NO hace, y es deliberado: ya no reconstruye el archivo historico. Un
+# acuerdo cerrado no vuelve a cambiar, y releerlo cada semana fue lo que puso
+# a TopClassActions a devolvernos 403 en la mitad de las descargas. Lo que
+# cambia son los abiertos, y son decenas, no miles.
+#
+# Por que aqui y no en un cron de Vercel: las paginas son estaticas y se
+# generan de los datos del repositorio. Una funcion de Vercel no puede escribir
+# el repositorio ni provocar el redespliegue. Esto descarga, regenera,
+# confirma, y el push dispara el despliegue que Vercel ya hace con cada commit.
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'      # lunes 09:00 UTC = 04:00 en Lima
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Solo informar, sin escribir ni confirmar'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-settlements
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Antes de tocar nada: los dos validadores del sitio de reclamo tienen
+      # que seguir diciendo lo mismo. Si se separaron, lo que se publique
+      # puede ser un enlace que el navegador habria rechazado.
+      - name: Comprobar que los validadores coinciden
+        run: python3 tools/test-claim-site.py
+
+      - name: Buscar los acuerdos abiertos
+        env:
+          FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
+        run: python3 tools/refresh-open-settlements.py ${{ inputs.dry_run && '--dry-run' || '' }}
+
+      - name: Regenerar las paginas y el sitemap
+        if: ${{ !inputs.dry_run }}
+        run: |
+          python3 tools/cross-hibp.py
+          python3 tools/build-settlement-pages.py
+          python3 tools/build-sitemap.py
+
+      # Una fuente caida devuelve cero sin fallar el paso anterior. Confirmar
+      # eso borraria el catalogo y se desplegaria solo.
+      - name: Comprobar que el catalogo no se vacio
+        if: ${{ !inputs.dry_run }}
+        run: |
+          python3 - <<'PY'
+          import json, sys
+          paginas = json.load(open('data/settlement-pages.json'))
+          casos = [p for p in paginas if p['tipo'] != 'indice']
+          abiertos = [p for p in casos if p['tipo'] == 'abierto']
+          tarjeta = json.load(open('settlements.json'))
+          print(f'casos {len(casos)}, abiertos {len(abiertos)}, tarjeta {len(tarjeta)}')
+          if len(casos) < 800:
+              sys.exit(f'solo {len(casos)} casos: la fuente fallo, no se confirma')
+          if len(tarjeta) < 10:
+              sys.exit(f'solo {len(tarjeta)} filas cruzadas: el cruce fallo, no se confirma')
+          PY
+
+      - name: Confirmar y empujar
+        if: ${{ !inputs.dry_run }}
+        run: |
+          git config user.name  'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add -A data settlements.json settlements sitemap.xml
+          if git diff --cached --quiet; then
+            echo 'sin cambios esta semana'
+            exit 0
+          fi
+          ABIERTOS=$(python3 -c "import json;print(sum(1 for p in json.load(open('data/settlement-pages.json')) if p['tipo']=='abierto'))")
+          PRONTO=$(python3 -c "
+          import json, datetime
+          h = datetime.date.today(); l = (h + datetime.timedelta(days=30)).isoformat()
+          p = json.load(open('data/settlement-pages.json'))
+          print(sum(1 for x in p if x.get('plazo') and h.isoformat() <= x['plazo'] <= l))")
+          git commit -m "Refresh open settlements: ${ABIERTOS} claimable, ${PRONTO} closing within 30 days" \
+                     -m "Automated weekly run of tools/refresh-open-settlements.py."
+          git push
+
+      # Los abiertos son lo unico con urgencia real, asi que se avisa a los
+      # buscadores en cuanto cambian en vez de esperar al rastreo.
+      - name: Avisar a IndexNow
+        if: ${{ !inputs.dry_run }}
+        run: python3 tools/ping-indexnow.py

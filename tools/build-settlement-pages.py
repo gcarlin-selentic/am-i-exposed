@@ -130,6 +130,12 @@ tca = json.load(open(os.path.join(ROOT, 'data', 'tca-settlements.json'), encodin
 cao = json.load(open(os.path.join(ROOT, 'data', 'cao-lawsuits.json'), encoding='utf-8'))
 matched = json.load(open(os.path.join(ROOT, 'data', 'hibp-matched.json'), encoding='utf-8'))
 
+# Los que todavia se pueden reclamar. Es el unico grupo con un plazo en el
+# futuro, asi que gana a cualquier otra version de la misma empresa: de nada
+# sirve la ficha historica de un acuerdo que hoy esta pagando.
+_abiertos = os.path.join(ROOT, 'data', 'open-settlements.json')
+abiertos = json.load(open(_abiertos, encoding='utf-8')) if os.path.exists(_abiertos) else []
+
 # nombre-maquina de HIBP por nucleo de nombre, para enlazar el chequeo gratuito
 hibp_por_core = {}
 for m in matched:
@@ -196,6 +202,24 @@ for r in cao:
         'estados_notificados': r.get('estados_notificados') or [],
     }
 
+# 3. abiertos: mandan sobre todo lo demas
+for r in abiertos:
+    emp = nombre_limpio(r.get('empresa'))
+    if not emp:
+        continue
+    s = slugify(emp)
+    paginas[s] = {
+        '_peso': (True, True, 10 ** 12, 10 ** 12), 'tipo': 'abierto', 'slug': s,
+        'empresa': emp, 'fondo': r.get('fondo'), 'pago': r.get('pago_por_persona'),
+        'premio': r.get('pago_texto'), 'elegible': r.get('cubre'),
+        'plazo': r.get('plazo'), 'audiencia': None,
+        'sitio': r.get('sitio_reclamo'), 'caso': r.get('caso'),
+        'fuente': 'https://' + (r.get('sitio_reclamo') or ''),
+        'fuente_nombre': 'the settlement administrator',
+        'datos': None, 'estado_sede': None, 'desc': None,
+        'comprobante': r.get('comprobante'), 'filtracion': r.get('filtracion'),
+    }
+
 for p in paginas.values():
     p['hibp'] = hibp_por_core.get(core(p['empresa']))
 
@@ -207,7 +231,8 @@ CAVEAT = ('Being in the breach is not the same as being in the class. Class memb
 
 def render(p):
     emp = p['empresa']
-    es_acuerdo = p['tipo'] == 'acuerdo'
+    es_abierto = p['tipo'] == 'abierto'
+    es_acuerdo = p['tipo'] == 'acuerdo' or es_abierto
     url = f"{DOM}/settlements/{p['slug']}/"
     fondo, pago = money(p['fondo']), money(p['pago'])
 
@@ -218,7 +243,13 @@ def render(p):
         except Exception:
             plazo_pasado = None
 
-    if es_acuerdo:
+    if es_abierto:
+        # El titulo de estas lleva la palabra que la gente escribe cuando
+        # todavia esta a tiempo, y no "settlement" a secas.
+        asunto = 'data breach' if p.get('filtracion') else 'class action'
+        h1 = f"{emp} {asunto} settlement: how to claim"
+        title = f"{emp} {asunto} settlement claim | Am I Exposed?"
+    elif es_acuerdo:
         h1 = f"{emp} data breach settlement"
         title = f"{emp} data breach settlement | Am I Exposed?"
     else:
@@ -248,7 +279,17 @@ def render(p):
     elif plazo_pasado is False:
         pasado_txt = (f' Claims are accepted until <strong>{fecha_larga(p["plazo"])}</strong>.')
 
-    if es_acuerdo:
+    if es_abierto:
+        cuanto = (f'up to <strong>{pago} per person</strong>' if pago
+                  else (f'a <strong>{fondo}</strong> fund' if fondo else 'compensation'))
+        cierra = (f'Claims close <strong>{fecha_larga(p["plazo"])}</strong>.' if p['plazo']
+                  else 'No closing date has been published yet.')
+        sin_prueba = ''
+        if (p.get('comprobante') or '').startswith('n'):
+            sin_prueba = ' No proof of purchase is required.'
+        lede = (f'{emp} is paying {cuanto}, and the claim window is '
+                f'<strong>still open</strong>. {cierra}{sin_prueba}')
+    elif es_acuerdo:
         if pago and fondo:
             lede = (f'{emp} settled a data breach claim for {fondo}, with up to '
                     f'<strong>{pago} per person</strong>.{pasado_txt}')
@@ -346,7 +387,12 @@ def render(p):
     href = claim_site.normalizar(p['sitio'])
     sitio = claim_site.mostrar(p['sitio'])
     if href:
-        if plazo_pasado is True:
+        if es_abierto:
+            b.append(f'    <p>File at <a href="{e(href)}" rel="nofollow noopener">'
+                     f'{e(sitio)}</a>, the site run by the administrator the court '
+                     f'appointed. That is the only place a claim counts, it is free, '
+                     f'and nobody should ever charge you to file one.</p>')
+        elif plazo_pasado is True:
             b.append(f'    <p>The administrator&rsquo;s site is '
                      f'<a href="{e(href)}" rel="nofollow noopener">{e(sitio)}</a>. '
                      f'The window is closed, so it is there for the record, not to file.</p>')
@@ -485,8 +531,8 @@ os.makedirs(OUT)
 
 indice = []
 orden = sorted(paginas.values(),
-               key=lambda p: (p['tipo'] != 'acuerdo', -(p['pago'] or 0), -(p['fondo'] or 0),
-                              p['empresa'].lower()))
+               key=lambda p: (p['tipo'] != 'abierto', p['tipo'] != 'acuerdo',
+                              -(p['pago'] or 0), -(p['fondo'] or 0), p['empresa'].lower()))
 for p in orden:
     d = os.path.join(OUT, p['slug'])
     os.makedirs(d, exist_ok=True)
@@ -502,7 +548,7 @@ for p in orden:
         'fondo': p['fondo'], 'pago': p['pago'], 'plazo': p['plazo'], 'abierto': abierto,
         'sitio': p['sitio'], 'en_hibp': bool(p['hibp']),
         'lastmod': HOY.isoformat(),
-        'priority': '0.7' if (p['tipo'] == 'acuerdo' or abierto) else '0.5',
+        'priority': '0.9' if p['tipo'] == 'abierto' else ('0.7' if p['tipo'] == 'acuerdo' else '0.5'),
     })
 
 
