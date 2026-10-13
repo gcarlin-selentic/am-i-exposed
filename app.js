@@ -1595,6 +1595,11 @@ function sitioValido(valor) {
     let s = valor.trim().replace(/[.,;)"'<>]+$/, '');
     if (!s || s.length > 200 || /[\s\\@<>"']/.test(s)) return null;
     const bajo = s.toLowerCase();
+    // Explicito, aunque el patron del host ya los rechazaria por los dos
+    // puntos: que esto dependa de un efecto secundario de otra regla es
+    // justo como se rompen los validadores cuando alguien los retoca.
+    if (['javascript:', 'data:', 'vbscript:', 'file:', 'about:', 'blob:'].some(x => bajo.startsWith(x))) return null;
+    if (bajo.slice(0, 12).includes('%')) return null;
     if (bajo.startsWith('http://') || bajo.startsWith('https://')) s = s.slice(s.indexOf('://') + 3);
     else if (s.includes('://')) return null;
     s = s.replace(/^\/+/, '');

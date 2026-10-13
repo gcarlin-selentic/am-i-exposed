@@ -36,7 +36,12 @@ def normalizar(valor):
     """
     if not valor or not isinstance(valor, str):
         return None
-    s = valor.strip().strip('.,;)"\'<>')
+    # Solo por la cola. Limpiar tambien la cabeza era mas permisivo de lo que
+    # parece: convertia <evil.com y "evil.com en un enlace a evil.com con
+    # nuestra recomendacion encima, en vez de descartar un valor que
+    # evidentemente salio mal de la extraccion. Lo que lleve esos caracteres
+    # delante cae en la comprobacion de abajo, que es lo correcto.
+    s = re.sub(r'[.,;)"\'<>]+$', '', valor.strip())
     if not s or len(s) > 200:
         return None
 
