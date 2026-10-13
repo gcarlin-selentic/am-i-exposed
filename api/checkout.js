@@ -129,9 +129,13 @@ export default async function handler(req, res) {
                     mode: paddle.environment === 'production' ? 'live' : 'test',
                 });
             }
-            // Falls through to Mercado Pago when Paddle is not configured
-            // yet. A buyer who can pay in the wrong currency is better than
-            // a buyer who cannot pay at all.
+            // No fall-through to Mercado Pago. It settles in soles, so the
+            // buyer in Miami would be quoted S/ 19 and charged a foreign
+            // transaction fee on top, against a FAQ that promises US$ 5. A
+            // price that contradicts the published one is worse than no
+            // offer, and this reads as "not for sale here yet", which is the
+            // truth while Paddle reviews the domain.
+            return res.status(200).json({ available: false });
         }
 
         if (!price) return res.status(200).json({ available: false });

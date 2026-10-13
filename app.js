@@ -1461,7 +1461,14 @@ async function openReport() {
 // good.
 function refreshOfferCard() {
     const card = document.getElementById('offerCard');
-    if (card) card.hidden = !lastEmailResult || !!currentUser || knownEntitled;
+    // priceInfo null means the server said there is nothing on sale here. In
+    // the United States that is true while Paddle reviews the domain, and the
+    // card must go with it: shown without a price it reads "&mdash; per
+    // report" over a buy button, which is worse than not offering at all.
+    if (card) {
+        card.hidden = !lastEmailResult || !!currentUser || knownEntitled
+            || (priceChecked && !priceInfo);
+    }
 
     // The explainer answers "what does this even mean", which is a question
     // people have before they check. Once there is a result on the page, of
@@ -1513,7 +1520,11 @@ const US_STATES = [
 const ALERTS_INTENT = 'aie-alerts-after-signin';
 
 let alertsConfig = null;      // null until asked, then {eligible, ...}
-let alertsConfigAsked = false;
+// La promesa, no un booleano. Marcar "ya preguntado" antes de que llegue la
+// respuesta hacia que una segunda llamada devolviera null mientras la primera
+// seguia en vuelo, y quien la recibia leia .eligible de null. Guardar la
+// promesa hace que la segunda espere a la misma peticion.
+let alertsConfigPromise = null;
 let paddleReady = false;
 let alertsDone = false;       // checkout completed in this session
 
@@ -1541,17 +1552,19 @@ function fillAlertStates() {
 // Asked once per visit, and only after somebody has actually run a check, so
 // a visitor who reads the page and leaves never costs an invocation.
 async function loadAlertsConfig() {
-    if (alertsConfigAsked) return alertsConfig;
-    alertsConfigAsked = true;
-    try {
-        const response = await fetch('/api/alerts-config');
-        alertsConfig = response.ok ? await response.json() : { eligible: false };
-    } catch (e) {
-        // Not eligible rather than an error: a visitor should see no card,
-        // not a card that breaks when they press it.
-        alertsConfig = { eligible: false };
-    }
-    return alertsConfig;
+    if (alertsConfigPromise) return alertsConfigPromise;
+    alertsConfigPromise = (async () => {
+        try {
+            const response = await fetch('/api/alerts-config');
+            alertsConfig = response.ok ? await response.json() : { eligible: false };
+        } catch (e) {
+            // Not eligible rather than an error: a visitor should see no card,
+            // not a card that breaks when they press it.
+            alertsConfig = { eligible: false };
+        }
+        return alertsConfig;
+    })();
+    return alertsConfigPromise;
 }
 
 // Settlements that have already paid out, matched against the breaches this
@@ -1984,18 +1997,26 @@ function teaserHTML(data) {
 // visitor cannot name their own.
 // =======================================================================
 let priceInfo = null;
+// Si ya contesto el servidor. Distinto de priceInfo nulo por no haber
+// preguntado todavia: sin esta diferencia, la tarjeta se esconde durante el
+// primer instante de carga en los paises donde si hay precio.
+let priceChecked = false;
 
 async function loadPrice() {
     try {
         const response = await fetch('/api/checkout');
         if (!response.ok) return;
         const data = await response.json();
+        priceChecked = true;
         if (data && data.available) {
             priceInfo = data;
             renderPrice();
-            maybeShowLangHint();
         }
-    } catch (e) { /* the card keeps its placeholder */ }
+        // Tambien cuando no hay oferta: la sugerencia de idioma se apoya en
+        // saber donde esta el visitante, y esa pregunta ya se hizo.
+        maybeShowLangHint();
+        refreshOfferCard();
+    } catch (e) { /* sin respuesta no se esconde nada: puede ser un fallo de red */ }
 }
 
 const LANG_HINT_DISMISSED = 'aie-lang-hint-off';

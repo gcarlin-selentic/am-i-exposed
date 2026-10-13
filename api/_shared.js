@@ -96,11 +96,22 @@ export function paddleConfig(priceEnv) {
     const token = process.env.PADDLE_CLIENT_TOKEN;
     const priceId = process.env[priceEnv];
     if (!token || !priceId) return null;
-    return {
-        token,
-        priceId,
-        environment: token.startsWith('test_') ? 'sandbox' : 'production',
-    };
+    const environment = token.startsWith('test_') ? 'sandbox' : 'production';
+
+    // A sandbox token on the live site is not a configuration, it is a hole.
+    // The checkout only takes test cards, so nobody with a real card can pay;
+    // and a test card does go through, writing live_mode false, which is
+    // exactly what the entitlement check in report.js accepts. So the report
+    // is free to anyone who notices.
+    //
+    // Read off the token rather than kept as a switch somebody has to
+    // remember to flip: the offer comes back by itself the day the live token
+    // is set, with no second deploy and nothing left behind to clean up.
+    if (environment === 'sandbox' && process.env.VERCEL_ENV === 'production') {
+        return null;
+    }
+
+    return { token, priceId, environment };
 }
 
 // The price lives on the server. If the browser could name the amount, the
