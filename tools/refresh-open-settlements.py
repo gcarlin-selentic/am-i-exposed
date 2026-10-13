@@ -71,6 +71,18 @@ PISTAS_DOMINIO = ('settlement', 'claims', 'claim', 'litigation', 'classaction',
                   'recovery', 'payout')
 GOBIERNO = ('ftc.gov', 'justice.gov', 'usdoj.gov', 'sec.gov', 'cfpb.gov', 'hhs.gov')
 
+# Los administradores grandes alojan los casos bajo su propia marca, asi que
+# su dominio no se llama como el acuerdo y la prueba de arriba los tumbaba.
+# La primera corrida rechazo cinco de Kroll, que administra cientos de casos.
+# Son empresas designadas por tribunales, no dominios que cualquiera registra.
+ADMINISTRADORES = (
+    'kroll.com', 'ra.kroll.com', 'angeiongroup.com', 'epiqglobal.com',
+    'epiqglobal.eu', 'jndla.com', 'simpluris.com', 'veritaglobal.com',
+    'kccllc.net', 'gilardi.com', 'rg2claims.com', 'dahladmin.com',
+    'atticusadmin.com', 'postlethwaite.com', 'cptgroup.com', 'noticeadmin.com',
+    'settlementalliance.com', 'classactionadministration.com',
+)
+
 ESQUEMA = {
     'type': 'object',
     'properties': {
@@ -89,6 +101,7 @@ ESQUEMA = {
                     'claim_site': {'type': 'string', 'description': 'URL del sitio OFICIAL del administrador donde se reclama, no la del sitio que publica la lista'},
                     'case_name': {'type': 'string', 'description': 'Nombre del caso y tribunal si aparecen'},
                     'is_data_breach': {'type': 'boolean', 'description': 'true si el caso es por filtracion de datos o privacidad'},
+                    'detail_url': {'type': 'string', 'description': 'URL de la pagina de ESTE acuerdo dentro de este mismo sitio, la ficha a la que lleva su titulo'},
                 },
             },
         },
@@ -270,6 +283,8 @@ def nombre_plausible(host, empresa):
     h = host.lower().removeprefix('www.')
     if any(h == g or h.endswith('.' + g) for g in GOBIERNO):
         return True
+    if any(h == a or h.endswith('.' + a) for a in ADMINISTRADORES):
+        return True
     if any(p in h for p in PISTAS_DOMINIO):
         return True
     plano = re.sub(r'[^a-z0-9]', '', (empresa or '').lower())
@@ -346,7 +361,16 @@ def main():
         for r in json.load(open(p, encoding='utf-8')):
             previos[r['sitio_reclamo'].split('/')[0].lower()] = r
 
-    vivos, descartes = {}, {}
+    vivos, descartes, segunda = {}, {}, []
+
+    def guardar_vivo(limpio):
+        # Deduplicado por dominio del administrador: es la identidad real del
+        # acuerdo, mas estable que su titulo en cada agregador.
+        k = limpio['sitio_reclamo'].split('/')[0].lower()
+        if k not in vivos or (limpio['plazo'] and not vivos[k]['plazo']):
+            limpio['visto_primero'] = previos.get(k, {}).get('visto_primero', HOY.isoformat())
+            vivos[k] = limpio
+
     for nombre, url in FUENTES:
         print(f'{nombre} ...', flush=True)
         d, enlaces = firecrawl(url)
@@ -354,15 +378,37 @@ def main():
         print(f'  {len(filas)} extraidos', flush=True)
         for r in filas:
             limpio, motivo = verificar(r, nombre, enlaces)
-            if not limpio:
-                descartes[motivo] = descartes.get(motivo, 0) + 1
+            if limpio:
+                guardar_vivo(limpio)
                 continue
-            # Deduplicado por dominio del administrador: es la identidad real
-            # del acuerdo, mas estable que su titulo en cada agregador.
-            k = limpio['sitio_reclamo'].split('/')[0].lower()
-            if k not in vivos or (limpio['plazo'] and not vivos[k]['plazo']):
-                limpio['visto_primero'] = previos.get(k, {}).get('visto_primero', HOY.isoformat())
-                vivos[k] = limpio
+            # La pagina indice a menudo no muestra el enlace del administrador,
+            # asi que el modelo devuelve lo unico que tiene: la URL del propio
+            # agregador. En la primera corrida eso descarto 17 acuerdos, el
+            # doble de los que acepto. No son falsos, son incompletos, y la
+            # ficha del acuerdo si lleva el enlace bueno.
+            detalle = (r.get('detail_url') or '').strip()
+            if detalle and motivo in ('el sitio es del agregador, no del administrador',
+                                      'sin sitio de reclamo valido',
+                                      'enlace de gobierno sin caso concreto'):
+                segunda.append((nombre, detalle, r))
+                continue
+            descartes[motivo] = descartes.get(motivo, 0) + 1
+
+    if segunda:
+        print(f'\nsegunda pasada: {len(segunda)} fichas por abrir', flush=True)
+        for nombre, detalle, r in segunda:
+            d, enlaces = firecrawl(detalle)
+            # La ficha habla de un solo acuerdo, asi que sus enlaces son del
+            # caso y no del catalogo entero. Corroborar aqui es mas estrecho
+            # que hacerlo contra un indice lleno de anuncios y patrocinios.
+            filas = d.get('settlements') or []
+            cand = filas[0] if filas else {}
+            fundido = {**r, **{k: v for k, v in cand.items() if v}}
+            limpio, motivo = verificar(fundido, nombre, enlaces)
+            if limpio:
+                guardar_vivo(limpio)
+            else:
+                descartes[f'{motivo} (2a pasada)'] = descartes.get(f'{motivo} (2a pasada)', 0) + 1
 
     salida = sorted(vivos.values(), key=lambda r: (r['plazo'] or '9999', r['empresa'].lower()))
     for r in salida:
