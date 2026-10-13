@@ -61,6 +61,16 @@ AGREGADORES = {
     'www.ftc.gov', 'consumer.ftc.gov', 'am-i-exposed.com', 'www.am-i-exposed.com',
 }
 
+# Un dominio de administrador se llama como el caso: casi siempre lleva
+# "settlement", "claims" o "litigation" dentro. Comprobado contra los 19 que ya
+# teniamos verificados: 18 cumplen, y el que no es ftc.gov, que va aparte por
+# ser gobierno. Esto es lo que separa landsenddatasettlement.com de evil.com,
+# porque evil.com tambien resuelve y tampoco es un agregador.
+PISTAS_DOMINIO = ('settlement', 'claims', 'claim', 'litigation', 'classaction',
+                  'class', 'lawsuit', 'databreach', 'breach', 'suit', 'fund',
+                  'recovery', 'payout')
+GOBIERNO = ('ftc.gov', 'justice.gov', 'usdoj.gov', 'sec.gov', 'cfpb.gov', 'hhs.gov')
+
 ESQUEMA = {
     'type': 'object',
     'properties': {
@@ -110,7 +120,7 @@ def firecrawl(url):
         'url': url,
         'onlyMainContent': True,
         'maxAge': 0,
-        'formats': [{'type': 'json', 'prompt': PETICION, 'schema': ESQUEMA}],
+        'formats': [{'type': 'json', 'prompt': PETICION, 'schema': ESQUEMA}, 'links'],
     }).encode()
     req = urllib.request.Request(API, data=cuerpo, headers={
         'Content-Type': 'application/json',
@@ -120,16 +130,17 @@ def firecrawl(url):
         try:
             with urllib.request.urlopen(req, timeout=180) as r:
                 d = json.loads(r.read())
-            return (d.get('data') or {}).get('json') or {}
+            dd = d.get('data') or {}
+            return dd.get('json') or {}, dd.get('links') or []
         except urllib.error.HTTPError as e:
             print(f'    HTTP {e.code} en {url}', file=sys.stderr)
             if e.code in (402, 401, 403):
-                return {}
+                return {}, []
             time.sleep(10 * (n + 1))
         except Exception as e:
             print(f'    {e} en {url}', file=sys.stderr)
             time.sleep(10 * (n + 1))
-    return {}
+    return {}, []
 
 
 MESES = ('january february march april may june july august september october '
@@ -221,14 +232,48 @@ def courtlistener(caso):
         return False
 
 
-def verificar(r, fuente):
-    """Devuelve (registro limpio, None) o (None, motivo del descarte)."""
+def parece_administrador(host, empresa, nombre):
+    """El dominio tiene que decir algo del caso, no solo existir."""
+    h = host.lower().removeprefix('www.')
+    if any(h == g or h.endswith('.' + g) for g in GOBIERNO):
+        return True
+    if any(p in h for p in PISTAS_DOMINIO):
+        return True
+    # O que el dominio lleve el nombre de la empresa dentro.
+    plano = re.sub(r'[^a-z0-9]', '', (empresa or '').lower())
+    if len(plano) >= 5 and plano in re.sub(r'[^a-z0-9]', '', h):
+        return True
+    return False
+
+
+def verificar(r, fuente, enlaces):
+    """Devuelve (registro limpio, None) o (None, motivo del descarte).
+
+    `enlaces` son los href reales de la pagina. El sitio de reclamo lo propone
+    un modelo leyendo texto de terceros, asi que puede venir de una inyeccion:
+    basta con que la pagina contenga una frase que diga que el sitio oficial es
+    otro. Exigir que el dominio aparezca ademas como enlace de verdad cierra
+    eso, porque un texto inyectado no crea un <a href>.
+    """
     sitio = claim_site.mostrar(r.get('claim_site'))
     if not sitio:
         return None, 'sin sitio de reclamo valido'
     host = sitio.split('/')[0].lower()
-    if host in AGREGADORES or host.lstrip('www.') in AGREGADORES:
+    ruta = sitio[len(host):].strip('/')
+    es_gob = any(host.removeprefix('www.') == g or host.endswith('.' + g) for g in GOBIERNO)
+    # Un dominio de gobierno es fuente y destino a la vez: ftc.gov publica la
+    # lista y tambien aloja la reclamacion de cada caso. Vale el enlace hondo,
+    # no la portada, que seria devolvernos al indice del que salio.
+    if es_gob:
+        if len(ruta.split('/')) < 3:
+            return None, 'enlace de gobierno sin caso concreto'
+    elif host in AGREGADORES or host.removeprefix('www.') in AGREGADORES:
         return None, 'el sitio es del agregador, no del administrador'
+    if not parece_administrador(host, r.get('company'), r.get('name')):
+        return None, f'el dominio no parece de un acuerdo: {host}'
+    base = host.removeprefix('www.')
+    if enlaces and not any(base in (u or '').lower() for u in enlaces):
+        return None, f'el dominio no aparece enlazado en la pagina: {host}'
     if not resuelve(host):
         return None, f'el dominio no resuelve: {host}'
 
@@ -272,11 +317,11 @@ def main():
     vivos, descartes = {}, {}
     for nombre, url in FUENTES:
         print(f'{nombre} ...', flush=True)
-        d = firecrawl(url)
+        d, enlaces = firecrawl(url)
         filas = d.get('settlements') or []
         print(f'  {len(filas)} extraidos', flush=True)
         for r in filas:
-            limpio, motivo = verificar(r, nombre)
+            limpio, motivo = verificar(r, nombre, enlaces)
             if not limpio:
                 descartes[motivo] = descartes.get(motivo, 0) + 1
                 continue

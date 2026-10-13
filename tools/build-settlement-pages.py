@@ -203,12 +203,22 @@ for r in cao:
     }
 
 # 3. abiertos: mandan sobre todo lo demas
+#
+# Pero mandar no es borrar. Estos registros salen de un modelo leyendo paginas
+# de terceros, y una empresa mal extraida puede chocar con el slug de una ficha
+# historica construida de datos verificados. Sustituirla sin mirar perderia
+# esos datos en silencio, asi que lo que hay se conserva y el estado abierto se
+# superpone. Las colisiones se cuentan y se informan.
+colisiones = []
 for r in abiertos:
     emp = nombre_limpio(r.get('empresa'))
     if not emp:
         continue
     s = slugify(emp)
-    paginas[s] = {
+    previa = paginas.get(s)
+    if previa:
+        colisiones.append((s, previa['tipo']))
+    nueva = {
         '_peso': (True, True, 10 ** 12, 10 ** 12), 'tipo': 'abierto', 'slug': s,
         'empresa': emp, 'fondo': r.get('fondo'), 'pago': r.get('pago_por_persona'),
         'premio': r.get('pago_texto'), 'elegible': r.get('cubre'),
@@ -219,6 +229,16 @@ for r in abiertos:
         'datos': None, 'estado_sede': None, 'desc': None,
         'comprobante': r.get('comprobante'), 'filtracion': r.get('filtracion'),
     }
+    if previa:
+        # Los hechos del expediente los tiene la ficha historica, no el
+        # agregador: que datos se filtraron, donde se presento, de cuando es.
+        for k in ('datos', 'estado_sede', 'fecha', 'publicado', 'afectados',
+                  'nacional', 'estados_notificados', 'fuente_cao'):
+            if previa.get(k) and not nueva.get(k):
+                nueva[k] = previa[k]
+        if previa.get('fondo') and not nueva.get('fondo'):
+            nueva['fondo'] = previa['fondo']
+    paginas[s] = nueva
 
 for p in paginas.values():
     p['hibp'] = hibp_por_core.get(core(p['empresa']))
@@ -778,3 +798,7 @@ print(f"paginas de indice     {len(indice) - n_casos}")
 print(f"  con plazo abierto   {sum(1 for i in indice if i['abierto'])}")
 print(f"  con sitio de reclamo{sum(1 for i in indice if i['sitio']):>4}")
 print(f"  cruzadas con HIBP   {sum(1 for i in indice if i['en_hibp'])}")
+if colisiones:
+    print(f"\ncolisiones de slug con fichas existentes: {len(colisiones)}")
+    for sl, tipo in colisiones[:10]:
+        print(f"   {sl}  (era: {tipo}) -> ahora abierto, hechos conservados")
