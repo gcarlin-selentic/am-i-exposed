@@ -141,8 +141,8 @@ const COPY = {
         // Deliberately in English inside the Spanish copy. It is shown to
         // somebody the server places in the United States who landed here,
         // and it has one job: to be understood by a reader who may not read
-        // the page it is sitting on. The English page carries no equivalent,
-        // so these two have no counterpart in the en block below.
+        // the page it is sitting on. Its counterpart in the en block is in
+        // Spanish, for the same reason and in the other direction.
         langHintText: 'This page is also available in',
         langHintLink: 'English',
         footLeft: '<a href="https://www.selenticgroup.com/" rel="noopener">Selentic Group</a> · Datos de filtraciones por <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a>',
@@ -351,6 +351,12 @@ const COPY = {
         alertsMissedMax: 'up to',
         alertsMissedClosed: 'The window closed on',
         alertsMissedNoAmount: 'settled and paid out',
+
+        // In Spanish inside the English copy, for the same reason its twin in
+        // the es block is in English: it addresses a reader who may not read
+        // the page it is sitting on.
+        langHintText: 'Esta página también está disponible en',
+        langHintLink: 'español',
         footLeft: '<a href="https://www.selenticgroup.com/" rel="noopener">Selentic Group</a> · Breach data by <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a>',
         footFaq: 'FAQ',
         footLeaked: 'If your email leaked',
@@ -498,7 +504,7 @@ const COPY = {
 };
 
 // The URL decides the language, because each language now has its own page:
-// Spanish at / and English at /en/. Reading navigator.language here instead
+// English at / and Spanish at /es/. Reading navigator.language here instead
 // would let a browser in English rewrite the Spanish page in place, which is
 // what used to happen and is why only one of the two was ever indexable.
 let lang = document.documentElement.lang === 'en' ? 'en' : 'es';
@@ -1945,7 +1951,13 @@ const LANG_HINT_DISMISSED = 'aie-lang-hint-off';
 // checkout cannot avoid knowing which one that is.
 function maybeShowLangHint() {
     const hint = document.getElementById('langHint');
-    if (!hint || priceInfo?.provider !== 'paddle') return;
+    if (!hint) return;
+    // Each page suggests the other one, and only to the readers it is likely
+    // to help: the United States visitor who landed on the Spanish page, and
+    // the Latin American visitor who landed on the English one, which is now
+    // the default and so receives everybody whose language we cannot infer.
+    const esUS = priceInfo?.provider === 'paddle';
+    if (lang === 'es' ? !esUS : esUS) return;
     try {
         if (localStorage.getItem(LANG_HINT_DISMISSED) === '1') return;
     } catch (e) { /* private browsing; show it, it is only a suggestion */ }

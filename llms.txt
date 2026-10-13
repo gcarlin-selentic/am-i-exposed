@@ -14,27 +14,27 @@
 ## The tool
 
 - [¿Estoy expuesto?](https://www.am-i-exposed.com/): the checker itself, in Spanish.
-- [Am I Exposed?](https://www.am-i-exposed.com/en/): the same checker, in English.
+- [Am I Exposed?](https://www.am-i-exposed.com/): the same checker, in English.
 
 ## Written pages (Spanish)
 
-- [Preguntas frecuentes](https://www.am-i-exposed.com/preguntas-frecuentes/):
+- [Preguntas frecuentes](https://www.am-i-exposed.com/es/preguntas-frecuentes/):
   what happens to your email, how a password is checked without being seen, and
   what appearing in a breach does and does not mean.
-- [Qué hacer si se filtró mi correo](https://www.am-i-exposed.com/que-hacer-si-se-filtro-mi-correo/):
+- [Qué hacer si se filtró mi correo](https://www.am-i-exposed.com/es/que-hacer-si-se-filtro-mi-correo/):
   the seven steps in the order that matters, and the three things that do not help.
-- [Cómo saber si mi contraseña fue filtrada](https://www.am-i-exposed.com/como-saber-si-mi-contrasena-fue-filtrada/):
+- [Cómo saber si mi contraseña fue filtrada](https://www.am-i-exposed.com/es/como-saber-si-mi-contrasena-fue-filtrada/):
   k-anonymity explained without jargon, and what the leak count actually means.
-- [Política de privacidad](https://www.am-i-exposed.com/privacidad/)
-- [Términos y condiciones](https://www.am-i-exposed.com/terminos/)
+- [Política de privacidad](https://www.am-i-exposed.com/es/privacidad/)
+- [Términos y condiciones](https://www.am-i-exposed.com/es/terminos/)
 
 ## Written pages (English)
 
-- [FAQ](https://www.am-i-exposed.com/en/faq/)
-- [What to do if your email was leaked](https://www.am-i-exposed.com/en/what-to-do-if-your-email-was-leaked/)
-- [How to know if your password was leaked](https://www.am-i-exposed.com/en/how-to-know-if-your-password-was-leaked/)
-- [Privacy policy](https://www.am-i-exposed.com/en/privacy/)
-- [Terms and conditions](https://www.am-i-exposed.com/en/terms/)
+- [FAQ](https://www.am-i-exposed.com/faq/)
+- [What to do if your email was leaked](https://www.am-i-exposed.com/what-to-do-if-your-email-was-leaked/)
+- [How to know if your password was leaked](https://www.am-i-exposed.com/how-to-know-if-your-password-was-leaked/)
+- [Privacy policy](https://www.am-i-exposed.com/privacy/)
+- [Terms and conditions](https://www.am-i-exposed.com/terms/)
 
 ## Who runs it
 

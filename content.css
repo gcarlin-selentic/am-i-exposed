@@ -321,3 +321,132 @@ details > *:not(summary) { font-size: 16px; }
     main { padding-block: 32px 4px; }
     .standfirst { font-size: 17px; margin-bottom: 30px; }
 }
+
+/* ---------------------------------------------------------------------------
+   Las paginas de acuerdos. Son generadas, hay mas de mil, y todas tienen la
+   misma forma: un dato de dinero, un plazo, a quien cubria y donde se
+   reclamaba. Lo que sigue es para esa forma. */
+
+/* La miga de pan existe porque estas paginas cuelgan dos niveles abajo y
+   mucha gente va a llegar desde una busqueda, sin pasar por la portada. */
+.crumbs {
+    font-size: 14px;
+    color: var(--muted);
+    margin: 0 0 18px;
+}
+.crumbs a { color: var(--muted); }
+.crumbs a:hover { color: var(--accent-ink); }
+
+/* La tabla es lo que se viene a buscar, asi que va antes que la prosa. En el
+   telefono rueda en su propio contenedor: el cuerpo de la pagina no se mueve
+   de lado nunca. */
+.facts {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 26px;
+    font-size: 16px;
+    font-variant-numeric: tabular-nums;
+}
+.facts th,
+.facts td {
+    text-align: left;
+    vertical-align: top;
+    padding: 11px 14px 11px 0;
+    border-bottom: 1px solid var(--line);
+}
+.facts th {
+    color: var(--muted);
+    font-weight: 500;
+    white-space: nowrap;
+    width: 38%;
+}
+.facts td { color: var(--ink); font-weight: 500; }
+
+.exposed {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.exposed li {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 5px 13px;
+    font-size: 14px;
+    color: var(--ink-soft);
+}
+
+.source {
+    font-size: 14px;
+    color: var(--muted);
+    margin: 0 0 24px;
+}
+
+/* El indice. Una fila por caso, con el dinero alineado a la derecha para que
+   la columna se lea de un barrido. */
+.settle-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 24px;
+}
+.settle-filters a {
+    border: 1px solid var(--line);
+    background: var(--surface);
+    border-radius: 999px;
+    padding: 7px 15px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    text-decoration: none;
+}
+.settle-filters a[aria-current="page"] {
+    background: var(--btn-bg);
+    border-color: var(--btn-bg);
+    color: var(--btn-ink);
+}
+.settle-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px;
+}
+.settle-list li {
+    border-bottom: 1px solid var(--line);
+}
+.settle-list a {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 14px;
+    padding: 13px 0;
+    text-decoration: none;
+    color: var(--ink);
+}
+.settle-list a:hover .settle-name { color: var(--accent-ink); }
+.settle-name { font-weight: 600; flex: 1 1 58%; }
+.settle-amount {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.settle-when {
+    font-size: 14px;
+    color: var(--muted);
+    flex: 0 0 100%;
+}
+@media (min-width: 620px) {
+    .settle-when { flex: 0 0 auto; width: 13em; text-align: right; }
+}
+.settle-tag {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    background: var(--accent-soft);
+    border-radius: 4px;
+    padding: 2px 6px;
+}
