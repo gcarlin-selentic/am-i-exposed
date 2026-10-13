@@ -1584,6 +1584,28 @@ async function missedSettlements() {
         .sort((a, b) => (b.porPersona || 0) - (a.porPersona || 0));
 }
 
+// Un host corriente y, si acaso, una ruta corriente. Nada de credenciales,
+// puertos, espacios ni esquemas raros: lo que no encaje no se enlaza, y la
+// fila sale sin enlace, que es molesto pero inofensivo.
+const CLAIM_HOST = /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,24}$/i;
+const CLAIM_PATH = /^[a-z0-9._~\-/%]*$/i;
+
+function sitioValido(valor) {
+    if (typeof valor !== 'string') return null;
+    let s = valor.trim().replace(/[.,;)"'<>]+$/, '');
+    if (!s || s.length > 200 || /[\s\\@<>"']/.test(s)) return null;
+    const bajo = s.toLowerCase();
+    if (bajo.startsWith('http://') || bajo.startsWith('https://')) s = s.slice(s.indexOf('://') + 3);
+    else if (s.includes('://')) return null;
+    s = s.replace(/^\/+/, '');
+    const corte = s.indexOf('/');
+    const host = corte === -1 ? s : s.slice(0, corte);
+    const resto = corte === -1 ? '' : s.slice(corte + 1);
+    if (!CLAIM_HOST.test(host) || host.split('.').some(e => e.startsWith('-') || e.endsWith('-'))) return null;
+    if (resto && !CLAIM_PATH.test(resto)) return null;
+    return host + (resto ? '/' + resto : '');
+}
+
 function renderMissed(rows) {
     const box = document.getElementById('alertsMatch');
     const generic = document.getElementById('alertsGeneric');
@@ -1625,8 +1647,14 @@ function renderMissed(rows) {
         const co = s.slug
             ? `<a class="m-co" href="/settlements/${encodeURIComponent(s.slug)}/">${nombre}</a>`
             : `<span class="m-co">${nombre}</span>`;
-        const sitio = (s.sitio || '').trim();
-        const href = sitio && (/^https?:\/\//i.test(sitio) ? sitio : 'https://' + sitio.replace(/^\/+/, ''));
+        // El valor viene de raspar otra web, y aqui se convierte en el enlace
+        // mas confiado de la pagina: le decimos a alguien que entregue sus
+        // datos ahi para cobrar. El generador ya lo valida, y se vuelve a
+        // validar aqui porque este archivo lee un JSON servido, y un fallo
+        // de extraccion rio arriba no debe terminar en un destino cualquiera
+        // con nuestra recomendacion encima.
+        const sitio = sitioValido(s.sitio);
+        const href = sitio && 'https://' + sitio;
         const reclamo = href
             ? `<a class="m-claim" href="${escapeHtml(href)}" rel="nofollow noopener" target="_blank">${escapeHtml(t().alertsMissedClaim)} ${escapeHtml(sitio)}</a>`
             : '';

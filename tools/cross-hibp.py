@@ -28,7 +28,10 @@ company, and the reader would have no way to tell.
 Writes data/hibp-matched.json and settlements.json, the second being what the
 site actually fetches.
 """
-import json, os, re, unicodedata, datetime
+import json, os, re, sys, unicodedata, datetime
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _claim_site as claim_site
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, 'data')
@@ -155,7 +158,10 @@ def main():
         s = slugify(r['empresa'])
         tarjeta.append({'hibp': r['hibp'], 'titulo': r['empresa'], 'empresa': r['empresa'],
                         'porPersona': r.get('pago_por_persona'), 'fondo': r.get('fondo'),
-                        'plazo': r.get('plazo'), 'sitio': r.get('sitio_reclamo'),
+                        'plazo': r.get('plazo'),
+                        # Validado: este valor viene de raspar otra web y se
+                        # publica como el sitio oficial donde reclamar dinero.
+                        'sitio': claim_site.mostrar(r.get('sitio_reclamo')),
                         'fuente': r['url_caso'], 'elegible': r.get('elegible'),
                         'slug': s if s in paginas else None})
     tarjeta.sort(key=lambda x: -(x['porPersona'] or 0))

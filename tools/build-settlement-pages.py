@@ -33,6 +33,9 @@ Then: python3 tools/build-sitemap.py
 """
 import json, os, re, html, datetime, shutil, sys
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _claim_site as claim_site
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOM = 'https://www.am-i-exposed.com'
 OUT = os.path.join(ROOT, 'settlements')
@@ -311,9 +314,9 @@ def render(p):
 
     # el enlace de reclamo: la razon por la que esta pagina sirve
     b.append('\n    <h2>Where to claim</h2>')
-    if p['sitio']:
-        sitio = p['sitio'].strip()
-        href = sitio if sitio.startswith('http') else 'https://' + sitio.lstrip('/')
+    href = claim_site.normalizar(p['sitio'])
+    sitio = claim_site.mostrar(p['sitio'])
+    if href:
         if plazo_pasado is True:
             b.append(f'    <p>The administrator&rsquo;s site is '
                      f'<a href="{e(href)}" rel="nofollow noopener">{e(sitio)}</a>. '
