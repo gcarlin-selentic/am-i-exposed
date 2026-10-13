@@ -482,6 +482,24 @@ def main():
             else:
                 descartes[f'{motivo} (2a pasada)'] = descartes.get(f'{motivo} (2a pasada)', 0) + 1
 
+    # El modelo no devuelve lo mismo dos veces: la FTC dio 89 registros en una
+    # corrida y 7 en la siguiente. Reemplazar el archivo entero cada semana
+    # borraria acuerdos vigentes que esta corrida no vio, y uno de ellos puede
+    # ser el que vence el martes. Asi que lo de antes se conserva mientras siga
+    # en plazo, y solo cae cuando vence o cuando lo vuelve a ver y cambia.
+    recuperados = 0
+    for k, viejo in previos.items():
+        if k in vivos:
+            continue
+        pl = viejo.get('plazo')
+        if pl and pl < HOY.isoformat():
+            continue
+        viejo['revisto'] = False
+        vivos[k] = viejo
+        recuperados += 1
+    if recuperados:
+        print(f'\nconservados de corridas anteriores, aun en plazo: {recuperados}')
+
     salida = sorted(vivos.values(), key=lambda r: (r['plazo'] or '9999', r['empresa'].lower()))
     for r in salida:
         r['en_tribunal'] = courtlistener(r['caso']) if r['caso'] else False
