@@ -42,6 +42,20 @@ export function expectLiveMode() {
 // padlocks, because the browser matched on one rule and the server on
 // another.
 export function liveModeFor(provider) {
+    // On the live site, only a purchase made with real money counts, full
+    // stop. Matching each row against its provider's current setting is the
+    // right rule for a preview deployment, where everything is a test, and
+    // the wrong one here: with Paddle in sandbox it resolves to false, which
+    // is exactly what a sandbox purchase writes, so a test card bought the
+    // paid report for nothing. Hiding the offer card did not fix that. The
+    // checkout can still be opened by anyone holding the sandbox price id,
+    // and that id was public, served by /api/checkout to every visitor in
+    // the United States for days.
+    //
+    // There are five paid rows carrying live_mode false in the database. This
+    // is what stops them, and anything like them, from unlocking a report.
+    if (process.env.VERCEL_ENV === 'production') return true;
+
     if (provider === 'paddle') {
         return (process.env.PADDLE_CLIENT_TOKEN || '').startsWith('live_');
     }
