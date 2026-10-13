@@ -43,6 +43,12 @@ jobs:
         with:
           python-version: '3.12'
 
+      # Antes de tocar nada: los dos validadores del sitio de reclamo tienen
+      # que seguir diciendo lo mismo. Si se separaron, lo que se publique
+      # puede ser un enlace que el navegador habria rechazado.
+      - name: Comprobar que los validadores coinciden
+        run: python3 tools/test-claim-site.py
+
       - name: Descargar lo nuevo de las fuentes
         run: python3 tools/refresh-cases.py ${{ inputs.full && '--full' || '' }}
 
