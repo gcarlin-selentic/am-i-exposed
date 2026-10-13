@@ -1317,3 +1317,13 @@ a.alerts-missed .m-co,
         margin-bottom: 18px;
     }
 }
+
+/* La vinieta del catalogo es un enlace. Hereda el color de la lista para no
+   romper la tarjeta, y se subraya para que se vea que lleva a algun sitio. */
+.alerts-link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 1px;
+}
+.alerts-link:hover { text-decoration-thickness: 2px; }

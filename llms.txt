@@ -13,8 +13,31 @@
 
 ## The tool
 
-- [¿Estoy expuesto?](https://www.am-i-exposed.com/): the checker itself, in Spanish.
-- [Am I Exposed?](https://www.am-i-exposed.com/): the same checker, in English.
+- [Am I Exposed?](https://www.am-i-exposed.com/): the checker itself. English is
+  the default: the settlement data is United States litigation and the
+  subscription is sold there.
+- [¿Estoy expuesto?](https://www.am-i-exposed.com/es/): the same checker, in Spanish.
+
+## Data breach settlements
+
+A page per United States case, in English only, because these are U.S. lawsuits.
+
+- [All settlements](https://www.am-i-exposed.com/settlements/): the index. 1,075
+  cases, of which 768 reached a settlement and 307 are still in court. Each page
+  gives the settlement fund, the maximum paid per person, the claim deadline and
+  whether it has passed, who the class covered, what data was exposed, and a link
+  to the court-appointed administrator's own claim site where one is on record.
+- Browse by company name from A to Z at
+  https://www.am-i-exposed.com/settlements/letter-a/ through
+  https://www.am-i-exposed.com/settlements/letter-z/
+- Example: [Neiman Marcus](https://www.am-i-exposed.com/settlements/neiman-marcus/),
+  a $3.5 million fund paying up to $2,500 per person, claims closed 8 October 2025.
+
+Sources are Top Class Actions and ClassAction.org, cross-referenced against Have
+I Been Pwned so a visitor can be told which of these breaches holds their own
+address. The catalogue is refreshed weekly. We are not lawyers, we take no fee
+from any claim, and we never file on anyone's behalf: appearing in a breach is
+not the same as being a member of the class.
 
 ## Written pages (Spanish)
 
@@ -43,8 +66,10 @@
 - Contact: info@selenticgroup.com
 - Breach data: Have I Been Pwned (https://haveibeenpwned.com), used under its
   Creative Commons Attribution 4.0 licence.
-- Price: checking an email address or a password is free. The personalised
-  action plan report costs S/ 19.00 PEN and includes 30 days of access.
+- Price: checking an email address or a password is free, and reading any
+  settlement page is free. The personalised action plan report costs S/ 19.00
+  PEN in Latin America and US$ 5.00 in the United States, and includes 30 days
+  of access. Settlement alerts are US$ 3.00 a month, United States only.
 - Not to be confused with ami.exposed, am-i.exposed or "How Exposed Am I",
   which are different tools run by other people.
 
@@ -52,4 +77,9 @@
 
 Most breach checkers answer one question: were you in a breach, yes or no. This
 one is built around the next question, which is what to actually do about it,
-written for someone who is not a security professional and who reads Spanish.
+written for someone who is not a security professional.
+
+And it answers a question almost nobody else writes down: when the company that
+lost your data is made to pay, how much was it, until when could it be claimed,
+and where. Claim rates on these settlements run below 10 percent and often below
+1 percent, so most of that money is never collected.
