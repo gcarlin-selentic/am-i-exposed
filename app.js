@@ -2191,7 +2191,13 @@ const CURRENCY_LOCALE = {
 
 function formatPrice({ amount, currency }) {
     try {
-        return new Intl.NumberFormat(CURRENCY_LOCALE[currency] || locale(), {
+        // El simbolo local solo se usa en la pagina en espanol, donde "S/" se
+        // lee sin pensar. En la inglesa ese simbolo no dice nada: la misma
+        // cifra sale como "PEN 19", que al menos nombra la moneda. El importe
+        // no cambia, porque el cobro tampoco: fuera de Estados Unidos lo hace
+        // Mercado Pago en soles, viva el lector donde viva.
+        const fmt = lang === 'en' ? 'en-US' : (CURRENCY_LOCALE[currency] || locale());
+        return new Intl.NumberFormat(fmt, {
             style: 'currency',
             currency,
             // A whole-sol price should not read as "19.00".
