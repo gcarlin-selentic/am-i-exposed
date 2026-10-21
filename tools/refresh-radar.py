@@ -78,7 +78,21 @@ RANSOMLOOK = 'https://www.ransomlook.io'
 INDICE_RL = RANSOMLOOK + '/recent'
 
 
-def enlace_ransomlook(link):
+def enlace_grupo(grupo):
+    """La pagina del grupo en RansomLook, donde esa victima esta listada.
+
+    Dos de cada tres posts llegan sin enlace propio, y mandar a quien quiera
+    leer mas al indice general de recientes es mandarlo a ninguna parte. La
+    pagina del grupo si lleva al caso. Lo que no se hace nunca es enlazar el
+    .onion del propio grupo, que es lo que viene en algunos registros: eso es
+    el sitio de extorsion, y aqui no se manda a nadie ahi."""
+    g = (grupo or '').strip()
+    if not g or g == '—':
+        return INDICE_RL
+    return RANSOMLOOK + '/group/' + urllib.parse.quote(g.lower(), safe='')
+
+
+def enlace_ransomlook(link, grupo=None):
     """El enlace que devuelve la API, convertido en una URL que podemos poner
     en un href.
 
@@ -92,21 +106,22 @@ def enlace_ransomlook(link):
     va al indice.
     """
     link = (link or '').strip()
+    respaldo = enlace_grupo(grupo)
     if not link or link.startswith('//'):
-        return INDICE_RL
+        return respaldo
     if any(c in link for c in '\\@'):
-        return INDICE_RL
+        return respaldo
     if any(ord(c) <= 0x20 or ord(c) == 0x7f for c in link):
-        return INDICE_RL
+        return respaldo
     try:
         p = urllib.parse.urlsplit(link)      # el fragmento se descarta abajo
         if not link.startswith('/'):
             if (p.scheme not in ('http', 'https')
                     or p.hostname not in ('ransomlook.io', 'www.ransomlook.io')
                     or p.port):
-                return INDICE_RL
+                return respaldo
     except ValueError:                 # puerto absurdo, IPv6 mal cerrado
-        return INDICE_RL
+        return respaldo
     ruta = urllib.parse.quote(p.path, safe='/%')
     consulta = urllib.parse.quote(p.query, safe='=&%')
     return urllib.parse.urlunsplit(('https', 'www.ransomlook.io',
@@ -145,7 +160,7 @@ def de_ransomlook(desde):
             'type': 'ransomware',
             'status': 'reclamado',
             'source': 'RansomLook',
-            'sourceUrl': enlace_ransomlook(p.get('link')),
+            'sourceUrl': enlace_ransomlook(p.get('link'), p.get('group_name')),
             # Solo para clasificar. No se publica: es texto de otro.
             '_pista': (p.get('description') or '')[:400],
         })
@@ -358,10 +373,14 @@ def main():
     # propio dominio. Un enlace al indice es menos util y es cierto.
     for c in items:
         c.pop('_pista', None)
+        hibp = c.get('source') == 'Have I Been Pwned'
         if not c.get('sourceUrl', '').lower().startswith(('http://', 'https://')):
-            c['sourceUrl'] = ('https://haveibeenpwned.com/PwnedWebsites'
-                              if c.get('source') == 'Have I Been Pwned'
-                              else 'https://www.ransomlook.io/recent')
+            c['sourceUrl'] = ('https://haveibeenpwned.com/PwnedWebsites' if hibp
+                              else enlace_grupo(c.get('group')))
+        elif not hibp and c['sourceUrl'] == INDICE_RL:
+            # Filas de corridas anteriores que se quedaron apuntando al indice
+            # general. La pagina del grupo lleva al caso; el indice no.
+            c['sourceUrl'] = enlace_grupo(c.get('group'))
 
     salida = {
         'generated': dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds'),

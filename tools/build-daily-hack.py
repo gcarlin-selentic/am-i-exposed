@@ -206,6 +206,17 @@ E = html.escape
 HOSTS = {'www.ransomlook.io', 'ransomlook.io', 'haveibeenpwned.com'}
 
 
+def etiquetas_movil(t):
+    """Las etiquetas de la ficha movil, puestas por CSS y no como atributo en
+    cada celda: son siete por fila y doscientas y pico filas por pagina."""
+    cols = ['thdate', 'thvictim', 'thcountry', 'thsector', 'thgroup',
+            'thstate', 'thsource']
+    reglas = '\n'.join(
+        ' tbody td:nth-child(%d)::before{content:"%s"}' % (n, t[c])
+        for n, c in enumerate(cols, 1))
+    return '@media (max-width:760px){\n' + reglas + '\n}\n'
+
+
 def href(url):
     """Lo que puede salir como enlace, y nada mas. La comprobacion se repite
     aqui aunque el exportador ya la haga, porque una fila vieja del archivo no
@@ -294,13 +305,19 @@ input[type=search]{width:210px}
 .region h2{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
 .region h2 .c{font-size:14px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
 .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
-table{border-collapse:collapse;width:100%;min-width:720px;font-size:15px}
+table{border-collapse:collapse;width:100%;font-size:15px}
+@media (min-width:761px){table{min-width:720px}}
 th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
 th{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);
  font-weight:600;background:var(--bg)}
 tbody tr:last-child td{border-bottom:0}
 td.d{white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--muted);font-size:14px}
-td .v{font-weight:600;color:var(--ink)}
+td .v,td.v{font-weight:600;color:var(--ink)}
+/* El nombre enlaza a la fuente: subrayado tenue para que se vea que se puede
+   entrar, sin pintar de azul doscientas filas. */
+td.v a,.card .vic a{color:inherit;text-decoration:underline;
+ text-decoration-color:var(--line);text-underline-offset:3px}
+td.v a:hover,.card .vic a:hover{color:var(--accent-ink);text-decoration-color:currentColor}
 td .s{font-size:13.5px;color:var(--muted)}
 tr[hidden]{display:none}
 .more{display:flex;justify-content:center;margin:12px 0 0}
@@ -319,6 +336,27 @@ tr[hidden]{display:none}
 .disclaimer p:last-child{margin-bottom:0}
 .sources{font-size:13.5px;color:var(--muted);margin:0 0 14px}
 @media (max-width:620px){.alertbar .when{margin-left:0;width:100%}}
+
+/* Debajo de 760px la tabla deja de ser una tabla. Con siete columnas y un
+   movil, lo que pasaba antes es que Estado y Fuente quedaban fuera de la
+   pantalla y nada indicaba que habia que desplazar a un lado: la fila se
+   leia incompleta y el enlace a la fuente era inalcanzable. Aqui cada fila
+   es una ficha y cada dato lleva su etiqueta delante, generada por CSS para
+   no repetirla doscientas veces en el HTML. */
+@media (max-width:760px){
+ .tablewrap{overflow-x:visible;border:0;border-radius:0;background:none}
+ table{font-size:15px}
+ thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+ tbody tr{display:block;background:var(--surface);border:1px solid var(--line);
+  border-left:3px solid var(--alert);border-radius:10px;padding:11px 13px;margin-bottom:10px}
+ tbody td{display:grid;grid-template-columns:minmax(74px,88px) minmax(0,1fr);
+  gap:10px;align-items:baseline;border:0;padding:3px 0}
+ tbody td::before{color:var(--muted);font-size:11.5px;
+  font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.7}
+ tbody td.d{font-size:14px}
+ tbody td.v{font-size:16px}
+ tbody tr:last-child td{border:0}
+}
 """
 
 JS = """
@@ -416,7 +454,7 @@ def pagina(idioma, datos, hoy):
     w('    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900'
       '&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">')
     w('    <link rel="stylesheet" href="/content.css">')
-    w(f'    <style>{CSS}</style>')
+    w(f'    <style>{CSS}{etiquetas_movil(t)}</style>')
     w('')
     # Dataset: es lo que hace que el resultado salga con fecha. license y
     # creator no son decoracion: son la atribucion que piden las dos fuentes.
@@ -492,7 +530,10 @@ def pagina(idioma, datos, hoy):
         for c in hoy_items:
             marca = 'conf' if c['status'] in ('verificado', 'confirmado') else 'claim'
             w('        <div class="card">')
-            w(f'            <div class="vic">{E(c["victim"])}</div>')
+            uc = href(c['sourceUrl'])
+            nombre = (f'<a href="{E(uc)}" target="_blank" rel="noopener nofollow">'
+                      f'{E(c["victim"])}</a>' if uc else E(c['victim']))
+            w(f'            <div class="vic">{nombre}</div>')
             grupo = c['group'] if c['group'] != '—' else ''
             linea = f'<b>{E(grupo)}</b> · ' if grupo else ''
             linea += E(pais(c['country'], idioma))
@@ -571,10 +612,14 @@ def pagina(idioma, datos, hoy):
             fuente = (f'<a class="s" href="{E(u)}" target="_blank" '
                       f'rel="noopener nofollow">{E(c["source"])}</a>' if u
                       else f'<span class="s">{E(c["source"])}</span>')
+            # El nombre tambien enlaza: "ver el caso" es ver lo que publico la
+            # fuente, porque de un caso no guardamos nada mas que esta fila.
+            victima = (f'<a href="{E(u)}" target="_blank" rel="noopener nofollow">'
+                       f'{E(c["victim"])}</a>' if u else E(c['victim']))
             w(f'<tr data-r data-c="{E(c["country"])}" data-s="{E(c["sector"])}" '
               f'data-g="{E(c["group"])}"{oculta}>'
               f'<td class="d">{fecha(c["day"], idioma)}</td>'
-              f'<td class="v">{E(c["victim"])}</td>'
+              f'<td class="v">{victima}</td>'
               f'<td>{E(pais(c["country"], idioma))}</td>'
               f'<td>{E(etiqueta(SECTORES, c["sector"], idioma))}</td>'
               f'<td>{E(c["group"])}</td>'
