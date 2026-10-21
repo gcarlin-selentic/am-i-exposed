@@ -49,9 +49,19 @@ jobs:
         if: ${{ !inputs.dry_run }}
         run: pip install --quiet 'anthropic>=1.0'
 
+      # Hoy manda el secret ANTHROPIC_API_KEY, que es una clave con fecha de
+      # caducidad: cuando venza, este trabajo seguira pasando en verde y las
+      # filas nuevas apareceran sin pais ni industria, sin avisar. Si eso
+      # empieza a pasar, lo primero que hay que mirar es la caducidad, en
+      # platform.claude.com/settings/keys, y el log de este paso, que dice
+      # cual de los dos caminos tomo.
+      #
       # Identidad federada: GitHub firma un token de cinco minutos, el SDK lo
       # canjea por uno de Anthropic y no hay secreto estatico en el repo. Los
       # tres identificadores no son secretos, por eso van en Variables.
+      # Quedo configurada pero sin funcionar: la regla rechaza el token con
+      # match_subject_prefix. Cuando se arregle, se borra el secret y este
+      # paso vuelve solo al camino sin clave.
       #
       # Si algun dia hace falta una clave estatica, basta crear el secret
       # ANTHROPIC_API_KEY y este paso la prefiere. Lo que no se puede es
