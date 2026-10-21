@@ -148,32 +148,63 @@ def main():
 
     # settlements.json es lo unico de esto que el navegador descarga, asi que
     # lleva solo lo que la tarjeta pinta, y solo lo que no es dudoso.
+    #
+    # Van los acuerdos que pagaron y tambien las demandas en curso, cada una
+    # con su estado de verdad. Un acuerdo dice cuanto se pagaba y hasta
+    # cuando; una investigacion dice que hay abogados mirando el caso y nada
+    # mas, porque no hay dinero que prometer todavia. Mezclar las dos cosas
+    # bajo la palabra "acuerdo" seria contar un cuento sobre el dinero de
+    # otro. Solo los acuerdos pagan, y esos son los menos.
+    EN_CURSO = {'investigacion abierta', 'demanda presentada'}
     paginas = {p['ruta'].strip('/').split('/')[-1]
                for p in cargar('settlement-pages.json', [])}
     tarjeta, visto = [], set()
-    for r in cruzado:
-        if r['dudoso'] or r['estado'] != 'acuerdo' or r['hibp'] in visto:
+    for r in sorted(cruzado, key=lambda r: 0 if r['estado'] == 'acuerdo' else 1):
+        estado = r['estado']
+        if estado == 'acuerdo':
+            tipo = 'acuerdo'
+        elif estado in EN_CURSO:
+            tipo = 'demanda'
+        else:
+            continue                      # investigacion cerrada: no hay caso
+        if r['dudoso'] or r['hibp'] in visto:
             continue
         visto.add(r['hibp'])
         s = slugify(r['empresa'])
-        tarjeta.append({'hibp': r['hibp'], 'titulo': r['empresa'], 'empresa': r['empresa'],
-                        'porPersona': r.get('pago_por_persona'), 'fondo': r.get('fondo'),
-                        'plazo': r.get('plazo'),
-                        # Validado: este valor viene de raspar otra web y se
-                        # publica como el sitio oficial donde reclamar dinero.
-                        'sitio': claim_site.mostrar(r.get('sitio_reclamo')),
-                        'fuente': r['url_caso'], 'elegible': r.get('elegible'),
-                        'slug': s if s in paginas else None})
-    tarjeta.sort(key=lambda x: -(x['porPersona'] or 0))
-    json.dump(tarjeta, open(os.path.join(ROOT, 'settlements.json'), 'w', encoding='utf-8'),
+        fila = {'hibp': r['hibp'], 'titulo': r['empresa'], 'empresa': r['empresa'],
+                'tipo': tipo, 'fuente': r['url_caso'],
+                'slug': s if s in paginas else None}
+        if tipo == 'acuerdo':
+            fila.update({'porPersona': r.get('pago_por_persona'), 'fondo': r.get('fondo'),
+                         'plazo': r.get('plazo'),
+                         # Validado: este valor viene de raspar otra web y se
+                         # publica como el sitio oficial donde reclamar dinero.
+                         'sitio': claim_site.mostrar(r.get('sitio_reclamo')),
+                         'elegible': r.get('elegible')})
+        tarjeta.append(fila)
+    # Primero lo que paga, y dentro de eso lo que mas paga.
+    tarjeta.sort(key=lambda x: (x['tipo'] != 'acuerdo', -(x.get('porPersona') or 0)))
+
+    # Las cifras del catalogo entero. La tarjeta las usa cuando el correo no
+    # coincide con ningun caso, que es lo que le pasa a casi todo el mundo:
+    # sin esto no hay nada que decirle a esa persona, y es justo la que mas
+    # necesita saber que esto se vigila.
+    abiertas = sum(1 for r in cao if r.get('estado_caso') in EN_CURSO)
+    salida = {'casos': len(tca) + len(cao), 'acuerdos': len(tca),
+              'abiertas': abiertas, 'filas': tarjeta}
+    json.dump(salida, open(os.path.join(ROOT, 'settlements.json'), 'w', encoding='utf-8'),
               ensure_ascii=False, indent=1)
 
     hoy = datetime.date.today().isoformat()
-    vivos = sum(1 for x in tarjeta if x['plazo'] and x['plazo'] >= hoy)
+    pagan = [x for x in tarjeta if x['tipo'] == 'acuerdo']
+    vivos = sum(1 for x in pagan if x.get('plazo') and x['plazo'] >= hoy)
     print(f'filtraciones de HIBP con caso : {len({r["hibp"] for r in cruzado})}')
     print(f'en settlements.json           : {len(tarjeta)}')
-    print(f'  con enlace de reclamo       : {sum(1 for x in tarjeta if x["sitio"])}')
+    print(f'  acuerdos que pagaron        : {len(pagan)}')
+    print(f'  demandas en curso           : {len(tarjeta) - len(pagan)}')
+    print(f'  con enlace de reclamo       : {sum(1 for x in pagan if x.get("sitio"))}')
     print(f'  con plazo todavia abierto   : {vivos}')
+    print(f'catalogo: {salida["casos"]} casos, {abiertas} en curso')
 
 
 if __name__ == '__main__':

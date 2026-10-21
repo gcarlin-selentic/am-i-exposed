@@ -249,6 +249,21 @@
         </div>
     </div>
 
+    <!-- Lo que alguien pudo haber cobrado es informacion, no producto: no
+         depende de donde viva ni de que pueda comprar nada, asi que tiene su
+         propia tarjeta, encima de la de pago y justo donde el resultado deja
+         al lector. Antes vivia dentro de la de alertas, que solo se ofrece en
+         Estados Unidos, y el resto del mundo no se enteraba nunca. La llena
+         app.js desde settlements.json; el navegador ya tiene la lista de
+         filtraciones, asi que no se manda nada a ningun sitio. -->
+    <section class="offer missed" id="missedCard" hidden>
+        <h2 id="missedTitle" data-i18n="alertsMissedTitle">Ya pudiste haber cobrado, y nadie te avis&oacute;.</h2>
+        <p id="missedLede" data-i18n="alertsMissedLede">Tu correo aparece en filtraciones que terminaron en acuerdo. Esto es lo que se pagaba, y cu&aacute;ndo venci&oacute; el plazo:</p>
+        <p id="missedNone" hidden></p>
+        <ul class="alerts-missed" id="alertsMissedList"></ul>
+        <p class="alerts-caveat" id="missedCaveat" data-i18n="alertsCaveat">Para cobrar hab&iacute;a que pertenecer a la clase, lo que normalmente exige haber recibido la carta de aviso de la empresa. Aparecer en la filtraci&oacute;n no lo garantiza. No somos abogados y no reclamamos por ti.</p>
+    </section>
+
     <!-- Paid tier. Hidden once the visitor is known to have bought it: selling
          somebody something they already own reads as a mistake, and it is. -->
     <div class="offer" id="offerCard" hidden>
@@ -274,19 +289,6 @@
          The state list is built in app.js rather than written out here. Fifty
          one options in two language versions is a hundred and two lines that
          would drift apart the first time one of them is edited. -->
-    <!-- Lo que alguien pudo haber cobrado es informacion, no producto: no
-         depende de donde viva ni de que pueda comprar nada, asi que tiene su
-         propia tarjeta. Antes vivia dentro de la de alertas, que solo se
-         ofrece en Estados Unidos, y el resto del mundo no se enteraba nunca.
-         La llena app.js desde settlements.json; el navegador ya tiene la
-         lista de filtraciones, asi que no se manda nada a ningun sitio. -->
-    <section class="offer missed" id="missedCard" hidden>
-        <h2 data-i18n="alertsMissedTitle">Ya pudiste haber cobrado, y nadie te avis&oacute;.</h2>
-        <p data-i18n="alertsMissedLede">Tu correo aparece en filtraciones que terminaron en acuerdo. Esto es lo que se pagaba, y cu&aacute;ndo venci&oacute; el plazo:</p>
-        <ul class="alerts-missed" id="alertsMissedList"></ul>
-        <p class="alerts-caveat" data-i18n="alertsCaveat">Para cobrar hab&iacute;a que pertenecer a la clase, lo que normalmente exige haber recibido la carta de aviso de la empresa. Aparecer en la filtraci&oacute;n no lo garantiza. No somos abogados y no reclamamos por ti.</p>
-    </section>
-
     <div class="offer" id="alertsCard" hidden>
         <span class="badge"><span class="dot"></span><span data-i18n="alertsBadge">Alertas &middot; solo EE.&nbsp;UU.</span></span>
         <h2 id="alertsTitle" data-i18n="alertsTitle">Si demandan a una empresa que filtró tus datos, te avisamos.</h2>

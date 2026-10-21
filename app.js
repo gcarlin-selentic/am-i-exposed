@@ -141,6 +141,15 @@ const COPY = {
         alertsMissedClosed: 'El plazo cerró el',
         alertsMissedNoAmount: 'con acuerdo pagado',
         alertsMissedClaim: 'Reclamar en',
+        missedSuitTitle: 'A una de las empresas que filtró tu correo la están demandando.',
+        missedSuitLede: 'Todavía no hay dinero que reclamar, pero el caso está vivo. Esto es lo que hay hoy:',
+        missedSuitState: 'Demanda en curso',
+        missedSuitLink: 'Ver el caso',
+        missedNoneTitle: 'Por ahora no hay dinero reclamable en tus filtraciones.',
+        missedNoneBody: (casos, abiertas) =>
+            `Ninguna de las empresas que filtró tu correo ha pagado un acuerdo todavía. ` +
+            `Seguimos ${num(casos)} casos en Estados Unidos y ${num(abiertas)} están en curso ahora mismo. ` +
+            `Los acuerdos tardan años en llegar y casi nadie se entera cuando llegan.`,
 
         // Deliberately in English inside the Spanish copy. It is shown to
         // somebody the server places in the United States who landed here,
@@ -360,6 +369,15 @@ const COPY = {
         alertsMissedClosed: 'The window closed on',
         alertsMissedNoAmount: 'settled and paid out',
         alertsMissedClaim: 'Claim at',
+        missedSuitTitle: 'One of the companies that leaked your email is being sued.',
+        missedSuitLede: 'There is no money to claim yet, but the case is alive. This is where it stands:',
+        missedSuitState: 'Lawsuit in progress',
+        missedSuitLink: 'See the case',
+        missedNoneTitle: 'There is no money to claim on your breaches yet.',
+        missedNoneBody: (casos, abiertas) =>
+            `None of the companies that leaked your email has paid out a settlement yet. ` +
+            `We follow ${num(casos)} United States cases and ${num(abiertas)} are live right now. ` +
+            `Settlements take years to arrive, and almost nobody hears about them when they do.`,
 
         // In Spanish inside the English copy, for the same reason its twin in
         // the es block is in English: it addresses a reader who may not read
@@ -1607,18 +1625,24 @@ async function loadAlertsConfig() {
     return alertsConfigPromise;
 }
 
-// Settlements that have already paid out, matched against the breaches this
-// address is in. Fetched once, and only for a visitor who is going to be
-// shown the card at all.
+// Los casos cruzados contra las filtraciones de esta direccion, y las cifras
+// del catalogo entero. Se pide una sola vez.
+//
+// El archivo era una lista y ahora es un objeto con las cifras al lado, asi
+// que se aceptan las dos formas: una pestaña abierta desde antes del cambio
+// sigue teniendo la lista vieja en cache y no tiene por que romperse.
+const VACIO = { casos: 0, acuerdos: 0, abiertas: 0, filas: [] };
 let settlements = null;
 
 async function loadSettlements() {
     if (settlements) return settlements;
     try {
         const response = await fetch('/settlements.json');
-        settlements = response.ok ? await response.json() : [];
+        const data = response.ok ? await response.json() : null;
+        settlements = Array.isArray(data) ? { ...VACIO, filas: data }
+            : (data && Array.isArray(data.filas) ? data : VACIO);
     } catch (e) {
-        settlements = [];
+        settlements = VACIO;
     }
     return settlements;
 }
@@ -1630,13 +1654,15 @@ async function loadSettlements() {
 // coming from a company they have never used.
 async function missedSettlements() {
     if (!lastEmailResult?.breaches?.length) return [];
-    const list = await loadSettlements();
-    if (!list.length) return [];
+    const data = await loadSettlements();
+    if (!data.filas.length) return [];
 
     const mine = new Set(lastEmailResult.breaches.map(b => b.name));
-    return list
+    // Lo que paga va primero: es lo unico accionable hoy.
+    return data.filas
         .filter(s => mine.has(s.hibp))
-        .sort((a, b) => (b.porPersona || 0) - (a.porPersona || 0));
+        .sort((a, b) => (a.tipo === 'acuerdo' ? 0 : 1) - (b.tipo === 'acuerdo' ? 0 : 1)
+            || (b.porPersona || 0) - (a.porPersona || 0));
 }
 
 // Un host corriente y, si acaso, una ruta corriente. Nada de credenciales,
@@ -1671,15 +1697,38 @@ function sitioValido(valor) {
 // tarjeta y no dentro de la de alertas, que solo se ofrece en Estados Unidos.
 // Mientras estuvo ahi dentro, un visitante de Lima con su correo en la
 // filtracion de Neiman Marcus no se enteraba de que hubo dinero.
-function renderMissed(rows) {
+function renderMissed(rows, meta) {
     const card = document.getElementById('missedCard');
-    if (!card) return;
+    const title = document.getElementById('missedTitle');
+    const lede = document.getElementById('missedLede');
+    const none = document.getElementById('missedNone');
+    const list = document.getElementById('alertsMissedList');
+    const caveat = document.getElementById('missedCaveat');
+    if (!card || !list) return;
 
+    // Sin coincidencia es el caso de casi todo el mundo: de las mil y pico
+    // filtraciones que sigue HIBP, treinta y cinco tienen caso en Estados
+    // Unidos. Decirle a esa persona que no hay nada y cuantos casos se
+    // vigilan es mas util, y mas honesto, que no decirle nada.
     if (!rows.length) {
-        card.hidden = true;
+        if (!meta || !meta.casos) { card.hidden = true; return; }
+        card.hidden = false;
+        title.innerHTML = t().missedNoneTitle;
+        lede.hidden = true;
+        list.innerHTML = '';
+        caveat.hidden = true;
+        none.hidden = false;
+        none.textContent = t().missedNoneBody(meta.casos, meta.abiertas);
         return;
     }
+
     card.hidden = false;
+    none.hidden = true;
+    lede.hidden = false;
+    const pagan = rows.some(r => r.tipo === 'acuerdo');
+    title.innerHTML = pagan ? t().alertsMissedTitle : t().missedSuitTitle;
+    lede.innerHTML = pagan ? t().alertsMissedLede : t().missedSuitLede;
+    caveat.hidden = !pagan;
 
     const fmt = n => new Intl.NumberFormat(lang === 'en' ? 'en-US' : 'es-CO',
         { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
@@ -1704,11 +1753,27 @@ function renderMissed(rows) {
     // the window is shut. "Claim at" goes straight to the court-appointed
     // administrator, with nofollow and noopener, because that is the only
     // place a claim counts and we take nothing from it.
-    document.getElementById('alertsMissedList').innerHTML = rows.map(s => {
+    list.innerHTML = rows.map(s => {
         const nombre = escapeHtml(s.titulo || s.empresa);
         const co = s.slug
             ? `<a class="m-co" href="/settlements/${encodeURIComponent(s.slug)}/">${nombre}</a>`
             : `<span class="m-co">${nombre}</span>`;
+
+        // Una demanda en curso no tiene dinero ni plazo, y ponerle una cifra
+        // al lado seria prometer lo que nadie ha prometido. Dice lo que es y
+        // enlaza el caso.
+        if (s.tipo !== 'acuerdo') {
+            const caso = sitioExterno(s.fuente)
+                ? `<a class="m-claim" href="${escapeHtml(s.fuente)}" rel="nofollow noopener" target="_blank">${escapeHtml(t().missedSuitLink)}</a>`
+                : '';
+            return `
+        <li>
+            ${co}
+            <span class="m-amt">${escapeHtml(t().missedSuitState)}</span>
+            ${caso}
+        </li>`;
+        }
+
         // El valor viene de raspar otra web, y aqui se convierte en el enlace
         // mas confiado de la pagina: le decimos a alguien que entregue sus
         // datos ahi para cobrar. El generador ya lo valida, y se vuelve a
@@ -1730,15 +1795,29 @@ function renderMissed(rows) {
             ${reclamo}
         </li>`;
     }).join('');
+}
 
+// El enlace al caso es a classaction.org o a topclassactions.com, que es de
+// donde salio la ficha. Se comprueba el esquema y el host antes de ponerlo
+// en un href, por lo mismo que el sitio de reclamo: lo escribio un raspador.
+function sitioExterno(url) {
+    try {
+        const u = new URL(String(url || ''));
+        return u.protocol === 'https:' &&
+            ['www.classaction.org', 'classaction.org',
+             'topclassactions.com', 'www.topclassactions.com'].includes(u.hostname);
+    } catch (e) {
+        return false;
+    }
 }
 
 // Se recalcula con cada revision y con cada cambio de idioma, porque las
 // cantidades y las fechas se escriben segun el idioma.
 async function refreshMissed() {
     if (!document.getElementById('missedCard')) return;
-    if (!lastEmailResult) { renderMissed([]); return; }
-    renderMissed(await missedSettlements());
+    if (!lastEmailResult?.breaches?.length) { renderMissed([], null); return; }
+    const [filas, meta] = await Promise.all([missedSettlements(), loadSettlements()]);
+    renderMissed(filas, meta);
 }
 
 async function refreshAlertsCard() {
