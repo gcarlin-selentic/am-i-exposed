@@ -139,6 +139,16 @@ jobs:
           NUEVOS=$(python3 -c "import json;print(json.load(open('daily-hack.json'))['new'])")
           git commit -m "Daily Hack: ${NUEVOS} new victims" \
                      -m "Automated daily run of tools/refresh-radar.py."
+          # Entre que empezo esta corrida y este push, main pudo moverse: el
+          # trabajo semanal de los acuerdos empuja al mismo sitio, y una
+          # re-ejecucion a mano arranca de un commit viejo. Sin esto, el push
+          # sale rechazado y la corrida se pierde entera.
+          git fetch origin main
+          if ! git rebase origin/main; then
+            git rebase --abort || true
+            echo '::error::main cambio y el reordenado choca; esta corrida no se empuja'
+            exit 1
+          fi
           git push
 
       # Una pagina diaria que el buscador rastrea cada semana no es una pagina
