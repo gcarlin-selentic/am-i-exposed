@@ -1639,7 +1639,11 @@ async function loadSettlements() {
     try {
         const response = await fetch('/settlements.json');
         const data = response.ok ? await response.json() : null;
-        settlements = Array.isArray(data) ? { ...VACIO, filas: data }
+        // La forma vieja solo contenia acuerdos pagados, asi que una fila sin
+        // tipo es un acuerdo. Sin esto, un navegador con el archivo viejo en
+        // cache pintaria Yahoo como "demanda en curso" durante una hora.
+        settlements = Array.isArray(data)
+            ? { ...VACIO, filas: data.map(f => ({ tipo: 'acuerdo', ...f })) }
             : (data && Array.isArray(data.filas) ? data : VACIO);
     } catch (e) {
         settlements = VACIO;
