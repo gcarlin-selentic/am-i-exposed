@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-21T16:23:34+00:00",
+ "generated": "2026-10-21T16:25:18+00:00",
  "window_days": 180,
  "sources": [
   {
@@ -140,8 +140,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "444b164b734349a0",
@@ -204,8 +205,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "e0a14950d9cc5d25",
@@ -983,8 +985,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#AssuranceRetraite",
-   "country": "",
-   "sector": "otros"
+   "country": "FR",
+   "sector": "gobierno",
+   "tried": 1
   },
   {
    "id": "6b15742c90d285e5",
@@ -1528,8 +1531,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#GitesDeFrance",
-   "country": "",
-   "sector": "otros"
+   "country": "FR",
+   "sector": "hoteleria",
+   "tried": 1
   },
   {
    "id": "82010fbaced66a37",
@@ -1735,8 +1739,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "GB",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "be8552598d4d1783",
@@ -2280,8 +2285,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "3a74ab0bc1c25d43",
@@ -2826,7 +2832,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/post/f122cc9421584a7c4c68579291a0feab",
    "country": "",
-   "sector": "otros"
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "d9eb02c5d4cea9be",
@@ -3695,8 +3702,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Crunchbase",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "9d035119f2051c02",
@@ -3838,7 +3846,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/r/fa243b30362d6540e77f51afe340bd8ee9296a97",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "e3a450464801411f",
@@ -3849,8 +3858,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/r/f8adc1a233532e13630b8e3bfec89414c2742cf0",
-   "country": "",
-   "sector": "otros"
+   "country": "PE",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "cc8bc8f58f37713c",
@@ -4550,8 +4560,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "GB",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "62204875874fe3c6",
@@ -4615,7 +4626,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "526e3302ebed4000",
@@ -4678,8 +4690,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "IT",
+   "sector": "energia",
+   "tried": 1
   },
   {
    "id": "8dca93114be9bca8",
@@ -4768,8 +4781,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Sharecare",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "05c3743d49607491",
@@ -4833,7 +4847,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "e8752bed0b224371",
@@ -4844,8 +4859,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "GB",
+   "sector": "construccion",
+   "tried": 1
   },
   {
    "id": "1176e4fbb85c4aa4",
@@ -4973,8 +4989,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "1b8f1fa60c166fb1",
@@ -5115,8 +5132,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "IT",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "d61d1ac8c3ddb25a",
@@ -5141,7 +5159,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "",
-   "sector": "otros"
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "20e48a324adf8ecf",
@@ -5282,8 +5301,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "9a7e1b81b41517d1",
@@ -5359,8 +5379,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "IT",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "bb0c5d26cb0c5bfd",
@@ -5462,8 +5483,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "IT",
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "04dc37ad6249df70",
@@ -5474,8 +5496,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Neogen",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "5ae9e684cca37fac",
@@ -5487,7 +5510,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#DoubleCounter",
    "country": "",
-   "sector": "otros"
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "223cf093d122a4df",
@@ -5498,8 +5522,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#CyrusOne",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "f7aaeb5d0a34fabc",
@@ -5510,8 +5535,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#AngelOne",
-   "country": "",
-   "sector": "otros"
+   "country": "IN",
+   "sector": "finanzas",
+   "tried": 1
   },
   {
    "id": "234b342b61b8cb0d",
@@ -5522,8 +5548,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Medela",
-   "country": "",
-   "sector": "otros"
+   "country": "CH",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "212e4b0edf9ca8f7",
@@ -5534,8 +5561,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#LimeLeads",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "f9425baf9663343d",
@@ -5546,8 +5574,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#BurgerKingRussia",
-   "country": "",
-   "sector": "otros"
+   "country": "RU",
+   "sector": "hoteleria",
+   "tried": 1
   },
   {
    "id": "d8f705e690aa412b",
@@ -5558,8 +5587,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Chess2026",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "5c2edf650f23a780",
@@ -5570,8 +5600,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#McKesson",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "0bb2dad66ed172a8",
@@ -5582,8 +5613,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#ManchesterAirportsGroup",
-   "country": "",
-   "sector": "otros"
+   "country": "GB",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "6646a6b0b5d5d3f1",
@@ -5594,8 +5626,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Questel",
-   "country": "",
-   "sector": "otros"
+   "country": "FR",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "53e3cb0dc4cc10f4",
@@ -5606,8 +5639,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Carhartt",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "451af205aba60ca5",
@@ -5618,8 +5652,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#NIUS",
-   "country": "",
-   "sector": "otros"
+   "country": "DE",
+   "sector": "medios",
+   "tried": 1
   },
   {
    "id": "613d74d990445ff1",
@@ -5630,8 +5665,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#GolfCanada",
-   "country": "",
-   "sector": "otros"
+   "country": "CA",
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "f35f6aaf29e47fc3",
@@ -5642,8 +5678,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#OzHairAndBeauty",
-   "country": "",
-   "sector": "otros"
+   "country": "AU",
+   "sector": "retail",
+   "tried": 1
   },
   {
    "id": "98b02ea3bc6ec07a",
@@ -5654,8 +5691,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Fanlore",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "medios",
+   "tried": 1
   },
   {
    "id": "80ee146aa13ac44f",
@@ -5666,8 +5704,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#RingCentral",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "telecom",
+   "tried": 1
   },
   {
    "id": "376b1bc18d410b4a",
@@ -5678,8 +5717,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Alcon",
-   "country": "",
-   "sector": "otros"
+   "country": "CH",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "2a33b3b162ab9da6",
@@ -5690,8 +5730,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#BrinksHome",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "26acf4686962df3a",
@@ -5702,8 +5743,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#ExactSciences",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "974dfd00ba2cdeac",
@@ -5714,8 +5756,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#InterConSecurity",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "d20ef585677ba082",
@@ -5727,7 +5770,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#SplitVPN",
    "country": "",
-   "sector": "otros"
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "17f9029a6a76c695",
@@ -5738,8 +5782,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#HoustonCityCollege",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "educacion",
+   "tried": 1
   },
   {
    "id": "de481a6f411398db",
@@ -5750,8 +5795,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Suno",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "1599df7d724e75d2",
@@ -5763,7 +5809,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Paidwork",
    "country": "",
-   "sector": "otros"
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "0d98f08a6cdbd301",
@@ -5775,7 +5822,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#GooseCreek",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "3fa35875e9bd5ca0",
@@ -5786,8 +5834,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Fluke",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "9cabe7a5256c4497",
@@ -5798,8 +5847,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#GlendaleCommunityCollege",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "educacion",
+   "tried": 1
   },
   {
    "id": "9eb475a50729bf5e",
@@ -5810,8 +5860,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#MoodyBibleInstitute",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "educacion",
+   "tried": 1
   },
   {
    "id": "80f341ffb35c0278",
@@ -5822,8 +5873,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Sysco",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "retail",
+   "tried": 1
   },
   {
    "id": "4b672d18739fc79f",
@@ -5834,8 +5886,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#AmericanTower",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "telecom",
+   "tried": 1
   },
   {
    "id": "cf2c770803bd1dd6",
@@ -5846,8 +5899,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#MadisonSquareGardenSports",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "medios",
+   "tried": 1
   },
   {
    "id": "fe55b766e4836f0a",
@@ -5858,8 +5912,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#JCPenney",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "retail",
+   "tried": 1
   },
   {
    "id": "65f4b5be0d4c9583",
@@ -5870,8 +5925,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#RalphLauren",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "retail",
+   "tried": 1
   },
   {
    "id": "9466657e9ffd06a2",
@@ -5883,7 +5939,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#OperationEndgame4",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "6ee8f6326539ae5d",
@@ -5894,8 +5951,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#CFGI",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "10eaf2da9d912215",
@@ -5907,7 +5965,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#June2026StealerLogs",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "c0f59f4bd2f6a00f",
@@ -5918,8 +5977,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#InfiniteCampus",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "2f15d458474e3b6a",
@@ -5930,8 +5990,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Berkadia",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "finanzas",
+   "tried": 1
   },
   {
    "id": "7d120dcae0649cb7",
@@ -5942,8 +6003,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#UniversityOfNottingham",
-   "country": "",
-   "sector": "otros"
+   "country": "GB",
+   "sector": "educacion",
+   "tried": 1
   },
   {
    "id": "6922480d13f1f092",
@@ -5954,8 +6016,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#BakerDistributing",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "retail",
+   "tried": 1
   },
   {
    "id": "0698191ba5f7dad3",
@@ -5966,8 +6029,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#BCDTravel",
-   "country": "",
-   "sector": "otros"
+   "country": "NL",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "589f5b6866a41b63",
@@ -5978,8 +6042,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#DentaQuest",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "6fa381ff68091e49",
@@ -5990,8 +6055,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Edmunds",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "medios",
+   "tried": 1
   },
   {
    "id": "0a9ee63372593aa4",
@@ -6003,7 +6069,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#AtlasMenu",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "24995507bb6aaec8",
@@ -6014,8 +6081,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Kemper",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "finanzas",
+   "tried": 1
   },
   {
    "id": "c12a777449db209f",
@@ -6026,8 +6094,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Charter",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "telecom",
+   "tried": 1
   },
   {
    "id": "7e22f66c9fb82828",
@@ -6038,8 +6107,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Mytheresa",
-   "country": "",
-   "sector": "otros"
+   "country": "DE",
+   "sector": "retail",
+   "tried": 1
   },
   {
    "id": "3e84689d1e88dc65",
@@ -6050,8 +6120,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Ameriprise",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "finanzas",
+   "tried": 1
   },
   {
    "id": "999cf185fe685621",
@@ -6062,8 +6133,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#7-Eleven",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "retail",
+   "tried": 1
   },
   {
    "id": "c677de118e1c6f14",
@@ -6074,8 +6146,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Windows93",
-   "country": "",
-   "sector": "otros"
+   "country": "FR",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "659aaf7e266a7d60",
@@ -6087,7 +6160,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Dragonica",
    "country": "",
-   "sector": "otros"
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "043ab2537f1771ed",
@@ -6098,8 +6172,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#CTT",
-   "country": "",
-   "sector": "otros"
+   "country": "PT",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "216cb50832487939",
@@ -6110,8 +6185,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#ADDI",
-   "country": "",
-   "sector": "otros"
+   "country": "CO",
+   "sector": "finanzas",
+   "tried": 1
   },
   {
    "id": "188d41d8c0db6ecd",
@@ -6122,8 +6198,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Abrigo",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "deccb786d54eced4",
@@ -6134,8 +6211,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#CanadaLife",
-   "country": "",
-   "sector": "otros"
+   "country": "CA",
+   "sector": "finanzas",
+   "tried": 1
   },
   {
    "id": "3c7117ae360c7f93",
@@ -6146,8 +6224,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#CushmanWakefield",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "6125ba80d9a4dfb3",
@@ -6158,8 +6237,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Zara",
-   "country": "",
-   "sector": "otros"
+   "country": "ES",
+   "sector": "retail",
+   "tried": 1
   },
   {
    "id": "25dc85e9da682c17",
@@ -6170,8 +6250,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Woflow",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "37fb71dccb88c7af",
@@ -6183,7 +6264,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#LegionProxy",
    "country": "",
-   "sector": "otros"
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "c3531ac07de92c2f",
@@ -6194,8 +6276,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Vimeo",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "96486cafe83de38a",
@@ -6207,7 +6290,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#RebornGaming",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "96a98350f2a27c62",
@@ -6218,8 +6302,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#MarcusMillichap",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "7e3a94ad55890fe2",
@@ -6230,8 +6315,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#ZenBusiness",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "d0392204c1c43ecb",
@@ -6242,8 +6328,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Aman",
-   "country": "",
-   "sector": "otros"
+   "country": "CH",
+   "sector": "hoteleria",
+   "tried": 1
   },
   {
    "id": "59c17a5b4f6392e0",
@@ -6254,8 +6341,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#PitneyBowes",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "dc13a6640589e93c",
@@ -6266,8 +6354,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#ADT",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "eae423cdf3d076f4",
@@ -6278,8 +6367,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Udemy",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "educacion",
+   "tried": 1
   },
   {
    "id": "94ff45a85b6d2204",
@@ -6290,8 +6380,9 @@
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Carnival",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "hoteleria",
+   "tried": 1
   }
  ]
 }
