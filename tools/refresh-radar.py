@@ -93,39 +93,20 @@ def enlace_grupo(grupo):
 
 
 def enlace_ransomlook(link, grupo=None):
-    """El enlace que devuelve la API, convertido en una URL que podemos poner
-    en un href.
+    """A donde mandamos a quien quiera leer mas sobre un caso.
 
-    No valida la cadena y la devuelve: la reconstruye. El host lo escribimos
-    nosotros y del origen solo sobrevive la ruta. Validar y devolver el
-    original es como se cuelan estas cosas, porque dos analizadores de URL no
-    leen lo mismo: el navegador trata la barra invertida como una barra, y
-    Python no, asi que "https://evil.com\\.ransomlook.io/x" aprobaria una
-    comprobacion de sufijo aqui y navegaria a evil.com alla. Lo que trae
-    barra invertida, arroba, espacios o caracteres de control no se discute:
-    va al indice.
+    Siempre a la pagina del grupo en RansomLook, nunca a lo que trae el campo
+    `link` de la API. Ese campo parecia una ruta suya y no lo es: es la ruta
+    dentro del sitio del propio grupo criminal (/site/blog?uuid=..., /entity/,
+    /project/, /place/...). Pegarle delante ransomlook.io producia enlaces que
+    daban 404, y resolverlo tal cual seria enlazar el sitio de extorsion. Se
+    comprobaron todas las formas que aparecian en los datos y ninguna existe
+    en su web; la unica que responde 200 es /group/<nombre>.
+
+    Ademas de ser lo correcto, esto cierra de raiz el riesgo que senalaba la
+    revision de seguridad: ninguna cadena de un tercero llega nunca a un href.
     """
-    link = (link or '').strip()
-    respaldo = enlace_grupo(grupo)
-    if not link or link.startswith('//'):
-        return respaldo
-    if any(c in link for c in '\\@'):
-        return respaldo
-    if any(ord(c) <= 0x20 or ord(c) == 0x7f for c in link):
-        return respaldo
-    try:
-        p = urllib.parse.urlsplit(link)      # el fragmento se descarta abajo
-        if not link.startswith('/'):
-            if (p.scheme not in ('http', 'https')
-                    or p.hostname not in ('ransomlook.io', 'www.ransomlook.io')
-                    or p.port):
-                return respaldo
-    except ValueError:                 # puerto absurdo, IPv6 mal cerrado
-        return respaldo
-    ruta = urllib.parse.quote(p.path, safe='/%')
-    consulta = urllib.parse.quote(p.query, safe='=&%')
-    return urllib.parse.urlunsplit(('https', 'www.ransomlook.io',
-                                    ruta or '/', consulta, ''))
+    return enlace_grupo(grupo)
 
 
 def limpia_victima(titulo):
@@ -377,9 +358,9 @@ def main():
         if not c.get('sourceUrl', '').lower().startswith(('http://', 'https://')):
             c['sourceUrl'] = ('https://haveibeenpwned.com/PwnedWebsites' if hibp
                               else enlace_grupo(c.get('group')))
-        elif not hibp and c['sourceUrl'] == INDICE_RL:
-            # Filas de corridas anteriores que se quedaron apuntando al indice
-            # general. La pagina del grupo lleva al caso; el indice no.
+        elif not hibp and not c['sourceUrl'].startswith(RANSOMLOOK + '/group/'):
+            # Filas de corridas anteriores: unas apuntaban al indice general y
+            # otras a rutas del sitio del grupo que en RansomLook dan 404.
             c['sourceUrl'] = enlace_grupo(c.get('group'))
 
     salida = {

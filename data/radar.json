@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-21T19:54:56+00:00",
+ "generated": "2026-10-21T20:59:22+00:00",
  "window_days": 180,
  "sources": [
   {
@@ -22,7 +22,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/n/srsnodgrass-com",
+   "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "US",
    "sector": "finanzas",
    "tried": 1
@@ -35,7 +35,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/n/sodali-com",
+   "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "IT",
    "sector": "finanzas",
    "tried": 1
@@ -48,7 +48,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/n/prosomnus-com",
+   "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "US",
    "sector": "salud",
    "tried": 1
@@ -61,7 +61,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/n/olyortho-com",
+   "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "US",
    "sector": "salud",
    "tried": 1
@@ -74,7 +74,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/n/oflaherty-law-com",
+   "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "US",
    "sector": "servicios",
    "tried": 1
@@ -87,7 +87,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/n/novagroupgbc-com",
+   "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "",
    "sector": "construccion",
    "tried": 1
@@ -100,7 +100,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/breaches",
+   "sourceUrl": "https://www.ransomlook.io/group/scarlettgroup",
    "country": "US",
    "sector": "medios",
    "tried": 1
@@ -113,7 +113,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/n/mvjllp-com",
+   "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "US",
    "sector": "servicios",
    "tried": 1
@@ -164,7 +164,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/breaches",
+   "sourceUrl": "https://www.ransomlook.io/group/scarlettgroup",
    "country": "US",
    "sector": "tecnologia",
    "tried": 1
@@ -177,7 +177,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/view/1792576388963809097_ewpJoREE",
+   "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "GA",
    "sector": "retail",
    "tried": 1
@@ -190,7 +190,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/view/1792576588492413251_qAtRMLEL",
+   "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "VN",
    "sector": "hoteleria",
    "tried": 1
@@ -203,7 +203,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/n/clinicaromero-com",
+   "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "",
    "sector": "salud",
    "tried": 1
@@ -255,7 +255,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/post/w-a",
+   "sourceUrl": "https://www.ransomlook.io/group/whitearmor",
    "country": "",
    "sector": "otros",
    "tried": 1
@@ -268,7 +268,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/post/updates",
+   "sourceUrl": "https://www.ransomlook.io/group/whitearmor",
    "country": "",
    "sector": "otros",
    "tried": 1
@@ -358,7 +358,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/news/pld-group",
+   "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "",
    "sector": "otros",
    "tried": 1
@@ -384,7 +384,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/news/lindauer-dornier",
+   "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "DE",
    "sector": "manufactura",
    "tried": 1
@@ -397,7 +397,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/news/lanham-associates",
+   "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "",
    "sector": "otros",
    "tried": 1
@@ -416,6 +416,18 @@
    "tried": 1
   },
   {
+   "id": "3ee4519b5a351ec5",
+   "day": "2026-10-21",
+   "victim": "K.r.. ...",
+   "group": "leakeddata",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/leakeddata",
+   "country": "",
+   "sector": "otros"
+  },
+  {
    "id": "0edeb6210f3a8eba",
    "day": "2026-10-21",
    "victim": "HollywoodHair.pl",
@@ -429,6 +441,18 @@
    "tried": 1
   },
   {
+   "id": "47c36f06fe6cf6eb",
+   "day": "2026-10-21",
+   "victim": "Hanjin Information Systems & Telecommunication Co., Ltd.",
+   "group": "n0n",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/n0n",
+   "country": "",
+   "sector": "otros"
+  },
+  {
    "id": "71f11bdb50965b9f",
    "day": "2026-10-21",
    "victim": "Haier",
@@ -436,7 +460,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/news/haier",
+   "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "CN",
    "sector": "manufactura",
    "tried": 1
@@ -449,7 +473,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/6d7ded8f-22f2-4513-88b8-49fb6fc19f13",
+   "sourceUrl": "https://www.ransomlook.io/group/bravox",
    "country": "MY",
    "sector": "manufactura",
    "tried": 1
@@ -591,7 +615,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/post/4d65aac70167a1053a02b2c05dd075ae",
+   "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "US",
    "sector": "salud",
    "tried": 1
@@ -604,7 +628,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/disclosures/6ad7ae089cd108bf269f986e",
+   "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
    "sector": "otros",
    "tried": 1
@@ -643,7 +667,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/project/TXCU6s4MkNbk6qpA/",
+   "sourceUrl": "https://www.ransomlook.io/group/global%20secret%20group",
    "country": "US",
    "sector": "educacion",
    "tried": 1
@@ -656,7 +680,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/disclosures/6ad64a4a9cd108bf2678b86e",
+   "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "DE",
    "sector": "hoteleria",
    "tried": 1
@@ -669,7 +693,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/project/iGyhLpP9NRPUzdLB/",
+   "sourceUrl": "https://www.ransomlook.io/group/global%20secret%20group",
    "country": "US",
    "sector": "servicios",
    "tried": 1
@@ -773,7 +797,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/project/a239gXcMizrSgN8t/",
+   "sourceUrl": "https://www.ransomlook.io/group/global%20secret%20group",
    "country": "US",
    "sector": "retail",
    "tried": 1
@@ -786,7 +810,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=bb468904-0b56-4f2d-9a66-17fa595ba08a",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "CA",
    "sector": "servicios",
    "tried": 1
@@ -825,7 +849,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/duarte-nursery-inc-43ddd522",
+   "sourceUrl": "https://www.ransomlook.io/group/aurora",
    "country": "US",
    "sector": "agro",
    "tried": 1
@@ -955,7 +979,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/posts/111ca943-92ee-4f72-8179-e4f89cc4a7cb",
+   "sourceUrl": "https://www.ransomlook.io/group/payload",
    "country": "DE",
    "sector": "construccion",
    "tried": 1
@@ -994,7 +1018,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/posts/cbbd6b28-4edc-4c1b-8384-62b8e69e7620",
+   "sourceUrl": "https://www.ransomlook.io/group/payload",
    "country": "DE",
    "sector": "retail",
    "tried": 1
@@ -1072,7 +1096,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=921958fc-7df4-447d-9a1a-4d75ef650aa7",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "IN",
    "sector": "tecnologia",
    "tried": 1
@@ -1085,7 +1109,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=567fcf78-bc3a-4542-aeeb-2a6160490c6c",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "ES",
    "sector": "retail",
    "tried": 1
@@ -1111,7 +1135,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=590c5dac-e648-4936-9c78-8e6b6aee76b9",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "transporte",
    "tried": 1
@@ -1124,7 +1148,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=9cc6a291-9467-4010-a17d-a5f39904abb2",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "MX",
    "sector": "salud",
    "tried": 1
@@ -1137,7 +1161,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/pingcap/",
+   "sourceUrl": "https://www.ransomlook.io/group/fulcrumsec",
    "country": "",
    "sector": "tecnologia",
    "tried": 1
@@ -1163,7 +1187,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/powersonic-industries-inc-e819c7e6",
+   "sourceUrl": "https://www.ransomlook.io/group/aurora",
    "country": "",
    "sector": "manufactura",
    "tried": 1
@@ -1215,7 +1239,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=47da60e2-06da-40e4-99fe-504addd02cde",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "construccion",
    "tried": 1
@@ -1241,7 +1265,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=2634a8dd-fd94-4584-a156-5c958c06b2f2",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "MX",
    "sector": "medios",
    "tried": 1
@@ -1280,7 +1304,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=4ca26250-a1aa-493e-bb4a-70ed6ef950c2",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "salud",
    "tried": 1
@@ -1332,7 +1356,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=35f0d3fd-c405-4608-b523-b231f22eb542",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "agro",
    "tried": 1
@@ -1345,7 +1369,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=694c13db-c3d4-4612-8013-bf43668f9151",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "otros",
    "tried": 1
@@ -1397,7 +1421,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/a/mckenneys/",
+   "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "",
    "sector": "otros",
    "tried": 1
@@ -1488,7 +1512,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=8c5605ad-afb1-4675-b776-f21e6c4231ef",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "manufactura",
    "tried": 1
@@ -1501,7 +1525,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=be468e7b-40f2-47dc-a4f8-2b87672a1847",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "MY",
    "sector": "energia",
    "tried": 1
@@ -1514,7 +1538,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/place/7npbyw8ifegqzfr0/",
+   "sourceUrl": "https://www.ransomlook.io/group/eclipse",
    "country": "",
    "sector": "transporte",
    "tried": 1
@@ -1527,7 +1551,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=877fba57-e1f9-4467-b702-c797685e1c8b",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "IT",
    "sector": "salud",
    "tried": 1
@@ -1553,7 +1577,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=e7770bb5-0317-40ff-8e48-68fb5f38b547",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "educacion",
    "tried": 1
@@ -1579,7 +1603,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=c4115757-95f5-48f1-bfd5-29e33075df54",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "servicios",
    "tried": 1
@@ -1657,7 +1681,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=4e27102e-c0f2-47b7-9abe-c69df381d668",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "servicios",
    "tried": 1
@@ -1735,7 +1759,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/news/taekwang-network",
+   "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "KR",
    "sector": "otros",
    "tried": 1
@@ -1787,7 +1811,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/b52c5ad3-7db4-48e4-925c-44e04d6bac21",
+   "sourceUrl": "https://www.ransomlook.io/group/bravox",
    "country": "DE",
    "sector": "manufactura",
    "tried": 1
@@ -1891,7 +1915,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/news/chugoku-bend",
+   "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "JP",
    "sector": "manufactura",
    "tried": 1
@@ -1904,7 +1928,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/news/brenner-base-tunnel",
+   "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "AT",
    "sector": "construccion",
    "tried": 1
@@ -1930,7 +1954,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/disclosures/6ad145999cd108bf26fbe5bc",
+   "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "CR",
    "sector": "finanzas",
    "tried": 1
@@ -1943,7 +1967,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/disclosures/6ad151ce9cd108bf26fd4077",
+   "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
    "sector": "otros",
    "tried": 1
@@ -1969,7 +1993,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/post/7628e0fef6a422909d4bd3310eff49ec",
+   "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "MY",
    "sector": "telecom",
    "tried": 1
@@ -1982,7 +2006,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/disclosures/6ad147d99cd108bf26fc2c01",
+   "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
    "sector": "otros",
    "tried": 1
@@ -1995,7 +2019,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/disclosures/6ad149709cd108bf26fc615d",
+   "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
    "sector": "servicios",
    "tried": 1
@@ -2034,7 +2058,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=0b4690ca-9214-4ddd-b5ca-15aa621e4d0e",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "finanzas",
    "tried": 1
@@ -2398,7 +2422,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/news/kissei-shoji",
+   "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "JP",
    "sector": "otros",
    "tried": 1
@@ -2801,7 +2825,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/adams-warehouse-delivery-inc-2c6e2ef7",
+   "sourceUrl": "https://www.ransomlook.io/group/aurora",
    "country": "US",
    "sector": "transporte",
    "tried": 1
@@ -2827,7 +2851,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/post/6ecacfad25ee6527ec3fa87ca744ef20",
+   "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "US",
    "sector": "servicios",
    "tried": 1
@@ -2840,7 +2864,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/a/sunshine-mills/",
+   "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "US",
    "sector": "manufactura",
    "tried": 1
@@ -2866,7 +2890,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/post/f122cc9421584a7c4c68579291a0feab",
+   "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "",
    "sector": "manufactura",
    "tried": 1
@@ -2879,7 +2903,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/a/middleby/",
+   "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "US",
    "sector": "manufactura",
    "tried": 1
@@ -2892,7 +2916,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/post/977db6f7f82245d4c819bac476557788",
+   "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "EG",
    "sector": "gobierno",
    "tried": 1
@@ -2905,7 +2929,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/post/8d34b608644114d6e45dd1b947435179",
+   "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "US",
    "sector": "salud",
    "tried": 1
@@ -2918,7 +2942,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/post/34634bc8cc016fac205240a20f2770b1",
+   "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "IN",
    "sector": "tecnologia",
    "tried": 1
@@ -2944,7 +2968,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/a/hilmar-cheese/",
+   "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "US",
    "sector": "agro",
    "tried": 1
@@ -2957,7 +2981,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/a/hensley/",
+   "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "",
    "sector": "otros",
    "tried": 1
@@ -2970,7 +2994,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/post/207b1851208def299388b7869763f88e",
+   "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "",
    "sector": "servicios",
    "tried": 1
@@ -2983,7 +3007,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/post/f122cc9421584a7c4c68579291a0feab",
+   "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "",
    "sector": "manufactura",
    "tried": 1
@@ -2996,7 +3020,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/a/camden-living/",
+   "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "",
    "sector": "otros",
    "tried": 1
@@ -3009,7 +3033,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/a/buckle/",
+   "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "US",
    "sector": "retail",
    "tried": 1
@@ -3035,7 +3059,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/a/alera/",
+   "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "",
    "sector": "otros",
    "tried": 1
@@ -3074,7 +3098,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=b5c41839-38f6-4dc1-b4ce-1c93373b9405",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "servicios",
    "tried": 1
@@ -3087,7 +3111,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=73b16550-d65c-4aba-a3ee-88b2b44452ca",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "finanzas",
    "tried": 1
@@ -3126,7 +3150,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=17e6b9a4-c3b3-4957-a5ad-65981f83faa6",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "servicios",
    "tried": 1
@@ -3139,7 +3163,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=c2bff0b0-ad78-414d-b29b-9a3ddfcd59b0",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "retail",
    "tried": 1
@@ -3178,7 +3202,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=4a91246b-aea6-4278-be5c-8a55947c0bd6",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "GB",
    "sector": "manufactura",
    "tried": 1
@@ -3191,7 +3215,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=09d2df3d-43e6-4548-9df6-d318272878e0",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "JP",
    "sector": "transporte",
    "tried": 1
@@ -3204,7 +3228,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=ffc7f386-782e-433a-aa1d-e7e92c6b44fe",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "manufactura",
    "tried": 1
@@ -3230,7 +3254,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=aa2f1bf5-2d3b-4729-b069-ab39fa13da98",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "servicios",
    "tried": 1
@@ -3269,7 +3293,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=bbae74d9-11f0-4687-ae26-cb89acd01eb4",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "energia",
    "tried": 1
@@ -3412,7 +3436,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=17857655-4f48-478d-95f2-8b1f5b8cf529",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "FR",
    "sector": "gobierno",
    "tried": 1
@@ -3425,7 +3449,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=466ea5fa-3596-49d6-ae8c-3ab69a9879e2",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "retail",
    "tried": 1
@@ -3451,7 +3475,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=37defa29-f502-4356-ace7-c32811790070",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "telecom",
    "tried": 1
@@ -3477,7 +3501,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/aa53033b-7a1b-4195-964d-e973dec6f71d",
+   "sourceUrl": "https://www.ransomlook.io/group/black%20nevas",
    "country": "AE",
    "sector": "educacion",
    "tried": 1
@@ -3503,7 +3527,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/post/3501b906ca194c9e3a349c29ac277fe4",
+   "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "GR",
    "sector": "hoteleria",
    "tried": 1
@@ -3542,7 +3566,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/place/0gaa86a0todvfnu7/",
+   "sourceUrl": "https://www.ransomlook.io/group/eclipse",
    "country": "TW",
    "sector": "salud",
    "tried": 1
@@ -3620,7 +3644,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=14137818-4d18-4e68-9e9b-8855af8cfbbd",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "construccion",
    "tried": 1
@@ -3646,7 +3670,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=63e77859-80a2-418f-ac13-e0dc0492339a",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "educacion",
    "tried": 1
@@ -3698,7 +3722,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/disclosures/6acf9f0c9cd108bf26c1cfa1",
+   "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
    "sector": "finanzas",
    "tried": 1
@@ -3711,7 +3735,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/estrategias-bigmat-slu-86da2d8a",
+   "sourceUrl": "https://www.ransomlook.io/group/aurora",
    "country": "ES",
    "sector": "retail",
    "tried": 1
@@ -3802,7 +3826,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/view/1791770344597241094_Gkik1MJ5",
+   "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "BD",
    "sector": "telecom",
    "tried": 1
@@ -3828,7 +3852,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/post/900a3b5d98352eefa63b4b3547fe7874",
+   "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "TH",
    "sector": "servicios",
    "tried": 1
@@ -3880,7 +3904,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/r/fa243b30362d6540e77f51afe340bd8ee9296a97",
+   "sourceUrl": "https://www.ransomlook.io/group/ransomhouse",
    "country": "",
    "sector": "otros",
    "tried": 1
@@ -3893,7 +3917,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/r/f8adc1a233532e13630b8e3bfec89414c2742cf0",
+   "sourceUrl": "https://www.ransomlook.io/group/ransomhouse",
    "country": "PE",
    "sector": "salud",
    "tried": 1
@@ -3932,7 +3956,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/disclosures/6ace1e019cd108bf26913637",
+   "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "DE",
    "sector": "otros",
    "tried": 1
@@ -3984,7 +4008,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=1bfb7b37-625a-40a4-bf5c-11ff2028ddad",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "finanzas",
    "tried": 1
@@ -3997,7 +4021,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/the-buckner-company-inc-75b23ef0",
+   "sourceUrl": "https://www.ransomlook.io/group/aurora",
    "country": "US",
    "sector": "finanzas",
    "tried": 1
@@ -4010,7 +4034,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/r/fa243b30362d6540e77f51afe340bd8ee9296a97",
+   "sourceUrl": "https://www.ransomlook.io/group/ransomhouse",
    "country": "",
    "sector": "otros",
    "tried": 1
@@ -4088,7 +4112,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=ae463972-5ee3-4911-807d-b97fc6a8284d",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "servicios",
    "tried": 1
@@ -4153,7 +4177,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=59c33c5e-fea2-4c5c-9616-95bdfe6adfc0",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "servicios",
    "tried": 1
@@ -4192,7 +4216,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/r/f8adc1a233532e13630b8e3bfec89414c2742cf0",
+   "sourceUrl": "https://www.ransomlook.io/group/ransomhouse",
    "country": "PE",
    "sector": "salud",
    "tried": 1
@@ -4218,7 +4242,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/disclosures/6ace36569cd108bf2694586b",
+   "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
    "sector": "otros",
    "tried": 1
@@ -4244,7 +4268,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/r/3ab90ecf3bd189fe7598175d97b0f9f823d4d7bb",
+   "sourceUrl": "https://www.ransomlook.io/group/ransomhouse",
    "country": "",
    "sector": "otros",
    "tried": 1
@@ -4400,7 +4424,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=3207ef15-fce2-49c6-87bd-88b19dcce878",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "MX",
    "sector": "gobierno",
    "tried": 1
@@ -4530,7 +4554,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/entity/1719FB7EED3A12C3",
+   "sourceUrl": "https://www.ransomlook.io/group/audit%20team",
    "country": "",
    "sector": "otros",
    "tried": 1
@@ -4543,7 +4567,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/entity/F1BC17AA5D133FA6",
+   "sourceUrl": "https://www.ransomlook.io/group/audit%20team",
    "country": "",
    "sector": "otros",
    "tried": 1
@@ -4556,7 +4580,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/entity/61AABCAF2221FDEE",
+   "sourceUrl": "https://www.ransomlook.io/group/audit%20team",
    "country": "",
    "sector": "finanzas",
    "tried": 1
@@ -4569,7 +4593,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/entity/9ACBED3DF66E8E73",
+   "sourceUrl": "https://www.ransomlook.io/group/audit%20team",
    "country": "",
    "sector": "otros",
    "tried": 1
@@ -4608,7 +4632,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/post/hiqbiocom/",
+   "sourceUrl": "https://www.ransomlook.io/group/safepay",
    "country": "",
    "sector": "salud",
    "tried": 1
@@ -4621,7 +4645,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/disclosures/6accee3c9cd108bf266a8243",
+   "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
    "sector": "servicios",
    "tried": 1
@@ -4673,7 +4697,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/0AFC%3A15e8790a255b2761b74110431d3f96f460e5e3eb2a7afb547b084fe9c5169f62/0AFC%3A222c14ecc18ad6c9bfad5e426ab3028273ab587161552a5ccc2926218991e362",
+   "sourceUrl": "https://www.ransomlook.io/group/metaencryptor",
    "country": "US",
    "sector": "tecnologia",
    "tried": 1
@@ -4699,7 +4723,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/n/Trailerbridge",
+   "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "US",
    "sector": "transporte",
    "tried": 1
@@ -4907,7 +4931,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=c3dbbfbe-593e-4d7f-8ffe-750e474df047",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "servicios",
    "tried": 1
@@ -4920,7 +4944,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/blog/rechtsanwaltskanzlei-dr-bien-88f4b584",
+   "sourceUrl": "https://www.ransomlook.io/group/aurora",
    "country": "DE",
    "sector": "servicios",
    "tried": 1
@@ -4959,7 +4983,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=0ae5ac9d-4f0d-4e32-898d-72fcdc0d1a7e",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "ES",
    "sector": "construccion",
    "tried": 1
@@ -5102,7 +5126,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/0AFC%3Afd42c40204f038686ab0243f5f2cc33b7e4dd033c34319aaad4fd0557e70d89c/0AFC%3A9be1de544157eea7f365c2646008a4044c5c347b75817da9f60f636d3d945a68438c5982464d089ac471a18b4e77e4f1",
+   "sourceUrl": "https://www.ransomlook.io/group/metaencryptor",
    "country": "US",
    "sector": "salud",
    "tried": 1
@@ -5349,7 +5373,7 @@
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
-   "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=b654d0ae-b10c-483a-9dc4-3df6b7957e16",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "manufactura",
    "tried": 1
