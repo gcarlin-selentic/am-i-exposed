@@ -122,6 +122,29 @@ def limpia_victima(titulo):
     return t.strip(' -|:·').strip()[:140]
 
 
+DOMINIO = re.compile(
+    r'\b((?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}(?:\.[a-z]{2})?)\b', re.I)
+
+# Dominios que aparecen en el texto de los grupos y no son de la victima.
+RUIDO = {'ransomlook.io', 'haveibeenpwned.com', 'tor.onion', 'protonmail.com',
+         'gmail.com', 'outlook.com', 'telegram.org', 'twitter.com', 'x.com'}
+
+
+def dominio(*textos):
+    """El dominio de la victima, si asoma en el titulo o en la descripcion.
+
+    Es la mejor pista de pais que hay: un .pe o un .br dicen de donde es la
+    empresa mucho mejor que su nombre, y el clasificador no tiene forma de
+    saberlo si no se lo damos. Un .com no dice nada, y eso se lo advertimos
+    en la instruccion."""
+    for t in textos:
+        for m in DOMINIO.finditer(t or ''):
+            d = m.group(1).lower().rstrip('.')
+            if d not in RUIDO and not d.endswith('.onion'):
+                return d
+    return ''
+
+
 # --------------------------------------------------------------------------
 # Fuentes
 
@@ -143,6 +166,7 @@ def de_ransomlook(desde):
             'source': 'RansomLook',
             'sourceUrl': enlace_ransomlook(p.get('link'), p.get('group_name')),
             # Solo para clasificar. No se publica: es texto de otro.
+            '_dominio': dominio(victima, p.get('description')),
             '_pista': (p.get('description') or '')[:400],
         })
     return salida
@@ -172,7 +196,8 @@ def de_hibp(desde):
             'source': 'Have I Been Pwned',
             'sourceUrl': 'https://haveibeenpwned.com/PwnedWebsites#'
                          + (b.get('Name') or ''),
-            '_pista': f"{b.get('Domain') or ''} · {b.get('PwnCount') or 0} cuentas",
+            '_dominio': (b.get('Domain') or '').lower(),
+            '_pista': f"{b.get('PwnCount') or 0} cuentas",
         })
     return salida
 
@@ -210,8 +235,11 @@ INSTRUCCION = (
     'organisation is headquartered in. A wrong country is worse than none: it '
     'puts a company in the wrong section of a public page.\n'
     '- Return "otros" for the industry when you are not confident.\n'
-    '- A .com domain says nothing about the country. Judge by what you know of '
-    'the organisation itself, its name and the hint text.\n'
+    '- A country-code domain is strong evidence: .pe is Peru, .br Brazil, .mx '
+    'Mexico, .co.uk the United Kingdom. Trust it over your own guess about the '
+    'name.\n'
+    '- A .com, .net or .org domain says nothing about the country. Judge by '
+    'what you know of the organisation itself, its name and the hint text.\n'
     '- Never infer the country from the attacking group: these groups hit '
     'victims everywhere.\n'
     '- You are labelling the victim, not the attacker.'
@@ -254,7 +282,9 @@ def clasifica(nuevos):
     for inicio in range(0, len(nuevos), LOTE):
         lote = nuevos[inicio:inicio + LOTE]
         listado = '\n'.join(
-            f'{n}. {c["victim"]}' + (f' — hint: {c["_pista"]}' if c.get('_pista') else '')
+            f'{n}. {c["victim"]}'
+            + (f' — domain: {c["_dominio"]}' if c.get('_dominio') else '')
+            + (f' — hint: {c["_pista"]}' if c.get('_pista') else '')
             for n, c in enumerate(lote))
         try:
             r = cliente.messages.create(
@@ -347,6 +377,29 @@ def main():
     else:
         print('--dry-run: no se clasifica ni se escribe')
 
+    # Las filas viejas guardaron su identidad con el nombre tal cual venia, y
+    # el limpiador de nombres ha cambiado desde entonces: "[DISCLOSED]Hospital
+    # X" y "Hospital X" son el mismo hospital con dos identidades distintas, y
+    # salian dos veces en la pagina. Se vuelve a limpiar el nombre, se vuelve
+    # a calcular la identidad y lo que colisiona se funde, quedandose con la
+    # primera fecha y con lo que cada copia supiera.
+    fundidos = {}
+    for c in items:
+        c['victim'] = limpia_victima(c['victim']) or c['victim']
+        c['id'] = ident(c.get('group'), c['victim'])
+        otro = fundidos.get(c['id'])
+        if not otro:
+            fundidos[c['id']] = c
+            continue
+        otro['day'] = min(otro['day'], c['day'])
+        for campo in ('country', 'sector', 'sourceUrl'):
+            if not otro.get(campo) or otro.get(campo) == 'otros':
+                if c.get(campo):
+                    otro[campo] = c[campo]
+        if c.get('tried'):
+            otro['tried'] = 1
+    items = list(fundidos.values())
+
     items.sort(key=lambda c: (c['day'], c['victim']), reverse=True)
     # Lo que sigue en el archivo de corridas viejas no volvio a pasar por
     # enlace_ransomlook. RansomLook devuelve a veces enlaces relativos raros
@@ -354,6 +407,7 @@ def main():
     # propio dominio. Un enlace al indice es menos util y es cierto.
     for c in items:
         c.pop('_pista', None)
+        c.pop('_dominio', None)
         hibp = c.get('source') == 'Have I Been Pwned'
         if not c.get('sourceUrl', '').lower().startswith(('http://', 'https://')):
             c['sourceUrl'] = ('https://haveibeenpwned.com/PwnedWebsites' if hibp
