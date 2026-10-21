@@ -634,6 +634,7 @@ function rerenderAll() {
     if (lastPasswordCount !== null) {
         renderPasswordExposed(lastPasswordCount);
     }
+    refreshMissed();
     if (reportWasOpen) {
         openReport();
     } else {
@@ -1517,6 +1518,9 @@ function refreshOfferCard() {
     // Not awaited: it asks the server whether this visitor is in the United
     // States, and the rest of the page has no reason to wait for that.
     refreshAlertsCard();
+    // Esta no pregunta nada al servidor y no depende del pais: sale para
+    // todo el mundo en cuanto hay un resultado.
+    refreshMissed();
 }
 
 function hideOffer() {
@@ -1662,18 +1666,20 @@ function sitioValido(valor) {
     return host + (resto ? '/' + resto : '');
 }
 
+// Lo que alguien pudo haber cobrado es informacion, no producto: no depende
+// de donde viva ni de que pueda comprar nada, asi que vive en su propia
+// tarjeta y no dentro de la de alertas, que solo se ofrece en Estados Unidos.
+// Mientras estuvo ahi dentro, un visitante de Lima con su correo en la
+// filtracion de Neiman Marcus no se enteraba de que hubo dinero.
 function renderMissed(rows) {
-    const box = document.getElementById('alertsMatch');
-    const generic = document.getElementById('alertsGeneric');
-    const title = document.getElementById('alertsTitle');
-    if (!box || !generic) return;
+    const card = document.getElementById('missedCard');
+    if (!card) return;
 
     if (!rows.length) {
-        box.hidden = true;
-        generic.hidden = false;
-        if (title) title.innerHTML = t().alertsTitle;
+        card.hidden = true;
         return;
     }
+    card.hidden = false;
 
     const fmt = n => new Intl.NumberFormat(lang === 'en' ? 'en-US' : 'es-CO',
         { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
@@ -1725,9 +1731,14 @@ function renderMissed(rows) {
         </li>`;
     }).join('');
 
-    box.hidden = false;
-    generic.hidden = true;
-    if (title) title.innerHTML = t().alertsMissedTitle;
+}
+
+// Se recalcula con cada revision y con cada cambio de idioma, porque las
+// cantidades y las fechas se escriben segun el idioma.
+async function refreshMissed() {
+    if (!document.getElementById('missedCard')) return;
+    if (!lastEmailResult) { renderMissed([]); return; }
+    renderMissed(await missedSettlements());
 }
 
 async function refreshAlertsCard() {
@@ -1743,7 +1754,6 @@ async function refreshAlertsCard() {
     if (!config.eligible) return;
 
     fillAlertStates();
-    renderMissed(await missedSettlements());
 }
 
 function alertsError(message) {

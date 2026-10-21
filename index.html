@@ -269,20 +269,24 @@
          The state list is built in app.js rather than written out here. Fifty
          one options in two language versions is a hundred and two lines that
          would drift apart the first time one of them is edited. -->
+    <!-- What somebody could have claimed is information, not a product: it
+         does not depend on where they live or on being able to buy anything,
+         so it has its own card. It used to live inside the alerts card, which
+         is offered in the United States only, and everybody else never saw
+         it. Filled by app.js from settlements.json; the browser already holds
+         the breach list, so nothing is sent anywhere to match it. -->
+    <section class="offer missed" id="missedCard" hidden>
+        <h2 data-i18n="alertsMissedTitle">You could already have claimed, and nobody told you.</h2>
+        <p data-i18n="alertsMissedLede">Your email appears in breaches that ended in a settlement. This is what they paid, and when the window closed:</p>
+        <ul class="alerts-missed" id="alertsMissedList"></ul>
+        <p class="alerts-caveat" data-i18n="alertsCaveat">Claiming required being in the class, which usually means having received the company&rsquo;s notice letter. Appearing in the breach does not guarantee it. We are not lawyers and we do not claim on your behalf.</p>
+    </section>
+
     <div class="offer" id="alertsCard" hidden>
         <span class="badge"><span class="dot"></span><span data-i18n="alertsBadge">Alerts &middot; US only</span></span>
         <h2 id="alertsTitle" data-i18n="alertsTitle">If a company that leaked your data gets sued, we&rsquo;ll let you know.</h2>
         <p data-i18n="alertsLede">Companies that lose data end up paying class action settlements. The money is real and almost nobody claims it, because the notice arrives by post and looks like junk mail.</p>
-                <!-- The face shown when the address checked matches a settlement that
-             has already paid out. Built in app.js from settlements.json,
-             because the browser already holds the breach list and nothing has
-             to be sent anywhere to match it. -->
-        <div id="alertsMatch" hidden>
-            <p data-i18n="alertsMissedLede">Your email appears in breaches that ended in a settlement. This is what they paid, and when the window closed:</p>
-            <ul class="alerts-missed" id="alertsMissedList"></ul>
-            <p class="alerts-caveat" data-i18n="alertsCaveat">Claiming required being in the class, which usually means having received the company's notice letter. Appearing in the breach does not guarantee it. We are not lawyers and we do not claim on your behalf.</p>
-        </div>
-        <ul id="alertsGeneric">
+                        <ul id="alertsGeneric">
             <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="alertsLi1">1,614 cases tracked, 307 still open</span></li>
             <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="alertsLi2">One note a month, and a separate one when there is something to claim</span></li>
             <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="alertsLi3">If you live in California, we flag the extra statutory payment</span></li>
