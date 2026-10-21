@@ -65,7 +65,7 @@ T = {
             'ransomware dicen haber atacado. {n} casos en los últimos {d} días, '
             'con la fuente de cada uno y la diferencia entre lo que el grupo '
             'reclama y lo que la víctima confirma.'),
-  'k1': 'víctimas nuevas hoy', 'k2': 'casos en los últimos {d} días',
+  'k1': 'víctimas nuevas en 24 horas', 'k2': 'casos en los últimos {d} días',
   'k3': 'en Perú y América Latina', 'k4': 'grupos criminales activos',
   'today': 'Lo de hoy', 'nothing': 'Hoy no hay casos nuevos.',
   'ctah': '¿Y tu correo?',
@@ -83,6 +83,9 @@ T = {
   'thsource': 'Fuente',
   'more': 'Mostrar todo', 'less': 'Mostrar menos',
   'cases': 'casos', 'case': 'caso', 'nomatch': 'Ningún caso coincide.',
+  'nothingat': ('Ningún caso de los últimos 7 días coincide con ese filtro. '
+                'Prueba a quitar alguno: el registro cubre solo la última semana, '
+                'y en Perú y América Latina hay semanas enteras sin una sola víctima publicada.'),
   'sectorh': 'Por industria',
   'sectorp': ('Qué sectores concentran los ataques de la semana. Los casos que '
               'no pudimos identificar con certeza no aparecen aquí.'),
@@ -138,7 +141,7 @@ T = {
             'groups say they have attacked. {n} cases in the last {d} days, '
             'each with its source and with the difference between what the '
             'group claims and what the victim confirms.'),
-  'k1': 'new victims today', 'k2': 'cases in the last {d} days',
+  'k1': 'new victims in 24 hours', 'k2': 'cases in the last {d} days',
   'k3': 'in the United States', 'k4': 'active criminal groups',
   'today': "Today's cases", 'nothing': 'No new cases today.',
   'ctah': 'What about your email?',
@@ -156,6 +159,9 @@ T = {
   'thsource': 'Source',
   'more': 'Show all', 'less': 'Show less',
   'cases': 'cases', 'case': 'case', 'nomatch': 'No case matches.',
+  'nothingat': ('No case from the last 7 days matches that filter. Try removing '
+                'one: this page covers the last week only, and some countries go '
+                'whole weeks without a single victim being posted.'),
   'sectorh': 'By industry',
   'sectorp': ('Which sectors the week’s attacks fall into. Cases we could '
               'not identify with confidence are left out.'),
@@ -334,6 +340,8 @@ td .s{font-size:13.5px;color:var(--muted)}
 tr[hidden]{display:none}
 .more{display:flex;justify-content:center;margin:12px 0 0}
 .empty{padding:28px 16px;text-align:center;color:var(--muted)}
+.sinres{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+ padding:18px 20px;color:var(--muted);max-width:70ch}
 .bars{display:grid;gap:7px;margin:0 0 26px}
 .bar{display:grid;grid-template-columns:minmax(118px,230px) minmax(0,1fr) 42px;align-items:center;
  gap:11px;padding:3px 0}
@@ -379,23 +387,27 @@ JS = """
 (function(){
  var q=document.getElementById('fQ'),c=document.getElementById('fCountry'),
      s=document.getElementById('fSector'),g=document.getElementById('fGroup'),
-     r=document.getElementById('fReset');
+     e=document.getElementById('fState'),r=document.getElementById('fReset'),
+     nada=document.getElementById('sinResultados');
  var LIM=%(lim)d;
+ var campos=[q,c,s,g].concat(e?[e]:[]);
  function texto(tr){
   if(!tr._t)tr._t=(tr.textContent||'').toLowerCase();
   return tr._t;
  }
  function paint(){
-  var Q=q.value.trim().toLowerCase(),C=c.value,S=s.value,G=g.value;
-  var open=Q||C||S||G;
+  var Q=q.value.trim().toLowerCase(),C=c.value,S=s.value,G=g.value,E=e?e.value:'';
+  var open=Q||C||S||G||E;
+  var total=0;
   document.querySelectorAll('section.region').forEach(function(sec){
    var n=0;
    sec.querySelectorAll('tr[data-r]').forEach(function(tr){
     var ok=(!C||tr.dataset.c===C)&&(!S||tr.dataset.s===S)&&(!G||tr.dataset.g===G)
-           &&(!Q||texto(tr).indexOf(Q)>=0);
+           &&(!E||tr.dataset.e===E)&&(!Q||texto(tr).indexOf(Q)>=0);
     if(ok)n++;
     tr.hidden=!ok||(!open&&n>LIM&&!sec.classList.contains('all'));
    });
+   total+=n;
    sec.querySelector('.c').textContent=n+' '+(n===1?'%(one)s':'%(many)s');
    var btn=sec.querySelector('.more button');
    if(btn)btn.hidden=open||n<=LIM;
@@ -403,9 +415,13 @@ JS = """
    if(em)em.hidden=n>0;
    sec.hidden=open&&n===0;
   });
+  // Con todas las secciones escondidas no quedaba nada en pantalla y parecia
+  // que la pagina se habia roto. Un pais sin casos esta semana es una
+  // respuesta, y hay que darla.
+  if(nada)nada.hidden=!(open&&total===0);
  }
- [q,c,s,g].forEach(function(el){el.addEventListener('input',paint);el.addEventListener('change',paint);});
- r.addEventListener('click',function(){q.value='';c.value='';s.value='';g.value='';paint();});
+ campos.forEach(function(el){el.addEventListener('input',paint);el.addEventListener('change',paint);});
+ r.addEventListener('click',function(){q.value='';c.value='';s.value='';g.value='';if(e)e.value='';paint();});
  document.querySelectorAll('.more button').forEach(function(b){
   b.addEventListener('click',function(){
    var sec=b.closest('section.region');
@@ -431,7 +447,15 @@ def pagina(idioma, datos, hoy):
              - dt.timedelta(days=DIAS_PAGINA - 1)).isoformat()
     semana = [c for c in items if c['day'] >= corte]
 
-    n_hoy = sum(1 for c in items if c['day'] == ultimo)
+    # "Nuevas" se mide con el sello de cuando lo vimos nosotros, no con la
+    # fecha que trae la fuente: RansomLook sella en hora europea y su dia
+    # cambia antes que el nuestro, asi que contar por su fecha hacia que a
+    # media tarde la pagina dijera que hoy es manana y que hay tres casos.
+    corte_24 = (dt.datetime.now(dt.timezone.utc)
+                - dt.timedelta(hours=24)).isoformat(timespec='seconds')
+    n_hoy = sum(1 for c in items if (c.get('seen') or '') >= corte_24)
+    if not n_hoy:                      # archivo sin sellos todavia
+        n_hoy = sum(1 for c in items if c['day'] == ultimo)
     n_total = len(semana)
     verificados = sum(1 for c in semana if c['status'] == 'verificado')
     grupos = len({c['group'] for c in semana if c['group'] != '—'})
@@ -440,7 +464,11 @@ def pagina(idioma, datos, hoy):
     else:
         foco = sum(1 for c in semana if c['country'] == 'US')
 
-    atrasado = (dt.date.fromisoformat(hoy) - dt.date.fromisoformat(ultimo)).days >= 2
+    # La fecha que se muestra es la de esta corrida. La del ultimo caso es de
+    # otro huso y adelanta.
+    visto = max((c.get('seen') or '') for c in items) if items else ''
+    sello = visto[:10] or ultimo
+    atrasado = (dt.date.fromisoformat(hoy) - dt.date.fromisoformat(sello)).days >= 2
 
     o = []
     w = o.append
@@ -516,14 +544,14 @@ def pagina(idioma, datos, hoy):
     w(f'        <span class="tag"><span class="dot"></span>{E(t["tag"])}</span>')
     msg = t['barmsg'].format(n=n_hoy) if n_hoy else t['barnone']
     w(f'        <span class="msg">{msg}</span>')
-    w(f'        <span class="when">{t["barwhen"].format(d=fecha(ultimo, idioma))}</span>')
+    w(f'        <span class="when">{t["barwhen"].format(d=fecha(hoy, idioma))}</span>')
     w('    </div>')
     w('</div>')
     w('')
     w('<main class="wrap">')
     w(f'    <h1>{E(t["h1"])}</h1>')
     if atrasado:
-        w(f'    <p class="stale">{E(t["stale"].format(d=fecha(ultimo, idioma)))}</p>')
+        w(f'    <p class="stale">{E(t["stale"].format(d=fecha(sello, idioma)))}</p>')
     w(f'    <p class="standfirst">{E(t["stand"].format(n=n_total, d=DIAS_PAGINA))}</p>')
     w('')
     w('    <ul class="kpis">')
@@ -571,14 +599,20 @@ def pagina(idioma, datos, hoy):
     w(f'        <p class="fine">{E(t["ctaf"])}</p>')
     w('    </section>')
     w('')
-    # Filtros. Las opciones salen de lo que hay en la semana: un desplegable
-    # con paises que no aparecen en ninguna fila es un callejon sin salida.
-    paises_pres = sorted({c['country'] for c in semana if c['country']},
+    # Los paises salen del archivo entero, no de la semana. Una semana sin
+    # victimas peruanas dejaba a Peru fuera del desplegable, y entonces el
+    # lector no puede ni preguntar: no es lo mismo "no hay casos" que "no
+    # puedes buscarlo". Si elige uno sin casos esta semana, la pagina se lo
+    # dice. Industria y grupo si salen de la semana: son decenas y cambian
+    # cada dia, y una lista de doscientos grupos no ayuda a nadie.
+    paises_pres = sorted({c['country'] for c in items if c['country']},
                          key=lambda x: pais(x, idioma))
     sect_pres = sorted({c['sector'] for c in semana if c['sector'] != 'otros'},
                        key=lambda x: etiqueta(SECTORES, x, idioma))
     grupos_pres = sorted({c['group'] for c in semana if c['group'] != '—'},
                          key=str.lower)
+    estados_pres = [e for e in ('reclamado', 'confirmado', 'verificado')
+                    if any(c['status'] == e for c in semana)]
     w('    <div class="filters">')
     w(f'        <div class="fld"><label for="fCountry">{E(t["fcountry"])}</label>'
       '<select id="fCountry">')
@@ -598,10 +632,19 @@ def pagina(idioma, datos, hoy):
     for g in grupos_pres:
         w(f'            <option value="{E(g)}">{E(g)}</option>')
     w('        </select></div>')
+    if len(estados_pres) > 1:
+        w(f'        <div class="fld"><label for="fState">{E(t["thstate"])}</label>'
+          '<select id="fState">')
+        w(f'            <option value="">{E(t["fall"])}</option>')
+        for e in estados_pres:
+            w(f'            <option value="{e}">'
+              f'{E(etiqueta(ESTADOS_CORTO, e, idioma))}</option>')
+        w('        </select></div>')
     w(f'        <div class="fld"><label for="fQ">{E(t["fsearch"])}</label>'
       f'<input type="search" id="fQ" placeholder="{E(t["fplace"])}"></div>')
     w(f'        <button class="btn" type="button" id="fReset">{E(t["freset"])}</button>')
     w('    </div>')
+    w(f'    <p class="sinres" id="sinResultados" hidden>{E(t["nothingat"])}</p>')
     w('')
     for clave, titulo in REGIONES[idioma]:
         filas = [c for c in semana if region(c['country'], idioma) == clave]
@@ -635,7 +678,7 @@ def pagina(idioma, datos, hoy):
             victima = (f'<a href="{E(u)}" target="_blank" rel="noopener nofollow">'
                        f'{E(c["victim"])}</a>' if u else E(c['victim']))
             w(f'<tr data-r data-c="{E(c["country"])}" data-s="{E(c["sector"])}" '
-              f'data-g="{E(c["group"])}"{oculta}>'
+              f'data-g="{E(c["group"])}" data-e="{E(c["status"])}"{oculta}>'
               f'<td class="d">{fecha(c["day"], idioma)}</td>'
               f'<td class="v">{victima}</td>'
               f'<td>{E(pais(c["country"], idioma))}</td>'
@@ -728,7 +771,7 @@ def main():
         os.makedirs(carpeta, exist_ok=True)
         open(os.path.join(carpeta, 'index.html'), 'w', encoding='utf-8').write(texto)
         print(f'{SALIDA[idioma]}/index.html: {len(texto) // 1024} KB')
-        resumen = {'date': ultimo, 'new': n_hoy, 'week': n_total}
+        resumen = {'date': hoy, 'new': n_hoy, 'week': n_total}
 
     # Dos numeros para el boton de la portada. Se lee con fetch, asi que la
     # portada no hay que regenerarla cada dia para que la cifra sea de hoy.

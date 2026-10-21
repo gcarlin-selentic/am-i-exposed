@@ -24,7 +24,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-22T12:00:00+00:00"
   },
   {
    "id": "ba2c16a1e67d319f",
@@ -36,7 +37,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/leakeddata",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-22T12:00:00+00:00"
   },
   {
    "id": "74bb5cd9878c9af2",
@@ -48,7 +50,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/aurora",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-22T12:00:00+00:00"
   },
   {
    "id": "8a13eb2e7ef5c6a7",
@@ -61,7 +64,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "fbbf6a0e852dd349",
@@ -74,7 +78,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "IT",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "d51a747d0045fd1c",
@@ -87,7 +92,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "db8bce95f928a621",
@@ -100,7 +106,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "c99bc2500393c4c3",
@@ -113,7 +120,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "35bdc852447cc936",
@@ -125,7 +133,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "",
-   "sector": "construccion"
+   "sector": "construccion",
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "5ba79dd1a202879f",
@@ -138,7 +147,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/scarlettgroup",
    "country": "US",
    "sector": "medios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "3739e670b61225eb",
@@ -151,7 +161,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "67e4de692d60a887",
@@ -164,7 +175,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/sovcali",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "2eea73a382048032",
@@ -176,7 +188,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/payoutsking",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "444b164b734349a0",
@@ -189,7 +202,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/scarlettgroup",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "dd56319bda1dbc18",
@@ -202,7 +216,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "GA",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "d0e9c4bea15f4c6d",
@@ -215,7 +230,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "VN",
    "sector": "hoteleria",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "1c6348e0efc7c32d",
@@ -227,7 +243,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "",
-   "sector": "salud"
+   "sector": "salud",
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "e0a14950d9cc5d25",
@@ -240,7 +257,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "ae25fdd8e86138bd",
@@ -252,7 +270,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/whitearmor",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "1901abd2540e7191",
@@ -265,7 +284,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "educacion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "33768a0e64e7e6b2",
@@ -277,7 +297,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/whitearmor",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "5eb9c67124f6b345",
@@ -289,7 +310,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/whitearmor",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "dc7eb0fb03a33725",
@@ -302,7 +324,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/sovcali",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "398d0d74e9e14ec6",
@@ -315,7 +338,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "medios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "bee3ee6e5101c282",
@@ -327,7 +351,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/sovcali",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "0f535ea40a47021d",
@@ -340,7 +365,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/sovcali",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "b093fcbb0dafabc7",
@@ -353,7 +379,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/sovcali",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "1c9cd7380e4ca128",
@@ -365,7 +392,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/leakeddata",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "4b1b84d7d437f0a2",
@@ -377,7 +405,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "5680f831169ba146",
@@ -390,7 +419,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/sovcali",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "b96c62743e97376e",
@@ -403,7 +433,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "DE",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "f36b6226f09c205a",
@@ -415,7 +446,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "ca380bccb1b0278b",
@@ -427,7 +459,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/clop",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "fe2fbb99064c92d6",
@@ -439,7 +472,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/leakeddata",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "3ee4519b5a351ec5",
@@ -451,7 +485,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/leakeddata",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "0edeb6210f3a8eba",
@@ -464,7 +499,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/sovcali",
    "country": "PL",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "47c36f06fe6cf6eb",
@@ -476,7 +512,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "71f11bdb50965b9f",
@@ -489,7 +526,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "CN",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "cac2c18e5858389c",
@@ -502,7 +540,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/bravox",
    "country": "MY",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "72e5eda38304bfe3",
@@ -515,7 +554,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/akira",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "48bfb829b7012ee5",
@@ -528,7 +568,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "EC",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "77b5f85666b49809",
@@ -541,7 +582,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "PT",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "f8114f87b6188155",
@@ -554,7 +596,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "23d535384965e1b4",
@@ -567,7 +610,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "e306d2d59166264a",
@@ -580,7 +624,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "99484e3faebf53cd",
@@ -592,7 +637,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/interlock",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "cfe6c4aac390c896",
@@ -605,7 +651,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/akira",
    "country": "US",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "0a93c0d2630662e3",
@@ -618,7 +665,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/emperador",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "d967cb67e497db8b",
@@ -631,7 +679,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/pear",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-21T12:00:00+00:00"
   },
   {
    "id": "87f0992bcff5cb31",
@@ -644,7 +693,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "0d103e243f5e6974",
@@ -656,7 +706,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "ba14329ac798d66e",
@@ -669,7 +720,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "37c8b44f04fdc0a6",
@@ -681,7 +733,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/dark%20project",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "17e7ac1cacd63f18",
@@ -694,7 +747,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/global%20secret%20group",
    "country": "US",
    "sector": "educacion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "671248672a3a54f5",
@@ -707,7 +761,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "DE",
    "sector": "hoteleria",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "3b5f25e2d663a8fc",
@@ -720,7 +775,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/global%20secret%20group",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "0b1fb94394489497",
@@ -733,7 +789,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/booba%20team",
    "country": "US",
    "sector": "educacion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "d13f6649d741782d",
@@ -746,7 +803,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/booba%20team",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "70cce5626e261c78",
@@ -758,7 +816,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/leakeddata",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "6f1d6ad7a7539bad",
@@ -770,7 +829,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/leakeddata",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "32e82c01bf7356ca",
@@ -782,7 +842,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "",
-   "sector": "manufactura"
+   "sector": "manufactura",
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "5b8e265e6e78c164",
@@ -795,7 +856,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/mimori",
    "country": "CA",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "2748c9b8c14b990a",
@@ -807,7 +869,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/leakeddata",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "96e1c5b79b81d92e",
@@ -820,7 +883,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/global%20secret%20group",
    "country": "US",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "60aaad724d651d1d",
@@ -833,7 +897,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "CA",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "0796a489f8b2987b",
@@ -846,7 +911,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "09f6fc20a7b63472",
@@ -858,7 +924,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/anubis",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "f055ec26690e7547",
@@ -871,7 +938,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/aurora",
    "country": "US",
    "sector": "agro",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "b9cb3ab2e461b1cf",
@@ -883,7 +951,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "b7ea5f6baa3cdfd2",
@@ -895,7 +964,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "",
-   "sector": "manufactura"
+   "sector": "manufactura",
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "22a68f3304ab1b37",
@@ -908,7 +978,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "TT",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "318ef186b6d20404",
@@ -921,7 +992,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "CH",
    "sector": "energia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "2262db410a6dd14d",
@@ -934,7 +1006,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/booba%20team",
    "country": "US",
    "sector": "gobierno",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "c5bdd56ed781e228",
@@ -947,7 +1020,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/booba%20team",
    "country": "US",
    "sector": "gobierno",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "f67e2870754578f8",
@@ -960,7 +1034,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/booba%20team",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "daa96f714bab9ded",
@@ -973,7 +1048,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/booba%20team",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "7fbc773727d41797",
@@ -985,7 +1061,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "",
-   "sector": "manufactura"
+   "sector": "manufactura",
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "115594c580a26a27",
@@ -998,7 +1075,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/payload",
    "country": "DE",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "07ae3af30858a271",
@@ -1011,7 +1089,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/dark%20project",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "c424f263eec7ab2c",
@@ -1024,7 +1103,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/redact",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "6b8c9e149b28a94d",
@@ -1037,7 +1117,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/payload",
    "country": "DE",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "f734861564113f3b",
@@ -1050,7 +1131,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/mimori",
    "country": "GB",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "81b9b278d0b03c41",
@@ -1063,7 +1145,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#AssuranceRetraite",
    "country": "FR",
    "sector": "gobierno",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "6b15742c90d285e5",
@@ -1076,7 +1159,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/dark%20project",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "4a2145710c48a5f2",
@@ -1089,7 +1173,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/deadlock",
    "country": "ZA",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "ecda154db606d1fc",
@@ -1102,7 +1187,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-20T12:00:00+00:00"
   },
   {
    "id": "e350e3b74d25ce58",
@@ -1115,7 +1201,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "IN",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "da4413cca328c375",
@@ -1128,7 +1215,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "ES",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "5699298fba860ba5",
@@ -1141,7 +1229,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "0c2d5a4339c2afc4",
@@ -1153,7 +1242,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
-   "sector": "transporte"
+   "sector": "transporte",
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "40399fb9340b0524",
@@ -1166,7 +1256,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "MX",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "d3573531e11a69c2",
@@ -1178,7 +1269,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/fulcrumsec",
    "country": "",
-   "sector": "tecnologia"
+   "sector": "tecnologia",
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "588d507f6565527a",
@@ -1191,7 +1283,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/storm",
    "country": "US",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "3269d9d0397d2d8c",
@@ -1203,7 +1296,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/aurora",
    "country": "",
-   "sector": "manufactura"
+   "sector": "manufactura",
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "cdf07830ec98243e",
@@ -1216,7 +1310,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/storm",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "8690ba3589e87de2",
@@ -1229,7 +1324,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/leakeddata",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "3c29c7259e0cd6dc",
@@ -1242,7 +1338,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "7ef6aa5090ba379d",
@@ -1255,7 +1352,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "2bb96b8598043bfd",
@@ -1268,7 +1366,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "hoteleria",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "a53ffa241e73c27e",
@@ -1281,7 +1380,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "MX",
    "sector": "medios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "5b2ae52b56f3f50b",
@@ -1294,7 +1394,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/emperador",
    "country": "BR",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "7130554ab8974415",
@@ -1307,7 +1408,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "4e68136943d9df3b",
@@ -1320,7 +1422,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "44958fbc31a31992",
@@ -1333,7 +1436,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "657b49671c116442",
@@ -1346,7 +1450,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "a047029ef500e03a",
@@ -1359,7 +1464,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "KR",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "7fc239b63a88fe11",
@@ -1371,7 +1477,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
-   "sector": "agro"
+   "sector": "agro",
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "3cfcdb0998b26588",
@@ -1383,7 +1490,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "e212057fb74ba247",
@@ -1396,7 +1504,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/storm",
    "country": "US",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "884df6d4322488c3",
@@ -1409,7 +1518,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "medios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-19T12:00:00+00:00"
   },
   {
    "id": "411b376efb346d74",
@@ -1421,7 +1531,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/dragonforce",
    "country": "",
-   "sector": "tecnologia"
+   "sector": "tecnologia",
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "207c209681ac505c",
@@ -1433,7 +1544,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "7e5018eb93d9d204",
@@ -1446,7 +1558,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/cloak",
    "country": "DE",
    "sector": "otros",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "42f703a25cb28c4d",
@@ -1458,7 +1571,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/nightspire",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "5de104d907da1d45",
@@ -1471,7 +1585,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "EG",
    "sector": "telecom",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "1d88c3e0b5b83e51",
@@ -1484,7 +1599,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "NL",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "00131fe4bad8b131",
@@ -1497,7 +1613,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "2fe23c153b3e089d",
@@ -1510,7 +1627,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "8b284da98aee7520",
@@ -1522,7 +1640,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
-   "sector": "manufactura"
+   "sector": "manufactura",
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "19da631d59cf2341",
@@ -1535,7 +1654,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "MY",
    "sector": "energia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "0e4fab70201f2203",
@@ -1547,7 +1667,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/eclipse",
    "country": "",
-   "sector": "transporte"
+   "sector": "transporte",
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "9bf9d34a3214a414",
@@ -1560,7 +1681,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "IT",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "9cde3090e867e1d4",
@@ -1573,7 +1695,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/emperador",
    "country": "ES",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "87aadd3aa6e22edb",
@@ -1586,7 +1709,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "educacion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "1db20583ff0036b3",
@@ -1599,7 +1723,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#GitesDeFrance",
    "country": "FR",
    "sector": "hoteleria",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "82010fbaced66a37",
@@ -1611,7 +1736,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
-   "sector": "servicios"
+   "sector": "servicios",
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "7917e391cd662d74",
@@ -1624,7 +1750,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "766191bd5e49ae7a",
@@ -1637,7 +1764,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "f494b3ee3e18f97b",
@@ -1650,7 +1778,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "7606ff385045a5b7",
@@ -1663,7 +1792,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "dd74f55a0f6db53a",
@@ -1676,7 +1806,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "2f89edef9ac951fa",
@@ -1688,7 +1819,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
-   "sector": "servicios"
+   "sector": "servicios",
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "2aacee0367982435",
@@ -1701,7 +1833,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "d59e5ecf6af77947",
@@ -1714,7 +1847,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/cloak",
    "country": "CH",
    "sector": "otros",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-18T12:00:00+00:00"
   },
   {
    "id": "42be500c4e7311d4",
@@ -1727,7 +1861,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/vexy",
    "country": "JP",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-17T12:00:00+00:00"
   },
   {
    "id": "cf06ff13a4d9ba46",
@@ -1740,7 +1875,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/play",
    "country": "BE",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-17T12:00:00+00:00"
   },
   {
    "id": "134e88f3a33516c0",
@@ -1753,7 +1889,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/play",
    "country": "GB",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-17T12:00:00+00:00"
   },
   {
    "id": "fe4c599fe5525ea8",
@@ -1766,7 +1903,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "KR",
    "sector": "otros",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-17T12:00:00+00:00"
   },
   {
    "id": "f33e67db0adebd40",
@@ -1778,7 +1916,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/play",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-17T12:00:00+00:00"
   },
   {
    "id": "93bd8f0e76a3e6b7",
@@ -1791,7 +1930,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "BR",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-17T12:00:00+00:00"
   },
   {
    "id": "be8552598d4d1783",
@@ -1804,7 +1944,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/bravox",
    "country": "DE",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-17T12:00:00+00:00"
   },
   {
    "id": "7c1aa23aa4df6346",
@@ -1816,7 +1957,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/play",
    "country": "",
-   "sector": "tecnologia"
+   "sector": "tecnologia",
+   "seen": "2026-10-17T12:00:00+00:00"
   },
   {
    "id": "191ce844d0a0cb30",
@@ -1829,7 +1971,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/byod",
    "country": "CA",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-17T12:00:00+00:00"
   },
   {
    "id": "2672883b794fc96e",
@@ -1842,7 +1985,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-17T12:00:00+00:00"
   },
   {
    "id": "f2fb17fc88dd951f",
@@ -1855,7 +1999,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-17T12:00:00+00:00"
   },
   {
    "id": "287d96a8b79d26ee",
@@ -1868,7 +2013,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-17T12:00:00+00:00"
   },
   {
    "id": "b52d67725b485cac",
@@ -1881,7 +2027,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-17T12:00:00+00:00"
   },
   {
    "id": "4812caebf521b858",
@@ -1894,7 +2041,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-17T12:00:00+00:00"
   },
   {
    "id": "7f4b7a8101c47257",
@@ -1907,7 +2055,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "JP",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-17T12:00:00+00:00"
   },
   {
    "id": "e0b3bbce200d71ee",
@@ -1920,7 +2069,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "AT",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-17T12:00:00+00:00"
   },
   {
    "id": "1b9cc8f5186d07da",
@@ -1932,7 +2082,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/majinahanashi",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-17T12:00:00+00:00"
   },
   {
    "id": "30eedb03f13e467b",
@@ -1945,7 +2096,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "CR",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "7dfd7abe837e9da3",
@@ -1957,7 +2109,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "6b2cca7beb5a728b",
@@ -1970,7 +2123,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "8ed82bf54a1a1ff9",
@@ -1983,7 +2137,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "MY",
    "sector": "telecom",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "c956e35738114f09",
@@ -1995,7 +2150,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "8c63bffe129e9f88",
@@ -2007,7 +2163,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
-   "sector": "servicios"
+   "sector": "servicios",
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "ba45c380d5e27f40",
@@ -2020,7 +2177,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "55c3b47d3e9d8d49",
@@ -2033,7 +2191,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "TH",
    "sector": "educacion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "79ab0f7e83b610d5",
@@ -2046,7 +2205,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "c160b95ceaf2df2a",
@@ -2059,7 +2219,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "BR",
    "sector": "educacion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "48d48b1c8f0af69e",
@@ -2072,7 +2233,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "telecom",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "d92dc287ea9d0fd5",
@@ -2085,7 +2247,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "TH",
    "sector": "agro",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "61f2e29ebca49244",
@@ -2098,7 +2261,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "TW",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "beddec183d02fdd8",
@@ -2111,7 +2275,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "BR",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "4aeb5034003039d7",
@@ -2124,7 +2289,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "AU",
    "sector": "educacion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "d03daf31dd37977b",
@@ -2136,7 +2302,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/pear",
    "country": "",
-   "sector": "telecom"
+   "sector": "telecom",
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "2837d7d57a366aa7",
@@ -2149,7 +2316,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "CZ",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "e6af3b0f6134bea3",
@@ -2162,7 +2330,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "bc9b7cf6736ea99b",
@@ -2175,7 +2344,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "51e3912d3bf8ab9c",
@@ -2188,7 +2358,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "CA",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "81aaee04c92d754a",
@@ -2201,7 +2372,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "04b69f15cd2d6fad",
@@ -2214,7 +2386,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "JP",
    "sector": "educacion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "10c82cccb17542ba",
@@ -2227,7 +2400,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "KR",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "b0eb7482fe70c03a",
@@ -2240,7 +2414,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "CA",
    "sector": "medios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "6a8f98eb1af8b0aa",
@@ -2253,7 +2428,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "DE",
    "sector": "gobierno",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "7886168520d26c86",
@@ -2266,7 +2442,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "telecom",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "8206fc12d62e80d9",
@@ -2279,7 +2456,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/redact",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "445b879fdc728525",
@@ -2292,7 +2470,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "BR",
    "sector": "agro",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "54b8c9deea0dc041",
@@ -2305,7 +2484,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/redact",
    "country": "US",
    "sector": "energia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "938d08616f79c473",
@@ -2318,7 +2498,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "3a74ab0bc1c25d43",
@@ -2331,7 +2512,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "IN",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "7ce87ffc651ae03c",
@@ -2344,7 +2526,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "TH",
    "sector": "gobierno",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "b85107c645211ea1",
@@ -2357,7 +2540,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "107668e5cc122c99",
@@ -2369,7 +2553,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/pear",
    "country": "",
-   "sector": "finanzas"
+   "sector": "finanzas",
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "7665f8d787b3c251",
@@ -2382,7 +2567,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "CH",
    "sector": "medios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "3e4aa5a24ff15014",
@@ -2395,7 +2581,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "JP",
    "sector": "otros",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "549477b74b6c7dc8",
@@ -2408,7 +2595,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "39bfe08b229de24d",
@@ -2421,7 +2609,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "11c4867ae795231f",
@@ -2434,7 +2623,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "US",
    "sector": "otros",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "5ee11ee3369de9a1",
@@ -2447,7 +2637,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "MX",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "c25c3bfb21fc9e3f",
@@ -2460,7 +2651,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "e2603ffadeeae433",
@@ -2473,7 +2665,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/deadlock",
    "country": "US",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "2506b3d58283dcb3",
@@ -2486,7 +2679,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "bc4d867646ca1abf",
@@ -2499,7 +2693,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "ZA",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "764e5f61bde48dd8",
@@ -2512,7 +2707,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "57b423ca7ad56ce9",
@@ -2525,7 +2721,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "IE",
    "sector": "otros",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "cb818e44a59aa3e5",
@@ -2538,7 +2735,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "b84e65fe841e7a46",
@@ -2551,7 +2749,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "EC",
    "sector": "gobierno",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "8a19cb0b93d4a2bb",
@@ -2563,7 +2762,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/vexy",
    "country": "",
-   "sector": "tecnologia"
+   "sector": "tecnologia",
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "0dc21b55c8ab49e3",
@@ -2576,7 +2776,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "42a1953745642ea0",
@@ -2589,7 +2790,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "23d69080a3f39c6f",
@@ -2602,7 +2804,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "hoteleria",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "4463155d39a9d092",
@@ -2615,7 +2818,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "a5c9b2b2c516a3c0",
@@ -2628,7 +2832,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "2a49b27be2a56949",
@@ -2641,7 +2846,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "17fb6a6d56258f6f",
@@ -2654,7 +2860,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "medios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "a1e29896f2832d55",
@@ -2667,7 +2874,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "7b59131687a031cd",
@@ -2680,7 +2888,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "00160d9eca9cbd85",
@@ -2693,7 +2902,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "53a855849ee82ef3",
@@ -2705,7 +2915,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/pear",
    "country": "",
-   "sector": "servicios"
+   "sector": "servicios",
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "c14590e937ba1198",
@@ -2718,7 +2929,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "be5432d023f42f02",
@@ -2731,7 +2943,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "BR",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "f731d03931abd3db",
@@ -2744,7 +2957,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "TH",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "ff4e9fc6fc4acd24",
@@ -2757,7 +2971,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "489113b08ffb82b5",
@@ -2770,7 +2985,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "fbeeb4af3bfbaaa5",
@@ -2783,7 +2999,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "AE",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "29f16f641612568f",
@@ -2796,7 +3013,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/aurora",
    "country": "US",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-16T12:00:00+00:00"
   },
   {
    "id": "940d42576bfd9491",
@@ -2809,7 +3027,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/scarlettgroup",
    "country": "US",
    "sector": "educacion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "e92840e989a24bc3",
@@ -2822,7 +3041,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "4a7882064db5cb06",
@@ -2835,7 +3055,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "5ee6a62e039ec193",
@@ -2848,7 +3069,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/scarlettgroup",
    "country": "IN",
    "sector": "gobierno",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "d9eb02c5d4cea9be",
@@ -2861,7 +3083,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "39249ce33f7d9e77",
@@ -2874,7 +3097,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "EG",
    "sector": "gobierno",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "f33c6fd68b6e5fc3",
@@ -2887,7 +3111,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "8deea39b30e9b8cd",
@@ -2900,7 +3125,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "IN",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "2294716334728c8f",
@@ -2913,7 +3139,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20seven%20deadly%20sins",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "4d6fe5a824a24e34",
@@ -2926,7 +3153,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "US",
    "sector": "agro",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "5b67dbe837f36309",
@@ -2938,7 +3166,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "569f74efe7738a4f",
@@ -2950,7 +3179,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "",
-   "sector": "servicios"
+   "sector": "servicios",
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "aec3825fad90a55a",
@@ -2962,7 +3192,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "",
-   "sector": "manufactura"
+   "sector": "manufactura",
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "64040f1157854769",
@@ -2974,7 +3205,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "84d6f05fd149d040",
@@ -2987,7 +3219,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "US",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "45a837601a7a0c29",
@@ -3000,7 +3233,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/0x00",
    "country": "MX",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "b347f3e6bf9b3f22",
@@ -3012,7 +3246,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "f3167d51a84c1fda",
@@ -3025,7 +3260,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/akira",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "a1cb62884c3fd94f",
@@ -3038,7 +3274,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20seven%20deadly%20sins",
    "country": "US",
    "sector": "agro",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "1bc7674462ef3ac6",
@@ -3050,7 +3287,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
-   "sector": "servicios"
+   "sector": "servicios",
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "5a0d9470ba96691e",
@@ -3063,7 +3301,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "cb356299e90fa003",
@@ -3075,7 +3314,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "",
-   "sector": "manufactura"
+   "sector": "manufactura",
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "2925d4cd7c8aba51",
@@ -3088,7 +3328,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/akira",
    "country": "US",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "7eae1bbf04e22c21",
@@ -3101,7 +3342,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "cc865e2db1787d90",
@@ -3113,7 +3355,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
-   "sector": "retail"
+   "sector": "retail",
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "2db6de3390273337",
@@ -3126,7 +3369,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/nightspire",
    "country": "US",
    "sector": "educacion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "5769171a00b60dd4",
@@ -3139,7 +3383,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/emperador",
    "country": "CO",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "efd7badeb599a31e",
@@ -3152,7 +3397,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "GB",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "0acfbda154e20d10",
@@ -3165,7 +3411,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "JP",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "f84f32480ffd0eb3",
@@ -3177,7 +3424,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
-   "sector": "manufactura"
+   "sector": "manufactura",
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "e6e9039c5be78d86",
@@ -3190,7 +3438,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "47ee031232882dfe",
@@ -3202,7 +3451,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
-   "sector": "servicios"
+   "sector": "servicios",
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "6a32defe524cff10",
@@ -3215,7 +3465,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20seven%20deadly%20sins",
    "country": "BR",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "bce1a27a2799bd43",
@@ -3228,7 +3479,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/space%20bears",
    "country": "US",
    "sector": "agro",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "6285710f3994a417",
@@ -3240,7 +3492,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
-   "sector": "energia"
+   "sector": "energia",
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "2e48de7e3f8cc078",
@@ -3253,7 +3506,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20seven%20deadly%20sins",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "354e6f9976973431",
@@ -3266,7 +3520,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20seven%20deadly%20sins",
    "country": "CA",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "b5e6ef5e2f5993d3",
@@ -3279,7 +3534,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/vexy",
    "country": "IN",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "8c96f89e5bd7954b",
@@ -3292,7 +3548,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20seven%20deadly%20sins",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "2b231d403f707748",
@@ -3305,7 +3562,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "06b0cc829149e439",
@@ -3318,7 +3576,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "EG",
    "sector": "educacion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "2f4a4ad805170818",
@@ -3331,7 +3590,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "cfff4b5c08e4920a",
@@ -3344,7 +3604,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "a9ab77ee5b7a6aab",
@@ -3357,7 +3618,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "NL",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "6b9bf9c65ca5aa0c",
@@ -3370,7 +3632,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "2c4e2789e61a17a0",
@@ -3383,7 +3646,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "FR",
    "sector": "gobierno",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "b7a778c7e2d4dbcb",
@@ -3396,7 +3660,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "9ff3eea1b8fb2db1",
@@ -3409,7 +3674,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20seven%20deadly%20sins",
    "country": "AU",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "b1e8f7db95674780",
@@ -3421,7 +3687,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
-   "sector": "telecom"
+   "sector": "telecom",
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "f6f4460d97e468de",
@@ -3434,7 +3701,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/akira",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "2dcd7f7047896e30",
@@ -3447,7 +3715,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/black%20nevas",
    "country": "AE",
    "sector": "educacion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "cf65adf95faf008b",
@@ -3460,7 +3729,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/space%20bears",
    "country": "IT",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-15T12:00:00+00:00"
   },
   {
    "id": "3abcf64499836f48",
@@ -3473,7 +3743,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "GR",
    "sector": "hoteleria",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "8c2a6f5c9892b75a",
@@ -3486,7 +3757,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "36a45442ed472581",
@@ -3499,7 +3771,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/akira",
    "country": "ES",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "8c69b157b7ec1d27",
@@ -3512,7 +3785,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/eclipse",
    "country": "TW",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "76acaf3b176b5549",
@@ -3525,7 +3799,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/akira",
    "country": "CA",
    "sector": "agro",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "b9711f53d85168f8",
@@ -3537,7 +3812,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/payoutsking",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "de86c94c0c6cfa78",
@@ -3549,7 +3825,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "",
-   "sector": "manufactura"
+   "sector": "manufactura",
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "4864cee7b11049f5",
@@ -3561,7 +3838,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/kairos",
    "country": "",
-   "sector": "tecnologia"
+   "sector": "tecnologia",
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "e176357962512769",
@@ -3574,7 +3852,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/emperador",
    "country": "PY",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "dfeb37527cc2a035",
@@ -3586,7 +3865,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
-   "sector": "construccion"
+   "sector": "construccion",
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "2b783858ac28ad32",
@@ -3599,7 +3879,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/dragonforce",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "7c07fffaf5de607c",
@@ -3612,7 +3893,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "educacion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "ac91fb9fb830e154",
@@ -3625,7 +3907,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/deadlock",
    "country": "IT",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "88101d7a0c453553",
@@ -3638,7 +3921,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "33918117811f9caa",
@@ -3651,7 +3935,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/akira",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "fae4450196c4bfac",
@@ -3663,7 +3948,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
-   "sector": "finanzas"
+   "sector": "finanzas",
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "53a2107a1640c823",
@@ -3676,7 +3962,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/aurora",
    "country": "ES",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "05b86bdaa11ea7b7",
@@ -3689,7 +3976,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "44b2218a12869c9a",
@@ -3702,7 +3990,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Crunchbase",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "9d035119f2051c02",
@@ -3715,7 +4004,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "BR",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "87ec8d0420beb30f",
@@ -3727,7 +4017,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/nightspire",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "c439b2e657434a9f",
@@ -3740,7 +4031,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "MY",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "de0ffa4cbdf4b421",
@@ -3752,7 +4044,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/nightspire",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-14T12:00:00+00:00"
   },
   {
    "id": "b2e5cd8dd19bb808",
@@ -3765,7 +4058,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "BD",
    "sector": "telecom",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "9f3ce2c9313a240e",
@@ -3778,7 +4072,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "TH",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "5a91fca1769989d3",
@@ -3791,7 +4086,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "IN",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "578b98aa5a1f27a7",
@@ -3804,7 +4100,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "SA",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "414dc12d801d2aa7",
@@ -3817,7 +4114,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "TR",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "cc8bc8f58f37713c",
@@ -3830,7 +4128,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/panzer",
    "country": "FR",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "1f73344a3a30478b",
@@ -3843,7 +4142,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "MY",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "462393c751b11a60",
@@ -3856,7 +4156,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "DE",
    "sector": "otros",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "46c7fd36199ea185",
@@ -3869,7 +4170,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "1ead860c7b331b90",
@@ -3882,7 +4184,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/panzer",
    "country": "FR",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "d045aee1eea1ee88",
@@ -3894,7 +4197,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/play",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "f74f3571e98e847e",
@@ -3906,7 +4210,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
-   "sector": "finanzas"
+   "sector": "finanzas",
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "f1ffad4b16ddb0f5",
@@ -3919,7 +4224,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/aurora",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "885d02a8fb088e2d",
@@ -3931,7 +4237,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/ransomhouse",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "4d05c3c83ee8e3bf",
@@ -3944,7 +4251,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "9ad4e6765a1a9fb1",
@@ -3956,7 +4264,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/majinahanashi",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "b27605a4b33c2ca3",
@@ -3968,7 +4277,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/play",
    "country": "",
-   "sector": "manufactura"
+   "sector": "manufactura",
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "4fb93a13890e440f",
@@ -3981,7 +4291,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "agro",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "7b8ccad44003e827",
@@ -3994,7 +4305,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/payoutsking",
    "country": "US",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "eb6ec556facd7dbb",
@@ -4007,7 +4319,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "fb5817b37481127d",
@@ -4020,7 +4333,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "bca9448d7df98d6c",
@@ -4033,7 +4347,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "25c41bf2a266cd1c",
@@ -4046,7 +4361,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "DE",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "43808219acd69abc",
@@ -4059,7 +4375,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/direwolf",
    "country": "PE",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "55fbbd6febaa7c16",
@@ -4072,7 +4389,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "788fe5c7d2fce5b3",
@@ -4085,7 +4403,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "IN",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "c4fad0a36b1a0545",
@@ -4098,7 +4417,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "AU",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "d6e7df6f85798bce",
@@ -4111,7 +4431,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/ransomhouse",
    "country": "PE",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "dd1b2d4ddc444620",
@@ -4124,7 +4445,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/vexy",
    "country": "BR",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "94136f208f816fed",
@@ -4136,7 +4458,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "c9b50661d310392b",
@@ -4149,7 +4472,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "c585d630fd5ed21b",
@@ -4161,7 +4485,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/ransomhouse",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "b7517e7bee727dce",
@@ -4174,7 +4499,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "e56d3cd4be0d6dc1",
@@ -4187,7 +4513,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "EC",
    "sector": "gobierno",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "4c1b08831eceabc1",
@@ -4199,7 +4526,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "",
-   "sector": "manufactura"
+   "sector": "manufactura",
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "a107aa656faaaa41",
@@ -4212,7 +4540,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "SG",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "ee59947826b26969",
@@ -4225,7 +4554,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/byod",
    "country": "CA",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "8c909bdc58e5c05f",
@@ -4238,7 +4568,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "f759febb3878922d",
@@ -4250,7 +4581,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/play",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "2adea6e423a181ab",
@@ -4262,7 +4594,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/play",
    "country": "",
-   "sector": "manufactura"
+   "sector": "manufactura",
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "3c68b644221f3c64",
@@ -4275,7 +4608,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "BR",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "0ab4b7f51eb127be",
@@ -4288,7 +4622,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "b78060b51b2c8457",
@@ -4301,7 +4636,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "0270308b7cce0fc4",
@@ -4314,7 +4650,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "MX",
    "sector": "gobierno",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "96038d5724b1db40",
@@ -4327,7 +4664,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "SG",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "751cfa5cd7d6e353",
@@ -4340,7 +4678,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "HK",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "d0825f10a4474b93",
@@ -4353,7 +4692,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/emperador",
    "country": "AR",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "9a7e6d20960b268b",
@@ -4366,7 +4706,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "17ae3b87ffadb22f",
@@ -4379,7 +4720,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "10b48c0e7e5aefa0",
@@ -4392,7 +4734,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "0426ec5e5136374a",
@@ -4405,7 +4748,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "MY",
    "sector": "energia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "c1994876b784c8f0",
@@ -4418,7 +4762,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "a1b9229ba4b1ed40",
@@ -4430,7 +4775,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/play",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "a4ea86a9049d8ea9",
@@ -4442,7 +4788,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/audit%20team",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "aa6514bb4665505f",
@@ -4454,7 +4801,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/audit%20team",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "eafb7efe3e281c80",
@@ -4466,7 +4814,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/audit%20team",
    "country": "",
-   "sector": "finanzas"
+   "sector": "finanzas",
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "d566add33a585498",
@@ -4478,7 +4827,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/audit%20team",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "6c119f0c196d12f0",
@@ -4491,7 +4841,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/akira",
    "country": "US",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-13T12:00:00+00:00"
   },
   {
    "id": "690a52f8ece11b68",
@@ -4504,7 +4855,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/majinahanashi",
    "country": "GB",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "62204875874fe3c6",
@@ -4516,7 +4868,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/safepay",
    "country": "",
-   "sector": "salud"
+   "sector": "salud",
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "2646f075d46a7fce",
@@ -4528,7 +4881,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
-   "sector": "servicios"
+   "sector": "servicios",
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "cb738e5f76e6aba3",
@@ -4541,7 +4895,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "CN",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "6b314db3d19c67cc",
@@ -4554,7 +4909,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "HK",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "9755f922094f8f17",
@@ -4566,7 +4922,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/interlock",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "526e3302ebed4000",
@@ -4579,7 +4936,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/metaencryptor",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "5c9f733d15db1730",
@@ -4592,7 +4950,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "JP",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "a13732ddd21a11c8",
@@ -4605,7 +4964,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "US",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "3b908b8a9998dd18",
@@ -4618,7 +4978,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "HK",
    "sector": "hoteleria",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "22f1a5221f1ecad8",
@@ -4631,7 +4992,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/majinahanashi",
    "country": "IT",
    "sector": "energia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "8dca93114be9bca8",
@@ -4644,7 +5006,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/storm",
    "country": "US",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "06b0eebcd634bdb1",
@@ -4657,7 +5020,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "ES",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "a9b572d190cdc74a",
@@ -4670,7 +5034,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "BR",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "7885ff0c4e70d172",
@@ -4683,7 +5048,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "TW",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "be37f4ae3fe00822",
@@ -4696,7 +5062,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "BR",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "bc6efeb09e705f0c",
@@ -4709,7 +5076,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/nightspire",
    "country": "US",
    "sector": "educacion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "4d5b631f4472c490",
@@ -4722,7 +5090,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Sharecare",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "05c3743d49607491",
@@ -4735,7 +5104,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "BR",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "525640f2d7444482",
@@ -4748,7 +5118,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "ID",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "af2163de39121e18",
@@ -4761,7 +5132,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "KR",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "46b5ca02a1a1c759",
@@ -4774,7 +5146,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "KR",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "94ff4e896a906a2d",
@@ -4786,7 +5159,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/majinahanashi",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "e8752bed0b224371",
@@ -4799,7 +5173,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/majinahanashi",
    "country": "GB",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "1176e4fbb85c4aa4",
@@ -4811,7 +5186,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
-   "sector": "servicios"
+   "sector": "servicios",
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "715072102b7ce644",
@@ -4824,7 +5200,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/aurora",
    "country": "DE",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "ae9acf89c1ea08b5",
@@ -4837,7 +5214,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/storm",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "b8a974434e5324e8",
@@ -4850,7 +5228,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "KR",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "ff403b0c1d7f0894",
@@ -4863,7 +5242,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "ES",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "bd4256d51c82b946",
@@ -4876,7 +5256,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "NL",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "8742a713e46876b3",
@@ -4889,7 +5270,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "BR",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "a70e67796d714603",
@@ -4902,7 +5284,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "KR",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "959d64b14e63501d",
@@ -4915,7 +5298,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/dark%20project",
    "country": "US",
    "sector": "construccion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "9561b4da411a6f6e",
@@ -4928,7 +5312,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/interlock",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "1b8f1fa60c166fb1",
@@ -4941,7 +5326,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "SG",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "aad08ac9b9273ad2",
@@ -4954,7 +5340,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/interlock",
    "country": "CA",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "796d7848d5dbffcc",
@@ -4967,7 +5354,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "VN",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "f12435ca8aa2e02c",
@@ -4980,7 +5368,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "SA",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "084462b4f2ad23ba",
@@ -4993,7 +5382,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "IN",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "dce360a1f52c8c4e",
@@ -5006,7 +5396,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/metaencryptor",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "48c2f7ceafd9d751",
@@ -5019,7 +5410,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "KR",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "c6a3a368bcdb83bd",
@@ -5031,7 +5423,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "",
-   "sector": "tecnologia"
+   "sector": "tecnologia",
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "ab69f41c290340bf",
@@ -5044,7 +5437,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "KR",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "443e1ac40327147a",
@@ -5057,7 +5451,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "ID",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "a1ab36f6202581b8",
@@ -5070,7 +5465,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/majinahanashi",
    "country": "IT",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "d61d1ac8c3ddb25a",
@@ -5083,7 +5479,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "DE",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "d3c31dc41a99f872",
@@ -5095,7 +5492,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/interlock",
    "country": "",
-   "sector": "servicios"
+   "sector": "servicios",
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "20e48a324adf8ecf",
@@ -5108,7 +5506,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "ID",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "564446727b27fae4",
@@ -5120,7 +5519,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "",
-   "sector": "manufactura"
+   "sector": "manufactura",
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "2ffc36a12f8e4ad4",
@@ -5133,7 +5533,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "KR",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "dac55a97ae48697d",
@@ -5146,7 +5547,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "KW",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "41bcdc21352a4d8f",
@@ -5158,7 +5560,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/nightspire",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "49dc342b91027e36",
@@ -5171,7 +5574,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/dark%20project",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "81d27be83debf5ad",
@@ -5184,7 +5588,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "MA",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "89a1ae3c600229c0",
@@ -5197,7 +5602,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "KR",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "20e79182c84d147b",
@@ -5210,7 +5616,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "KR",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "ad7c43411100d6f9",
@@ -5223,7 +5630,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "KR",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "669be29d6b0c4001",
@@ -5236,7 +5644,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/interlock",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "9a7e1b81b41517d1",
@@ -5248,7 +5657,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
-   "sector": "manufactura"
+   "sector": "manufactura",
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "021bf992b75aec6d",
@@ -5260,7 +5670,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/nightspire",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "b3f0df60c069385b",
@@ -5273,7 +5684,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/dark%20project",
    "country": "US",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "66aa60dda4661b64",
@@ -5286,7 +5698,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "JP",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "851139ad3169c8a8",
@@ -5299,7 +5712,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "CN",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "269f76de0888ea00",
@@ -5312,7 +5726,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/majinahanashi",
    "country": "IT",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "bb0c5d26cb0c5bfd",
@@ -5325,7 +5740,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "KR",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "56d13e5e3e4b740a",
@@ -5338,7 +5754,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "GB",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "eddda56dacdfaf2f",
@@ -5351,7 +5768,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "KR",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "65e24ae672bdb05a",
@@ -5364,7 +5782,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "TR",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "3b1eef29de98d488",
@@ -5377,7 +5796,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "ID",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "bf1699a346c1e49b",
@@ -5390,7 +5810,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "SG",
    "sector": "agro",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "2ba95104a1bd06df",
@@ -5403,7 +5824,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "IN",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "67b8f21e4d4c78a1",
@@ -5416,7 +5838,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/majinahanashi",
    "country": "IT",
    "sector": "otros",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-12T12:00:00+00:00"
   },
   {
    "id": "d2376e9ad8dc0059",
@@ -5429,7 +5852,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Neogen",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-09T12:00:00+00:00"
   },
   {
    "id": "94a94603c11f0638",
@@ -5441,7 +5865,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#DoubleCounter",
    "country": "",
-   "sector": "tecnologia"
+   "sector": "tecnologia",
+   "seen": "2026-10-07T12:00:00+00:00"
   },
   {
    "id": "4bb406ecf0b6f946",
@@ -5454,7 +5879,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#CyrusOne",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-07T12:00:00+00:00"
   },
   {
    "id": "8796f063de82ffa4",
@@ -5467,7 +5893,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#AngelOne",
    "country": "IN",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-10-07T12:00:00+00:00"
   },
   {
    "id": "1cf8e7de9d803d7c",
@@ -5480,7 +5907,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Medela",
    "country": "CH",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-09-30T12:00:00+00:00"
   },
   {
    "id": "497334a0a751506f",
@@ -5493,7 +5921,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#LimeLeads",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-09-22T12:00:00+00:00"
   },
   {
    "id": "9c6f55db7ff8ac48",
@@ -5506,7 +5935,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#BurgerKingRussia",
    "country": "RU",
    "sector": "hoteleria",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-09-21T12:00:00+00:00"
   },
   {
    "id": "e720d40abb89ac62",
@@ -5519,7 +5949,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Chess2026",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-09-13T12:00:00+00:00"
   },
   {
    "id": "9df6209c789c8b51",
@@ -5532,7 +5963,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#McKesson",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-09-10T12:00:00+00:00"
   },
   {
    "id": "941355b6f88eeb36",
@@ -5545,7 +5977,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#ManchesterAirportsGroup",
    "country": "GB",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-09-02T12:00:00+00:00"
   },
   {
    "id": "30a44fd36a42de63",
@@ -5558,7 +5991,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Questel",
    "country": "FR",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-09-01T12:00:00+00:00"
   },
   {
    "id": "2d90af3f2c852ec3",
@@ -5571,7 +6005,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Carhartt",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-08-25T12:00:00+00:00"
   },
   {
    "id": "76ea7a99f36390f7",
@@ -5584,7 +6019,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#NIUS",
    "country": "DE",
    "sector": "medios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-08-23T12:00:00+00:00"
   },
   {
    "id": "20c38e00ce631877",
@@ -5597,7 +6033,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#GolfCanada",
    "country": "CA",
    "sector": "otros",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-08-22T12:00:00+00:00"
   },
   {
    "id": "d954ab1936301726",
@@ -5610,7 +6047,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#OzHairAndBeauty",
    "country": "AU",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-08-19T12:00:00+00:00"
   },
   {
    "id": "e75333153bf62123",
@@ -5623,7 +6061,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Fanlore",
    "country": "US",
    "sector": "medios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-08-19T12:00:00+00:00"
   },
   {
    "id": "d803350f5c5aef7d",
@@ -5636,7 +6075,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#RingCentral",
    "country": "US",
    "sector": "telecom",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-08-13T12:00:00+00:00"
   },
   {
    "id": "d21dae36f95eb545",
@@ -5649,7 +6089,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Alcon",
    "country": "CH",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-08-09T12:00:00+00:00"
   },
   {
    "id": "dc4b6c81b58f348d",
@@ -5662,7 +6103,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#BrinksHome",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-08-08T12:00:00+00:00"
   },
   {
    "id": "b28b881a4393e54b",
@@ -5675,7 +6117,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#ExactSciences",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-08-07T12:00:00+00:00"
   },
   {
    "id": "1e06ad53cb4c5d1c",
@@ -5688,7 +6131,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#InterConSecurity",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-08-05T12:00:00+00:00"
   },
   {
    "id": "89f920e899725aa8",
@@ -5700,7 +6144,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#SplitVPN",
    "country": "",
-   "sector": "tecnologia"
+   "sector": "tecnologia",
+   "seen": "2026-08-01T12:00:00+00:00"
   },
   {
    "id": "8da3e653e98787a2",
@@ -5713,7 +6158,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#HoustonCityCollege",
    "country": "US",
    "sector": "educacion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-07-28T12:00:00+00:00"
   },
   {
    "id": "9122e052e61e868f",
@@ -5726,7 +6172,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Suno",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-07-20T12:00:00+00:00"
   },
   {
    "id": "2f6ac79231ea68b3",
@@ -5738,7 +6185,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Paidwork",
    "country": "",
-   "sector": "servicios"
+   "sector": "servicios",
+   "seen": "2026-07-19T12:00:00+00:00"
   },
   {
    "id": "dc19d5be2cf9dfd3",
@@ -5750,7 +6198,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#GooseCreek",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-07-15T12:00:00+00:00"
   },
   {
    "id": "4585b47e635bf692",
@@ -5763,7 +6212,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Fluke",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-07-15T12:00:00+00:00"
   },
   {
    "id": "8e907cd48380d35c",
@@ -5776,7 +6226,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#GlendaleCommunityCollege",
    "country": "US",
    "sector": "educacion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-07-11T12:00:00+00:00"
   },
   {
    "id": "63965164a39084b3",
@@ -5789,7 +6240,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#MoodyBibleInstitute",
    "country": "US",
    "sector": "educacion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-07-03T12:00:00+00:00"
   },
   {
    "id": "7a4af4e23c307c0a",
@@ -5802,7 +6254,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Sysco",
    "country": "US",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-06-28T12:00:00+00:00"
   },
   {
    "id": "f29e0bd3337f5ae8",
@@ -5815,7 +6268,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#AmericanTower",
    "country": "US",
    "sector": "telecom",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-06-26T12:00:00+00:00"
   },
   {
    "id": "e73e6517692d282f",
@@ -5828,7 +6282,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#MadisonSquareGardenSports",
    "country": "US",
    "sector": "medios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-06-24T12:00:00+00:00"
   },
   {
    "id": "d6d7df551d5c8b98",
@@ -5841,7 +6296,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#JCPenney",
    "country": "US",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-06-20T12:00:00+00:00"
   },
   {
    "id": "895f7e0452d415ed",
@@ -5854,7 +6310,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#RalphLauren",
    "country": "US",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-06-18T12:00:00+00:00"
   },
   {
    "id": "c3a10c991c12f8ba",
@@ -5866,7 +6323,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#OperationEndgame4",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-06-18T12:00:00+00:00"
   },
   {
    "id": "48ea046ac3184a57",
@@ -5879,7 +6337,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#CFGI",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-06-18T12:00:00+00:00"
   },
   {
    "id": "db88d78b7648678d",
@@ -5891,7 +6350,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#June2026StealerLogs",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-06-15T12:00:00+00:00"
   },
   {
    "id": "46bd2d4f9a5a62ac",
@@ -5904,7 +6364,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#InfiniteCampus",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-06-15T12:00:00+00:00"
   },
   {
    "id": "e336fe1547cf89bc",
@@ -5917,7 +6378,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Berkadia",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-06-15T12:00:00+00:00"
   },
   {
    "id": "d34fe3fb68c446bc",
@@ -5930,7 +6392,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#UniversityOfNottingham",
    "country": "GB",
    "sector": "educacion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-06-10T12:00:00+00:00"
   },
   {
    "id": "c6b045da67b6b445",
@@ -5943,7 +6406,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#BakerDistributing",
    "country": "US",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-06-07T12:00:00+00:00"
   },
   {
    "id": "8a6f0e961f3a25bd",
@@ -5956,7 +6420,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#BCDTravel",
    "country": "NL",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-06-05T12:00:00+00:00"
   },
   {
    "id": "1881578f5c1c4957",
@@ -5969,7 +6434,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#DentaQuest",
    "country": "US",
    "sector": "salud",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-06-03T12:00:00+00:00"
   },
   {
    "id": "7c636446f0d5ce22",
@@ -5982,7 +6448,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Edmunds",
    "country": "US",
    "sector": "medios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-06-01T12:00:00+00:00"
   },
   {
    "id": "1d978658f1849926",
@@ -5994,7 +6461,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#AtlasMenu",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-05-30T12:00:00+00:00"
   },
   {
    "id": "e15fa10beaa577ae",
@@ -6007,7 +6475,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Kemper",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-05-28T12:00:00+00:00"
   },
   {
    "id": "e92dce1f38cce2eb",
@@ -6020,7 +6489,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Charter",
    "country": "US",
    "sector": "telecom",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-05-28T12:00:00+00:00"
   },
   {
    "id": "e1931c4098f51ff3",
@@ -6033,7 +6503,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Mytheresa",
    "country": "DE",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-05-27T12:00:00+00:00"
   },
   {
    "id": "1262f87d4d26a446",
@@ -6046,7 +6517,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Ameriprise",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-05-26T12:00:00+00:00"
   },
   {
    "id": "ecec3b3c1392df65",
@@ -6059,7 +6531,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#7-Eleven",
    "country": "US",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-05-24T12:00:00+00:00"
   },
   {
    "id": "80dcbe9adc362e90",
@@ -6072,7 +6545,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Windows93",
    "country": "FR",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-05-21T12:00:00+00:00"
   },
   {
    "id": "fd54922cdee8ebc9",
@@ -6084,7 +6558,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Dragonica",
    "country": "",
-   "sector": "tecnologia"
+   "sector": "tecnologia",
+   "seen": "2026-05-21T12:00:00+00:00"
   },
   {
    "id": "42f16eb0f47e7b6e",
@@ -6097,7 +6572,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#CTT",
    "country": "PT",
    "sector": "transporte",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-05-19T12:00:00+00:00"
   },
   {
    "id": "efd63048be2d0203",
@@ -6110,7 +6586,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#ADDI",
    "country": "CO",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-05-18T12:00:00+00:00"
   },
   {
    "id": "a2cc36597bed7462",
@@ -6123,7 +6600,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Abrigo",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-05-14T12:00:00+00:00"
   },
   {
    "id": "225f602266291d93",
@@ -6136,7 +6614,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#CanadaLife",
    "country": "CA",
    "sector": "finanzas",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-05-13T12:00:00+00:00"
   },
   {
    "id": "10f84ade9398f82a",
@@ -6149,7 +6628,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#CushmanWakefield",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-05-12T12:00:00+00:00"
   },
   {
    "id": "aa04f625aebd9fc0",
@@ -6162,7 +6642,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Zara",
    "country": "ES",
    "sector": "retail",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-05-08T12:00:00+00:00"
   },
   {
    "id": "abdc78fd5612c432",
@@ -6175,7 +6656,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Woflow",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-05-07T12:00:00+00:00"
   },
   {
    "id": "daf14d8a64ae6b15",
@@ -6187,7 +6669,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#LegionProxy",
    "country": "",
-   "sector": "tecnologia"
+   "sector": "tecnologia",
+   "seen": "2026-05-06T12:00:00+00:00"
   },
   {
    "id": "58acc1243bcb6b7f",
@@ -6200,7 +6683,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Vimeo",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-05-05T12:00:00+00:00"
   },
   {
    "id": "7925e978aa126574",
@@ -6212,7 +6696,8 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#RebornGaming",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "seen": "2026-05-04T12:00:00+00:00"
   },
   {
    "id": "5e79c37d416a5e4e",
@@ -6225,7 +6710,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#MarcusMillichap",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-05-03T12:00:00+00:00"
   },
   {
    "id": "843664432ed14571",
@@ -6238,7 +6724,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#ZenBusiness",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-05-02T12:00:00+00:00"
   },
   {
    "id": "c28a2697c0365b0c",
@@ -6251,7 +6738,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Aman",
    "country": "CH",
    "sector": "hoteleria",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-05-01T12:00:00+00:00"
   },
   {
    "id": "0e6db81cd62ba605",
@@ -6264,7 +6752,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#PitneyBowes",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-04-27T12:00:00+00:00"
   },
   {
    "id": "3b25c6fe93c7e371",
@@ -6277,7 +6766,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#ADT",
    "country": "US",
    "sector": "servicios",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-04-27T12:00:00+00:00"
   },
   {
    "id": "dd421454a9e93cdc",
@@ -6290,7 +6780,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Udemy",
    "country": "US",
    "sector": "educacion",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-04-26T12:00:00+00:00"
   },
   {
    "id": "88ceb2f923752a39",
@@ -6303,7 +6794,8 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Carnival",
    "country": "US",
    "sector": "hoteleria",
-   "tried": 1
+   "tried": 1,
+   "seen": "2026-04-24T12:00:00+00:00"
   }
  ]
 }

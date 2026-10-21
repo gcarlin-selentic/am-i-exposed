@@ -52,6 +52,13 @@ FUENTES = [
      'licencia': 'CC BY 4.0'},
 ]
 
+# El instante en que esta corrida vio los casos, en UTC. La fecha del caso la
+# pone la fuente y no esta en UTC: RansomLook sella en hora europea, asi que a
+# las 23:50 UTC su "dia" ya es el siguiente y la pagina llegaba a decir que
+# hoy es manana. Lo que contamos como "nuevo" se mide con este sello, que es
+# nuestro reloj y no el suyo.
+AHORA = dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds')
+
 UA = 'am-i-exposed.com daily-hack (+https://www.am-i-exposed.com/daily-hack/)'
 MODELO = os.environ.get('RADAR_MODELO', 'claude-opus-5-5')
 LOTE = 25
@@ -159,6 +166,7 @@ def de_ransomlook(desde):
         salida.append({
             'id': ident(p.get('group_name'), victima),
             'day': dia,
+            'seen': AHORA,
             'victim': victima,
             'group': (p.get('group_name') or '').strip() or '—',
             'type': 'ransomware',
@@ -189,6 +197,7 @@ def de_hibp(desde):
         salida.append({
             'id': ident('hibp', nombre),
             'day': dia,
+            'seen': AHORA,
             'victim': nombre,
             'group': '—',
             'type': 'filtracion',
@@ -351,6 +360,7 @@ def main():
             c['country'] = viejo.get('country', '')
             c['sector'] = viejo.get('sector', 'otros')
             c['day'] = min(c['day'], viejo['day'])   # la primera vez que se vio
+            c['seen'] = viejo.get('seen') or c.get('seen') or AHORA
             if not viejo.get('tried'):
                 nuevos.append(c)                     # quedo pendiente de otra corrida
             else:
@@ -408,6 +418,9 @@ def main():
     for c in items:
         c.pop('_pista', None)
         c.pop('_dominio', None)
+        # Las filas anteriores a este cambio no tienen sello: se les pone el
+        # mediodia de su fecha, que es lo mas cercano que se puede decir.
+        c.setdefault('seen', c['day'] + 'T12:00:00+00:00')
         hibp = c.get('source') == 'Have I Been Pwned'
         if not c.get('sourceUrl', '').lower().startswith(('http://', 'https://')):
             c['sourceUrl'] = ('https://haveibeenpwned.com/PwnedWebsites' if hibp
