@@ -80,6 +80,9 @@ const COPY = {
         signin: 'Entrar', signout: 'Cerrar sesión', menu: 'Mi cuenta',
         heroTag: 'Gratis',
         heroBadge: 'Sin cuenta · Sin tarjeta',
+        dailyTag: 'Hackeos hoy',
+        dailyBadge: 'Actualizado cada mañana',
+        dailyCount: (n) => (n === 1 ? '1 víctima nueva hoy' : `${num(n)} víctimas nuevas hoy`),
         heroTitle: '¿Se filtraron tus datos?',
         heroLede: 'Escribe tu correo y te decimos en segundos si aparece en alguna filtración conocida, y qué hacer al respecto.',
         heroBtn: 'Revisar mi correo',
@@ -298,6 +301,9 @@ const COPY = {
         signin: 'Sign in', signout: 'Sign out', menu: 'My account',
         heroTag: 'Free',
         heroBadge: 'No account · No card',
+        dailyTag: 'Daily Hack',
+        dailyBadge: 'Updated every morning',
+        dailyCount: (n) => (n === 1 ? '1 new victim today' : `${num(n)} new victims today`),
         heroTitle: 'Was your data leaked?',
         heroLede: 'Type your email and we will tell you in seconds whether it shows up in a known breach, and what to do about it.',
         heroBtn: 'Check my email',
@@ -535,6 +541,32 @@ const num = (n) => Number(n).toLocaleString(locale());
 
 
 
+// El boton rojo del hero. La portada no se regenera cada manana, asi que la
+// cifra se pide al cargar en vez de venir escrita en el HTML. Si el archivo
+// no esta o la red falla, el boton se queda con su texto fijo: sigue siendo
+// el enlace al registro, que es para lo que esta.
+let dailyHack = null;
+
+function renderDailyHack() {
+    const el = document.getElementById('dailyHackCount');
+    if (!el || !dailyHack || !dailyHack.new) return;
+    el.textContent = t().dailyCount(dailyHack.new);
+}
+
+async function loadDailyHack() {
+    try {
+        const response = await fetch('/daily-hack.json');
+        if (!response.ok) return;
+        const data = await response.json();
+        if (typeof data.new === 'number') {
+            dailyHack = data;
+            renderDailyHack();
+        }
+    } catch (_) {
+        // Sin cifra el boton dice "actualizado cada manana", que es cierto.
+    }
+}
+
 function applyLang() {
     document.documentElement.lang = lang;
     document.title = t().docTitle;
@@ -584,6 +616,10 @@ function applyLang() {
     // The currency is written differently in each locale, so the price has
     // to be re-formatted, not just re-inserted.
     renderPrice();
+
+    // The data-i18n sweep above has just overwritten the count with the
+    // fixed label, so it has to be written back in the new language.
+    renderDailyHack();
 }
 
 // Redraw every rendered region. Used after a language change and after a
@@ -2703,6 +2739,8 @@ document.getElementById('passwordInput').addEventListener('keydown', (e) => {
 
 window.addEventListener('DOMContentLoaded', async () => {
     applyLang();
+
+    loadDailyHack();
 
     const priceReady = loadPrice();
 

@@ -25,12 +25,19 @@ clave = CLAVE
 if not os.path.exists(os.path.join(ROOT, f'{CLAVE}.txt')):
     raise SystemExit(f'falta {CLAVE}.txt en la raiz: sin el, los envios se rechazan')
 
-paginas = json.load(open(os.path.join(ROOT, 'data', 'settlement-pages.json'), encoding='utf-8'))
-if '--todas' in sys.argv:
-    urls = [f'https://{HOST}{p["ruta"]}' for p in paginas]
-    urls += [f'https://{HOST}/', f'https://{HOST}/es/', f'https://{HOST}/faq/']
+# El Daily Hack cambia todos los dias y es lo unico del sitio que caduca en
+# horas, asi que va solo: mandar las mil paginas de acuerdos cada manana es
+# ensenarle al buscador a ignorar el aviso.
+if '--daily-hack' in sys.argv:
+    urls = [f'https://{HOST}/daily-hack/', f'https://{HOST}/es/daily-hack/']
 else:
-    urls = [f'https://{HOST}{p["ruta"]}' for p in paginas if p['tipo'] == 'indice']
+    paginas = json.load(open(os.path.join(ROOT, 'data', 'settlement-pages.json'),
+                             encoding='utf-8'))
+    if '--todas' in sys.argv:
+        urls = [f'https://{HOST}{p["ruta"]}' for p in paginas]
+        urls += [f'https://{HOST}/', f'https://{HOST}/es/', f'https://{HOST}/faq/']
+    else:
+        urls = [f'https://{HOST}{p["ruta"]}' for p in paginas if p['tipo'] == 'indice']
 
 # El limite del protocolo son 10.000 por envio.
 for i in range(0, len(urls), 10000):

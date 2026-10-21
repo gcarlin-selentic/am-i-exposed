@@ -1,0 +1,148 @@
+name: Daily Hack
+
+# Diario, 11:00 UTC = 06:00 en Lima. Peru no cambia de hora, asi que no hay
+# horario de verano que corra la cita media hora dos veces al ano.
+#
+# El cron de GitHub es "best effort": en horas pico puede arrancar unos
+# minutos tarde. Para una pagina que dice "actualizado cada manana" eso da
+# igual, y a cambio no hace falta ningun servidor nuestro.
+#
+# Por que aqui y no en un cron de Vercel: la pagina es estatica y se genera de
+# data/radar.json. Una funcion de Vercel no puede escribir el repositorio ni
+# provocar el redespliegue. Esto descarga, clasifica, regenera, confirma, y el
+# push dispara el despliegue que Vercel ya hace con cada commit.
+
+on:
+  schedule:
+    - cron: '0 11 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Solo informar, sin clasificar, escribir ni confirmar'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  # Para que GitHub le firme a este trabajo un token de identidad de cinco
+  # minutos. Es lo que evita guardar una clave de Anthropic en el repositorio.
+  id-token: write
+
+concurrency:
+  group: refresh-radar
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      # La unica dependencia del proyecto. Las demas herramientas son stdlib.
+      - name: Instalar el SDK de Anthropic
+        if: ${{ !inputs.dry_run }}
+        run: pip install --quiet 'anthropic>=1.0'
+
+      # Identidad federada: GitHub firma un token de cinco minutos, el SDK lo
+      # canjea por uno de Anthropic y no hay secreto estatico en el repo. Los
+      # tres identificadores no son secretos, por eso van en Variables.
+      #
+      # Si algun dia hace falta una clave estatica, basta crear el secret
+      # ANTHROPIC_API_KEY y este paso la prefiere. Lo que no se puede es
+      # exportarla vacia: una ANTHROPIC_API_KEY vacia gana sobre la federacion
+      # en el orden de precedencia del SDK y dejaria el trabajo sin credencial.
+      - name: Preparar la credencial de Claude
+        if: ${{ !inputs.dry_run }}
+        env:
+          CLAVE: ${{ secrets.ANTHROPIC_API_KEY }}
+          REGLA: ${{ vars.ANTHROPIC_FEDERATION_RULE_ID }}
+          ORG: ${{ vars.ANTHROPIC_ORGANIZATION_ID }}
+          CUENTA: ${{ vars.ANTHROPIC_SERVICE_ACCOUNT_ID }}
+          ESPACIO: ${{ vars.ANTHROPIC_WORKSPACE_ID }}
+        run: |
+          if [ -n "$CLAVE" ]; then
+            echo "ANTHROPIC_API_KEY=$CLAVE" >> "$GITHUB_ENV"
+            echo 'credencial: clave estatica'
+            exit 0
+          fi
+          if [ -z "$REGLA" ] || [ -z "$ORG" ] || [ -z "$CUENTA" ]; then
+            echo 'sin credencial configurada: los casos nuevos quedaran sin clasificar'
+            exit 0
+          fi
+          curl -sS -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=https://api.anthropic.com" \
+            | jq -r .value > "$RUNNER_TEMP/anthropic-jwt"
+          if [ ! -s "$RUNNER_TEMP/anthropic-jwt" ] || \
+             [ "$(cat "$RUNNER_TEMP/anthropic-jwt")" = 'null' ]; then
+            echo 'GitHub no devolvio token de identidad; se sigue sin clasificar'
+            exit 0
+          fi
+          {
+            echo "ANTHROPIC_IDENTITY_TOKEN_FILE=$RUNNER_TEMP/anthropic-jwt"
+            echo "ANTHROPIC_FEDERATION_RULE_ID=$REGLA"
+            echo "ANTHROPIC_ORGANIZATION_ID=$ORG"
+            echo "ANTHROPIC_SERVICE_ACCOUNT_ID=$CUENTA"
+          } >> "$GITHUB_ENV"
+          if [ -n "$ESPACIO" ]; then
+            echo "ANTHROPIC_WORKSPACE_ID=$ESPACIO" >> "$GITHUB_ENV"
+          fi
+          echo 'credencial: identidad federada'
+
+      # Sin credencial el script no falla: los casos nuevos quedan sin pais ni
+      # industria y la pagina los muestra como "sin identificar". Mejor una
+      # pagina con huecos que una pagina de ayer.
+      - name: Bajar y clasificar
+        run: python3 tools/refresh-radar.py ${{ inputs.dry_run && '--dry-run' || '' }}
+
+      - name: Generar las paginas y el sitemap
+        if: ${{ !inputs.dry_run }}
+        run: |
+          python3 tools/build-daily-hack.py
+          python3 tools/build-sitemap.py
+
+      # Una fuente caida devuelve pocos casos sin romper el paso anterior.
+      # Confirmar eso publicaria una pagina vacia que se despliega sola.
+      - name: Comprobar que la pagina no quedo vacia
+        if: ${{ !inputs.dry_run }}
+        run: |
+          python3 - <<'PY'
+          import json, sys, os
+          d = json.load(open('data/radar.json', encoding='utf-8'))
+          casos = d['items']
+          print(f"{len(casos)} casos en el archivo")
+          if len(casos) < 40:
+              sys.exit(f'solo {len(casos)} casos: la fuente fallo, no se confirma')
+          for p in ('daily-hack/index.html', 'es/daily-hack/index.html'):
+              html = open(p, encoding='utf-8').read()
+              filas = html.count('<tr data-r')
+              print(f'{p}: {filas} filas, {len(html)//1024} KB')
+              if filas < 20:
+                  sys.exit(f'{p} salio con {filas} filas: no se confirma')
+          PY
+
+      - name: Confirmar y empujar
+        if: ${{ !inputs.dry_run }}
+        run: |
+          git config user.name  'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add -A data/radar.json daily-hack es/daily-hack daily-hack.json sitemap.xml
+          if git diff --cached --quiet; then
+            echo 'sin casos nuevos hoy'
+            exit 0
+          fi
+          NUEVOS=$(python3 -c "import json;print(json.load(open('daily-hack.json'))['new'])")
+          git commit -m "Daily Hack: ${NUEVOS} new victims" \
+                     -m "Automated daily run of tools/refresh-radar.py."
+          git push
+
+      # Una pagina diaria que el buscador rastrea cada semana no es una pagina
+      # diaria. Google se entera por el sitemap; el resto, por aqui.
+      - name: Avisar a IndexNow
+        if: ${{ !inputs.dry_run }}
+        run: python3 tools/ping-indexnow.py --daily-hack

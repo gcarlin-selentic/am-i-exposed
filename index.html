@@ -165,10 +165,23 @@
     </div>
 
     <div class="hero">
-        <span class="hook">
-            <span class="hook-tag" data-i18n="heroTag">Free</span>
-            <span data-i18n="heroBadge">No account · No card</span>
-        </span>
+        <div class="hooks">
+            <span class="hook">
+                <span class="hook-tag" data-i18n="heroTag">Free</span>
+                <span data-i18n="heroBadge">No account · No card</span>
+            </span>
+            <!-- The count comes from /daily-hack.json at load, so this page
+                 does not have to be regenerated every morning for the figure
+                 to be today's. Without it the pill still reads as a link. -->
+            <a class="hook hook-live" href="/daily-hack/"
+               data-href-es="/es/daily-hack/" data-href-en="/daily-hack/">
+                <span class="hook-tag">
+                    <span class="live-dot"></span>
+                    <span data-i18n="dailyTag">Daily Hack</span>
+                </span>
+                <span id="dailyHackCount" data-i18n="dailyBadge">Updated every morning</span>
+            </a>
+        </div>
         <h1 data-i18n="heroTitle">Was your data leaked?</h1>
         <p class="lede" data-i18n="heroLede">Type your email and we will tell you in seconds whether it shows up in a known breach, and what to do about it.</p>
 

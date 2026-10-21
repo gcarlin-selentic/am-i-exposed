@@ -26,7 +26,16 @@
     { "source": "/aviso-privacidad-eeuu", "destination": "/es/aviso-privacidad-eeuu/", "permanent": true },
     { "source": "/aviso-privacidad-eeuu/", "destination": "/es/aviso-privacidad-eeuu/", "permanent": true },
     { "source": "/terminos", "destination": "/es/terminos/", "permanent": true },
-    { "source": "/terminos/", "destination": "/es/terminos/", "permanent": true }
+    { "source": "/terminos/", "destination": "/es/terminos/", "permanent": true },
+
+    { "source": "/hackupdate", "destination": "/daily-hack/", "permanent": true },
+    { "source": "/hackupdate/", "destination": "/daily-hack/", "permanent": true },
+    { "source": "/who-got-hacked-today", "destination": "/daily-hack/", "permanent": true },
+    { "source": "/who-got-hacked-today/", "destination": "/daily-hack/", "permanent": true },
+    { "source": "/hackeos-hoy", "destination": "/es/daily-hack/", "permanent": true },
+    { "source": "/hackeos-hoy/", "destination": "/es/daily-hack/", "permanent": true },
+    { "source": "/ataques-ransomware", "destination": "/es/daily-hack/", "permanent": true },
+    { "source": "/ataques-ransomware/", "destination": "/es/daily-hack/", "permanent": true }
   ],
   "headers": [
     {
@@ -73,6 +82,12 @@
       "source": "/settlements.json",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/daily-hack.json",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=600, must-revalidate" }
       ]
     }
   ]

@@ -49,6 +49,17 @@ def build():
         urls.append(entry(en, alts, lm_en, pr, cf))
         urls.append(entry(es, alts, lm_es, pr, cf))
 
+    # El Daily Hack no esta en PAIRS porque su lastmod no es una constante:
+    # es el dia de la ultima corrida, que deja escrito build-daily-hack.py.
+    # Es la unica pagina del sitio donde changefreq diario es cierto.
+    dh = os.path.join(ROOT, 'daily-hack.json')
+    if os.path.exists(dh):
+        dia = json.load(open(dh, encoding='utf-8'))['date']
+        alts = [('es', '/es/daily-hack/'), ('en', '/daily-hack/'),
+                ('x-default', '/daily-hack/')]
+        urls.append(entry('/daily-hack/', alts, dia, '0.9', 'daily'))
+        urls.append(entry('/es/daily-hack/', alts, dia, '0.9', 'daily'))
+
     # Las paginas de acuerdos, si ya estan generadas. Solo existen en ingles:
     # cubren litigios de Estados Unidos y la suscripcion solo se vende alli.
     idx = os.path.join(ROOT, 'data', 'settlement-pages.json')

@@ -301,9 +301,58 @@ img { max-width: 100%; }
 }
 :root[data-theme="dark"] .hook-tag { color: #06131D; }
 
+/* The two pills sit on one line and wrap together, so the row keeps the
+   hero's single bottom margin instead of each pill carrying its own. */
+.hooks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+.hooks .hook { margin-bottom: 0; }
+
+/* The second pill is a link to the Daily Hack, in red because that is the
+   whole point of it: the free check is calm, the attack log is not. It never
+   disappears, even on a day with no new victims, because it is the only
+   internal link that page has. */
+.hook-live {
+    background: var(--bad-soft);
+    color: var(--bad);
+    text-decoration: none;
+    transition: opacity .15s ease;
+}
+.hook-live:hover { opacity: .85; text-decoration: none; }
+.hook-live .hook-tag {
+    background: var(--bad);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+.hook-live .live-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: currentColor; flex-shrink: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+    .hook-live .live-dot { animation: livepulse 2.2s ease-out infinite; }
+}
+@keyframes livepulse {
+    0%   { box-shadow: 0 0 0 0 rgba(255,255,255,.6); }
+    70%  { box-shadow: 0 0 0 8px rgba(255,255,255,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+}
+/* Same reason as .hook-tag above: the dark palette's red is light. */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .hook-live .hook-tag { color: #2A0608; }
+}
+:root[data-theme="dark"] .hook-live .hook-tag { color: #2A0608; }
+
 @media (max-width: 420px) {
     .hook { font-size: 13px; gap: 8px; padding-right: 13px; }
     .hook-tag { font-size: 12px; padding: 4px 11px; }
+    .hooks { gap: 8px; }
 }
 
 .hero h1 { font-size: clamp(34px, 8.2vw, 54px); font-weight: 900; margin-bottom: 16px; }

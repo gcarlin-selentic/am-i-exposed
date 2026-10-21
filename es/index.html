@@ -170,10 +170,23 @@
     </div>
 
     <div class="hero">
-        <span class="hook">
-            <span class="hook-tag" data-i18n="heroTag">Gratis</span>
-            <span data-i18n="heroBadge">Sin cuenta · Sin tarjeta</span>
-        </span>
+        <div class="hooks">
+            <span class="hook">
+                <span class="hook-tag" data-i18n="heroTag">Gratis</span>
+                <span data-i18n="heroBadge">Sin cuenta · Sin tarjeta</span>
+            </span>
+            <!-- La cifra sale de /daily-hack.json al cargar, asi que esta
+                 pagina no hay que regenerarla cada manana para que el numero
+                 sea el de hoy. Sin ella la pildora sigue siendo un enlace. -->
+            <a class="hook hook-live" href="/es/daily-hack/"
+               data-href-es="/es/daily-hack/" data-href-en="/daily-hack/">
+                <span class="hook-tag">
+                    <span class="live-dot"></span>
+                    <span data-i18n="dailyTag">Hackeos hoy</span>
+                </span>
+                <span id="dailyHackCount" data-i18n="dailyBadge">Actualizado cada mañana</span>
+            </a>
+        </div>
         <h1 data-i18n="heroTitle">¿Se filtraron tus datos?</h1>
         <p class="lede" data-i18n="heroLede">Escribe tu correo y te decimos en segundos si aparece en alguna filtración conocida, y qué hacer al respecto.</p>
 
