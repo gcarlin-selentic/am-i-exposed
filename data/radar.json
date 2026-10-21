@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-21T16:15:48+00:00",
+ "generated": "2026-10-21T16:23:34+00:00",
  "window_days": 180,
  "sources": [
   {
@@ -15,6 +15,84 @@
  ],
  "items": [
   {
+   "id": "8a13eb2e7ef5c6a7",
+   "day": "2026-10-21",
+   "victim": "srsnodgrass.com",
+   "group": "brain cipher",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/n/srsnodgrass-com",
+   "country": "US",
+   "sector": "finanzas",
+   "tried": 1
+  },
+  {
+   "id": "fbbf6a0e852dd349",
+   "day": "2026-10-21",
+   "victim": "sodali.com",
+   "group": "brain cipher",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/n/sodali-com",
+   "country": "IT",
+   "sector": "finanzas",
+   "tried": 1
+  },
+  {
+   "id": "d51a747d0045fd1c",
+   "day": "2026-10-21",
+   "victim": "prosomnus.com",
+   "group": "brain cipher",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/n/prosomnus-com",
+   "country": "US",
+   "sector": "salud",
+   "tried": 1
+  },
+  {
+   "id": "db8bce95f928a621",
+   "day": "2026-10-21",
+   "victim": "olyortho.com",
+   "group": "brain cipher",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/n/olyortho-com",
+   "country": "US",
+   "sector": "salud",
+   "tried": 1
+  },
+  {
+   "id": "c99bc2500393c4c3",
+   "day": "2026-10-21",
+   "victim": "oflaherty-law.com",
+   "group": "brain cipher",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/n/oflaherty-law-com",
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
+  },
+  {
+   "id": "35bdc852447cc936",
+   "day": "2026-10-21",
+   "victim": "novagroupgbc.com",
+   "group": "brain cipher",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/n/novagroupgbc-com",
+   "country": "",
+   "sector": "construccion",
+   "tried": 1
+  },
+  {
    "id": "5ba79dd1a202879f",
    "day": "2026-10-21",
    "victim": "nbcuniversal.com",
@@ -25,6 +103,19 @@
    "sourceUrl": "https://www.ransomlook.io/breaches",
    "country": "US",
    "sector": "medios",
+   "tried": 1
+  },
+  {
+   "id": "3739e670b61225eb",
+   "day": "2026-10-21",
+   "victim": "mvjllp.com",
+   "group": "brain cipher",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/n/mvjllp-com",
+   "country": "US",
+   "sector": "servicios",
    "tried": 1
   },
   {
@@ -89,6 +180,19 @@
    "sourceUrl": "https://www.ransomlook.io/blog/view/1792576588492413251_qAtRMLEL",
    "country": "VN",
    "sector": "hoteleria",
+   "tried": 1
+  },
+  {
+   "id": "1c6348e0efc7c32d",
+   "day": "2026-10-21",
+   "victim": "clinicaromero.com",
+   "group": "brain cipher",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/n/clinicaromero-com",
+   "country": "",
+   "sector": "salud",
    "tried": 1
   },
   {
@@ -325,6 +429,19 @@
    "tried": 1
   },
   {
+   "id": "72e5eda38304bfe3",
+   "day": "2026-10-21",
+   "victim": "Flextron Circuit Assembly",
+   "group": "akira",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/recent",
+   "country": "US",
+   "sector": "manufactura",
+   "tried": 1
+  },
+  {
    "id": "48bfb829b7012ee5",
    "day": "2026-10-21",
    "victim": "Company #99",
@@ -387,6 +504,19 @@
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "US",
    "sector": "salud",
+   "tried": 1
+  },
+  {
+   "id": "cfe6c4aac390c896",
+   "day": "2026-10-21",
+   "victim": "Cascade Flooring America",
+   "group": "akira",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/recent",
+   "country": "US",
+   "sector": "retail",
    "tried": 1
   },
   {
@@ -2643,8 +2773,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "educacion",
+   "tried": 1
   },
   {
    "id": "e92840e989a24bc3",
@@ -2655,8 +2786,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/post/6ecacfad25ee6527ec3fa87ca744ef20",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "4a7882064db5cb06",
@@ -2667,8 +2799,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/a/sunshine-mills/",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "5ee6a62e039ec193",
@@ -2679,8 +2812,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "IN",
+   "sector": "gobierno",
+   "tried": 1
   },
   {
    "id": "958ff105a8c08437",
@@ -2703,8 +2837,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/a/middleby/",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "39249ce33f7d9e77",
@@ -2715,8 +2850,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/post/977db6f7f82245d4c819bac476557788",
-   "country": "",
-   "sector": "otros"
+   "country": "EG",
+   "sector": "gobierno",
+   "tried": 1
   },
   {
    "id": "f33c6fd68b6e5fc3",
@@ -2727,8 +2863,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/post/8d34b608644114d6e45dd1b947435179",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "8deea39b30e9b8cd",
@@ -2739,8 +2876,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/post/34634bc8cc016fac205240a20f2770b1",
-   "country": "",
-   "sector": "otros"
+   "country": "IN",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "2294716334728c8f",
@@ -2751,8 +2889,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "4d6fe5a824a24e34",
@@ -2763,8 +2902,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/a/hilmar-cheese/",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "agro",
+   "tried": 1
   },
   {
    "id": "5b67dbe837f36309",
@@ -2776,7 +2916,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/a/hensley/",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "569f74efe7738a4f",
@@ -2788,7 +2929,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/post/207b1851208def299388b7869763f88e",
    "country": "",
-   "sector": "otros"
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "aec3825fad90a55a",
@@ -2800,7 +2942,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/post/f122cc9421584a7c4c68579291a0feab",
    "country": "",
-   "sector": "otros"
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "64040f1157854769",
@@ -2812,7 +2955,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/a/camden-living/",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "84d6f05fd149d040",
@@ -2823,8 +2967,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/a/buckle/",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "retail",
+   "tried": 1
   },
   {
    "id": "45a837601a7a0c29",
@@ -2835,8 +2980,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "MX",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "b347f3e6bf9b3f22",
@@ -2848,7 +2994,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/a/alera/",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "f3167d51a84c1fda",
@@ -2859,8 +3006,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "a1cb62884c3fd94f",
@@ -2871,8 +3019,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "agro",
+   "tried": 1
   },
   {
    "id": "1bc7674462ef3ac6",
@@ -2884,7 +3033,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=b5c41839-38f6-4dc1-b4ce-1c93373b9405",
    "country": "",
-   "sector": "otros"
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "5a0d9470ba96691e",
@@ -2895,8 +3045,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=73b16550-d65c-4aba-a3ee-88b2b44452ca",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "finanzas",
+   "tried": 1
   },
   {
    "id": "cb356299e90fa003",
@@ -2920,8 +3071,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "7eae1bbf04e22c21",
@@ -2932,8 +3084,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=17e6b9a4-c3b3-4957-a5ad-65981f83faa6",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "cc865e2db1787d90",
@@ -2945,7 +3098,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=c2bff0b0-ad78-414d-b29b-9a3ddfcd59b0",
    "country": "",
-   "sector": "otros"
+   "sector": "retail",
+   "tried": 1
   },
   {
    "id": "2db6de3390273337",
@@ -2956,8 +3110,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "educacion",
+   "tried": 1
   },
   {
    "id": "5769171a00b60dd4",
@@ -2968,8 +3123,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "CO",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "efd7badeb599a31e",
@@ -3007,7 +3163,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=ffc7f386-782e-433a-aa1d-e7e92c6b44fe",
    "country": "",
-   "sector": "otros"
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "e6e9039c5be78d86",
@@ -3018,8 +3175,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "47ee031232882dfe",
@@ -3031,7 +3189,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=aa2f1bf5-2d3b-4729-b069-ab39fa13da98",
    "country": "",
-   "sector": "otros"
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "6a32defe524cff10",
@@ -3042,8 +3201,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "BR",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "bce1a27a2799bd43",
@@ -3054,8 +3214,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "agro",
+   "tried": 1
   },
   {
    "id": "6285710f3994a417",
@@ -3067,7 +3228,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=bbae74d9-11f0-4687-ae26-cb89acd01eb4",
    "country": "",
-   "sector": "otros"
+   "sector": "energia",
+   "tried": 1
   },
   {
    "id": "2e48de7e3f8cc078",
@@ -3078,8 +3240,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "354e6f9976973431",
@@ -3090,8 +3253,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "CA",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "b5e6ef5e2f5993d3",
@@ -3102,8 +3266,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "IN",
+   "sector": "retail",
+   "tried": 1
   },
   {
    "id": "8c96f89e5bd7954b",
@@ -3114,8 +3279,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "2b231d403f707748",
@@ -3126,8 +3292,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "06b0cc829149e439",
@@ -3138,8 +3305,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "EG",
+   "sector": "educacion",
+   "tried": 1
   },
   {
    "id": "2f4a4ad805170818",
@@ -3150,8 +3318,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "cfff4b5c08e4920a",
@@ -3162,8 +3331,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "a9ab77ee5b7a6aab",
@@ -3174,8 +3344,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "NL",
+   "sector": "finanzas",
+   "tried": 1
   },
   {
    "id": "6b9bf9c65ca5aa0c",
@@ -3186,8 +3357,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "2c4e2789e61a17a0",
@@ -3198,8 +3370,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=17857655-4f48-478d-95f2-8b1f5b8cf529",
-   "country": "",
-   "sector": "otros"
+   "country": "FR",
+   "sector": "gobierno",
+   "tried": 1
   },
   {
    "id": "b7a778c7e2d4dbcb",
@@ -3210,8 +3383,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=466ea5fa-3596-49d6-ae8c-3ab69a9879e2",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "retail",
+   "tried": 1
   },
   {
    "id": "9ff3eea1b8fb2db1",
@@ -3222,8 +3396,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "AU",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "b1e8f7db95674780",
@@ -3235,7 +3410,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=37defa29-f502-4356-ace7-c32811790070",
    "country": "",
-   "sector": "otros"
+   "sector": "telecom",
+   "tried": 1
   },
   {
    "id": "f6f4460d97e468de",
@@ -3246,8 +3422,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "2dcd7f7047896e30",
@@ -3258,8 +3435,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/aa53033b-7a1b-4195-964d-e973dec6f71d",
-   "country": "",
-   "sector": "otros"
+   "country": "AE",
+   "sector": "educacion",
+   "tried": 1
   },
   {
    "id": "cf65adf95faf008b",
@@ -3270,8 +3448,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "IT",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "3abcf64499836f48",
@@ -3282,8 +3461,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/post/3501b906ca194c9e3a349c29ac277fe4",
-   "country": "",
-   "sector": "otros"
+   "country": "GR",
+   "sector": "hoteleria",
+   "tried": 1
   },
   {
    "id": "8c2a6f5c9892b75a",
@@ -3294,8 +3474,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "construccion",
+   "tried": 1
   },
   {
    "id": "36a45442ed472581",
@@ -3306,8 +3487,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "ES",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "8c69b157b7ec1d27",
@@ -3318,8 +3500,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/place/0gaa86a0todvfnu7/",
-   "country": "",
-   "sector": "otros"
+   "country": "TW",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "76acaf3b176b5549",
@@ -3330,8 +3513,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "CA",
+   "sector": "agro",
+   "tried": 1
   },
   {
    "id": "b9711f53d85168f8",
@@ -3343,7 +3527,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "de86c94c0c6cfa78",
@@ -3355,7 +3540,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "",
-   "sector": "otros"
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "4864cee7b11049f5",
@@ -3367,7 +3553,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "",
-   "sector": "otros"
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "e176357962512769",
@@ -3378,8 +3565,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "PY",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "dfeb37527cc2a035",
@@ -3391,7 +3579,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=14137818-4d18-4e68-9e9b-8855af8cfbbd",
    "country": "",
-   "sector": "otros"
+   "sector": "construccion",
+   "tried": 1
   },
   {
    "id": "2b783858ac28ad32",
@@ -3402,8 +3591,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "7c07fffaf5de607c",
@@ -3414,8 +3604,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=63e77859-80a2-418f-ac13-e0dc0492339a",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "educacion",
+   "tried": 1
   },
   {
    "id": "ac91fb9fb830e154",
@@ -3426,8 +3617,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "IT",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "88101d7a0c453553",
@@ -3438,8 +3630,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "33918117811f9caa",
@@ -3450,8 +3643,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "fae4450196c4bfac",
@@ -3463,7 +3657,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/blog/disclosures/6acf9f0c9cd108bf26c1cfa1",
    "country": "",
-   "sector": "otros"
+   "sector": "finanzas",
+   "tried": 1
   },
   {
    "id": "53a2107a1640c823",
@@ -3474,8 +3669,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/blog/estrategias-bigmat-slu-86da2d8a",
-   "country": "",
-   "sector": "otros"
+   "country": "ES",
+   "sector": "retail",
+   "tried": 1
   },
   {
    "id": "05b86bdaa11ea7b7",
@@ -3486,8 +3682,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "1d4b4b62cb3b9ee1",
@@ -3510,8 +3707,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "BR",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "87ec8d0420beb30f",
@@ -3523,7 +3721,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "c439b2e657434a9f",
@@ -3534,8 +3733,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "MY",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "de0ffa4cbdf4b421",
@@ -3547,7 +3747,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "b2e5cd8dd19bb808",
@@ -3571,8 +3772,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "BD",
+   "sector": "telecom",
+   "tried": 1
   },
   {
    "id": "9f3ce2c9313a240e",
@@ -3583,8 +3785,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/post/900a3b5d98352eefa63b4b3547fe7874",
-   "country": "",
-   "sector": "otros"
+   "country": "TH",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "5a91fca1769989d3",
@@ -3595,8 +3798,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "IN",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "578b98aa5a1f27a7",
@@ -3607,8 +3811,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "SA",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "414dc12d801d2aa7",
@@ -3619,8 +3824,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "TR",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "058acaaf4e47ecb8",
@@ -3655,8 +3861,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "FR",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "1f73344a3a30478b",
@@ -3667,8 +3874,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "MY",
+   "sector": "finanzas",
+   "tried": 1
   },
   {
    "id": "462393c751b11a60",
@@ -3679,8 +3887,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/blog/disclosures/6ace1e019cd108bf26913637",
-   "country": "",
-   "sector": "otros"
+   "country": "DE",
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "46c7fd36199ea185",
@@ -3691,8 +3900,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "SE",
+   "sector": "finanzas",
+   "tried": 1
   },
   {
    "id": "1ead860c7b331b90",
@@ -3703,8 +3913,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "FR",
+   "sector": "construccion",
+   "tried": 1
   },
   {
    "id": "d045aee1eea1ee88",
@@ -3716,7 +3927,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "f74f3571e98e847e",
@@ -3728,7 +3940,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=1bfb7b37-625a-40a4-bf5c-11ff2028ddad",
    "country": "",
-   "sector": "otros"
+   "sector": "finanzas",
+   "tried": 1
   },
   {
    "id": "f1ffad4b16ddb0f5",
@@ -3739,8 +3952,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/blog/the-buckner-company-inc-75b23ef0",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "finanzas",
+   "tried": 1
   },
   {
    "id": "885d02a8fb088e2d",
@@ -3752,7 +3966,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/r/fa243b30362d6540e77f51afe340bd8ee9296a97",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "4d05c3c83ee8e3bf",
@@ -3763,8 +3978,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "SE",
+   "sector": "construccion",
+   "tried": 1
   },
   {
    "id": "9ad4e6765a1a9fb1",
@@ -3776,7 +3992,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "b27605a4b33c2ca3",
@@ -3788,7 +4005,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "",
-   "sector": "otros"
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "4fb93a13890e440f",
@@ -3799,8 +4017,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "agro",
+   "tried": 1
   },
   {
    "id": "7b8ccad44003e827",
@@ -3811,8 +4030,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "construccion",
+   "tried": 1
   },
   {
    "id": "eb6ec556facd7dbb",
@@ -3823,8 +4043,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=ae463972-5ee3-4911-807d-b97fc6a8284d",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "fb5817b37481127d",
@@ -3835,8 +4056,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "bca9448d7df98d6c",
@@ -3847,8 +4069,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "SE",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "25c41bf2a266cd1c",
@@ -3859,8 +4082,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "DE",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "43808219acd69abc",
@@ -3871,8 +4095,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "PE",
+   "sector": "finanzas",
+   "tried": 1
   },
   {
    "id": "55fbbd6febaa7c16",
@@ -3883,8 +4108,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=59c33c5e-fea2-4c5c-9616-95bdfe6adfc0",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "788fe5c7d2fce5b3",
@@ -3895,8 +4121,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "IN",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "c4fad0a36b1a0545",
@@ -3907,8 +4134,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "AU",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "d6e7df6f85798bce",
@@ -3919,8 +4147,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/r/f8adc1a233532e13630b8e3bfec89414c2742cf0",
-   "country": "",
-   "sector": "otros"
+   "country": "PE",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "dd1b2d4ddc444620",
@@ -3931,8 +4160,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "BR",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "94136f208f816fed",
@@ -3944,7 +4174,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/blog/disclosures/6ace36569cd108bf2694586b",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "c9b50661d310392b",
@@ -3955,8 +4186,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "SE",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "c585d630fd5ed21b",
@@ -3968,7 +4200,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/r/3ab90ecf3bd189fe7598175d97b0f9f823d4d7bb",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "b7517e7bee727dce",
@@ -3979,8 +4212,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "SE",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "e56d3cd4be0d6dc1",
@@ -3991,8 +4225,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "EC",
+   "sector": "gobierno",
+   "tried": 1
   },
   {
    "id": "4c1b08831eceabc1",
@@ -4004,7 +4239,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "",
-   "sector": "otros"
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "a107aa656faaaa41",
@@ -4015,8 +4251,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "SG",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "ee59947826b26969",
@@ -4027,8 +4264,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "CA",
+   "sector": "retail",
+   "tried": 1
   },
   {
    "id": "8c909bdc58e5c05f",
@@ -4039,8 +4277,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "SE",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "f759febb3878922d",
@@ -4052,7 +4291,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "2adea6e423a181ab",
@@ -4064,7 +4304,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "",
-   "sector": "otros"
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "3c68b644221f3c64",
@@ -4075,8 +4316,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "BR",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "0ab4b7f51eb127be",
@@ -4087,8 +4329,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "b78060b51b2c8457",
@@ -4099,8 +4342,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "construccion",
+   "tried": 1
   },
   {
    "id": "0270308b7cce0fc4",
@@ -4111,8 +4355,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=3207ef15-fce2-49c6-87bd-88b19dcce878",
-   "country": "",
-   "sector": "otros"
+   "country": "MX",
+   "sector": "gobierno",
+   "tried": 1
   },
   {
    "id": "96038d5724b1db40",
@@ -4123,8 +4368,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "SG",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "751cfa5cd7d6e353",
@@ -4135,8 +4381,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "HK",
+   "sector": "retail",
+   "tried": 1
   },
   {
    "id": "d0825f10a4474b93",
@@ -4147,8 +4394,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "AR",
+   "sector": "finanzas",
+   "tried": 1
   },
   {
    "id": "9a7e6d20960b268b",
@@ -4159,8 +4407,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "SE",
+   "sector": "construccion",
+   "tried": 1
   },
   {
    "id": "17ae3b87ffadb22f",
@@ -4171,8 +4420,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "SE",
+   "sector": "construccion",
+   "tried": 1
   },
   {
    "id": "10b48c0e7e5aefa0",
@@ -4183,8 +4433,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "SE",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "0426ec5e5136374a",
@@ -4195,8 +4446,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "MY",
+   "sector": "energia",
+   "tried": 1
   },
   {
    "id": "c1994876b784c8f0",
@@ -4207,8 +4459,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "SE",
+   "sector": "construccion",
+   "tried": 1
   },
   {
    "id": "a1b9229ba4b1ed40",
@@ -4220,7 +4473,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "a4ea86a9049d8ea9",
@@ -4232,7 +4486,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/entity/1719FB7EED3A12C3",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "aa6514bb4665505f",
@@ -4244,7 +4499,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/entity/F1BC17AA5D133FA6",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "eafb7efe3e281c80",
@@ -4256,7 +4512,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/entity/61AABCAF2221FDEE",
    "country": "",
-   "sector": "otros"
+   "sector": "finanzas",
+   "tried": 1
   },
   {
    "id": "d566add33a585498",
@@ -4268,7 +4525,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/entity/9ACBED3DF66E8E73",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "6c119f0c196d12f0",
@@ -4279,8 +4537,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "construccion",
+   "tried": 1
   },
   {
    "id": "690a52f8ece11b68",
@@ -4304,7 +4563,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/blog/post/hiqbiocom/",
    "country": "",
-   "sector": "otros"
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "2646f075d46a7fce",
@@ -4316,7 +4576,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/blog/disclosures/6accee3c9cd108bf266a8243",
    "country": "",
-   "sector": "otros"
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "cb738e5f76e6aba3",
@@ -4327,8 +4588,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "CN",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "6b314db3d19c67cc",
@@ -4339,8 +4601,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "HK",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "9755f922094f8f17",
@@ -4363,8 +4626,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/0AFC%3A15e8790a255b2761b74110431d3f96f460e5e3eb2a7afb547b084fe9c5169f62/0AFC%3A222c14ecc18ad6c9bfad5e426ab3028273ab587161552a5ccc2926218991e362",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "5c9f733d15db1730",
@@ -4375,8 +4639,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "JP",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "a13732ddd21a11c8",
@@ -4387,8 +4652,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/n/Trailerbridge",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "3b908b8a9998dd18",
@@ -4399,8 +4665,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "HK",
+   "sector": "hoteleria",
+   "tried": 1
   },
   {
    "id": "22f1a5221f1ecad8",
@@ -4423,8 +4690,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "construccion",
+   "tried": 1
   },
   {
    "id": "06b0eebcd634bdb1",
@@ -4435,8 +4703,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "ES",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "a9b572d190cdc74a",
@@ -4447,8 +4716,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "BR",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "7885ff0c4e70d172",
@@ -4459,8 +4729,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "TW",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "be37f4ae3fe00822",
@@ -4471,8 +4742,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "BR",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "bc6efeb09e705f0c",
@@ -4483,8 +4755,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "educacion",
+   "tried": 1
   },
   {
    "id": "072b718879ce89b3",
@@ -4507,8 +4780,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "BR",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "525640f2d7444482",
@@ -4519,8 +4793,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "ID",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "af2163de39121e18",
@@ -4531,8 +4806,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "KR",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "46b5ca02a1a1c759",
@@ -4543,8 +4819,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "KR",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "94ff4e896a906a2d",
@@ -4580,7 +4857,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=c3dbbfbe-593e-4d7f-8ffe-750e474df047",
    "country": "",
-   "sector": "otros"
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "715072102b7ce644",
@@ -4591,8 +4869,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/blog/rechtsanwaltskanzlei-dr-bien-88f4b584",
-   "country": "",
-   "sector": "otros"
+   "country": "DE",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "ae9acf89c1ea08b5",
@@ -4603,8 +4882,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "b8a974434e5324e8",
@@ -4615,8 +4895,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "KR",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "ff403b0c1d7f0894",
@@ -4627,8 +4908,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=0ae5ac9d-4f0d-4e32-898d-72fcdc0d1a7e",
-   "country": "",
-   "sector": "otros"
+   "country": "ES",
+   "sector": "construccion",
+   "tried": 1
   },
   {
    "id": "bd4256d51c82b946",
@@ -4639,8 +4921,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "NL",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "8742a713e46876b3",
@@ -4651,8 +4934,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "BR",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "a70e67796d714603",
@@ -4663,8 +4947,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "KR",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "959d64b14e63501d",
@@ -4675,8 +4960,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "construccion",
+   "tried": 1
   },
   {
    "id": "9561b4da411a6f6e",
@@ -4699,8 +4985,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "SG",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "aad08ac9b9273ad2",
@@ -4711,8 +4998,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "CA",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "796d7848d5dbffcc",
@@ -4723,8 +5011,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "VN",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "f12435ca8aa2e02c",
@@ -4735,8 +5024,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "SA",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "084462b4f2ad23ba",
@@ -4747,8 +5037,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "IN",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "dce360a1f52c8c4e",
@@ -4759,8 +5050,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/0AFC%3Afd42c40204f038686ab0243f5f2cc33b7e4dd033c34319aaad4fd0557e70d89c/0AFC%3A9be1de544157eea7f365c2646008a4044c5c347b75817da9f60f636d3d945a68438c5982464d089ac471a18b4e77e4f1",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "salud",
+   "tried": 1
   },
   {
    "id": "48c2f7ceafd9d751",
@@ -4771,8 +5063,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "KR",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "c6a3a368bcdb83bd",
@@ -4784,7 +5077,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "",
-   "sector": "otros"
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "ab69f41c290340bf",
@@ -4795,8 +5089,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "KR",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "443e1ac40327147a",
@@ -4807,8 +5102,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "ID",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "a1ab36f6202581b8",
@@ -4831,8 +5127,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "DE",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "d3c31dc41a99f872",
@@ -4855,8 +5152,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "ID",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "564446727b27fae4",
@@ -4868,7 +5166,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "",
-   "sector": "otros"
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "2ffc36a12f8e4ad4",
@@ -4879,8 +5178,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "KR",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "dac55a97ae48697d",
@@ -4891,8 +5191,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "KW",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "41bcdc21352a4d8f",
@@ -4904,7 +5205,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "49dc342b91027e36",
@@ -4915,8 +5217,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "81d27be83debf5ad",
@@ -4927,8 +5230,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "MA",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "89a1ae3c600229c0",
@@ -4939,8 +5243,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "KR",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "20e79182c84d147b",
@@ -4951,8 +5256,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "KR",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "ad7c43411100d6f9",
@@ -4963,8 +5269,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "KR",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "669be29d6b0c4001",
@@ -4988,7 +5295,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/site/blog?uuid=b654d0ae-b10c-483a-9dc4-3df6b7957e16",
    "country": "",
-   "sector": "otros"
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "021bf992b75aec6d",
@@ -5000,7 +5308,8 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
    "country": "",
-   "sector": "otros"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "b3f0df60c069385b",
@@ -5011,8 +5320,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "US",
+   "sector": "retail",
+   "tried": 1
   },
   {
    "id": "66aa60dda4661b64",
@@ -5023,8 +5333,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "JP",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "851139ad3169c8a8",
@@ -5035,8 +5346,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "CN",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "269f76de0888ea00",
@@ -5059,8 +5371,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "KR",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "56d13e5e3e4b740a",
@@ -5071,8 +5384,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "GB",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "eddda56dacdfaf2f",
@@ -5083,8 +5397,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "KR",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "65e24ae672bdb05a",
@@ -5095,8 +5410,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "TR",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "3b1eef29de98d488",
@@ -5107,8 +5423,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "ID",
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "bf1699a346c1e49b",
@@ -5119,8 +5436,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "SG",
+   "sector": "agro",
+   "tried": 1
   },
   {
    "id": "2ba95104a1bd06df",
@@ -5131,8 +5449,9 @@
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/recent",
-   "country": "",
-   "sector": "otros"
+   "country": "IN",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "67b8f21e4d4c78a1",
