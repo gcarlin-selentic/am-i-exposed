@@ -23,8 +23,8 @@ from collections import Counter
 from urllib.parse import urlsplit
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from _radar import (ESTADOS, PAISES, REGIONES, SECTORES, TIPOS,  # noqa: E402
-                    etiqueta, pais, region)
+from _radar import (ESTADOS, ESTADOS_CORTO, PAISES, REGIONES,  # noqa: E402
+                    SECTORES, TIPOS, etiqueta, pais, region)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOM = 'https://www.am-i-exposed.com'
@@ -33,6 +33,11 @@ DOM = 'https://www.am-i-exposed.com'
 # historico vive en data/radar.json y alimenta las cifras, no la tabla.
 DIAS_PAGINA = 7
 FILAS_VISIBLES = 40
+# Debajo de este ancho la tabla deja de ser tabla y cada fila es una ficha.
+# Seis columnas con "Servicios Financieros y Seguros" dentro no caben en la
+# pantalla de un portatil, y el desbordamiento lateral no se ve: la fila se
+# lee cortada y la ultima columna es inalcanzable.
+FICHA_HASTA = 1000
 
 RUTAS = {'en': '/daily-hack/', 'es': '/es/daily-hack/'}
 SALIDA = {'en': 'daily-hack', 'es': os.path.join('es', 'daily-hack')}
@@ -209,12 +214,11 @@ HOSTS = {'www.ransomlook.io', 'ransomlook.io', 'haveibeenpwned.com'}
 def etiquetas_movil(t):
     """Las etiquetas de la ficha movil, puestas por CSS y no como atributo en
     cada celda: son siete por fila y doscientas y pico filas por pagina."""
-    cols = ['thdate', 'thvictim', 'thcountry', 'thsector', 'thgroup',
-            'thstate', 'thsource']
+    cols = ['thdate', 'thvictim', 'thcountry', 'thsector', 'thgroup', 'thstate']
     reglas = '\n'.join(
         ' tbody td:nth-child(%d)::before{content:"%s"}' % (n, t[c])
         for n, c in enumerate(cols, 1))
-    return '@media (max-width:760px){\n' + reglas + '\n}\n'
+    return '@media (max-width:%dpx){\n%s\n}\n' % (FICHA_HASTA, reglas)
 
 
 def href(url):
@@ -306,7 +310,15 @@ input[type=search]{width:210px}
 .region h2 .c{font-size:14px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
 .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
 table{border-collapse:collapse;width:100%;font-size:15px}
-@media (min-width:761px){table{min-width:720px}}
+@media (min-width:1001px){table{min-width:720px}}
+/* El contenedor del sitio mide 980px, que es la medida de un texto, no la de
+   una tabla de seis columnas: ahi dentro la ultima columna quedaba cortada en
+   cualquier pantalla. Las secciones de tabla se salen de esa caja y se
+   centran solas; el texto de alrededor conserva su medida. */
+@media (min-width:1001px){
+ .region{width:min(1240px,calc(100vw - 32px));
+  margin-left:calc((100% - min(1240px,100vw - 32px)) / 2)}
+}
 th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
 th{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);
  font-weight:600;background:var(--bg)}
@@ -343,14 +355,18 @@ tr[hidden]{display:none}
    leia incompleta y el enlace a la fuente era inalcanzable. Aqui cada fila
    es una ficha y cada dato lleva su etiqueta delante, generada por CSS para
    no repetirla doscientas veces en el HTML. */
-@media (max-width:760px){
+@media (max-width:1000px){
  .tablewrap{overflow-x:visible;border:0;border-radius:0;background:none}
  table{font-size:15px}
  thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
  tbody tr{display:block;background:var(--surface);border:1px solid var(--line);
   border-left:3px solid var(--alert);border-radius:10px;padding:11px 13px;margin-bottom:10px}
  tbody td{display:grid;grid-template-columns:minmax(74px,88px) minmax(0,1fr);
-  gap:10px;align-items:baseline;border:0;padding:3px 0}
+  gap:4px 10px;align-items:baseline;justify-items:start;border:0;padding:3px 0}
+ /* Toda la celda cae en la segunda columna. Sin esto, una celda con dos
+    hijos manda el segundo a la columna de la etiqueta, y la insignia se
+    estira de lado a lado porque una celda de rejilla ocupa su hueco. */
+ tbody td>*{grid-column:2}
  tbody td::before{color:var(--muted);font-size:11.5px;
   font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.7}
  tbody td.d{font-size:14px}
@@ -595,11 +611,13 @@ def pagina(idioma, datos, hoy):
         w(f'        <h2>{E(titulo)} <span class="c">{len(filas)} '
           f'{E(t["cases"] if len(filas) != 1 else t["case"])}</span></h2>')
         w('        <div class="tablewrap"><table>')
+        # Seis columnas, no siete: la fuente vive dentro de la de estado,
+        # porque el nombre de la victima ya es su enlace.
         w('            <thead><tr>'
           f'<th>{E(t["thdate"])}</th><th>{E(t["thvictim"])}</th>'
           f'<th>{E(t["thcountry"])}</th><th>{E(t["thsector"])}</th>'
           f'<th>{E(t["thgroup"])}</th><th>{E(t["thstate"])}</th>'
-          f'<th>{E(t["thsource"])}</th></tr></thead>')
+          '</tr></thead>')
         w('            <tbody>')
         # Una fila por linea y sin texto de busqueda duplicado en un atributo:
         # con doscientas y pico filas por pagina, cada adorno son kilobytes.
@@ -623,9 +641,10 @@ def pagina(idioma, datos, hoy):
               f'<td>{E(pais(c["country"], idioma))}</td>'
               f'<td>{E(etiqueta(SECTORES, c["sector"], idioma))}</td>'
               f'<td>{E(c["group"])}</td>'
-              f'<td><span class="badge {marca}">'
-              f'{E(etiqueta(ESTADOS, c["status"], idioma))}</span>{tipo}</td>'
-              f'<td>{fuente}</td></tr>')
+              f'<td><span class="badge {marca}" title="'
+              f'{E(etiqueta(ESTADOS, c["status"], idioma))}">'
+              f'{E(etiqueta(ESTADOS_CORTO, c["status"], idioma))}</span>{tipo}'
+              f'<div class="s">{fuente}</div></td></tr>')
         w('            </tbody>')
         w('        </table>')
         w(f'        <div class="empty" hidden>{E(t["nomatch"])}</div>')

@@ -46,6 +46,15 @@ ESTADOS = {
     'verificado': ('Brecha verificada por HIBP',    'Breach verified by HIBP'),
 }
 
+# La version corta, para la insignia de la tabla. La larga se parte en tres
+# lineas y ensancha la columna lo bastante como para echar a la de al lado
+# fuera de la pantalla; va en las tarjetas del dia, donde hay sitio.
+ESTADOS_CORTO = {
+    'reclamado':  ('Reclamado',   'Claimed'),
+    'confirmado': ('Confirmado',  'Confirmed'),
+    'verificado': ('Verificado',  'Verified'),
+}
+
 # Paises que aparecen de verdad en los sitios de filtracion. No es la ISO
 # entera: lo que no este aqui se muestra como "Sin identificar" en vez de
 # inventarle un nombre a un codigo que el clasificador se saco de la manga.
