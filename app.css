@@ -719,6 +719,14 @@ img { max-width: 100%; }
 .offer li { display: flex; gap: 11px; align-items: flex-start; font-size: 14.5px; }
 .offer li svg { color: var(--accent); flex-shrink: 0; margin-top: 3px; }
 .offer-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+/* En que moneda se cobra de verdad. Ocupa la fila entera debajo del precio y
+   del boton, porque es una aclaracion del importe, no una etiqueta suya. */
+.price-note {
+    flex-basis: 100%;
+    margin-top: -4px;
+    font-size: 13px;
+    color: var(--muted);
+}
 .offer .btn { background: var(--bg); color: var(--ink); flex: 0 0 auto; }
 /* The explainer card. It shares .offer's look, and differs in carrying several
    paragraphs rather than one: the paid card's single <p> never needed the gap

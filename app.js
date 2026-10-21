@@ -111,7 +111,8 @@ const COPY = {
         offerLi1: 'Qué cuenta cambiar primero y exactamente cómo hacerlo',
         offerLi2: 'Pasos numerados, sin palabras técnicas',
         offerLi3: 'Descargable en PDF para imprimir o compartir',
-        offerPer: 'por reporte', offerBtn: 'Ver un ejemplo',
+        offerPer: 'por reporte',
+        offerChargedAs: (real) => `El cobro se hace en ${real} por Mercado Pago.`, offerBtn: 'Ver un ejemplo',
 
         alertsBadge: 'Alertas &middot; solo EE.&nbsp;UU.',
         alertsTitle: 'Si demandan a una empresa que filtró tus datos, te avisamos.',
@@ -339,7 +340,8 @@ const COPY = {
         offerLi1: 'Which account to fix first, and exactly how',
         offerLi2: 'Numbered steps, no technical words',
         offerLi3: 'Downloadable as a PDF to print or share',
-        offerPer: 'per report', offerBtn: 'See an example',
+        offerPer: 'per report',
+        offerChargedAs: (real) => `Charged as ${real} through Mercado Pago.`, offerBtn: 'See an example',
 
         alertsBadge: 'Alerts &middot; US only',
         alertsTitle: 'If a company that leaked your data gets sued, we’ll let you know.',
@@ -2230,7 +2232,23 @@ function renderPrice() {
         return;
     }
 
-    el.textContent = formatPrice(priceInfo);
+    // En ingles el precio se muestra en dolares, que es la moneda que ese
+    // lector entiende, y justo debajo dice en que moneda se cobra de verdad.
+    // El importe que se cobra no cambia: lo fija el servidor y lo ejecuta
+    // Mercado Pago en soles. Sin referencia en dolares configurada se muestra
+    // el precio real, que es la respuesta segura.
+    const nota = document.getElementById('offerPriceNote');
+    const enDolares = lang === 'en' && priceInfo.provider === 'mercadopago'
+        && Number(priceInfo.amountUsd) > 0;
+
+    el.textContent = enDolares
+        ? formatPrice({ amount: priceInfo.amountUsd, currency: 'USD' })
+        : formatPrice(priceInfo);
+
+    if (nota) {
+        nota.hidden = !enDolares;
+        nota.textContent = enDolares ? t().offerChargedAs(formatPrice(priceInfo)) : '';
+    }
     syncJsonLdPrice();
 }
 

@@ -20,6 +20,7 @@ import {
     mpMode,
     paddleConfig,
     priceConfig,
+    usdReference,
     publicBaseUrl,
     readBody,
     sbInsert,
@@ -144,6 +145,11 @@ export default async function handler(req, res) {
             provider: 'mercadopago',
             amount: price.amount,
             currency: price.currency,
+            // Solo para mostrar, y solo lo usa la pagina en ingles. El cobro
+            // sigue siendo amount/currency de arriba, y la pagina lo dice
+            // debajo del precio: ensenar dolares y cobrar soles en silencio
+            // seria mentir sobre el importe.
+            amountUsd: usdReference(),
             mode: mpMode(),
         });
     }

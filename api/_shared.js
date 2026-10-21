@@ -128,6 +128,16 @@ export function paddleConfig(priceEnv) {
     return { token, priceId, environment };
 }
 
+// Cuanto cuesta el reporte en dolares, solo para mostrarlo. Fuera de Estados
+// Unidos el cobro lo hace Mercado Pago en soles y eso no cambia: este numero
+// no se le pasa nunca a la pasarela, solo lo pinta la pagina en ingles, donde
+// "S/ 19" no le dice nada a nadie. Si no esta puesto, la pagina en ingles
+// sigue mostrando el precio real en soles, que es la respuesta segura.
+export function usdReference() {
+    const amount = Number(process.env.REPORT_USD_PRICE);
+    return Number.isFinite(amount) && amount > 0 ? amount : null;
+}
+
 // The price lives on the server. If the browser could name the amount, the
 // report could be bought for one sol.
 export function priceConfig() {
