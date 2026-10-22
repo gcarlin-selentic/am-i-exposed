@@ -81,6 +81,20 @@ def ident(grupo, victima):
     return hashlib.sha1(semilla.encode('utf-8')).hexdigest()[:16]
 
 
+def semilla_id(fila):
+    """Con que grupo se siembra la identidad de una fila.
+
+    Tiene que dar lo mismo en la fuente que la crea y en el refundido que la
+    recalcula, o la fila sale del archivo con una identidad y vuelve a entrar
+    con otra: la busqueda en el archivo del dia anterior falla siempre, la
+    fila se trata como nueva cada manana, vuelve al clasificador cada manana
+    y entra en la cuenta de "nuevas en 24 horas" cada manana. Las filas de
+    HIBP no tienen grupo y publican un guion, que no sirve de semilla."""
+    if fila.get('source') == 'Have I Been Pwned':
+        return 'hibp'
+    return fila.get('group')
+
+
 RANSOMLOOK = 'https://www.ransomlook.io'
 INDICE_RL = RANSOMLOOK + '/recent'
 
@@ -163,8 +177,7 @@ def de_ransomlook(desde):
         victima = limpia_victima(p.get('post_title'))
         if not dia or not victima or dia < desde:
             continue
-        salida.append({
-            'id': ident(p.get('group_name'), victima),
+        fila = {
             'day': dia,
             'seen': AHORA,
             'victim': victima,
@@ -176,7 +189,9 @@ def de_ransomlook(desde):
             # Solo para clasificar. No se publica: es texto de otro.
             '_dominio': dominio(victima, p.get('description')),
             '_pista': (p.get('description') or '')[:400],
-        })
+        }
+        fila['id'] = ident(semilla_id(fila), fila['victim'])
+        salida.append(fila)
     return salida
 
 
@@ -194,8 +209,7 @@ def de_hibp(desde):
         nombre = (b.get('Title') or b.get('Name') or '').strip()
         if not dia or not nombre or dia < desde:
             continue
-        salida.append({
-            'id': ident('hibp', nombre),
+        fila = {
             'day': dia,
             'seen': AHORA,
             'victim': nombre,
@@ -207,7 +221,9 @@ def de_hibp(desde):
                          + (b.get('Name') or ''),
             '_dominio': (b.get('Domain') or '').lower(),
             '_pista': f"{b.get('PwnCount') or 0} cuentas",
-        })
+        }
+        fila['id'] = ident(semilla_id(fila), fila['victim'])
+        salida.append(fila)
     return salida
 
 
@@ -396,7 +412,7 @@ def main():
     fundidos = {}
     for c in items:
         c['victim'] = limpia_victima(c['victim']) or c['victim']
-        c['id'] = ident(c.get('group'), c['victim'])
+        c['id'] = ident(semilla_id(c), c['victim'])
         otro = fundidos.get(c['id'])
         if not otro:
             fundidos[c['id']] = c
