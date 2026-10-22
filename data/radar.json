@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-21T23:46:57+00:00",
+ "generated": "2026-10-22T15:51:35+00:00",
  "window_days": 180,
  "sources": [
   {
@@ -15,21 +15,163 @@
  ],
  "items": [
   {
+   "id": "f7c67254ec467e8f",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "istanbultrading.com",
+   "group": "lockbit5",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
+   "country": "",
+   "sector": "otros",
+   "tried": 1
+  },
+  {
    "id": "f3c2983bebb67bff",
    "day": "2026-10-22",
+   "seen": "2026-10-22T12:00:00+00:00",
    "victim": "bereskinparr.com smartbiggar.ca",
    "group": "inc ransom",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
+   "country": "CA",
+   "sector": "servicios",
+   "tried": 1
+  },
+  {
+   "id": "e5b9f917b9834513",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "WEPOS Chemie",
+   "group": "lamashtu",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/lamashtu",
+   "country": "DE",
+   "sector": "manufactura",
+   "tried": 1
+  },
+  {
+   "id": "f13ae3522e075c74",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "VERGI Muenster",
+   "group": "lamashtu",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/lamashtu",
+   "country": "DE",
+   "sector": "finanzas",
+   "tried": 1
+  },
+  {
+   "id": "5b4bda7f77dc718b",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "SGLA (Schwartz, Giannini, Lantsberger & Adamson)",
+   "group": "space bears",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/space%20bears",
+   "country": "US",
+   "sector": "finanzas",
+   "tried": 1
+  },
+  {
+   "id": "11107d915a3812c3",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "Performance Ford Inc",
+   "group": "n0n",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/n0n",
+   "country": "US",
+   "sector": "retail",
+   "tried": 1
+  },
+  {
+   "id": "dc80f34f5aea4c7b",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "PWC",
+   "group": "everest",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "",
-   "sector": "otros",
-   "seen": "2026-10-22T12:00:00+00:00"
+   "sector": "servicios",
+   "tried": 1
+  },
+  {
+   "id": "d4670cec15ba623b",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "Merical LLC",
+   "group": "payoutsking",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/payoutsking",
+   "country": "US",
+   "sector": "manufactura",
+   "tried": 1
+  },
+  {
+   "id": "e047e1df4340bf1f",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "MECA-PRECIS",
+   "group": "lamashtu",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/lamashtu",
+   "country": "FR",
+   "sector": "manufactura",
+   "tried": 1
+  },
+  {
+   "id": "3a693b19c6001032",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "Linebarger Goggan Blair & Sampson",
+   "group": "everest",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/everest",
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
+  },
+  {
+   "id": "53a2d8ea790ca8c1",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "Kirkland & Ellis LLP",
+   "group": "leakeddata",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/leakeddata",
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "ba2c16a1e67d319f",
    "day": "2026-10-22",
+   "seen": "2026-10-22T12:00:00+00:00",
    "victim": "K.r.a. ...s",
    "group": "leakeddata",
    "type": "ransomware",
@@ -38,24 +180,236 @@
    "sourceUrl": "https://www.ransomlook.io/group/leakeddata",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-22T12:00:00+00:00"
+   "tried": 1
+  },
+  {
+   "id": "b9b19594969f2241",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "Heritage Senior Living",
+   "group": "n0n",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/n0n",
+   "country": "US",
+   "sector": "salud",
+   "tried": 1
+  },
+  {
+   "id": "b360fac0d90e33f4",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "Hecker Holzsystembau",
+   "group": "lamashtu",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/lamashtu",
+   "country": "DE",
+   "sector": "construccion",
+   "tried": 1
+  },
+  {
+   "id": "fe4d45294d4cb7a8",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "Gräfliches Hofbrauhaus Freising",
+   "group": "lamashtu",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/lamashtu",
+   "country": "DE",
+   "sector": "manufactura",
+   "tried": 1
+  },
+  {
+   "id": "4e613003870824ea",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "FuG-Gruppe",
+   "group": "lamashtu",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/lamashtu",
+   "country": "DE",
+   "sector": "tecnologia",
+   "tried": 1
+  },
+  {
+   "id": "9926014d83d88441",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "DR.SCHNELL GmbH & Co. KGaA",
+   "group": "rhysida",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/rhysida",
+   "country": "DE",
+   "sector": "manufactura",
+   "tried": 1
+  },
+  {
+   "id": "a05e90c50e6e4044",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "Creative Universe",
+   "group": "qilin",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
+   "country": "",
+   "sector": "servicios",
+   "tried": 1
+  },
+  {
+   "id": "4945cedd0149e5fd",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "Company #109",
+   "group": "n0n",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/n0n",
+   "country": "US",
+   "sector": "retail",
+   "tried": 1
+  },
+  {
+   "id": "88abcbc440b038f0",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "Company #108",
+   "group": "n0n",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/n0n",
+   "country": "CA",
+   "sector": "medios",
+   "tried": 1
+  },
+  {
+   "id": "9f8c567eafe27a94",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "Company #107",
+   "group": "n0n",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/n0n",
+   "country": "BG",
+   "sector": "energia",
+   "tried": 1
+  },
+  {
+   "id": "31280edd01390344",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "Company #106",
+   "group": "n0n",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/n0n",
+   "country": "US",
+   "sector": "finanzas",
+   "tried": 1
+  },
+  {
+   "id": "ac4d6bd8e7b17b26",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "Company #105",
+   "group": "n0n",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/n0n",
+   "country": "US",
+   "sector": "retail",
+   "tried": 1
+  },
+  {
+   "id": "ed00afccb4c73125",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "Company #104",
+   "group": "n0n",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/n0n",
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
+  },
+  {
+   "id": "5f9e5a6fba72ee23",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "Bathurst RSL",
+   "group": "qilin",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
+   "country": "AU",
+   "sector": "hoteleria",
+   "tried": 1
+  },
+  {
+   "id": "6126d2570823010f",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "Barrow & Grimm 🇺🇸",
+   "group": "bravox",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/bravox",
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "74bb5cd9878c9af2",
    "day": "2026-10-22",
+   "seen": "2026-10-22T12:00:00+00:00",
    "victim": "Allmand-Smith Limited",
    "group": "aurora",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/aurora",
-   "country": "",
-   "sector": "otros",
-   "seen": "2026-10-22T12:00:00+00:00"
+   "country": "GB",
+   "sector": "manufactura",
+   "tried": 1
+  },
+  {
+   "id": "f57371953ac055dc",
+   "day": "2026-10-22",
+   "seen": "2026-10-22T15:50:43+00:00",
+   "victim": "Airtificial",
+   "group": "qilin",
+   "type": "ransomware",
+   "status": "reclamado",
+   "source": "RansomLook",
+   "sourceUrl": "https://www.ransomlook.io/group/qilin",
+   "country": "ES",
+   "sector": "construccion",
+   "tried": 1
   },
   {
    "id": "8a13eb2e7ef5c6a7",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "srsnodgrass.com",
    "group": "brain cipher",
    "type": "ransomware",
@@ -64,12 +418,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "fbbf6a0e852dd349",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "sodali.com",
    "group": "brain cipher",
    "type": "ransomware",
@@ -78,12 +432,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "IT",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "d51a747d0045fd1c",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "prosomnus.com",
    "group": "brain cipher",
    "type": "ransomware",
@@ -92,12 +446,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "db8bce95f928a621",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "olyortho.com",
    "group": "brain cipher",
    "type": "ransomware",
@@ -106,12 +460,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "c99bc2500393c4c3",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "oflaherty-law.com",
    "group": "brain cipher",
    "type": "ransomware",
@@ -120,12 +474,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "35bdc852447cc936",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "novagroupgbc.com",
    "group": "brain cipher",
    "type": "ransomware",
@@ -134,11 +488,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "",
    "sector": "construccion",
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "5ba79dd1a202879f",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "nbcuniversal.com",
    "group": "scarlettgroup",
    "type": "ransomware",
@@ -147,12 +502,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/scarlettgroup",
    "country": "US",
    "sector": "medios",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "3739e670b61225eb",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "mvjllp.com",
    "group": "brain cipher",
    "type": "ransomware",
@@ -161,12 +516,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "67e4de692d60a887",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "lucidmotors",
    "group": "sovcali",
    "type": "ransomware",
@@ -175,12 +530,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/sovcali",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2eea73a382048032",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "i****g",
    "group": "payoutsking",
    "type": "ransomware",
@@ -189,11 +544,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/payoutsking",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "444b164b734349a0",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "genesys.com",
    "group": "scarlettgroup",
    "type": "ransomware",
@@ -202,12 +558,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/scarlettgroup",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "dd56319bda1dbc18",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "gabonmeca.com",
    "group": "hyflock",
    "type": "ransomware",
@@ -216,12 +572,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "GA",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "d0e9c4bea15f4c6d",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "dangvuongcac",
    "group": "hyflock",
    "type": "ransomware",
@@ -230,12 +586,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "VN",
    "sector": "hoteleria",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "1c6348e0efc7c32d",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "clinicaromero.com",
    "group": "brain cipher",
    "type": "ransomware",
@@ -244,11 +600,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "",
    "sector": "salud",
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "e0a14950d9cc5d25",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Xylanpicks",
    "group": "n0n",
    "type": "ransomware",
@@ -257,25 +614,26 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "ae25fdd8e86138bd",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Whirlpool",
    "group": "whitearmor",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/whitearmor",
-   "country": "",
-   "sector": "otros",
-   "seen": "2026-10-21T12:00:00+00:00"
+   "country": "US",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "1901abd2540e7191",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Weld Re 8 School District",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -284,12 +642,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "educacion",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "33768a0e64e7e6b2",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "W.A",
    "group": "whitearmor",
    "type": "ransomware",
@@ -298,11 +656,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/whitearmor",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "5eb9c67124f6b345",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Updates.",
    "group": "whitearmor",
    "type": "ransomware",
@@ -311,11 +670,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/whitearmor",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "dc7eb0fb03a33725",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "They Failed. 100GB Drops in 2 Days",
    "group": "sovcali",
    "type": "ransomware",
@@ -324,12 +684,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/sovcali",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "398d0d74e9e14ec6",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "TheHomeMag NorCal",
    "group": "n0n",
    "type": "ransomware",
@@ -338,12 +698,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "medios",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "bee3ee6e5101c282",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "The Complete Engineering Data Chain in ADAS and Automotive Structural Projects: What Usual",
    "group": "sovcali",
    "type": "ransomware",
@@ -351,12 +711,13 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/sovcali",
    "country": "",
-   "sector": "otros",
-   "seen": "2026-10-21T12:00:00+00:00"
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "0f535ea40a47021d",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "THE ENDGAME OF LUCID MOTORS’ PSYCHOLOGICAL GAME",
    "group": "sovcali",
    "type": "ransomware",
@@ -365,12 +726,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/sovcali",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "b093fcbb0dafabc7",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "THE ANATOMY OF A COMPROMISED ARCHITECTURE: LUCID’S SECRETS ARE UNRAVELED",
    "group": "sovcali",
    "type": "ransomware",
@@ -379,25 +740,26 @@
    "sourceUrl": "https://www.ransomlook.io/group/sovcali",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "1c9cd7380e4ca128",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Porter Hedges LLP",
    "group": "leakeddata",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/leakeddata",
-   "country": "",
-   "sector": "otros",
-   "seen": "2026-10-21T12:00:00+00:00"
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "4b1b84d7d437f0a2",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "PLD Group",
    "group": "everest",
    "type": "ransomware",
@@ -406,11 +768,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "5680f831169ba146",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Lucid Motors Data Auction: 5 TB of Engineering Data & Source Code",
    "group": "sovcali",
    "type": "ransomware",
@@ -419,12 +782,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/sovcali",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "b96c62743e97376e",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Lindauer Dornier",
    "group": "everest",
    "type": "ransomware",
@@ -433,38 +796,40 @@
    "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "DE",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "f36b6226f09c205a",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Lanham Associates",
    "group": "everest",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/everest",
-   "country": "",
-   "sector": "otros",
-   "seen": "2026-10-21T12:00:00+00:00"
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "ca380bccb1b0278b",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "LEGAL-RECORDS.US",
    "group": "clop",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/clop",
-   "country": "",
-   "sector": "otros",
-   "seen": "2026-10-21T12:00:00+00:00"
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "fe2fbb99064c92d6",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "K.r.. ...s",
    "group": "leakeddata",
    "type": "ransomware",
@@ -473,11 +838,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/leakeddata",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "3ee4519b5a351ec5",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "K.r.. ...",
    "group": "leakeddata",
    "type": "ransomware",
@@ -486,11 +852,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/leakeddata",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "0edeb6210f3a8eba",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "HollywoodHair.pl",
    "group": "sovcali",
    "type": "ransomware",
@@ -499,25 +866,26 @@
    "sourceUrl": "https://www.ransomlook.io/group/sovcali",
    "country": "PL",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "47c36f06fe6cf6eb",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Hanjin Information Systems & Telecommunication Co., Ltd.",
    "group": "n0n",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
-   "country": "",
-   "sector": "otros",
-   "seen": "2026-10-21T12:00:00+00:00"
+   "country": "KR",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "71f11bdb50965b9f",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Haier",
    "group": "everest",
    "type": "ransomware",
@@ -526,12 +894,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "CN",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "cac2c18e5858389c",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "GSE-M Technology Sdn. Bhd. 🇲🇾",
    "group": "bravox",
    "type": "ransomware",
@@ -540,12 +908,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/bravox",
    "country": "MY",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "72e5eda38304bfe3",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Flextron Circuit Assembly",
    "group": "akira",
    "type": "ransomware",
@@ -554,12 +922,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/akira",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "48bfb829b7012ee5",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Company #99",
    "group": "n0n",
    "type": "ransomware",
@@ -568,12 +936,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "EC",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "77b5f85666b49809",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Company #103",
    "group": "n0n",
    "type": "ransomware",
@@ -582,12 +950,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "PT",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "f8114f87b6188155",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Company #102",
    "group": "n0n",
    "type": "ransomware",
@@ -596,12 +964,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "23d535384965e1b4",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Company #101",
    "group": "n0n",
    "type": "ransomware",
@@ -610,12 +978,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "e306d2d59166264a",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Company #100",
    "group": "n0n",
    "type": "ransomware",
@@ -624,25 +992,26 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "99484e3faebf53cd",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Coastal Alabama Community College",
    "group": "interlock",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/interlock",
-   "country": "",
-   "sector": "otros",
-   "seen": "2026-10-21T12:00:00+00:00"
+   "country": "US",
+   "sector": "educacion",
+   "tried": 1
   },
   {
    "id": "cfe6c4aac390c896",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Cascade Flooring America",
    "group": "akira",
    "type": "ransomware",
@@ -651,12 +1020,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/akira",
    "country": "US",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "0a93c0d2630662e3",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Bruin Group LLC",
    "group": "emperador",
    "type": "ransomware",
@@ -665,12 +1034,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/emperador",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "d967cb67e497db8b",
    "day": "2026-10-21",
+   "seen": "2026-10-21T12:00:00+00:00",
    "victim": "Adobe Insurance Brokers, LLC",
    "group": "pear",
    "type": "ransomware",
@@ -679,12 +1048,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/pear",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "87f0992bcff5cb31",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "chooseultimate.com",
    "group": "lockbit5",
    "type": "ransomware",
@@ -693,12 +1062,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "0d103e243f5e6974",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "centralrogers.com",
    "group": "inc ransom",
    "type": "ransomware",
@@ -707,11 +1076,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "ba14329ac798d66e",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Vormittag Associates Inc",
    "group": "n0n",
    "type": "ransomware",
@@ -720,12 +1090,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "37c8b44f04fdc0a6",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "The Excalibur Group",
    "group": "dark project",
    "type": "ransomware",
@@ -734,11 +1104,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/dark%20project",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "17e7ac1cacd63f18",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Seminole Schools",
    "group": "global secret group",
    "type": "ransomware",
@@ -747,12 +1118,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/global%20secret%20group",
    "country": "US",
    "sector": "educacion",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "671248672a3a54f5",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Seetelhotels.de",
    "group": "inc ransom",
    "type": "ransomware",
@@ -761,12 +1132,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "DE",
    "sector": "hoteleria",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "3b5f25e2d663a8fc",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Rosenberg & Pittinsky",
    "group": "global secret group",
    "type": "ransomware",
@@ -775,12 +1146,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/global%20secret%20group",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "0b1fb94394489497",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Research Foundation of The City University of New York",
    "group": "booba team",
    "type": "ransomware",
@@ -789,12 +1160,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/booba%20team",
    "country": "US",
    "sector": "educacion",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "d13f6649d741782d",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Pearland Pediatrics",
    "group": "booba team",
    "type": "ransomware",
@@ -803,12 +1174,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/booba%20team",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "70cce5626e261c78",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "P...S...R...",
    "group": "leakeddata",
    "type": "ransomware",
@@ -817,11 +1188,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/leakeddata",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "6f1d6ad7a7539bad",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "P... H...",
    "group": "leakeddata",
    "type": "ransomware",
@@ -830,24 +1202,26 @@
    "sourceUrl": "https://www.ransomlook.io/group/leakeddata",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "32e82c01bf7356ca",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "P**** Products",
    "group": "the gentlemen",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
-   "country": "",
+   "country": "US",
    "sector": "manufactura",
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "5b8e265e6e78c164",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "OpenText",
    "group": "mimori",
    "type": "ransomware",
@@ -856,12 +1230,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/mimori",
    "country": "CA",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2748c9b8c14b990a",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "M... M...",
    "group": "leakeddata",
    "type": "ransomware",
@@ -870,11 +1244,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/leakeddata",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "96e1c5b79b81d92e",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Graves Fireplaces, Inc.",
    "group": "global secret group",
    "type": "ransomware",
@@ -883,12 +1258,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/global%20secret%20group",
    "country": "US",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "60aaad724d651d1d",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "GardaWorld",
    "group": "qilin",
    "type": "ransomware",
@@ -897,12 +1272,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "CA",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "0796a489f8b2987b",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Froggys Fog",
    "group": "n0n",
    "type": "ransomware",
@@ -911,12 +1286,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "09f6fc20a7b63472",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Fisher59",
    "group": "anubis",
    "type": "ransomware",
@@ -924,12 +1299,13 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/anubis",
    "country": "",
-   "sector": "otros",
-   "seen": "2026-10-20T12:00:00+00:00"
+   "sector": "retail",
+   "tried": 1
   },
   {
    "id": "f055ec26690e7547",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Duarte Nursery, Inc.",
    "group": "aurora",
    "type": "ransomware",
@@ -938,12 +1314,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/aurora",
    "country": "US",
    "sector": "agro",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "b9cb3ab2e461b1cf",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Company #98",
    "group": "n0n",
    "type": "ransomware",
@@ -952,11 +1328,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "b7ea5f6baa3cdfd2",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Company #97",
    "group": "n0n",
    "type": "ransomware",
@@ -965,11 +1342,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "",
    "sector": "manufactura",
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "22a68f3304ab1b37",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Company #96",
    "group": "n0n",
    "type": "ransomware",
@@ -978,12 +1356,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "TT",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "318ef186b6d20404",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Company #95",
    "group": "n0n",
    "type": "ransomware",
@@ -992,12 +1370,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "CH",
    "sector": "energia",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2262db410a6dd14d",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "City of Mt. Angel, Oregon",
    "group": "booba team",
    "type": "ransomware",
@@ -1006,12 +1384,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/booba%20team",
    "country": "US",
    "sector": "gobierno",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "c5bdd56ed781e228",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "City Hall - Everett, MA",
    "group": "booba team",
    "type": "ransomware",
@@ -1020,12 +1398,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/booba%20team",
    "country": "US",
    "sector": "gobierno",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "f67e2870754578f8",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Chicago Vein Institute",
    "group": "booba team",
    "type": "ransomware",
@@ -1034,12 +1412,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/booba%20team",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "daa96f714bab9ded",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "COASTAL CAROLINA NEUROPSYCHIATRIC CENTER, PA",
    "group": "booba team",
    "type": "ransomware",
@@ -1048,25 +1426,26 @@
    "sourceUrl": "https://www.ransomlook.io/group/booba%20team",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "7fbc773727d41797",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "C**** Technologies",
    "group": "the gentlemen",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
-   "country": "",
+   "country": "US",
    "sector": "manufactura",
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "115594c580a26a27",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Brüninghoff Group",
    "group": "payload",
    "type": "ransomware",
@@ -1075,12 +1454,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/payload",
    "country": "DE",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "07ae3af30858a271",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Beach Eye Medical Group",
    "group": "dark project",
    "type": "ransomware",
@@ -1089,12 +1468,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/dark%20project",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "c424f263eec7ab2c",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Baker Donelson",
    "group": "redact",
    "type": "ransomware",
@@ -1103,12 +1482,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/redact",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "6b8c9e149b28a94d",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "BW Office World",
    "group": "payload",
    "type": "ransomware",
@@ -1117,12 +1496,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/payload",
    "country": "DE",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "f734861564113f3b",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Aveva",
    "group": "mimori",
    "type": "ransomware",
@@ -1131,12 +1510,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/mimori",
    "country": "GB",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "81b9b278d0b03c41",
    "day": "2026-10-20",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Assurance Retraite",
    "group": "—",
    "type": "filtracion",
@@ -1145,12 +1524,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#AssuranceRetraite",
    "country": "FR",
    "sector": "gobierno",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "6b15742c90d285e5",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Asensus Surgical",
    "group": "dark project",
    "type": "ransomware",
@@ -1159,12 +1538,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/dark%20project",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "4a2145710c48a5f2",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "Aeroklas Duys / Duys Engineering Group",
    "group": "deadlock",
    "type": "ransomware",
@@ -1173,12 +1552,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/deadlock",
    "country": "ZA",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "ecda154db606d1fc",
    "day": "2026-10-20",
+   "seen": "2026-10-20T12:00:00+00:00",
    "victim": "51Ridge (Newark NJ hosting/IT)",
    "group": "n0n",
    "type": "ransomware",
@@ -1187,12 +1566,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "e350e3b74d25ce58",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "WalkingTree Technologies",
    "group": "qilin",
    "type": "ransomware",
@@ -1201,12 +1580,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "IN",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "da4413cca328c375",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "Toyota Canarias",
    "group": "qilin",
    "type": "ransomware",
@@ -1215,12 +1594,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "ES",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "5699298fba860ba5",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "The Akeeli Group",
    "group": "n0n",
    "type": "ransomware",
@@ -1229,12 +1608,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "0c2d5a4339c2afc4",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "SkyWorld Air Cargo",
    "group": "qilin",
    "type": "ransomware",
@@ -1243,11 +1622,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "transporte",
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "40399fb9340b0524",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "Salauno",
    "group": "qilin",
    "type": "ransomware",
@@ -1256,12 +1636,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "MX",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "d3573531e11a69c2",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "PingCAP / TiDB Cloud",
    "group": "fulcrumsec",
    "type": "ransomware",
@@ -1270,11 +1650,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/fulcrumsec",
    "country": "",
    "sector": "tecnologia",
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "588d507f6565527a",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "Patriot Maritime",
    "group": "storm",
    "type": "ransomware",
@@ -1283,12 +1664,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/storm",
    "country": "US",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "3269d9d0397d2d8c",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "POWERsonic Industries Inc.",
    "group": "aurora",
    "type": "ransomware",
@@ -1297,11 +1678,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/aurora",
    "country": "",
    "sector": "manufactura",
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "cdf07830ec98243e",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "Merit Financial Group",
    "group": "storm",
    "type": "ransomware",
@@ -1310,12 +1692,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/storm",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "8690ba3589e87de2",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "Latham & Watkins",
    "group": "leakeddata",
    "type": "ransomware",
@@ -1324,12 +1706,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/leakeddata",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "3c29c7259e0cd6dc",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "Kingwood Endoscopy",
    "group": "n0n",
    "type": "ransomware",
@@ -1338,12 +1720,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "7ef6aa5090ba379d",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "Johnson & Pace",
    "group": "qilin",
    "type": "ransomware",
@@ -1352,12 +1734,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2bb96b8598043bfd",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "Hotel DuPont",
    "group": "n0n",
    "type": "ransomware",
@@ -1366,12 +1748,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "hoteleria",
-   "tried": 1,
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "a53ffa241e73c27e",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "Grupo Cronica",
    "group": "qilin",
    "type": "ransomware",
@@ -1380,12 +1762,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "MX",
    "sector": "medios",
-   "tried": 1,
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "5b2ae52b56f3f50b",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "GTL Concreto e Logística LTDA",
    "group": "emperador",
    "type": "ransomware",
@@ -1394,12 +1776,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/emperador",
    "country": "BR",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "7130554ab8974415",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "Finzly Corp",
    "group": "n0n",
    "type": "ransomware",
@@ -1408,12 +1790,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "4e68136943d9df3b",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "Dental Team FL",
    "group": "qilin",
    "type": "ransomware",
@@ -1422,12 +1804,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "44958fbc31a31992",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "Company #94",
    "group": "n0n",
    "type": "ransomware",
@@ -1436,12 +1818,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "657b49671c116442",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "Company #93",
    "group": "n0n",
    "type": "ransomware",
@@ -1450,12 +1832,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "a047029ef500e03a",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "Company #92",
    "group": "n0n",
    "type": "ransomware",
@@ -1464,12 +1846,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "KR",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "7fc239b63a88fe11",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "CREDIN",
    "group": "qilin",
    "type": "ransomware",
@@ -1478,24 +1860,26 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "agro",
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "3cfcdb0998b26588",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "Belcorp",
    "group": "qilin",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
-   "country": "",
-   "sector": "otros",
-   "seen": "2026-10-19T12:00:00+00:00"
+   "country": "PE",
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "e212057fb74ba247",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "Baltimore Tank Lines",
    "group": "storm",
    "type": "ransomware",
@@ -1504,12 +1888,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/storm",
    "country": "US",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "884df6d4322488c3",
    "day": "2026-10-19",
+   "seen": "2026-10-19T12:00:00+00:00",
    "victim": "Amagi Media Labs",
    "group": "n0n",
    "type": "ransomware",
@@ -1518,38 +1902,40 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "medios",
-   "tried": 1,
-   "seen": "2026-10-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "411b376efb346d74",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "oakgrovetech",
    "group": "dragonforce",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/dragonforce",
-   "country": "",
-   "sector": "tecnologia",
-   "seen": "2026-10-18T12:00:00+00:00"
+   "country": "US",
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "207c209681ac505c",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "mckenneys",
    "group": "iah647",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/iah647",
-   "country": "",
-   "sector": "otros",
-   "seen": "2026-10-18T12:00:00+00:00"
+   "country": "US",
+   "sector": "construccion",
+   "tried": 1
   },
   {
    "id": "7e5018eb93d9d204",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "dac********er.de",
    "group": "cloak",
    "type": "ransomware",
@@ -1558,12 +1944,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/cloak",
    "country": "DE",
    "sector": "otros",
-   "tried": 1,
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "42f703a25cb28c4d",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "U**IN* Group",
    "group": "nightspire",
    "type": "ransomware",
@@ -1572,11 +1958,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/nightspire",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "5de104d907da1d45",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "Telecom Egypt",
    "group": "n0n",
    "type": "ransomware",
@@ -1585,12 +1972,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "EG",
    "sector": "telecom",
-   "tried": 1,
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "1d88c3e0b5b83e51",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "Solid Trading B.V.",
    "group": "n0n",
    "type": "ransomware",
@@ -1599,12 +1986,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "NL",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "00131fe4bad8b131",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "SQA Services Inc",
    "group": "n0n",
    "type": "ransomware",
@@ -1613,12 +2000,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2fe23c153b3e089d",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "SMIC US Company (Sunnyvale, CA — US arm of Semiconductor Manufacturing International Corpo",
    "group": "n0n",
    "type": "ransomware",
@@ -1627,12 +2014,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "8b284da98aee7520",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "Pergande",
    "group": "qilin",
    "type": "ransomware",
@@ -1641,11 +2028,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "manufactura",
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "19da631d59cf2341",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "Pengurusan Aset Air Berhad",
    "group": "qilin",
    "type": "ransomware",
@@ -1654,12 +2042,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "MY",
    "sector": "energia",
-   "tried": 1,
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "0e4fab70201f2203",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "PART2 Global AirFreight International",
    "group": "eclipse",
    "type": "ransomware",
@@ -1668,11 +2056,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/eclipse",
    "country": "",
    "sector": "transporte",
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "9bf9d34a3214a414",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "Mastelli S.r.l.",
    "group": "qilin",
    "type": "ransomware",
@@ -1681,12 +2070,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "IT",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "9cde3090e867e1d4",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "Luzco Ilumination",
    "group": "emperador",
    "type": "ransomware",
@@ -1695,12 +2084,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/emperador",
    "country": "ES",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "87aadd3aa6e22edb",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "Llano Independent School District",
    "group": "qilin",
    "type": "ransomware",
@@ -1709,12 +2098,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "educacion",
-   "tried": 1,
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "1db20583ff0036b3",
    "day": "2026-10-18",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Gîtes de France",
    "group": "—",
    "type": "filtracion",
@@ -1723,12 +2112,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#GitesDeFrance",
    "country": "FR",
    "sector": "hoteleria",
-   "tried": 1,
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "82010fbaced66a37",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "First Brothers Co., Ltd",
    "group": "qilin",
    "type": "ransomware",
@@ -1736,12 +2125,13 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
-   "sector": "servicios",
-   "seen": "2026-10-18T12:00:00+00:00"
+   "sector": "otros",
+   "tried": 1
   },
   {
    "id": "7917e391cd662d74",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "ECO USA",
    "group": "n0n",
    "type": "ransomware",
@@ -1750,12 +2140,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "766191bd5e49ae7a",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "Company #91",
    "group": "n0n",
    "type": "ransomware",
@@ -1764,12 +2154,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "f494b3ee3e18f97b",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "Company #90",
    "group": "n0n",
    "type": "ransomware",
@@ -1778,12 +2168,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "7606ff385045a5b7",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "Company #89",
    "group": "n0n",
    "type": "ransomware",
@@ -1792,12 +2182,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "dd74f55a0f6db53a",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "Company #88",
    "group": "n0n",
    "type": "ransomware",
@@ -1806,12 +2196,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2f89edef9ac951fa",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "BRUTRA Logistek",
    "group": "qilin",
    "type": "ransomware",
@@ -1819,12 +2209,13 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
-   "sector": "servicios",
-   "seen": "2026-10-18T12:00:00+00:00"
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "2aacee0367982435",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "All Business Technologies (Fox Hill bookkeeping and tax practice)",
    "group": "n0n",
    "type": "ransomware",
@@ -1833,12 +2224,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "d59e5ecf6af77947",
    "day": "2026-10-18",
+   "seen": "2026-10-18T12:00:00+00:00",
    "victim": "********rta.ch",
    "group": "cloak",
    "type": "ransomware",
@@ -1847,12 +2238,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/cloak",
    "country": "CH",
    "sector": "otros",
-   "tried": 1,
-   "seen": "2026-10-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "42be500c4e7311d4",
    "day": "2026-10-17",
+   "seen": "2026-10-17T12:00:00+00:00",
    "victim": "polisee Inc",
    "group": "vexy",
    "type": "ransomware",
@@ -1861,12 +2252,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/vexy",
    "country": "JP",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-17T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "cf06ff13a4d9ba46",
    "day": "2026-10-17",
+   "seen": "2026-10-17T12:00:00+00:00",
    "victim": "WSBI-ESBG",
    "group": "play",
    "type": "ransomware",
@@ -1875,12 +2266,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/play",
    "country": "BE",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-17T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "134e88f3a33516c0",
    "day": "2026-10-17",
+   "seen": "2026-10-17T12:00:00+00:00",
    "victim": "Tec Tool Limited",
    "group": "play",
    "type": "ransomware",
@@ -1889,12 +2280,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/play",
    "country": "GB",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-17T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "fe4c599fe5525ea8",
    "day": "2026-10-17",
+   "seen": "2026-10-17T12:00:00+00:00",
    "victim": "Taekwang Network",
    "group": "everest",
    "type": "ransomware",
@@ -1903,12 +2294,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "KR",
    "sector": "otros",
-   "tried": 1,
-   "seen": "2026-10-17T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "f33e67db0adebd40",
    "day": "2026-10-17",
+   "seen": "2026-10-17T12:00:00+00:00",
    "victim": "Pure Options",
    "group": "play",
    "type": "ransomware",
@@ -1917,11 +2308,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/play",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-17T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "93bd8f0e76a3e6b7",
    "day": "2026-10-17",
+   "seen": "2026-10-17T12:00:00+00:00",
    "victim": "Prafesta Ind. e Com. de Embalagens Ltda",
    "group": "n0n",
    "type": "ransomware",
@@ -1930,12 +2322,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "BR",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-17T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "be8552598d4d1783",
    "day": "2026-10-17",
+   "seen": "2026-10-17T12:00:00+00:00",
    "victim": "Minkon 🇩🇪",
    "group": "bravox",
    "type": "ransomware",
@@ -1944,12 +2336,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/bravox",
    "country": "DE",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-17T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "7c1aa23aa4df6346",
    "day": "2026-10-17",
+   "seen": "2026-10-17T12:00:00+00:00",
    "victim": "MicroSearch Corporation",
    "group": "play",
    "type": "ransomware",
@@ -1958,11 +2350,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/play",
    "country": "",
    "sector": "tecnologia",
-   "seen": "2026-10-17T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "191ce844d0a0cb30",
    "day": "2026-10-17",
+   "seen": "2026-10-17T12:00:00+00:00",
    "victim": "Decorolala - 500 Line Sample",
    "group": "byod",
    "type": "ransomware",
@@ -1971,12 +2364,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/byod",
    "country": "CA",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-10-17T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2672883b794fc96e",
    "day": "2026-10-17",
+   "seen": "2026-10-17T12:00:00+00:00",
    "victim": "Company #86",
    "group": "n0n",
    "type": "ransomware",
@@ -1985,12 +2378,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-17T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "f2fb17fc88dd951f",
    "day": "2026-10-17",
+   "seen": "2026-10-17T12:00:00+00:00",
    "victim": "Company #85",
    "group": "n0n",
    "type": "ransomware",
@@ -1999,12 +2392,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-17T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "287d96a8b79d26ee",
    "day": "2026-10-17",
+   "seen": "2026-10-17T12:00:00+00:00",
    "victim": "Company #84",
    "group": "n0n",
    "type": "ransomware",
@@ -2013,12 +2406,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-17T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "b52d67725b485cac",
    "day": "2026-10-17",
+   "seen": "2026-10-17T12:00:00+00:00",
    "victim": "Company #83",
    "group": "n0n",
    "type": "ransomware",
@@ -2027,12 +2420,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-17T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "4812caebf521b858",
    "day": "2026-10-17",
+   "seen": "2026-10-17T12:00:00+00:00",
    "victim": "Company #82",
    "group": "n0n",
    "type": "ransomware",
@@ -2041,12 +2434,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-17T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "7f4b7a8101c47257",
    "day": "2026-10-17",
+   "seen": "2026-10-17T12:00:00+00:00",
    "victim": "Chugoku Bend",
    "group": "everest",
    "type": "ransomware",
@@ -2055,12 +2448,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "JP",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-17T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "e0b3bbce200d71ee",
    "day": "2026-10-17",
+   "seen": "2026-10-17T12:00:00+00:00",
    "victim": "Brenner Base Tunnel",
    "group": "everest",
    "type": "ransomware",
@@ -2069,12 +2462,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "AT",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-17T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "1b9cc8f5186d07da",
    "day": "2026-10-17",
+   "seen": "2026-10-17T12:00:00+00:00",
    "victim": "Asia Market Ltd",
    "group": "majinahanashi",
    "type": "ransomware",
@@ -2082,12 +2475,13 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/majinahanashi",
    "country": "",
-   "sector": "otros",
-   "seen": "2026-10-17T12:00:00+00:00"
+   "sector": "retail",
+   "tried": 1
   },
   {
    "id": "30eedb03f13e467b",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "www.coopecaja.fi.cr",
    "group": "inc ransom",
    "type": "ransomware",
@@ -2096,12 +2490,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "CR",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "7dfd7abe837e9da3",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "verveba.com \\ www.att.com",
    "group": "inc ransom",
    "type": "ransomware",
@@ -2110,11 +2504,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "6b2cca7beb5a728b",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "port Beach Dentistry",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2123,12 +2518,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "8ed82bf54a1a1ff9",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "ock.com.my",
    "group": "lockbit5",
    "type": "ransomware",
@@ -2137,25 +2532,26 @@
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "MY",
    "sector": "telecom",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "c956e35738114f09",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "nowaszkola.com",
    "group": "inc ransom",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
-   "country": "",
-   "sector": "otros",
-   "seen": "2026-10-16T12:00:00+00:00"
+   "country": "PL",
+   "sector": "educacion",
+   "tried": 1
   },
   {
    "id": "8c63bffe129e9f88",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "fairfeelegalservices.com",
    "group": "inc ransom",
    "type": "ransomware",
@@ -2164,11 +2560,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
    "sector": "servicios",
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "ba45c380d5e27f40",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Xinos Construction Corp and its accounting group",
    "group": "n0n",
    "type": "ransomware",
@@ -2177,12 +2574,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "55c3b47d3e9d8d49",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Wellington College International School Bangkok",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2191,12 +2588,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "TH",
    "sector": "educacion",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "79ab0f7e83b610d5",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Via Credit Union",
    "group": "qilin",
    "type": "ransomware",
@@ -2205,12 +2602,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "c160b95ceaf2df2a",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Universidade de Passo Fundo",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2219,12 +2616,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "BR",
    "sector": "educacion",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "48d48b1c8f0af69e",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Tulsat",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2233,12 +2630,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "telecom",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "d92dc287ea9d0fd5",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Thai Ha PCL KASET",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2247,12 +2644,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "TH",
    "sector": "agro",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "61f2e29ebca49244",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Taiwan Otsuka Pharmaceutical",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2261,12 +2658,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "TW",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "beddec183d02fdd8",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Suhai Segurana Pessoal",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2275,12 +2672,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "BR",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "4aeb5034003039d7",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "St Peters Anglican Primary School",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2289,25 +2686,26 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "AU",
    "sector": "educacion",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "d03daf31dd37977b",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Solar Communications International",
    "group": "pear",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/pear",
-   "country": "",
+   "country": "US",
    "sector": "telecom",
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2837d7d57a366aa7",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Sladek Partners",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2316,12 +2714,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "CZ",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "e6af3b0f6134bea3",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Skin Center",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2330,12 +2728,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "bc9b7cf6736ea99b",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Shared Medical Technology",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2344,12 +2742,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "51e3912d3bf8ab9c",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "ServiceMaster of Ottawa",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2358,12 +2756,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "CA",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "81aaee04c92d754a",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Santa Barbara Endodontics",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2372,12 +2770,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "04b69f15cd2d6fad",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Saga University",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2386,12 +2784,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "JP",
    "sector": "educacion",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "10c82cccb17542ba",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "SONGWOOI",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2400,12 +2798,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "KR",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "b0eb7482fe70c03a",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "SBI Audiovisual Medinbox",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2414,12 +2812,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "CA",
    "sector": "medios",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "6a8f98eb1af8b0aa",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "REGiO Nord",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2428,12 +2826,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "DE",
    "sector": "gobierno",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "7886168520d26c86",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Petroleum Telcom Communications",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2442,12 +2840,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "telecom",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "8206fc12d62e80d9",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Parker-Hannifin Corporation",
    "group": "redact",
    "type": "ransomware",
@@ -2456,12 +2854,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/redact",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "445b879fdc728525",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Pantanal Agricola",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2470,12 +2868,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "BR",
    "sector": "agro",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "54b8c9deea0dc041",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "ONEOK, Inc.",
    "group": "redact",
    "type": "ransomware",
@@ -2484,12 +2882,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/redact",
    "country": "US",
    "sector": "energia",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "938d08616f79c473",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "North Bridge Venture Partners",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2498,12 +2896,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "3a74ab0bc1c25d43",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Netcore Unbxd",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2512,12 +2910,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "IN",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "7ce87ffc651ae03c",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Museum Siam",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2526,12 +2924,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "TH",
    "sector": "gobierno",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "b85107c645211ea1",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Martin LLP",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2540,25 +2938,26 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "107668e5cc122c99",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Macfarlan Capital Partners",
    "group": "pear",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/pear",
-   "country": "",
+   "country": "US",
    "sector": "finanzas",
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "7665f8d787b3c251",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "MAP SA",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2567,12 +2966,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "CH",
    "sector": "medios",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "3e4aa5a24ff15014",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Kissei Shoji",
    "group": "everest",
    "type": "ransomware",
@@ -2581,12 +2980,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/everest",
    "country": "JP",
    "sector": "otros",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "549477b74b6c7dc8",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "JJS Justice",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2595,12 +2994,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "39bfe08b229de24d",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Inovar Packaging Group",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2609,12 +3008,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "11c4867ae795231f",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Girl Scouts of Eastern Massachusetts",
    "group": "wallstreet",
    "type": "ransomware",
@@ -2623,12 +3022,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "US",
    "sector": "otros",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "5ee11ee3369de9a1",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Gio Dental Med Spa",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2637,12 +3036,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "MX",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "c25c3bfb21fc9e3f",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "First Dental Health",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2651,12 +3050,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "e2603ffadeeae433",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Far West Contractors",
    "group": "deadlock",
    "type": "ransomware",
@@ -2665,12 +3064,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/deadlock",
    "country": "US",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2506b3d58283dcb3",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Evolution Spine / All Labs",
    "group": "n0n",
    "type": "ransomware",
@@ -2679,12 +3078,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "bc4d867646ca1abf",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Europ Assistance South Africa",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2693,12 +3092,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "ZA",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "764e5f61bde48dd8",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Entry Systems Garage Doors Gates",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2707,12 +3106,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "57b423ca7ad56ce9",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Engineers Ireland",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2721,12 +3120,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "IE",
    "sector": "otros",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "cb818e44a59aa3e5",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "EnVision Eye Care",
    "group": "n0n",
    "type": "ransomware",
@@ -2735,12 +3134,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "b84e65fe841e7a46",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Ecuadors National Police",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2749,25 +3148,26 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "EC",
    "sector": "gobierno",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "8a19cb0b93d4a2bb",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Data-Core Systems",
    "group": "vexy",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/vexy",
-   "country": "",
+   "country": "US",
    "sector": "tecnologia",
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "0dc21b55c8ab49e3",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Company #81",
    "group": "n0n",
    "type": "ransomware",
@@ -2776,12 +3176,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "42a1953745642ea0",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Company #80",
    "group": "n0n",
    "type": "ransomware",
@@ -2790,12 +3190,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "23d69080a3f39c6f",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Company #79",
    "group": "n0n",
    "type": "ransomware",
@@ -2804,12 +3204,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "hoteleria",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "4463155d39a9d092",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Company #78",
    "group": "n0n",
    "type": "ransomware",
@@ -2818,12 +3218,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "a5c9b2b2c516a3c0",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Company #77",
    "group": "n0n",
    "type": "ransomware",
@@ -2832,12 +3232,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2a49b27be2a56949",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Company #76",
    "group": "n0n",
    "type": "ransomware",
@@ -2846,12 +3246,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "17fb6a6d56258f6f",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Company #75",
    "group": "n0n",
    "type": "ransomware",
@@ -2860,12 +3260,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "medios",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "a1e29896f2832d55",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Company #74",
    "group": "n0n",
    "type": "ransomware",
@@ -2874,12 +3274,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "7b59131687a031cd",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Company #72",
    "group": "n0n",
    "type": "ransomware",
@@ -2888,12 +3288,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "00160d9eca9cbd85",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Company #71",
    "group": "n0n",
    "type": "ransomware",
@@ -2902,25 +3302,26 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "53a855849ee82ef3",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Caretaker Landscape and Tree Management",
    "group": "pear",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/pear",
-   "country": "",
+   "country": "US",
    "sector": "servicios",
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "c14590e937ba1198",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Campbell Rhea",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2929,12 +3330,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "be5432d023f42f02",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "CLIMEDI",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2943,12 +3344,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "BR",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "f731d03931abd3db",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "CAS Paper Mill",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2957,12 +3358,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "TH",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "ff4e9fc6fc4acd24",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "BladeTech Inc",
    "group": "n0n",
    "type": "ransomware",
@@ -2971,12 +3372,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "489113b08ffb82b5",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Axle Logistics",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2985,12 +3386,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "US",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "fbeeb4af3bfbaaa5",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "AirQ",
    "group": "the gentlemen",
    "type": "ransomware",
@@ -2999,12 +3400,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20gentlemen",
    "country": "AE",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "29f16f641612568f",
    "day": "2026-10-16",
+   "seen": "2026-10-16T12:00:00+00:00",
    "victim": "Adams Warehouse & Delivery, Inc.",
    "group": "aurora",
    "type": "ransomware",
@@ -3013,12 +3414,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/aurora",
    "country": "US",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-10-16T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "940d42576bfd9491",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "yalebooks.yale.edu",
    "group": "scarlettgroup",
    "type": "ransomware",
@@ -3027,12 +3428,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/scarlettgroup",
    "country": "US",
    "sector": "educacion",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "e92840e989a24bc3",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "torcivialaw.com",
    "group": "lockbit5",
    "type": "ransomware",
@@ -3041,12 +3442,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "4a7882064db5cb06",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "sunshine-mills",
    "group": "iah647",
    "type": "ransomware",
@@ -3055,12 +3456,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "5ee6a62e039ec193",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "police.rajasthan.gov.in",
    "group": "scarlettgroup",
    "type": "ransomware",
@@ -3069,12 +3470,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/scarlettgroup",
    "country": "IN",
    "sector": "gobierno",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "d9eb02c5d4cea9be",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "middleby",
    "group": "iah647",
    "type": "ransomware",
@@ -3083,12 +3484,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "39249ce33f7d9e77",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "lcww.com.eg",
    "group": "lockbit5",
    "type": "ransomware",
@@ -3097,12 +3498,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "EG",
    "sector": "gobierno",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "f33c6fd68b6e5fc3",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "kidzrkooldental.com",
    "group": "lockbit5",
    "type": "ransomware",
@@ -3111,12 +3512,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "8deea39b30e9b8cd",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "karix.com",
    "group": "lockbit5",
    "type": "ransomware",
@@ -3125,12 +3526,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "IN",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2294716334728c8f",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "iHeartJane",
    "group": "the seven deadly sins",
    "type": "ransomware",
@@ -3139,12 +3540,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20seven%20deadly%20sins",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "4d6fe5a824a24e34",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "hilmar-cheese",
    "group": "iah647",
    "type": "ransomware",
@@ -3153,12 +3554,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "US",
    "sector": "agro",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "5b67dbe837f36309",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "hensley",
    "group": "iah647",
    "type": "ransomware",
@@ -3167,11 +3568,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "569f74efe7738a4f",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "grupoabg.com",
    "group": "lockbit5",
    "type": "ransomware",
@@ -3180,11 +3582,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "",
    "sector": "servicios",
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "aec3825fad90a55a",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "eramachines.com",
    "group": "lockbit5",
    "type": "ransomware",
@@ -3193,24 +3596,26 @@
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "",
    "sector": "manufactura",
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "64040f1157854769",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "camden-living",
    "group": "iah647",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/iah647",
-   "country": "",
-   "sector": "otros",
-   "seen": "2026-10-15T12:00:00+00:00"
+   "country": "US",
+   "sector": "construccion",
+   "tried": 1
   },
   {
    "id": "84d6f05fd149d040",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "buckle",
    "group": "iah647",
    "type": "ransomware",
@@ -3219,12 +3624,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "US",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "45a837601a7a0c29",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "bienestarempresarial",
    "group": "0x00",
    "type": "ransomware",
@@ -3233,12 +3638,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/0x00",
    "country": "MX",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "b347f3e6bf9b3f22",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "alera",
    "group": "iah647",
    "type": "ransomware",
@@ -3247,11 +3652,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/iah647",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "f3167d51a84c1fda",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Videk",
    "group": "akira",
    "type": "ransomware",
@@ -3260,12 +3666,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/akira",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "a1cb62884c3fd94f",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Verano Holdings Corp.",
    "group": "the seven deadly sins",
    "type": "ransomware",
@@ -3274,12 +3680,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20seven%20deadly%20sins",
    "country": "US",
    "sector": "agro",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "1bc7674462ef3ac6",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "The Excalibur Group",
    "group": "qilin",
    "type": "ransomware",
@@ -3288,11 +3694,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "servicios",
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "5a0d9470ba96691e",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Telcoe Federal Credit Union",
    "group": "qilin",
    "type": "ransomware",
@@ -3301,25 +3708,26 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "cb356299e90fa003",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "TGM Manufacturing, Inc",
    "group": "wallstreet",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
-   "country": "",
+   "country": "US",
    "sector": "manufactura",
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2925d4cd7c8aba51",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Svd (Sun Valley Dairy)",
    "group": "akira",
    "type": "ransomware",
@@ -3328,12 +3736,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/akira",
    "country": "US",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "7eae1bbf04e22c21",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Shield Wall Systems of Florida",
    "group": "qilin",
    "type": "ransomware",
@@ -3342,12 +3750,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "cc865e2db1787d90",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Segres Systec",
    "group": "qilin",
    "type": "ransomware",
@@ -3356,11 +3764,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "retail",
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2db6de3390273337",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "S*o**n* Public Schools",
    "group": "nightspire",
    "type": "ransomware",
@@ -3369,12 +3778,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/nightspire",
    "country": "US",
    "sector": "educacion",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "5769171a00b60dd4",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "MPI LTDA",
    "group": "emperador",
    "type": "ransomware",
@@ -3383,12 +3792,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/emperador",
    "country": "CO",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "efd7badeb599a31e",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Kemlows Diecasting Products Limited",
    "group": "qilin",
    "type": "ransomware",
@@ -3397,12 +3806,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "GB",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "0acfbda154e20d10",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Keio Corporation",
    "group": "qilin",
    "type": "ransomware",
@@ -3411,12 +3820,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "JP",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "f84f32480ffd0eb3",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "KD Corp",
    "group": "qilin",
    "type": "ransomware",
@@ -3425,11 +3834,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "manufactura",
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "e6e9039c5be78d86",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Interior Technologies",
    "group": "n0n",
    "type": "ransomware",
@@ -3438,12 +3848,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "47ee031232882dfe",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "HyperGen",
    "group": "qilin",
    "type": "ransomware",
@@ -3452,11 +3862,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "servicios",
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "6a32defe524cff10",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Hospital Sírio-Libanês",
    "group": "the seven deadly sins",
    "type": "ransomware",
@@ -3465,12 +3876,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20seven%20deadly%20sins",
    "country": "BR",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "bce1a27a2799bd43",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Holistic Health Group, Inc. (d/b/a Suncrafted)",
    "group": "space bears",
    "type": "ransomware",
@@ -3479,12 +3890,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/space%20bears",
    "country": "US",
    "sector": "agro",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "6285710f3994a417",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Hocon Gas",
    "group": "qilin",
    "type": "ransomware",
@@ -3493,11 +3904,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "energia",
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2e48de7e3f8cc078",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Harness Inc.",
    "group": "the seven deadly sins",
    "type": "ransomware",
@@ -3506,12 +3918,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20seven%20deadly%20sins",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "354e6f9976973431",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Globeia Inc.",
    "group": "the seven deadly sins",
    "type": "ransomware",
@@ -3520,12 +3932,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20seven%20deadly%20sins",
    "country": "CA",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "b5e6ef5e2f5993d3",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Enchanted Fine Jewellery",
    "group": "vexy",
    "type": "ransomware",
@@ -3534,12 +3946,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/vexy",
    "country": "IN",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "8c96f89e5bd7954b",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Cradlewise Inc.",
    "group": "the seven deadly sins",
    "type": "ransomware",
@@ -3548,12 +3960,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20seven%20deadly%20sins",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2b231d403f707748",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Company #73",
    "group": "n0n",
    "type": "ransomware",
@@ -3562,12 +3974,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "06b0cc829149e439",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Company #70",
    "group": "n0n",
    "type": "ransomware",
@@ -3576,12 +3988,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "EG",
    "sector": "educacion",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2f4a4ad805170818",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Company #69",
    "group": "n0n",
    "type": "ransomware",
@@ -3590,12 +4002,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "cfff4b5c08e4920a",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Company #68",
    "group": "n0n",
    "type": "ransomware",
@@ -3604,12 +4016,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "a9ab77ee5b7a6aab",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Company #67",
    "group": "n0n",
    "type": "ransomware",
@@ -3618,12 +4030,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "NL",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "6b9bf9c65ca5aa0c",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Company #66",
    "group": "n0n",
    "type": "ransomware",
@@ -3632,12 +4044,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2c4e2789e61a17a0",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Commune Du Tampon",
    "group": "qilin",
    "type": "ransomware",
@@ -3646,12 +4058,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "FR",
    "sector": "gobierno",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "b7a778c7e2d4dbcb",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Chattanooga Shooting Supplies",
    "group": "qilin",
    "type": "ransomware",
@@ -3660,12 +4072,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "9ff3eea1b8fb2db1",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Canva Pty Ltd",
    "group": "the seven deadly sins",
    "type": "ransomware",
@@ -3674,12 +4086,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/the%20seven%20deadly%20sins",
    "country": "AU",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "b1e8f7db95674780",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Brame Telecom",
    "group": "qilin",
    "type": "ransomware",
@@ -3688,11 +4100,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "telecom",
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "f6f4460d97e468de",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Boyle, Pecharich, Cline, Whittington and Stallings",
    "group": "akira",
    "type": "ransomware",
@@ -3701,12 +4114,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/akira",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2dcd7f7047896e30",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Amity University Dubai",
    "group": "black nevas",
    "type": "ransomware",
@@ -3715,12 +4128,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/black%20nevas",
    "country": "AE",
    "sector": "educacion",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "cf65adf95faf008b",
    "day": "2026-10-15",
+   "seen": "2026-10-15T12:00:00+00:00",
    "victim": "Alma Center Servizi Medicali S.r.l.",
    "group": "space bears",
    "type": "ransomware",
@@ -3729,12 +4142,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/space%20bears",
    "country": "IT",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "3abcf64499836f48",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "kordhotels.gr",
    "group": "lockbit5",
    "type": "ransomware",
@@ -3743,12 +4156,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "GR",
    "sector": "hoteleria",
-   "tried": 1,
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "8c2a6f5c9892b75a",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "Trieschmann Dumala Architectural Group",
    "group": "n0n",
    "type": "ransomware",
@@ -3757,12 +4170,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "36a45442ed472581",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "Torns Enterprises",
    "group": "akira",
    "type": "ransomware",
@@ -3771,12 +4184,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/akira",
    "country": "ES",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "8c69b157b7ec1d27",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "Taiwan Otsuka Pharmaceutical",
    "group": "eclipse",
    "type": "ransomware",
@@ -3785,12 +4198,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/eclipse",
    "country": "TW",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "76acaf3b176b5549",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "Shediac Lobster Shop",
    "group": "akira",
    "type": "ransomware",
@@ -3799,12 +4212,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/akira",
    "country": "CA",
    "sector": "agro",
-   "tried": 1,
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "b9711f53d85168f8",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "P****y",
    "group": "payoutsking",
    "type": "ransomware",
@@ -3813,11 +4226,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/payoutsking",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "de86c94c0c6cfa78",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "Orient Corporation",
    "group": "orova",
    "type": "ransomware",
@@ -3826,11 +4240,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "",
    "sector": "manufactura",
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "4864cee7b11049f5",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "Oceania Digital Communications",
    "group": "kairos",
    "type": "ransomware",
@@ -3839,11 +4254,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/kairos",
    "country": "",
    "sector": "tecnologia",
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "e176357962512769",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "MyM ODONTOCLINICA S.A",
    "group": "emperador",
    "type": "ransomware",
@@ -3852,12 +4268,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/emperador",
    "country": "PY",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "dfeb37527cc2a035",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "MOA Architecture",
    "group": "qilin",
    "type": "ransomware",
@@ -3866,11 +4282,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "construccion",
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2b783858ac28ad32",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "Lane Equipment",
    "group": "dragonforce",
    "type": "ransomware",
@@ -3879,12 +4296,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/dragonforce",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "7c07fffaf5de607c",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "Joliet Public Schools District 86",
    "group": "qilin",
    "type": "ransomware",
@@ -3893,12 +4310,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "educacion",
-   "tried": 1,
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "ac91fb9fb830e154",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "Greggio Argento",
    "group": "deadlock",
    "type": "ransomware",
@@ -3907,12 +4324,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/deadlock",
    "country": "IT",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "88101d7a0c453553",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "Green Clinic",
    "group": "wallstreet",
    "type": "ransomware",
@@ -3921,12 +4338,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "33918117811f9caa",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "FOODMatch",
    "group": "akira",
    "type": "ransomware",
@@ -3935,25 +4352,26 @@
    "sourceUrl": "https://www.ransomlook.io/group/akira",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "fae4450196c4bfac",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "FINANCIAMENTO LTDA",
    "group": "inc ransom",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
-   "country": "",
+   "country": "BR",
    "sector": "finanzas",
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "53a2107a1640c823",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "Estrategias BigMat S.L.U.",
    "group": "aurora",
    "type": "ransomware",
@@ -3962,12 +4380,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/aurora",
    "country": "ES",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "05b86bdaa11ea7b7",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "E-Z Pack Trucks",
    "group": "wallstreet",
    "type": "ransomware",
@@ -3976,12 +4394,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "44b2218a12869c9a",
    "day": "2026-10-14",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Crunchbase",
    "group": "—",
    "type": "filtracion",
@@ -3990,12 +4408,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Crunchbase",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "9d035119f2051c02",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "Company #65",
    "group": "n0n",
    "type": "ransomware",
@@ -4004,12 +4422,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "BR",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "87ec8d0420beb30f",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "Colorado Texas",
    "group": "nightspire",
    "type": "ransomware",
@@ -4018,11 +4436,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/nightspire",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "c439b2e657434a9f",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "Bright Property Service",
    "group": "orova",
    "type": "ransomware",
@@ -4031,12 +4450,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "MY",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "de0ffa4cbdf4b421",
    "day": "2026-10-14",
+   "seen": "2026-10-14T12:00:00+00:00",
    "victim": "***o* **s**e** Solutions",
    "group": "nightspire",
    "type": "ransomware",
@@ -4045,11 +4464,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/nightspire",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "b2e5cd8dd19bb808",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "tdotnet",
    "group": "hyflock",
    "type": "ransomware",
@@ -4058,12 +4478,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "BD",
    "sector": "telecom",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "9f3ce2c9313a240e",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "skycc.co.th",
    "group": "lockbit5",
    "type": "ransomware",
@@ -4072,12 +4492,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/lockbit5",
    "country": "TH",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "5a91fca1769989d3",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "ocean beverages",
    "group": "hyflock",
    "type": "ransomware",
@@ -4086,12 +4506,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "IN",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "578b98aa5a1f27a7",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "nodhom.com",
    "group": "hyflock",
    "type": "ransomware",
@@ -4100,12 +4520,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "SA",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "414dc12d801d2aa7",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "merkezilac_archives",
    "group": "hyflock",
    "type": "ransomware",
@@ -4114,12 +4534,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "TR",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "cc8bc8f58f37713c",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Zenidoc",
    "group": "panzer",
    "type": "ransomware",
@@ -4128,12 +4548,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/panzer",
    "country": "FR",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "1f73344a3a30478b",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "YYC Advisors",
    "group": "hyflock",
    "type": "ransomware",
@@ -4142,12 +4562,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "MY",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "462393c751b11a60",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Wolf & Sofsky GmbH",
    "group": "inc ransom",
    "type": "ransomware",
@@ -4156,12 +4576,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "DE",
    "sector": "otros",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "46c7fd36199ea185",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Vendus Sweden AB",
    "group": "wallstreet",
    "type": "ransomware",
@@ -4170,12 +4590,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "1ead860c7b331b90",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Valode & Pistre",
    "group": "panzer",
    "type": "ransomware",
@@ -4184,12 +4604,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/panzer",
    "country": "FR",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "d045aee1eea1ee88",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "The Innovation Group",
    "group": "play",
    "type": "ransomware",
@@ -4198,11 +4618,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/play",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "f74f3571e98e847e",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "The Golden Legacy Financing",
    "group": "qilin",
    "type": "ransomware",
@@ -4211,11 +4632,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "finanzas",
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "f1ffad4b16ddb0f5",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "The Buckner Company, Inc.",
    "group": "aurora",
    "type": "ransomware",
@@ -4224,12 +4646,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/aurora",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "885d02a8fb088e2d",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Terca",
    "group": "ransomhouse",
    "type": "ransomware",
@@ -4238,11 +4660,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/ransomhouse",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "4d05c3c83ee8e3bf",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Spectrum Arkitekter AB",
    "group": "wallstreet",
    "type": "ransomware",
@@ -4251,12 +4674,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "9ad4e6765a1a9fb1",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Scheduled post",
    "group": "majinahanashi",
    "type": "ransomware",
@@ -4265,11 +4688,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/majinahanashi",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "b27605a4b33c2ca3",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Saddlers Court MFG",
    "group": "play",
    "type": "ransomware",
@@ -4278,11 +4702,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/play",
    "country": "",
    "sector": "manufactura",
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "4fb93a13890e440f",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "PG Group (Pure Options)",
    "group": "n0n",
    "type": "ransomware",
@@ -4291,12 +4716,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "agro",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "7b8ccad44003e827",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Morrow Meadows Corporation",
    "group": "payoutsking",
    "type": "ransomware",
@@ -4305,12 +4730,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/payoutsking",
    "country": "US",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "eb6ec556facd7dbb",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Milstein Siegel, LLC",
    "group": "qilin",
    "type": "ransomware",
@@ -4319,12 +4744,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "fb5817b37481127d",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "MarieBelle New York",
    "group": "n0n",
    "type": "ransomware",
@@ -4333,12 +4758,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "bca9448d7df98d6c",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Mantum Holding AB",
    "group": "wallstreet",
    "type": "ransomware",
@@ -4347,12 +4772,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "25c41bf2a266cd1c",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Lambertinum Seniorenwohnanlage",
    "group": "wallstreet",
    "type": "ransomware",
@@ -4361,12 +4786,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "DE",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "43808219acd69abc",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Interseguro",
    "group": "direwolf",
    "type": "ransomware",
@@ -4375,12 +4800,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/direwolf",
    "country": "PE",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "55fbbd6febaa7c16",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Iliff, Meredith, Wildberger & Brennan, P.C",
    "group": "qilin",
    "type": "ransomware",
@@ -4389,12 +4814,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "788fe5c7d2fce5b3",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "IGPL",
    "group": "hyflock",
    "type": "ransomware",
@@ -4403,12 +4828,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "IN",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "c4fad0a36b1a0545",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Hunter Neurology",
    "group": "n0n",
    "type": "ransomware",
@@ -4417,12 +4842,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "AU",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "d6e7df6f85798bce",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Hospital Hermilio Valdizán",
    "group": "ransomhouse",
    "type": "ransomware",
@@ -4431,12 +4856,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/ransomhouse",
    "country": "PE",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "dd1b2d4ddc444620",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Guarufilme",
    "group": "vexy",
    "type": "ransomware",
@@ -4445,12 +4870,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/vexy",
    "country": "BR",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "94136f208f816fed",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Great Lakes",
    "group": "inc ransom",
    "type": "ransomware",
@@ -4459,11 +4884,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "c9b50661d310392b",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Fab Support AB",
    "group": "wallstreet",
    "type": "ransomware",
@@ -4472,12 +4898,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "c585d630fd5ed21b",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Excess Baggage",
    "group": "ransomhouse",
    "type": "ransomware",
@@ -4485,12 +4911,13 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/ransomhouse",
    "country": "",
-   "sector": "otros",
-   "seen": "2026-10-13T12:00:00+00:00"
+   "sector": "transporte",
+   "tried": 1
   },
   {
    "id": "b7517e7bee727dce",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Englunds Konsultbyrå AB",
    "group": "wallstreet",
    "type": "ransomware",
@@ -4499,12 +4926,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "e56d3cd4be0d6dc1",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Ecuador police headquarters",
    "group": "hyflock",
    "type": "ransomware",
@@ -4513,25 +4940,26 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "EC",
    "sector": "gobierno",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "4c1b08831eceabc1",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Durga Bearings",
    "group": "orova",
    "type": "ransomware",
    "status": "reclamado",
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/orova",
-   "country": "",
-   "sector": "manufactura",
-   "seen": "2026-10-13T12:00:00+00:00"
+   "country": "IN",
+   "sector": "retail",
+   "tried": 1
   },
   {
    "id": "a107aa656faaaa41",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Detronics Pte Ltd",
    "group": "orova",
    "type": "ransomware",
@@ -4540,12 +4968,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "SG",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "ee59947826b26969",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Decorolala",
    "group": "byod",
    "type": "ransomware",
@@ -4554,12 +4982,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/byod",
    "country": "CA",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "8c909bdc58e5c05f",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Danvikshem (Stiftelsen Danviks Hospital)",
    "group": "wallstreet",
    "type": "ransomware",
@@ -4568,12 +4996,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "f759febb3878922d",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "DFK Group",
    "group": "play",
    "type": "ransomware",
@@ -4581,12 +5009,13 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/play",
    "country": "",
-   "sector": "otros",
-   "seen": "2026-10-13T12:00:00+00:00"
+   "sector": "finanzas",
+   "tried": 1
   },
   {
    "id": "2adea6e423a181ab",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Culinary Specialties",
    "group": "play",
    "type": "ransomware",
@@ -4595,11 +5024,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/play",
    "country": "",
    "sector": "manufactura",
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "3c68b644221f3c64",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Cooper Tec Solutions",
    "group": "hyflock",
    "type": "ransomware",
@@ -4608,12 +5038,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/hyflock",
    "country": "BR",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "0ab4b7f51eb127be",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Company #64",
    "group": "n0n",
    "type": "ransomware",
@@ -4622,12 +5052,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "b78060b51b2c8457",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Company #63",
    "group": "n0n",
    "type": "ransomware",
@@ -4636,12 +5066,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "US",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "0270308b7cce0fc4",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Comisión Municipal de Agua Potable y Alcantarillado de Victoria",
    "group": "qilin",
    "type": "ransomware",
@@ -4650,12 +5080,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "MX",
    "sector": "gobierno",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "96038d5724b1db40",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Codar (Pte) Ltd",
    "group": "orova",
    "type": "ransomware",
@@ -4664,12 +5094,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "SG",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "751cfa5cd7d6e353",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "City Chain",
    "group": "orova",
    "type": "ransomware",
@@ -4678,12 +5108,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "HK",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "d0825f10a4474b93",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "CMC AUDITORES SRL",
    "group": "emperador",
    "type": "ransomware",
@@ -4692,12 +5122,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/emperador",
    "country": "AR",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "9a7e6d20960b268b",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Byrån för Arkitektur och Urbanism",
    "group": "wallstreet",
    "type": "ransomware",
@@ -4706,12 +5136,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "17ae3b87ffadb22f",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Brunnberg & Forshed Arkitektkontor",
    "group": "wallstreet",
    "type": "ransomware",
@@ -4720,12 +5150,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "10b48c0e7e5aefa0",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Briab Group AB",
    "group": "wallstreet",
    "type": "ransomware",
@@ -4734,12 +5164,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "0426ec5e5136374a",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Alfameli Group",
    "group": "orova",
    "type": "ransomware",
@@ -4748,12 +5178,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "MY",
    "sector": "energia",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "c1994876b784c8f0",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Ahlqvist & Almqvist Arkitekter AB",
    "group": "wallstreet",
    "type": "ransomware",
@@ -4762,12 +5192,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/wallstreet",
    "country": "SE",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "a1b9229ba4b1ed40",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "Advanced Imaging Solutions",
    "group": "play",
    "type": "ransomware",
@@ -4776,11 +5206,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/play",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "a4ea86a9049d8ea9",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "AUDIT ENTITY: Ze***ce",
    "group": "audit team",
    "type": "ransomware",
@@ -4789,11 +5220,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/audit%20team",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "aa6514bb4665505f",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "AUDIT ENTITY: Sa***ge",
    "group": "audit team",
    "type": "ransomware",
@@ -4802,11 +5234,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/audit%20team",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "eafb7efe3e281c80",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "AUDIT ENTITY: Admirals Trading",
    "group": "audit team",
    "type": "ransomware",
@@ -4815,11 +5248,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/audit%20team",
    "country": "",
    "sector": "finanzas",
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "d566add33a585498",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "AUDIT ENTITY: AD***ed",
    "group": "audit team",
    "type": "ransomware",
@@ -4828,11 +5262,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/audit%20team",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "6c119f0c196d12f0",
    "day": "2026-10-13",
+   "seen": "2026-10-13T12:00:00+00:00",
    "victim": "AAA Architectural Hardware",
    "group": "akira",
    "type": "ransomware",
@@ -4841,8 +5276,7 @@
    "sourceUrl": "https://www.ransomlook.io/group/akira",
    "country": "US",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "690a52f8ece11b68",
@@ -4861,6 +5295,7 @@
   {
    "id": "62204875874fe3c6",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "hiqbio.com",
    "group": "safepay",
    "type": "ransomware",
@@ -4869,11 +5304,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/safepay",
    "country": "",
    "sector": "salud",
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2646f075d46a7fce",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "brookslawfirm.com",
    "group": "inc ransom",
    "type": "ransomware",
@@ -4882,11 +5318,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/inc%20ransom",
    "country": "",
    "sector": "servicios",
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "cb738e5f76e6aba3",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "ZPMC (port machinery and terminal engineering)",
    "group": "n0n",
    "type": "ransomware",
@@ -4895,12 +5332,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "CN",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "6b314db3d19c67cc",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "Yusen Logistics Hong Kong (3PL logistics)",
    "group": "n0n",
    "type": "ransomware",
@@ -4909,8 +5346,7 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "HK",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "9755f922094f8f17",
@@ -4923,7 +5359,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/interlock",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-12T12:00:00+00:00"
+   "seen": "2026-10-12T12:00:00+00:00",
+   "tried": 1
   },
   {
    "id": "526e3302ebed4000",
@@ -4942,6 +5379,7 @@
   {
    "id": "5c9f733d15db1730",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "Tsuneishi / Kambara Kisen (shipbuilding and ship management)",
    "group": "n0n",
    "type": "ransomware",
@@ -4950,12 +5388,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "JP",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "a13732ddd21a11c8",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "Trailerbridge.com",
    "group": "brain cipher",
    "type": "ransomware",
@@ -4964,12 +5402,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/brain%20cipher",
    "country": "US",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "3b908b8a9998dd18",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "The Park Lane Hong Kong",
    "group": "orova",
    "type": "ransomware",
@@ -4978,8 +5416,7 @@
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "HK",
    "sector": "hoteleria",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "22f1a5221f1ecad8",
@@ -4998,6 +5435,7 @@
   {
    "id": "8dca93114be9bca8",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "Tech Electronics",
    "group": "storm",
    "type": "ransomware",
@@ -5006,8 +5444,7 @@
    "sourceUrl": "https://www.ransomlook.io/group/storm",
    "country": "US",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "06b0eebcd634bdb1",
@@ -5082,6 +5519,7 @@
   {
    "id": "4d5b631f4472c490",
    "day": "2026-10-12",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Sharecare",
    "group": "—",
    "type": "filtracion",
@@ -5090,12 +5528,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Sharecare",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "05c3743d49607491",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "Santos Brasil (port operations)",
    "group": "n0n",
    "type": "ransomware",
@@ -5104,8 +5542,7 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "BR",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "525640f2d7444482",
@@ -5160,7 +5597,8 @@
    "sourceUrl": "https://www.ransomlook.io/group/majinahanashi",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-12T12:00:00+00:00"
+   "seen": "2026-10-12T12:00:00+00:00",
+   "tried": 1
   },
   {
    "id": "e8752bed0b224371",
@@ -5179,6 +5617,7 @@
   {
    "id": "1176e4fbb85c4aa4",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "RingSide Creative",
    "group": "qilin",
    "type": "ransomware",
@@ -5187,11 +5626,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
    "sector": "servicios",
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "715072102b7ce644",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "Rechtsanwaltskanzlei Dr. Bien",
    "group": "aurora",
    "type": "ransomware",
@@ -5200,12 +5640,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/aurora",
    "country": "DE",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "ae9acf89c1ea08b5",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "R. A. Wood Associates",
    "group": "storm",
    "type": "ransomware",
@@ -5214,8 +5654,7 @@
    "sourceUrl": "https://www.ransomlook.io/group/storm",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "b8a974434e5324e8",
@@ -5248,6 +5687,7 @@
   {
    "id": "bd4256d51c82b946",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "Premier Alliance (shipping network operations)",
    "group": "n0n",
    "type": "ransomware",
@@ -5256,12 +5696,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "NL",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "8742a713e46876b3",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "Portonave (container terminal operations)",
    "group": "n0n",
    "type": "ransomware",
@@ -5270,12 +5710,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "BR",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "a70e67796d714603",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "Polaris Shipping (dry bulk shipping)",
    "group": "n0n",
    "type": "ransomware",
@@ -5284,12 +5724,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "KR",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "959d64b14e63501d",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "PennEastern Architects LCC",
    "group": "dark project",
    "type": "ransomware",
@@ -5298,8 +5738,7 @@
    "sourceUrl": "https://www.ransomlook.io/group/dark%20project",
    "country": "US",
    "sector": "construccion",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "9561b4da411a6f6e",
@@ -5318,6 +5757,7 @@
   {
    "id": "1b8f1fa60c166fb1",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "Ocean Network Express (container shipping)",
    "group": "n0n",
    "type": "ransomware",
@@ -5326,8 +5766,7 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "SG",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "aad08ac9b9273ad2",
@@ -5402,6 +5841,7 @@
   {
    "id": "48c2f7ceafd9d751",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "MGNP (port terminal operations)",
    "group": "n0n",
    "type": "ransomware",
@@ -5410,12 +5850,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "KR",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "c6a3a368bcdb83bd",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "Libre Wireless Technologies",
    "group": "orova",
    "type": "ransomware",
@@ -5424,7 +5864,7 @@
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "",
    "sector": "tecnologia",
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "ab69f41c290340bf",
@@ -5492,12 +5932,14 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/interlock",
    "country": "",
-   "sector": "servicios",
-   "seen": "2026-10-12T12:00:00+00:00"
+   "sector": "otros",
+   "seen": "2026-10-12T12:00:00+00:00",
+   "tried": 1
   },
   {
    "id": "20e48a324adf8ecf",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "GlobalNet LCL (port agency operations)",
    "group": "n0n",
    "type": "ransomware",
@@ -5506,12 +5948,12 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "ID",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "564446727b27fae4",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "Gatetech Technology",
    "group": "orova",
    "type": "ransomware",
@@ -5520,7 +5962,7 @@
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "",
    "sector": "manufactura",
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2ffc36a12f8e4ad4",
@@ -5561,11 +6003,13 @@
    "sourceUrl": "https://www.ransomlook.io/group/nightspire",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-12T12:00:00+00:00"
+   "seen": "2026-10-12T12:00:00+00:00",
+   "tried": 1
   },
   {
    "id": "49dc342b91027e36",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "Franklin Miller Inc.",
    "group": "dark project",
    "type": "ransomware",
@@ -5574,8 +6018,7 @@
    "sourceUrl": "https://www.ransomlook.io/group/dark%20project",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "81d27be83debf5ad",
@@ -5657,8 +6100,9 @@
    "source": "RansomLook",
    "sourceUrl": "https://www.ransomlook.io/group/qilin",
    "country": "",
-   "sector": "manufactura",
-   "seen": "2026-10-12T12:00:00+00:00"
+   "sector": "otros",
+   "seen": "2026-10-12T12:00:00+00:00",
+   "tried": 1
   },
   {
    "id": "021bf992b75aec6d",
@@ -5671,11 +6115,13 @@
    "sourceUrl": "https://www.ransomlook.io/group/nightspire",
    "country": "",
    "sector": "otros",
-   "seen": "2026-10-12T12:00:00+00:00"
+   "seen": "2026-10-12T12:00:00+00:00",
+   "tried": 1
   },
   {
    "id": "b3f0df60c069385b",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "Claire's Inc.",
    "group": "dark project",
    "type": "ransomware",
@@ -5684,8 +6130,7 @@
    "sourceUrl": "https://www.ransomlook.io/group/dark%20project",
    "country": "US",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "66aa60dda4661b64",
@@ -5704,6 +6149,7 @@
   {
    "id": "851139ad3169c8a8",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "CULines (container shipping)",
    "group": "n0n",
    "type": "ransomware",
@@ -5712,8 +6158,7 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "CN",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "269f76de0888ea00",
@@ -5774,6 +6219,7 @@
   {
    "id": "65e24ae672bdb05a",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "Asyaport (container terminal operations)",
    "group": "n0n",
    "type": "ransomware",
@@ -5782,8 +6228,7 @@
    "sourceUrl": "https://www.ransomlook.io/group/n0n",
    "country": "TR",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "3b1eef29de98d488",
@@ -5816,6 +6261,7 @@
   {
    "id": "2ba95104a1bd06df",
    "day": "2026-10-12",
+   "seen": "2026-10-12T12:00:00+00:00",
    "victim": "Amantya Technologies",
    "group": "orova",
    "type": "ransomware",
@@ -5824,8 +6270,7 @@
    "sourceUrl": "https://www.ransomlook.io/group/orova",
    "country": "IN",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "67b8f21e4d4c78a1",
@@ -5844,6 +6289,7 @@
   {
    "id": "d2376e9ad8dc0059",
    "day": "2026-10-09",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Neogen",
    "group": "—",
    "type": "filtracion",
@@ -5851,13 +6297,13 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Neogen",
    "country": "US",
-   "sector": "salud",
-   "tried": 1,
-   "seen": "2026-10-09T12:00:00+00:00"
+   "sector": "manufactura",
+   "tried": 1
   },
   {
    "id": "94a94603c11f0638",
    "day": "2026-10-07",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Double Counter",
    "group": "—",
    "type": "filtracion",
@@ -5866,11 +6312,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#DoubleCounter",
    "country": "",
    "sector": "tecnologia",
-   "seen": "2026-10-07T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "4bb406ecf0b6f946",
    "day": "2026-10-07",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "CyrusOne",
    "group": "—",
    "type": "filtracion",
@@ -5879,12 +6326,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#CyrusOne",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-10-07T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "8796f063de82ffa4",
    "day": "2026-10-07",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Angel One",
    "group": "—",
    "type": "filtracion",
@@ -5893,12 +6340,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#AngelOne",
    "country": "IN",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-10-07T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "1cf8e7de9d803d7c",
    "day": "2026-09-30",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Medela",
    "group": "—",
    "type": "filtracion",
@@ -5907,12 +6354,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Medela",
    "country": "CH",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-09-30T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "497334a0a751506f",
    "day": "2026-09-22",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "LimeLeads",
    "group": "—",
    "type": "filtracion",
@@ -5921,12 +6368,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#LimeLeads",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-09-22T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "9c6f55db7ff8ac48",
    "day": "2026-09-21",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Burger King Russia",
    "group": "—",
    "type": "filtracion",
@@ -5935,12 +6382,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#BurgerKingRussia",
    "country": "RU",
    "sector": "hoteleria",
-   "tried": 1,
-   "seen": "2026-09-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "e720d40abb89ac62",
    "day": "2026-09-13",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Chess.com (2026)",
    "group": "—",
    "type": "filtracion",
@@ -5949,12 +6396,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Chess2026",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-09-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "9df6209c789c8b51",
    "day": "2026-09-10",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "McKesson",
    "group": "—",
    "type": "filtracion",
@@ -5963,12 +6410,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#McKesson",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-09-10T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "941355b6f88eeb36",
    "day": "2026-09-02",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Manchester Airports Group",
    "group": "—",
    "type": "filtracion",
@@ -5977,12 +6424,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#ManchesterAirportsGroup",
    "country": "GB",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-09-02T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "30a44fd36a42de63",
    "day": "2026-09-01",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Questel",
    "group": "—",
    "type": "filtracion",
@@ -5990,13 +6437,13 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Questel",
    "country": "FR",
-   "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-09-01T12:00:00+00:00"
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "2d90af3f2c852ec3",
    "day": "2026-08-25",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Carhartt",
    "group": "—",
    "type": "filtracion",
@@ -6005,12 +6452,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Carhartt",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-08-25T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "76ea7a99f36390f7",
    "day": "2026-08-23",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "NIUS",
    "group": "—",
    "type": "filtracion",
@@ -6019,12 +6466,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#NIUS",
    "country": "DE",
    "sector": "medios",
-   "tried": 1,
-   "seen": "2026-08-23T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "20c38e00ce631877",
    "day": "2026-08-22",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Golf Canada",
    "group": "—",
    "type": "filtracion",
@@ -6033,26 +6480,26 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#GolfCanada",
    "country": "CA",
    "sector": "otros",
-   "tried": 1,
-   "seen": "2026-08-22T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "d954ab1936301726",
    "day": "2026-08-19",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Oz Hair and Beauty",
    "group": "—",
    "type": "filtracion",
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#OzHairAndBeauty",
-   "country": "AU",
+   "country": "GB",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-08-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "e75333153bf62123",
    "day": "2026-08-19",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Fanlore",
    "group": "—",
    "type": "filtracion",
@@ -6061,12 +6508,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Fanlore",
    "country": "US",
    "sector": "medios",
-   "tried": 1,
-   "seen": "2026-08-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "d803350f5c5aef7d",
    "day": "2026-08-13",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "RingCentral",
    "group": "—",
    "type": "filtracion",
@@ -6075,12 +6522,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#RingCentral",
    "country": "US",
    "sector": "telecom",
-   "tried": 1,
-   "seen": "2026-08-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "d21dae36f95eb545",
    "day": "2026-08-09",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Alcon",
    "group": "—",
    "type": "filtracion",
@@ -6089,12 +6536,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Alcon",
    "country": "CH",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-08-09T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "dc4b6c81b58f348d",
    "day": "2026-08-08",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Brinks Home",
    "group": "—",
    "type": "filtracion",
@@ -6103,12 +6550,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#BrinksHome",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-08-08T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "b28b881a4393e54b",
    "day": "2026-08-07",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Exact Sciences",
    "group": "—",
    "type": "filtracion",
@@ -6117,12 +6564,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#ExactSciences",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-08-07T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "1e06ad53cb4c5d1c",
    "day": "2026-08-05",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Inter-Con Security",
    "group": "—",
    "type": "filtracion",
@@ -6131,12 +6578,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#InterConSecurity",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-08-05T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "89f920e899725aa8",
    "day": "2026-08-01",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "SplitVPN",
    "group": "—",
    "type": "filtracion",
@@ -6145,11 +6592,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#SplitVPN",
    "country": "",
    "sector": "tecnologia",
-   "seen": "2026-08-01T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "8da3e653e98787a2",
    "day": "2026-07-28",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Houston City College",
    "group": "—",
    "type": "filtracion",
@@ -6158,12 +6606,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#HoustonCityCollege",
    "country": "US",
    "sector": "educacion",
-   "tried": 1,
-   "seen": "2026-07-28T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "9122e052e61e868f",
    "day": "2026-07-20",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Suno",
    "group": "—",
    "type": "filtracion",
@@ -6172,25 +6620,26 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Suno",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-07-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "2f6ac79231ea68b3",
    "day": "2026-07-19",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Paidwork",
    "group": "—",
    "type": "filtracion",
    "status": "verificado",
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Paidwork",
-   "country": "",
-   "sector": "servicios",
-   "seen": "2026-07-19T12:00:00+00:00"
+   "country": "PL",
+   "sector": "tecnologia",
+   "tried": 1
   },
   {
    "id": "dc19d5be2cf9dfd3",
    "day": "2026-07-15",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Goose Creek",
    "group": "—",
    "type": "filtracion",
@@ -6199,11 +6648,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#GooseCreek",
    "country": "",
    "sector": "otros",
-   "seen": "2026-07-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "4585b47e635bf692",
    "day": "2026-07-15",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Fluke",
    "group": "—",
    "type": "filtracion",
@@ -6212,12 +6662,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Fluke",
    "country": "US",
    "sector": "manufactura",
-   "tried": 1,
-   "seen": "2026-07-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "8e907cd48380d35c",
    "day": "2026-07-11",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Glendale Community College",
    "group": "—",
    "type": "filtracion",
@@ -6226,12 +6676,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#GlendaleCommunityCollege",
    "country": "US",
    "sector": "educacion",
-   "tried": 1,
-   "seen": "2026-07-11T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "63965164a39084b3",
    "day": "2026-07-03",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Moody Bible Institute",
    "group": "—",
    "type": "filtracion",
@@ -6240,12 +6690,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#MoodyBibleInstitute",
    "country": "US",
    "sector": "educacion",
-   "tried": 1,
-   "seen": "2026-07-03T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "7a4af4e23c307c0a",
    "day": "2026-06-28",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Sysco",
    "group": "—",
    "type": "filtracion",
@@ -6254,12 +6704,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Sysco",
    "country": "US",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-06-28T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "f29e0bd3337f5ae8",
    "day": "2026-06-26",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "American Tower",
    "group": "—",
    "type": "filtracion",
@@ -6268,12 +6718,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#AmericanTower",
    "country": "US",
    "sector": "telecom",
-   "tried": 1,
-   "seen": "2026-06-26T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "e73e6517692d282f",
    "day": "2026-06-24",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Madison Square Garden Sports",
    "group": "—",
    "type": "filtracion",
@@ -6282,12 +6732,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#MadisonSquareGardenSports",
    "country": "US",
    "sector": "medios",
-   "tried": 1,
-   "seen": "2026-06-24T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "d6d7df551d5c8b98",
    "day": "2026-06-20",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "JCPenney",
    "group": "—",
    "type": "filtracion",
@@ -6296,12 +6746,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#JCPenney",
    "country": "US",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-06-20T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "895f7e0452d415ed",
    "day": "2026-06-18",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Ralph Lauren",
    "group": "—",
    "type": "filtracion",
@@ -6310,12 +6760,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#RalphLauren",
    "country": "US",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-06-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "c3a10c991c12f8ba",
    "day": "2026-06-18",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Operation Endgame 4.0",
    "group": "—",
    "type": "filtracion",
@@ -6324,11 +6774,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#OperationEndgame4",
    "country": "",
    "sector": "otros",
-   "seen": "2026-06-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "48ea046ac3184a57",
    "day": "2026-06-18",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "CFGI",
    "group": "—",
    "type": "filtracion",
@@ -6337,12 +6788,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#CFGI",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-06-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "db88d78b7648678d",
    "day": "2026-06-15",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "June 2026 Stealer Logs",
    "group": "—",
    "type": "filtracion",
@@ -6351,11 +6802,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#June2026StealerLogs",
    "country": "",
    "sector": "otros",
-   "seen": "2026-06-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "46bd2d4f9a5a62ac",
    "day": "2026-06-15",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Infinite Campus",
    "group": "—",
    "type": "filtracion",
@@ -6364,12 +6816,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#InfiniteCampus",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-06-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "e336fe1547cf89bc",
    "day": "2026-06-15",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Berkadia",
    "group": "—",
    "type": "filtracion",
@@ -6378,12 +6830,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Berkadia",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-06-15T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "d34fe3fb68c446bc",
    "day": "2026-06-10",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "University of Nottingham",
    "group": "—",
    "type": "filtracion",
@@ -6392,12 +6844,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#UniversityOfNottingham",
    "country": "GB",
    "sector": "educacion",
-   "tried": 1,
-   "seen": "2026-06-10T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "c6b045da67b6b445",
    "day": "2026-06-07",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Baker Distributing",
    "group": "—",
    "type": "filtracion",
@@ -6406,12 +6858,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#BakerDistributing",
    "country": "US",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-06-07T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "8a6f0e961f3a25bd",
    "day": "2026-06-05",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "BCD Travel",
    "group": "—",
    "type": "filtracion",
@@ -6419,13 +6871,13 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#BCDTravel",
    "country": "NL",
-   "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-06-05T12:00:00+00:00"
+   "sector": "servicios",
+   "tried": 1
   },
   {
    "id": "1881578f5c1c4957",
    "day": "2026-06-03",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "DentaQuest",
    "group": "—",
    "type": "filtracion",
@@ -6434,12 +6886,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#DentaQuest",
    "country": "US",
    "sector": "salud",
-   "tried": 1,
-   "seen": "2026-06-03T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "7c636446f0d5ce22",
    "day": "2026-06-01",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Edmunds",
    "group": "—",
    "type": "filtracion",
@@ -6448,12 +6900,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Edmunds",
    "country": "US",
    "sector": "medios",
-   "tried": 1,
-   "seen": "2026-06-01T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "1d978658f1849926",
    "day": "2026-05-30",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Atlas Menu",
    "group": "—",
    "type": "filtracion",
@@ -6462,11 +6914,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#AtlasMenu",
    "country": "",
    "sector": "otros",
-   "seen": "2026-05-30T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "e15fa10beaa577ae",
    "day": "2026-05-28",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Kemper",
    "group": "—",
    "type": "filtracion",
@@ -6475,12 +6928,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Kemper",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-05-28T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "e92dce1f38cce2eb",
    "day": "2026-05-28",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Charter",
    "group": "—",
    "type": "filtracion",
@@ -6489,12 +6942,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Charter",
    "country": "US",
    "sector": "telecom",
-   "tried": 1,
-   "seen": "2026-05-28T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "e1931c4098f51ff3",
    "day": "2026-05-27",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Mytheresa",
    "group": "—",
    "type": "filtracion",
@@ -6503,12 +6956,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Mytheresa",
    "country": "DE",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-05-27T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "1262f87d4d26a446",
    "day": "2026-05-26",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Ameriprise",
    "group": "—",
    "type": "filtracion",
@@ -6517,12 +6970,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Ameriprise",
    "country": "US",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-05-26T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "ecec3b3c1392df65",
    "day": "2026-05-24",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "7-Eleven",
    "group": "—",
    "type": "filtracion",
@@ -6531,12 +6984,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#7-Eleven",
    "country": "US",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-05-24T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "80dcbe9adc362e90",
    "day": "2026-05-21",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Windows93 / Myspace93",
    "group": "—",
    "type": "filtracion",
@@ -6545,12 +6998,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Windows93",
    "country": "FR",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-05-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "fd54922cdee8ebc9",
    "day": "2026-05-21",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Dragonica Lunaris",
    "group": "—",
    "type": "filtracion",
@@ -6559,11 +7012,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Dragonica",
    "country": "",
    "sector": "tecnologia",
-   "seen": "2026-05-21T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "42f16eb0f47e7b6e",
    "day": "2026-05-19",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "CTT",
    "group": "—",
    "type": "filtracion",
@@ -6572,12 +7026,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#CTT",
    "country": "PT",
    "sector": "transporte",
-   "tried": 1,
-   "seen": "2026-05-19T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "efd63048be2d0203",
    "day": "2026-05-18",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Addi",
    "group": "—",
    "type": "filtracion",
@@ -6586,12 +7040,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#ADDI",
    "country": "CO",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-05-18T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "a2cc36597bed7462",
    "day": "2026-05-14",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Abrigo",
    "group": "—",
    "type": "filtracion",
@@ -6600,12 +7054,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Abrigo",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-05-14T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "225f602266291d93",
    "day": "2026-05-13",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Canada Life",
    "group": "—",
    "type": "filtracion",
@@ -6614,12 +7068,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#CanadaLife",
    "country": "CA",
    "sector": "finanzas",
-   "tried": 1,
-   "seen": "2026-05-13T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "10f84ade9398f82a",
    "day": "2026-05-12",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Cushman & Wakefield",
    "group": "—",
    "type": "filtracion",
@@ -6628,12 +7082,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#CushmanWakefield",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-05-12T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "aa04f625aebd9fc0",
    "day": "2026-05-08",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Zara",
    "group": "—",
    "type": "filtracion",
@@ -6642,12 +7096,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Zara",
    "country": "ES",
    "sector": "retail",
-   "tried": 1,
-   "seen": "2026-05-08T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "abdc78fd5612c432",
    "day": "2026-05-07",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Woflow",
    "group": "—",
    "type": "filtracion",
@@ -6656,12 +7110,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Woflow",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-05-07T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "daf14d8a64ae6b15",
    "day": "2026-05-06",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "LegionProxy",
    "group": "—",
    "type": "filtracion",
@@ -6670,11 +7124,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#LegionProxy",
    "country": "",
    "sector": "tecnologia",
-   "seen": "2026-05-06T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "58acc1243bcb6b7f",
    "day": "2026-05-05",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Vimeo",
    "group": "—",
    "type": "filtracion",
@@ -6683,12 +7138,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Vimeo",
    "country": "US",
    "sector": "tecnologia",
-   "tried": 1,
-   "seen": "2026-05-05T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "7925e978aa126574",
    "day": "2026-05-04",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Reborn Gaming",
    "group": "—",
    "type": "filtracion",
@@ -6697,11 +7152,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#RebornGaming",
    "country": "",
    "sector": "otros",
-   "seen": "2026-05-04T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "5e79c37d416a5e4e",
    "day": "2026-05-03",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Marcus & Millichap",
    "group": "—",
    "type": "filtracion",
@@ -6709,13 +7165,13 @@
    "source": "Have I Been Pwned",
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#MarcusMillichap",
    "country": "US",
-   "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-05-03T12:00:00+00:00"
+   "sector": "finanzas",
+   "tried": 1
   },
   {
    "id": "843664432ed14571",
    "day": "2026-05-02",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "ZenBusiness",
    "group": "—",
    "type": "filtracion",
@@ -6724,12 +7180,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#ZenBusiness",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-05-02T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "c28a2697c0365b0c",
    "day": "2026-05-01",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Aman",
    "group": "—",
    "type": "filtracion",
@@ -6738,12 +7194,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Aman",
    "country": "CH",
    "sector": "hoteleria",
-   "tried": 1,
-   "seen": "2026-05-01T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "0e6db81cd62ba605",
    "day": "2026-04-27",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Pitney Bowes",
    "group": "—",
    "type": "filtracion",
@@ -6752,12 +7208,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#PitneyBowes",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-04-27T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "3b25c6fe93c7e371",
    "day": "2026-04-27",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "ADT",
    "group": "—",
    "type": "filtracion",
@@ -6766,12 +7222,12 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#ADT",
    "country": "US",
    "sector": "servicios",
-   "tried": 1,
-   "seen": "2026-04-27T12:00:00+00:00"
+   "tried": 1
   },
   {
    "id": "dd421454a9e93cdc",
    "day": "2026-04-26",
+   "seen": "2026-10-22T15:50:43+00:00",
    "victim": "Udemy",
    "group": "—",
    "type": "filtracion",
@@ -6780,22 +7236,7 @@
    "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Udemy",
    "country": "US",
    "sector": "educacion",
-   "tried": 1,
-   "seen": "2026-04-26T12:00:00+00:00"
-  },
-  {
-   "id": "88ceb2f923752a39",
-   "day": "2026-04-24",
-   "victim": "Carnival",
-   "group": "—",
-   "type": "filtracion",
-   "status": "verificado",
-   "source": "Have I Been Pwned",
-   "sourceUrl": "https://haveibeenpwned.com/PwnedWebsites#Carnival",
-   "country": "US",
-   "sector": "hoteleria",
-   "tried": 1,
-   "seen": "2026-04-24T12:00:00+00:00"
+   "tried": 1
   }
  ]
 }
