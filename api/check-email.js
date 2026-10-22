@@ -6,6 +6,7 @@
 // stored; putting it in a URL would break that promise.
 
 import { recordCheck } from './_stats.js';
+import { rateLimitOk } from './_shared.js';
 
 const HIBP_ENDPOINT = 'https://haveibeenpwned.com/api/v3/breachedaccount';
 
@@ -27,9 +28,10 @@ const DEFAULT_ALLOWED_ORIGINS = [];
 const RATE_LIMIT_MAX = 4;
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;
 
-// Shared limiter, backed by Postgres so the count holds across every Vercel
-// instance. Falls back to the in-memory limiter below if Supabase is not
-// configured or does not answer, so a database blip cannot take the site down.
+// The shared limiter lives in _shared.js, backed by Postgres so the count
+// holds across every Vercel instance. This map is the fallback used when
+// Supabase is not configured or does not answer, so a database blip cannot
+// take the site down.
 const hits = new Map();
 
 function allowedOrigins() {
@@ -61,51 +63,6 @@ function clientIp(req) {
         return forwarded.split(',')[0].trim();
     }
     return req.socket?.remoteAddress || 'unknown';
-}
-
-// Returns true if allowed, false if over the limit, or null if the shared
-// store is unavailable and the caller should fall back.
-async function allowedBySharedLimiter(key) {
-    const url = process.env.SUPABASE_URL;
-    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-    if (!url || !serviceKey) return null;
-
-    try {
-        // Legacy service_role keys are JWTs and are accepted on either header.
-        // New-format secret keys (sb_secret_...) are NOT JWTs: sending one as
-        // a Bearer token makes the gateway try to parse it and reject it with
-        // "Invalid JWT". Those go on the apikey header only.
-        const headers = {
-            'Content-Type': 'application/json',
-            apikey: serviceKey,
-        };
-        if (serviceKey.startsWith('eyJ')) {
-            headers.Authorization = `Bearer ${serviceKey}`;
-        }
-
-        const response = await fetch(`${url}/rest/v1/rpc/check_rate_limit`, {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({
-                p_key: key,
-                p_max: RATE_LIMIT_MAX,
-                p_window_seconds: RATE_LIMIT_WINDOW_MS / 1000,
-            }),
-            // Never let a slow database hold the request open.
-            signal: AbortSignal.timeout(2000),
-        });
-
-        if (!response.ok) {
-            console.error('Rate limit RPC failed:', response.status);
-            return null;
-        }
-
-        const allowed = await response.json();
-        return typeof allowed === 'boolean' ? allowed : null;
-    } catch (error) {
-        console.error('Rate limit RPC error:', error.name);
-        return null;
-    }
 }
 
 function rateLimited(ip) {
@@ -147,6 +104,11 @@ export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
+    // The answer is about one address, so it must never enter a cache that
+    // serves anybody else. Set here as well as in vercel.json because a
+    // header the function sets is the one that survives.
+    res.setHeader('Cache-Control', 'private, no-store');
+
     if (req.method === 'OPTIONS') {
         return res.status(204).end();
     }
@@ -156,7 +118,7 @@ export default async function handler(req, res) {
     }
 
     const ip = clientIp(req);
-    const shared = await allowedBySharedLimiter(ip);
+    const shared = await rateLimitOk(ip, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW_MS / 1000);
     const overLimit = shared === null ? rateLimited(ip) : !shared;
 
     if (overLimit) {
@@ -261,7 +223,10 @@ export default async function handler(req, res) {
         console.error('Unexpected HIBP status:', response.status);
         return res.status(502).json({ error: 'Failed to check email' });
     } catch (error) {
-        console.error('HIBP API error:', error);
+        // Only the error's name. A thrown fetch error can carry the request
+        // it failed on, and that request has the address in its path: the
+        // page promises the address is not stored, and a log is storage.
+        console.error('HIBP API error:', error.name);
         return res.status(502).json({ error: 'Failed to check email' });
     }
 }

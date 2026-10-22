@@ -173,6 +173,23 @@ export function readBody(req) {
     return typeof req.body === 'string' ? safeParse(req.body) : req.body;
 }
 
+// The session token, from the Authorization header first and the request body
+// second.
+//
+// The header is where it belongs: request bodies get written down by body
+// logging, APM agents and error reporters, which redact Authorization by
+// default and know nothing about a field called accessToken. The body is still
+// read so a browser holding the previous app.js keeps working through the
+// deploy; it can go once nobody is running that copy.
+export function tokenFrom(req, body) {
+    const header = req.headers.authorization || req.headers.Authorization;
+    if (typeof header === 'string' && /^Bearer\s+/i.test(header)) {
+        const token = header.replace(/^Bearer\s+/i, '').trim();
+        if (token) return token;
+    }
+    return body?.accessToken;
+}
+
 // ---------------------------------------------------------------------------
 // Supabase
 // ---------------------------------------------------------------------------
@@ -239,6 +256,47 @@ async function rest(path, init) {
 
 export function sbSelect(path) {
     return rest(path, { headers: serviceHeaders() });
+}
+
+// Rate limiting that holds across every Vercel instance, because the counter
+// lives in Postgres rather than in one instance's memory. See
+// supabase_rate_limit.sql.
+//
+// Returns true when the request is allowed, false when it is over the limit,
+// and null when the store cannot answer, so the caller can fall back to its
+// own in-memory count instead of a database blip taking the site down.
+//
+// Every endpoint that spends the Have I Been Pwned quota has to come through
+// here: that quota is shared by the whole site, and an in-memory limit lets
+// one visitor spend it all by being spread across instances.
+export async function rateLimitOk(key, max, windowSeconds) {
+    const url = process.env.SUPABASE_URL;
+    if (!url || !process.env.SUPABASE_SERVICE_ROLE_KEY) return null;
+
+    try {
+        const response = await fetch(`${url}/rest/v1/rpc/check_rate_limit`, {
+            method: 'POST',
+            headers: serviceHeaders({ 'Content-Type': 'application/json' }),
+            body: JSON.stringify({
+                p_key: key,
+                p_max: max,
+                p_window_seconds: windowSeconds,
+            }),
+            // Never let a slow database hold the request open.
+            signal: AbortSignal.timeout(2000),
+        });
+
+        if (!response.ok) {
+            console.error('Rate limit RPC failed:', response.status);
+            return null;
+        }
+
+        const allowed = await response.json();
+        return typeof allowed === 'boolean' ? allowed : null;
+    } catch (error) {
+        console.error('Rate limit RPC error:', error.name);
+        return null;
+    }
 }
 
 export function sbInsert(table, row) {

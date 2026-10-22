@@ -100,7 +100,7 @@
          never change, and a forgotten bust on a year-long immutable asset would
          leave a returning buyer running last week's payment code. Bump the date
          here and in the other language's page when a change has to land now. -->
-    <link rel="stylesheet" href="/app.css?v=2026-10-21c">
+    <link rel="stylesheet" href="/app.css?v=2026-10-21d">
 </head>
 <body>
 
@@ -114,13 +114,13 @@
 <div id="demoBanner" class="demo-banner" hidden>
     <strong data-i18n="demoTag">Preview mode</strong>
     <span data-i18n="demoBody">Everything below is fictional sample data. Nothing was checked against any real database.</span>
-    <button onclick="exitDemo()" data-i18n="demoExit">Exit preview</button>
+    <button data-action="exitDemo" data-i18n="demoExit">Exit preview</button>
 </div>
 
 <!-- Shown on the way back from Mercado Pago, with the outcome of the payment -->
 <div id="payBanner" class="pay-banner">
     <span id="payBannerText"></span>
-    <button type="button" onclick="dismissPayBanner()" data-i18n="payClose">Close</button>
+    <button type="button" data-action="dismissPayBanner" data-i18n="payClose">Close</button>
 </div>
 
 <!-- El espejo del aviso que lleva anios en la pagina espanola. Ahora que el
@@ -131,7 +131,7 @@
 <div id="langHint" class="lang-hint" hidden>
     <span data-i18n="langHintText"></span>
     <a href="/es/" data-i18n="langHintLink"></a>
-    <button type="button" onclick="dismissLangHint()" aria-label="Close">&times;</button>
+    <button type="button" data-action="dismissLangHint" aria-label="Close">&times;</button>
 </div>
 
 <div class="wrap">
@@ -151,14 +151,14 @@
                 <a href="/" data-lang="en" hreflang="en" aria-current="page">EN</a>
             </nav>
             <div id="authUI">
-                <button class="ghost-btn" onclick="openAuthModal('signin')" data-i18n="signin">Sign in</button>
+                <button class="ghost-btn" data-action="openAuthModal" data-arg="signin" data-i18n="signin">Sign in</button>
             </div>
             <div id="userUI" class="user-menu" style="display: none;">
-                <button class="ghost-btn" onclick="toggleUserMenu()" data-i18n="menu">My account</button>
+                <button class="ghost-btn" data-action="toggleUserMenu" data-i18n="menu">My account</button>
                 <div id="userDropdown" class="user-dropdown">
                     <div class="user-email" id="userEmail"></div>
-                    <button onclick="openChangePassword()" data-i18n="changePw">Change password</button>
-                    <button onclick="signOut()" data-i18n="signout">Sign out</button>
+                    <button data-action="openChangePassword" data-i18n="changePw">Change password</button>
+                    <button data-action="signOut" data-i18n="signout">Sign out</button>
                 </div>
             </div>
         </div>
@@ -187,7 +187,7 @@
 
         <div class="search">
             <input type="email" id="emailInput" placeholder="tucorreo@ejemplo.com" autocomplete="email" aria-label="Email">
-            <button class="btn" id="emailCheckBtn" onclick="checkEmail()" data-i18n="heroBtn">Check my email</button>
+            <button class="btn" id="emailCheckBtn" data-action="checkEmail" data-i18n="heroBtn">Check my email</button>
         </div>
 
         <div class="trust">
@@ -202,7 +202,7 @@
 
     <!-- Password check, folded away so the page opens on one decision -->
     <div class="fold" id="pwFold" data-open="0">
-        <button type="button" class="fold-head" onclick="togglePasswordFold()">
+        <button type="button" class="fold-head" data-action="togglePasswordFold">
             <span class="fold-icon">
                 <svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2.5" y="6.8" width="11" height="7" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M5.2 6.8V4.9a2.8 2.8 0 015.6 0v1.9" stroke="currentColor" stroke-width="1.6"/></svg>
             </span>
@@ -215,9 +215,9 @@
         <div class="fold-body" id="pwBody" hidden>
             <div class="pw-row">
                 <input type="password" id="passwordInput" placeholder="••••••••••" autocomplete="off" aria-label="Password">
-                <button class="btn sm" id="passwordCheckBtn" onclick="checkPassword()" data-i18n="pwBtn">Check</button>
+                <button class="btn sm" id="passwordCheckBtn" data-action="checkPassword" data-i18n="pwBtn">Check</button>
             </div>
-            <button type="button" class="linkish" id="pwShowToggle" onclick="togglePasswordVisibility()" data-i18n="pwShow">Show password</button>
+            <button type="button" class="linkish" id="pwShowToggle" data-action="togglePasswordVisibility" data-i18n="pwShow">Show password</button>
             <div class="note">
                 <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.6" stroke="currentColor" stroke-width="1.5"/><path d="M8 7.2v4M8 4.9v.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
                 <span data-i18n="pwNote">We only send the first five letters of a code your browser works out. Neither we nor anyone else can rebuild your password from that.</span>
@@ -273,7 +273,7 @@
         <div class="offer-foot">
             <span class="price"><span id="offerPriceAmount">&mdash;</span><small data-i18n="offerPer">per report</small></span>
             <small class="price-note" id="offerPriceNote" hidden></small>
-            <button class="btn" onclick="openSampleReport()" data-i18n="offerBtn">See an example</button>
+            <button class="btn" data-action="openSampleReport" data-i18n="offerBtn">See an example</button>
         </div>
     </div>
 
@@ -317,7 +317,7 @@
 
         <div class="offer-foot">
             <span class="price">US$&nbsp;3<small data-i18n="alertsPer">a month</small></span>
-            <button class="btn" id="alertsBtn" onclick="startAlertsCheckout()" data-i18n="alertsBtn">Turn on alerts</button>
+            <button class="btn" id="alertsBtn" data-action="startAlertsCheckout" data-i18n="alertsBtn">Turn on alerts</button>
         </div>
 
         <div class="error" id="alertsError" style="display:none"></div>
@@ -344,8 +344,8 @@
 <!-- Action Plan Report -->
 <div id="reportView" class="report-view">
     <div class="report-toolbar">
-        <button onclick="closeReport()" class="ghost-btn" data-i18n="reportBack">← Back</button>
-        <button id="reportPrintBtn" onclick="printReport()" class="btn sm" data-i18n="reportPdf">Download PDF</button>
+        <button data-action="closeReport" class="ghost-btn" data-i18n="reportBack">← Back</button>
+        <button id="reportPrintBtn" data-action="printReport" class="btn sm" data-i18n="reportPdf">Download PDF</button>
     </div>
     <div id="reportBody" class="report-body"></div>
 </div>
@@ -353,7 +353,7 @@
 <!-- Auth Modal -->
 <div id="authModal" class="auth-modal">
     <div class="auth-modal-content">
-        <button class="auth-modal-close" onclick="closeAuthModal()" aria-label="Close">&times;</button>
+        <button class="auth-modal-close" data-action="closeAuthModal" aria-label="Close">&times;</button>
 
         <div id="signinForm" class="auth-form active">
             <h2 data-i18n="modalSigninTitle">Sign in</h2>
@@ -361,15 +361,15 @@
             <input type="password" id="signinPassword" placeholder="Contraseña" autocomplete="current-password">
             <div class="auth-reveal">
                 <button type="button" class="linkish" id="signinPwShowToggle"
-                        onclick="togglePwField('signinPassword', 'signinPwShowToggle')" data-i18n="pwShow">Show password</button>
+                        data-action="togglePwField" data-arg="signinPassword" data-arg2="signinPwShowToggle" data-i18n="pwShow">Show password</button>
             </div>
-            <button class="btn" onclick="signInWithEmail()" data-i18n="modalSigninBtn">Sign in</button>
+            <button class="btn" data-action="signInWithEmail" data-i18n="modalSigninBtn">Sign in</button>
             <div class="auth-toggle">
-                <button onclick="switchForm('reset')" data-i18n="modalForgotLink">Forgot your password?</button>
+                <button data-action="switchForm" data-arg="reset" data-i18n="modalForgotLink">Forgot your password?</button>
             </div>
             <div class="auth-toggle">
                 <span data-i18n="modalNoAccount">Don't have an account?</span>
-                <button onclick="switchForm('signup')" data-i18n="modalSignupLink">Create one</button>
+                <button data-action="switchForm" data-arg="signup" data-i18n="modalSignupLink">Create one</button>
             </div>
         </div>
 
@@ -379,12 +379,12 @@
             <input type="password" id="signupPassword" placeholder="Contraseña (mínimo 8 caracteres)" autocomplete="new-password">
             <div class="auth-reveal">
                 <button type="button" class="linkish" id="signupPwShowToggle"
-                        onclick="togglePwField('signupPassword', 'signupPwShowToggle')" data-i18n="pwShow">Show password</button>
+                        data-action="togglePwField" data-arg="signupPassword" data-arg2="signupPwShowToggle" data-i18n="pwShow">Show password</button>
             </div>
-            <button class="btn" onclick="signUpWithEmail()" data-i18n="modalSignupBtn">Create account</button>
+            <button class="btn" data-action="signUpWithEmail" data-i18n="modalSignupBtn">Create account</button>
             <div class="auth-toggle">
                 <span data-i18n="modalHaveAccount">Already have an account?</span>
-                <button onclick="switchForm('signin')" data-i18n="modalSigninLink">Sign in</button>
+                <button data-action="switchForm" data-arg="signin" data-i18n="modalSigninLink">Sign in</button>
             </div>
         </div>
 
@@ -395,9 +395,9 @@
             <h2 data-i18n="modalResetTitle">Reset your password</h2>
             <p class="auth-hint" data-i18n="modalResetHint">Enter your email and we will send you a link to set a new password.</p>
             <input type="email" id="resetEmail" placeholder="tucorreo@ejemplo.com" autocomplete="email">
-            <button class="btn" onclick="sendPasswordReset()" data-i18n="modalResetBtn">Send the link</button>
+            <button class="btn" data-action="sendPasswordReset" data-i18n="modalResetBtn">Send the link</button>
             <div class="auth-toggle">
-                <button onclick="switchForm('signin')" data-i18n="modalBackToSignin">Back to sign in</button>
+                <button data-action="switchForm" data-arg="signin" data-i18n="modalBackToSignin">Back to sign in</button>
             </div>
         </div>
 
@@ -410,16 +410,16 @@
                  to make somebody give up on their own account. -->
             <div class="auth-reveal">
                 <button type="button" class="linkish" id="newPwShowToggle"
-                        onclick="toggleNewPasswordVisibility()" data-i18n="pwShow">Show password</button>
+                        data-action="toggleNewPasswordVisibility" data-i18n="pwShow">Show password</button>
             </div>
-            <button class="btn" onclick="applyNewPassword()" data-i18n="modalNewPwBtn">Save password</button>
+            <button class="btn" data-action="applyNewPassword" data-i18n="modalNewPwBtn">Save password</button>
         </div>
 
         <div id="authProviders">
         <div class="auth-divider"><span data-i18n="modalOr">or continue with</span></div>
 
         <div class="auth-providers">
-            <button type="button" class="provider-btn" onclick="signInWithProvider('google')">
+            <button type="button" class="provider-btn" data-action="signInWithProvider" data-arg="google">
                 <svg viewBox="0 0 18 18" width="16" height="16" aria-hidden="true">
                     <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62z"/>
                     <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.33A9 9 0 0 0 9 18z"/>
@@ -428,7 +428,7 @@
                 </svg>
                 Google
             </button>
-            <button type="button" class="provider-btn" onclick="signInWithProvider('github')">
+            <button type="button" class="provider-btn" data-action="signInWithProvider" data-arg="github">
                 <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true">
                     <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
                 </svg>
@@ -441,13 +441,12 @@
     </div>
 </div>
 
-<script src="/app.js?v=2026-10-21c" defer></script>
+<script src="/app.js?v=2026-10-21d" defer></script>
 
 <!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
      a visitor, which is why the privacy policy can still promise no tracking
      and no profiling. Served from this same domain, so no third-party request
      leaves the page. -->
-<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
 
 </body>

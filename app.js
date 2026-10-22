@@ -667,6 +667,16 @@ function escapeHtml(str) {
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
+// The session token used to travel in the JSON body, as an accessToken field.
+// A header is the right place for it: body logging, APM agents and error
+// reporters write request bodies down, and they redact Authorization by
+// default while knowing nothing about a field called accessToken.
+function authHeaders(accessToken) {
+    const headers = { 'Content-Type': 'application/json' };
+    if (accessToken) headers.Authorization = `Bearer ${accessToken}`;
+    return headers;
+}
+
 // =======================================================================
 // PREVIEW MODE
 // =======================================================================
@@ -992,8 +1002,8 @@ function announceAccount(accessToken) {
 
     fetch('/api/account-sync', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ accessToken, lang }),
+        headers: authHeaders(accessToken),
+        body: JSON.stringify({ lang }),
     }).then(async response => {
         // synced, not ok. The endpoint answers 200 whether or not the CRM
         // took the record, and it is the CRM that this mark is about.
@@ -1357,7 +1367,7 @@ function renderEmailResult(breaches, email) {
     const breachHTML = restCount > 0
         ? shown
             + `<div id="breachRest" hidden>${breaches.slice(VISIBLE).map(breachCard).join('')}</div>`
-            + `<button type="button" class="more-btn" onclick="showAllBreaches(this)">${escapeHtml(t().showMore(restCount))}</button>`
+            + `<button type="button" class="more-btn" data-action="showAllBreaches">${escapeHtml(t().showMore(restCount))}</button>`
         : shown;
 
     // Roll-up: how many breaches exposed each kind of data.
@@ -1410,7 +1420,7 @@ function renderEmailResult(breaches, email) {
     const nextHTML = unlocked ? `
         <div class="nextstep">
             <p><strong>${escapeHtml(t().nextTitle)}.</strong> ${escapeHtml(t().nextBody(count))}</p>
-            <button class="btn sm accent" onclick="openReport()">${escapeHtml(t().nextBtn)}</button>
+            <button class="btn sm accent" data-action="openReport">${escapeHtml(t().nextBtn)}</button>
         </div>` : '';
 
     const gateHTML = unlocked ? '' : `
@@ -1418,8 +1428,8 @@ function renderEmailResult(breaches, email) {
             <h3>${escapeHtml(t().gateTitle)}</h3>
             <p>${escapeHtml(t().gateBody)}</p>
             <div class="gate-btns">
-                <button class="btn sm" onclick="openAuthModal('signup')">${escapeHtml(t().gateSignup)}</button>
-                <button class="ghost-btn" onclick="openAuthModal('signin')">${escapeHtml(t().gateSignin)}</button>
+                <button class="btn sm" data-action="openAuthModal" data-arg="signup">${escapeHtml(t().gateSignup)}</button>
+                <button class="ghost-btn" data-action="openAuthModal" data-arg="signin">${escapeHtml(t().gateSignin)}</button>
             </div>
         </div>`;
 
@@ -1480,10 +1490,10 @@ async function openReport() {
             }
             const response = await fetch('/api/report', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: authHeaders(accessToken),
                 body: JSON.stringify(demoMode
                     ? { demo: true, teaser: demoTeaser, lang }
-                    : { email: lastEmailResult.email, accessToken, lang }),
+                    : { email: lastEmailResult.email, lang }),
             });
             data = await response.json();
             if (!response.ok) throw new Error(data.error || t().planFail);
@@ -2116,7 +2126,7 @@ function teaserHTML(data) {
             <h2>${escapeHtml(t().paywallTitle(locked.length))}</h2>
             <div class="locked-list">${lockedHTML}</div>
             <p class="paywall-pitch">${escapeHtml(t().paywallPitch)}</p>
-            <button class="btn accent" onclick="startPurchase(this)">${escapeHtml(t().paywallBtn)}</button>
+            <button class="btn accent" data-action="startPurchase">${escapeHtml(t().paywallBtn)}</button>
             <p class="paywall-fine">${escapeHtml(t().paywallFine)}</p>
         </section>`;
 }
@@ -2389,8 +2399,8 @@ async function startPurchase(btn) {
 
         const response = await fetch('/api/checkout', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ accessToken, lang }),
+            headers: authHeaders(accessToken),
+            body: JSON.stringify({ lang }),
         });
         const data = await response.json().catch(() => null);
         if (!response.ok || !data?.checkoutUrl) {
@@ -2692,13 +2702,13 @@ function passwordPlanCTA() {
         return `
             <div class="nextstep">
                 <p><strong>${escapeHtml(t().pwPlanTitleA)}</strong> ${escapeHtml(t().pwPlanBodyA)}</p>
-                <button class="btn sm accent" onclick="openReport()">${escapeHtml(t().pwPlanBtnA)}</button>
+                <button class="btn sm accent" data-action="openReport">${escapeHtml(t().pwPlanBtnA)}</button>
             </div>`;
     }
     return `
         <div class="nextstep">
             <p><strong>${escapeHtml(t().pwPlanTitleA)}</strong> ${escapeHtml(t().pwPlanBodyB)}</p>
-            <button class="btn sm accent" onclick="focusEmailCheck()">${escapeHtml(t().pwPlanBtnB)}</button>
+            <button class="btn sm accent" data-action="focusEmailCheck">${escapeHtml(t().pwPlanBtnB)}</button>
         </div>`;
 }
 
@@ -2759,8 +2769,8 @@ function renderPasswordExposed(count) {
                 <h3>${escapeHtml(t().gateTitle)}</h3>
                 <p>${escapeHtml(t().gateBody)}</p>
                 <div class="gate-btns">
-                    <button class="btn sm" onclick="openAuthModal('signup')">${escapeHtml(t().gateSignup)}</button>
-                    <button class="ghost-btn" onclick="openAuthModal('signin')">${escapeHtml(t().gateSignin)}</button>
+                    <button class="btn sm" data-action="openAuthModal" data-arg="signup">${escapeHtml(t().gateSignup)}</button>
+                    <button class="ghost-btn" data-action="openAuthModal" data-arg="signin">${escapeHtml(t().gateSignin)}</button>
                 </div>
             </div>`;
     }
@@ -2839,6 +2849,45 @@ function togglePasswordVisibility() {
 // =======================================================================
 // BOOT
 // =======================================================================
+
+// Every button used to carry its own onclick="fn()". A Content Security
+// Policy cannot allow those without 'unsafe-inline' in script-src, and
+// 'unsafe-inline' gives away most of what the policy is for: with it, an
+// injected <script> runs too. So each button now names its action in
+// data-action, with any literal arguments in data-arg and data-arg2, and the
+// dispatch happens here.
+//
+// Delegated from the document rather than bound per button, because half of
+// these buttons are written into the page later by renderEmailResult,
+// renderPaywall and the password plan. Binding on load would miss them.
+const ACTIONS = {
+    applyNewPassword, checkEmail, checkPassword, closeAuthModal, closeReport,
+    dismissLangHint, dismissPayBanner, exitDemo, focusEmailCheck, openAuthModal,
+    openChangePassword, openReport, openSampleReport, printReport,
+    sendPasswordReset, showAllBreaches, signInWithEmail, signInWithProvider,
+    signOut, signUpWithEmail, startAlertsCheckout, startPurchase, switchForm,
+    toggleNewPasswordVisibility, togglePasswordFold, togglePasswordVisibility,
+    togglePwField, toggleUserMenu,
+};
+
+// These two were written to take the button itself, to put a spinner in it
+// and to find the list it belongs to. The rest take the attribute's literals,
+// or nothing at all.
+const ACTIONS_TAKING_ELEMENT = new Set(['showAllBreaches', 'startPurchase']);
+
+document.addEventListener('click', (e) => {
+    const el = e.target.closest('[data-action]');
+    if (!el) return;
+    const fn = ACTIONS[el.dataset.action];
+    if (!fn) {
+        console.error('No handler for action:', el.dataset.action);
+        return;
+    }
+    if (ACTIONS_TAKING_ELEMENT.has(el.dataset.action)) fn(el);
+    else if (el.dataset.arg !== undefined) fn(el.dataset.arg, el.dataset.arg2);
+    else fn();
+});
+
 document.addEventListener('click', (e) => {
     // Close the account dropdown when clicking anywhere else.
     if (!e.target.closest('.user-menu')) {

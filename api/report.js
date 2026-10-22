@@ -14,7 +14,7 @@
 // places is what broke entitlement for Paddle: the browser used one rule
 // and this file another, so a buyer saw their own payment confirmed and
 // then the padlocks.
-import { liveModeFor } from './_shared.js';
+import { liveModeFor, rateLimitOk, tokenFrom } from './_shared.js';
 
 const HIBP_ENDPOINT = 'https://haveibeenpwned.com/api/v3/breachedaccount';
 
@@ -25,7 +25,13 @@ const SUPABASE_PUBLISHABLE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY
 
 const RATE_LIMIT_MAX = 10;
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;
+
+// Fallback for when the shared limiter in Postgres cannot answer. On its own
+// it only bounds one Vercel instance, which is no bound at all: this endpoint
+// spends a Have I Been Pwned call per request out of a quota the whole site
+// shares. Its own key space, so it does not eat into /api/check-email's.
 const hits = new Map();
+const LIMIT_KEY = 'report:';
 
 // ---------------------------------------------------------------------------
 // Request plumbing
@@ -692,12 +698,20 @@ export default async function handler(req, res) {
         res.setHeader('Vary', 'Origin');
     }
     res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+    // This answer is about one person's address and carries the paid plan, so
+    // it must never enter a cache that serves anybody else. Set here as well
+    // as in vercel.json because a header the function sets is the one that
+    // survives.
+    res.setHeader('Cache-Control', 'private, no-store');
 
     if (req.method === 'OPTIONS') return res.status(204).end();
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-    if (rateLimited(clientIp(req))) {
+    const ip = clientIp(req);
+    const shared = await rateLimitOk(LIMIT_KEY + ip, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW_MS / 1000);
+    if (shared === null ? rateLimited(ip) : !shared) {
         res.setHeader('Retry-After', String(RATE_LIMIT_WINDOW_MS / 1000));
         return res.status(429).json({ error: 'Too many requests. Please wait a minute and try again.' });
     }
@@ -734,7 +748,7 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'A valid email is required' });
     }
 
-    const user = await userFromToken(body?.accessToken);
+    const user = await userFromToken(tokenFrom(req, body));
     const entitled = user ? await hasActiveAccess(user.id) : false;
 
 

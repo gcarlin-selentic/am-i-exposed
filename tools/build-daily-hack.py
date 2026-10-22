@@ -383,13 +383,22 @@ tr[hidden]{display:none}
 }
 """
 
-JS = """
+# Vivia dentro de la pagina como <script> en linea, y eso obliga al CSP a
+# permitir 'unsafe-inline' en script-src, con lo que el CSP deja de servir
+# para lo que existe. Ahora sale a /daily-hack.js, un archivo para las dos
+# paginas: las palabras que cambian con el idioma viajan en atributos data-
+# del bloque de filtros, no interpoladas aqui.
+JS = """// Filtros del Daily Hack. Generado por tools/build-daily-hack.py.
 (function(){
+ var caja=document.getElementById('filtros');
+ if(!caja)return;
  var q=document.getElementById('fQ'),c=document.getElementById('fCountry'),
      s=document.getElementById('fSector'),g=document.getElementById('fGroup'),
      e=document.getElementById('fState'),r=document.getElementById('fReset'),
      nada=document.getElementById('sinResultados');
- var LIM=%(lim)d;
+ var LIM=parseInt(caja.dataset.lim,10)||40;
+ var UNO=caja.dataset.one||'',VARIOS=caja.dataset.many||'',
+     MAS=caja.dataset.more||'',MENOS=caja.dataset.less||'';
  var campos=[q,c,s,g].concat(e?[e]:[]);
  function texto(tr){
   if(!tr._t)tr._t=(tr.textContent||'').toLowerCase();
@@ -408,7 +417,7 @@ JS = """
     tr.hidden=!ok||(!open&&n>LIM&&!sec.classList.contains('all'));
    });
    total+=n;
-   sec.querySelector('.c').textContent=n+' '+(n===1?'%(one)s':'%(many)s');
+   sec.querySelector('.c').textContent=n+' '+(n===1?UNO:VARIOS);
    var btn=sec.querySelector('.more button');
    if(btn)btn.hidden=open||n<=LIM;
    var em=sec.querySelector('.empty');
@@ -426,7 +435,7 @@ JS = """
   b.addEventListener('click',function(){
    var sec=b.closest('section.region');
    sec.classList.toggle('all');
-   b.textContent=sec.classList.contains('all')?'%(less)s':'%(more)s';
+   b.textContent=sec.classList.contains('all')?MENOS:MAS;
    paint();
   });
  });
@@ -613,7 +622,11 @@ def pagina(idioma, datos, hoy):
                          key=str.lower)
     estados_pres = [e for e in ('reclamado', 'confirmado', 'verificado')
                     if any(c['status'] == e for c in semana)]
-    w('    <div class="filters">')
+    # Las cuatro palabras que /daily-hack.js necesita y que cambian con el
+    # idioma. Van aqui porque el script es uno solo para las dos paginas.
+    w(f'    <div class="filters" id="filtros" data-lim="{FILAS_VISIBLES}"'
+      f' data-one="{E(t["case"])}" data-many="{E(t["cases"])}"'
+      f' data-more="{E(t["more"])}" data-less="{E(t["less"])}">')
     w(f'        <div class="fld"><label for="fCountry">{E(t["fcountry"])}</label>'
       '<select id="fCountry">')
     w(f'            <option value="">{E(t["fall"])}</option>')
@@ -750,10 +763,7 @@ def pagina(idioma, datos, hoy):
     w('    </div>')
     w('</footer>')
     w('')
-    w('<script>' + JS % {'lim': FILAS_VISIBLES, 'one': t['case'], 'many': t['cases'],
-                         'more': t['more'], 'less': t['less']} + '</script>')
-    w('<script>window.va = window.va || function () { '
-      '(window.vaq = window.vaq || []).push(arguments); };</script>')
+    w('<script src="/daily-hack.js" defer></script>')
     w('<script defer src="/_vercel/insights/script.js"></script>')
     w('')
     w('</body>')
@@ -772,6 +782,11 @@ def main():
         open(os.path.join(carpeta, 'index.html'), 'w', encoding='utf-8').write(texto)
         print(f'{SALIDA[idioma]}/index.html: {len(texto) // 1024} KB')
         resumen = {'date': hoy, 'new': n_hoy, 'week': n_total}
+
+    # El script de los filtros, fuera de la pagina para que el CSP no tenga
+    # que permitir scripts en linea. Uno solo para las dos paginas.
+    open(os.path.join(ROOT, 'daily-hack.js'), 'w', encoding='utf-8').write(JS)
+    print('daily-hack.js')
 
     # Dos numeros para el boton de la portada. Se lee con fetch, asi que la
     # portada no hay que regenerarla cada dia para que la cifra sea de hoy.

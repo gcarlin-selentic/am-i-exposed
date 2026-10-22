@@ -24,6 +24,7 @@ import {
     publicBaseUrl,
     readBody,
     sbInsert,
+    tokenFrom,
     userFromToken,
 } from './_shared.js';
 
@@ -93,7 +94,7 @@ export default async function handler(req, res) {
         res.setHeader('Vary', 'Origin');
     }
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
     if (req.method === 'OPTIONS') return res.status(204).end();
 
@@ -174,7 +175,7 @@ export default async function handler(req, res) {
     // A purchase has to belong to an account, because that is what the
     // entitlement hangs off. Anonymous checkout would take the money and have
     // nobody to give access to.
-    const user = await userFromToken(body?.accessToken);
+    const user = await userFromToken(tokenFrom(req, body));
     if (!user) return res.status(401).json({ error: 'Sign in first' });
 
 

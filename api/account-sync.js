@@ -11,7 +11,7 @@
 // This endpoint receives a token and nothing else, so there is no point at
 // which a visitor's query and their account could be put side by side.
 
-import { userFromToken, readBody, sbSelect } from './_shared.js';
+import { userFromToken, readBody, sbSelect, tokenFrom } from './_shared.js';
 import { syncUserOnce } from './_zoho.js';
 
 // Same test as the report's: a paid row, for this deployment's Mercado Pago
@@ -42,7 +42,7 @@ export default async function handler(req, res) {
     }
 
     const body = readBody(req) || {};
-    const user = await userFromToken(body.accessToken);
+    const user = await userFromToken(tokenFrom(req, body));
     if (!user) return res.status(401).json({ error: 'Sign in first' });
 
     const paid = await hasActiveAccess(user.id);
