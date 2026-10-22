@@ -1,5 +1,11 @@
 {
   "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "am-i-exposed.com" }],
+      "destination": "https://www.am-i-exposed.com/:path*",
+      "permanent": true
+    },
     { "source": "/en", "destination": "/", "permanent": true },
     { "source": "/en/", "destination": "/", "permanent": true },
     { "source": "/en/faq", "destination": "/faq/", "permanent": true },
