@@ -16,6 +16,7 @@ import {
     credentialOwnerId,
     expectLiveMode,
     isAllowedOrigin,
+    isPeru,
     isUnitedStates,
     mpMode,
     paddleConfig,
@@ -107,17 +108,18 @@ export default async function handler(req, res) {
         // cache would serve one country's checkout to another's buyer.
         res.setHeader('Cache-Control', 'private, no-store');
 
-        // United States: Paddle, in dollars, as merchant of record. Mercado
-        // Pago does not operate there and settles in soles, so a buyer in
-        // Miami would see S/ 19 and a foreign transaction fee on their
-        // statement, which is a good way to lose the sale.
+        // Soles only in Peru. Everywhere else the sol is a foreign currency,
+        // and Mercado Pago settles in soles from a Peruvian account, so a
+        // buyer in Miami or in Mexico City would be quoted S/ 19 and charged
+        // an exchange fee on top of it. Paddle takes dollars as merchant of
+        // record, so outside Peru it is asked first.
         //
         // Deliberately no amount in this branch. Paddle owns the price, and
         // keeping a copy of it here would be a number that silently stops
         // matching the one actually charged the day it changes in the Paddle
         // panel. The page asks Paddle instead, through Paddle.PricePreview,
         // which also returns it already formatted for the buyer's location.
-        if (isUnitedStates(req)) {
+        if (!isPeru(req)) {
             const paddle = paddleConfig('PADDLE_REPORT_PRICE_ID');
             if (paddle) {
                 return res.status(200).json({
@@ -131,13 +133,21 @@ export default async function handler(req, res) {
                     mode: paddle.environment === 'production' ? 'live' : 'test',
                 });
             }
-            // No fall-through to Mercado Pago. It settles in soles, so the
-            // buyer in Miami would be quoted S/ 19 and charged a foreign
-            // transaction fee on top, against a FAQ that promises US$ 5. A
-            // price that contradicts the published one is worse than no
-            // offer, and this reads as "not for sale here yet", which is the
+
+            // The United States is the one place that gets no offer at all
+            // while Paddle is not live, because the FAQ promises US$ 5 there
+            // and a price that contradicts the published one is worse than no
+            // offer. This reads as "not for sale here yet", which is the
             // truth while Paddle reviews the domain.
-            return res.status(200).json({ available: false });
+            if (isUnitedStates(req)) {
+                return res.status(200).json({ available: false });
+            }
+
+            // The rest of the world keeps paying in soles until Paddle is
+            // live, with the page saying so under the price. Closing the sale
+            // instead would cost every buyer in Latin America, which is where
+            // the money actually comes from today, and buy nothing: the day
+            // the live Paddle token is set, this branch stops being reached.
         }
 
         if (!price) return res.status(200).json({ available: false });

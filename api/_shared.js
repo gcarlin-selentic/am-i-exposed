@@ -103,6 +103,19 @@ export function isUnitedStates(req) {
     return req?.headers?.['x-vercel-ip-country'] === 'US';
 }
 
+// Peru is the only country that pays in soles. Mercado Pago liquida en soles
+// desde una cuenta peruana, asi que el sol es la moneda de su pais y la
+// moneda extranjera de todos los demas: cobrarle soles a alguien en Mexico le
+// mete una comision de cambio encima del precio.
+//
+// Falso cuando la cabecera no esta, que es lo que pasa en una peticion local.
+// Eso manda al visitante por Mercado Pago igual, porque la rama de abajo cae
+// ahi cuando Paddle no contesta, y Mercado Pago es el camino que lleva
+// semanas tomando dinero de verdad.
+export function isPeru(req) {
+    return req?.headers?.['x-vercel-ip-country'] === 'PE';
+}
+
 // Paddle's client-side tokens are prefixed test_ in sandbox and live_ in
 // production, so the environment is read off the token rather than kept as a
 // second setting that can disagree with it.
@@ -128,11 +141,12 @@ export function paddleConfig(priceEnv) {
     return { token, priceId, environment };
 }
 
-// Cuanto cuesta el reporte en dolares, solo para mostrarlo. Fuera de Estados
-// Unidos el cobro lo hace Mercado Pago en soles y eso no cambia: este numero
-// no se le pasa nunca a la pasarela, solo lo pinta la pagina en ingles, donde
-// "S/ 19" no le dice nada a nadie. Si no esta puesto, la pagina en ingles
-// sigue mostrando el precio real en soles, que es la respuesta segura.
+// Cuanto cuesta el reporte en dolares, solo para mostrarlo. Mientras Paddle
+// no este en vivo, fuera de Peru el cobro lo sigue haciendo Mercado Pago en
+// soles: este numero no se le pasa nunca a la pasarela, solo lo pinta la
+// pagina en ingles, donde "S/ 19" no le dice nada a nadie, y debajo va la
+// linea que dice que el cargo es en soles. Si no esta puesto, la pagina en
+// ingles muestra el precio real en soles, que es la respuesta segura.
 export function usdReference() {
     const amount = Number(process.env.REPORT_USD_PRICE);
     return Number.isFinite(amount) && amount > 0 ? amount : null;
