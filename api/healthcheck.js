@@ -50,6 +50,13 @@ function secretMatches(given, expected) {
     return diff === 0;
 }
 
+// Where the alert goes. ALERT_EMAIL is the documented name; ALERT_MAIL is
+// accepted too because it is the easy slip to make when setting it by hand, and
+// a monitor that silently cannot mail over a one-word typo defeats its purpose.
+function alertRecipient() {
+    return process.env.ALERT_EMAIL || process.env.ALERT_MAIL || null;
+}
+
 async function checkKeepalive() {
     try {
         const r = await fetch(`${SITE}/api/keepalive`, {
@@ -158,7 +165,7 @@ export default async function handler(req, res) {
     // pipe, not the site) and spends no HIBP quota.
     const selftest = req.query?.selftest === '1' || (req.url || '').includes('selftest=1');
     if (selftest) {
-        const to = process.env.ALERT_EMAIL;
+        const to = alertRecipient();
         const sent = to
             ? await sendOpsAlert({
                 to,
@@ -178,7 +185,7 @@ export default async function handler(req, res) {
     const failures = checks.filter(c => !c.ok);
 
     let alerted = false;
-    const to = process.env.ALERT_EMAIL;
+    const to = alertRecipient();
     if (failures.length && to) {
         alerted = await sendOpsAlert({
             to,
