@@ -20,14 +20,31 @@
 // (an external pinger expecting a daily beacon) is the next step if that ever
 // matters.
 //
-// Gated like the keep-alive: when CRON_SECRET is set, only a caller carrying it
-// as a bearer token gets through. The recipient is ALERT_EMAIL; with it unset
-// the check still runs and reports in its JSON response, but cannot mail, and
-// says so.
+// Fails closed. Unlike the keep-alive, every run of this endpoint spends the
+// shared HIBP quota (the check-email probe), can send mail, and names which
+// internal service is down, so it must never answer an unauthenticated caller:
+// an open one would let anyone burn the quota, fan out alert mail, and read the
+// site's health. It requires CRON_SECRET as a bearer token, compared in
+// constant time. Vercel Cron attaches that header automatically once CRON_SECRET
+// is set on the project; until it is set the monitor stays off rather than open,
+// and the checks do not run at all. The recipient is ALERT_EMAIL; with that
+// unset the check runs but cannot mail, and says so in its response.
 
 import { sendOpsAlert } from './_email.js';
 
 const SITE = 'https://www.am-i-exposed.com';
+
+// Constant-time compare, so the secret cannot be recovered a character at a time
+// from how long a mismatch takes to answer. Same shape as supabase-hook.js.
+function secretMatches(given, expected) {
+    if (!expected || !given) return false;
+    const a = Buffer.from(String(given));
+    const b = Buffer.from(String(expected));
+    if (a.length !== b.length) return false;
+    let diff = 0;
+    for (let i = 0; i < a.length; i++) diff |= a[i] ^ b[i];
+    return diff === 0;
+}
 
 async function checkKeepalive() {
     try {
@@ -105,8 +122,16 @@ function alertHtml(failures) {
 export default async function handler(req, res) {
     res.setHeader('Cache-Control', 'private, no-store');
 
+    // Fail closed. No secret configured means the monitor is simply off; a
+    // configured secret must match. Neither reply carries any internal detail,
+    // and the checks below never run for an unauthenticated caller, so no HIBP
+    // quota is spent and no mail is sent on their behalf.
     const secret = process.env.CRON_SECRET;
-    if (secret && req.headers.authorization !== `Bearer ${secret}`) {
+    const bearer = (req.headers.authorization || '').replace(/^Bearer /, '');
+    if (!secret) {
+        return res.status(503).json({ error: 'Monitoring not configured' });
+    }
+    if (!secretMatches(bearer, secret)) {
         return res.status(401).json({ error: 'Unauthorized' });
     }
 
