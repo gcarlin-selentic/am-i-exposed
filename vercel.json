@@ -114,6 +114,7 @@
     }
   ],
   "crons": [
-    { "path": "/api/keepalive", "schedule": "0 12 * * *" }
+    { "path": "/api/keepalive", "schedule": "0 12 * * *" },
+    { "path": "/api/healthcheck", "schedule": "0 13 * * *" }
   ]
 }

@@ -188,3 +188,12 @@ export async function sendRefundNotice({ to, lang, amount, currency, paidAt }) {
     });
     return send({ to, subject: c.refundSubject, html });
 }
+
+// An alert to ourselves, not a customer: the daily health check uses it to
+// report a production failure. Reuses the same Brevo path and the same contract
+// as the receipts above, so it returns false instead of throwing. The caller
+// builds its own HTML, because an ops alert shares nothing with a receipt's
+// layout.
+export async function sendOpsAlert({ to, subject, html }) {
+    return send({ to, subject, html });
+}
