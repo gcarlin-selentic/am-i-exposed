@@ -29,6 +29,10 @@
 // is set on the project; until it is set the monitor stays off rather than open,
 // and the checks do not run at all. The recipient is ALERT_EMAIL; with that
 // unset the check runs but cannot mail, and says so in its response.
+//
+// A `?selftest=1` call (authenticated, same gate) sends one clearly marked test
+// mail to ALERT_EMAIL without waiting for a real failure and without running the
+// probes, so the mail path and the inbox can be confirmed once.
 
 import { sendOpsAlert } from './_email.js';
 
@@ -101,6 +105,20 @@ async function checkEmailCheck() {
     }
 }
 
+function selftestHtml() {
+    return `<!doctype html><html><head><meta charset="utf-8"></head>`
+        + `<body style="margin:0;background:#FAFAFA;">`
+        + `<div style="max-width:560px;margin:0 auto;padding:32px 20px;`
+        + `font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;`
+        + `font-size:15px;line-height:1.6;color:#111;">`
+        + `<p style="margin:0 0 20px;font-weight:700;font-size:17px;">Am I Exposed · chequeo diario</p>`
+        + `<h1 style="margin:0 0 16px;font-size:21px;">Correo de prueba</h1>`
+        + `<p style="margin:0 0 14px;">Esto es una prueba manual del sistema de alertas. No hay ninguna `
+        + `falla. Si lo recibes, la ruta de correo funciona y las alertas reales llegaran a esta bandeja.</p>`
+        + `<p style="margin:24px 0 0;font-size:13px;color:#666;">Prueba de ${SITE} · ${new Date().toISOString()}.</p>`
+        + `</div></body></html>`;
+}
+
 function alertHtml(failures) {
     const rows = failures
         .map(f => `<li style="margin:0 0 10px;"><b>${f.name}</b>: ${f.detail}</li>`)
@@ -133,6 +151,27 @@ export default async function handler(req, res) {
     }
     if (!secretMatches(bearer, secret)) {
         return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    // Authenticated self-test: send one marked test mail to ALERT_EMAIL without
+    // waiting for a real failure. It runs no probes (this is about the alert
+    // pipe, not the site) and spends no HIBP quota.
+    const selftest = req.query?.selftest === '1' || (req.url || '').includes('selftest=1');
+    if (selftest) {
+        const to = process.env.ALERT_EMAIL;
+        const sent = to
+            ? await sendOpsAlert({
+                to,
+                subject: '[Am I Exposed] Prueba del chequeo diario (ignorar)',
+                html: selftestHtml(),
+            })
+            : false;
+        return res.status(200).json({
+            selftest: true,
+            sent,
+            alertEmailConfigured: !!to,
+            at: new Date().toISOString(),
+        });
     }
 
     const checks = await Promise.all([checkKeepalive(), checkEmailCheck()]);
