@@ -216,6 +216,55 @@
         <p class="alerts-caveat" id="missedCaveat" data-i18n="alertsCaveat">Para cobrar hab&iacute;a que pertenecer a la clase, lo que normalmente exige haber recibido la carta de aviso de la empresa. Aparecer en la filtraci&oacute;n no lo garantiza. No somos abogados y no reclamamos por ti.</p>
     </section>
 
+    <!-- Funnel de cross-check (solo EE. UU., mismo gate que la tarjeta de
+         alertas). Paso 2: el visitante agrega empresas con las que ha tenido
+         trato y ampl&iacute;a el cruce del correo; el n&uacute;mero "hasta $X" es gratis, la
+         lista y el gate ($5 una vez / $3 al mes) son de pago. La tarjeta de
+         dinero gratis de arriba se deja intacta para quien no puede pagar. -->
+    <section class="offer crosscheck" id="crosscheckCard" hidden>
+        <span class="badge"><span class="dot"></span><span data-i18n="ccBadge">Tus reclamos &middot; EE.&nbsp;UU.</span></span>
+        <h2 data-i18n="ccTitle">&iquest;Qu&eacute; acuerdos podr&iacute;as reclamar realmente?</h2>
+        <p data-i18n="ccLede">Tu correo solo encuentra filtraciones que seguimos por correo. Marca las empresas de las que has sido cliente, paciente o empleado &mdash; as&iacute; encontramos reclamos que tu correo solo no detecta.</p>
+
+        <div class="cc-step" data-i18n="ccStep2">Paso 2 &middot; &iquest;cu&aacute;les de estas has usado?</div>
+        <div class="cc-chips" id="funnelChips"></div>
+        <div class="cc-state">
+            <label for="funnelState" data-i18n="ccStateLabel">Estado donde resides</label>
+            <select id="funnelState"></select>
+        </div>
+
+        <div class="cc-number" id="funnelNumber" hidden>
+            <span class="cc-n-label" data-i18n="ccNumLabel">Podr&iacute;as reclamar</span>
+            <span class="cc-n-big" id="funnelTotal">&mdash;</span>
+            <span class="cc-n-sub" id="funnelSub"></span>
+            <span class="cc-n-note" data-i18n="ccNumNote">&ldquo;Hasta&rdquo; son los montos m&aacute;ximos publicados. Aparecer no es una promesa de pago.</span>
+        </div>
+
+        <div class="cc-locked" id="funnelLocked" hidden>
+            <h3 data-i18n="ccLockedTitle">Ver cu&aacute;les son y c&oacute;mo reclamar</h3>
+            <p class="cc-locked-lede" data-i18n="ccLockedLede">El n&uacute;mero es gratis. Para ver qu&eacute; empresas, los montos y los enlaces oficiales para reclamar, desbloquea la lista:</p>
+            <ul class="cc-locked-list" id="funnelLockedList"></ul>
+            <div class="cc-gate">
+                <div class="cc-plan primary">
+                    <div class="cc-plan-k" data-i18n="ccPlanOnceK">Ver ahora</div>
+                    <div class="cc-plan-v">US$&nbsp;5<small data-i18n="ccPlanOnceP">una vez</small></div>
+                    <div class="cc-plan-d" data-i18n="ccPlanOnceD">Desbloquea tu lista completa: qu&eacute; empresas, los montos y los enlaces oficiales para reclamar hoy.</div>
+                    <button class="btn" id="funnelUnlockBtn" data-action="startListUnlock" data-i18n="ccPlanOnceBtn">Ver mis acuerdos</button>
+                </div>
+                <div class="cc-plan">
+                    <div class="cc-plan-k" data-i18n="ccPlanSubK">Monitoreo</div>
+                    <div class="cc-plan-v">US$&nbsp;3<small data-i18n="ccPlanSubP">al mes &middot; $30/a&ntilde;o</small></div>
+                    <div class="cc-plan-d" data-i18n="ccPlanSubD">Te vigilamos y te avisamos en cuanto se abre uno nuevo donde podr&iacute;as calificar.</div>
+                    <button class="btn ghost" id="funnelMonitorBtn" data-action="startFunnelMonitor" data-i18n="ccPlanSubBtn">Activar monitoreo</button>
+                </div>
+            </div>
+            <p class="cc-unavail" id="funnelUnavail" hidden data-i18n="ccUnavail">Estamos preparando el cobro para tu pa&iacute;s. Activa el monitoreo abajo y te avisamos por correo en cuanto est&eacute; listo.</p>
+        </div>
+
+        <p class="alerts-caveat" data-i18n="ccCaveat">Podr&iacute;as calificar si fuiste cliente, paciente o empleado de la empresa en el periodo afectado. Aparecer no es elegibilidad. Enlazamos solo al administrador oficial. No somos abogados y no reclamamos por ti.</p>
+        <div class="error" id="funnelError" style="display:none"></div>
+    </section>
+
     <!-- Breach list, folded behind a free-to-open button, below the money card -->
     <div id="breachListBlock"></div>
 
@@ -445,7 +494,8 @@
     </div>
 </div>
 
-<script src="/app.js?v=2026-10-31a" defer></script>
+<script src="/funnel-match.js?v=2026-11-01a" defer></script>
+<script src="/app.js?v=2026-11-01a" defer></script>
 
 <!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
      a visitor, which is why the privacy policy can still promise no tracking
