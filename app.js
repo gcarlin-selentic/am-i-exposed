@@ -83,8 +83,8 @@ const COPY = {
         dailyTag: 'Hackeos hoy',
         dailyBadge: 'Actualizado cada mañana',
         dailyCount: (n) => (n === 1 ? '1 víctima nueva hoy' : `${num(n)} víctimas nuevas hoy`),
-        heroTitle: '¿Se filtraron tus datos?',
-        heroLede: 'Escribe tu correo y te decimos en segundos si aparece en alguna filtración conocida, y qué hacer al respecto.',
+        heroTitle: 'Puede que te deban dinero. Nadie te avisó.',
+        heroLede: 'Cuando una empresa filtra tus datos, por un ataque de ransomware o una brecha común, muchas veces tiene que pagarte. El aviso llega por correo postal, parece basura y casi nadie reclama. Escribe tu correo y te decimos si hay dinero que puedas reclamar, y qué más hacer.',
         heroBtn: 'Revisar mi correo',
         heroPlaceholder: 'tucorreo@ejemplo.com',
         checking: 'Revisando...',
@@ -232,6 +232,7 @@ const COPY = {
         inBreaches: (n) => n === 1 ? '1 filtración' : `${n} filtraciones`,
         accountsIn: 'cuentas en esta filtración',
         showMore: (n) => n === 1 ? 'Ver 1 filtración más' : `Ver las otras ${n} filtraciones`,
+        showAllFree: 'Ver todas las filtraciones gratis · sin tarjeta',
         noDate: 'Fecha no publicada',
         notPublished: 'No publicado',
         stealerFlag: '<b>Esta es la más grave.</b> Un programa malicioso copió contraseñas guardadas directamente de un computador. Si alguna de tus contraseñas se repite en varios sitios, cámbiala hoy.',
@@ -314,8 +315,8 @@ const COPY = {
         dailyTag: 'Daily Hack',
         dailyBadge: 'Updated every morning',
         dailyCount: (n) => (n === 1 ? '1 new victim today' : `${num(n)} new victims today`),
-        heroTitle: 'Was your data leaked?',
-        heroLede: 'Type your email and we will tell you in seconds whether it shows up in a known breach, and what to do about it.',
+        heroTitle: 'You may be owed money. Nobody told you.',
+        heroLede: 'When a company leaks your data, in a ransomware attack or an ordinary breach, it often has to pay you. The notice comes by post, looks like junk, and almost nobody claims. Enter your email and we will tell you if there is money you can claim, and what else to do.',
         heroBtn: 'Check my email',
         heroPlaceholder: 'you@example.com',
         checking: 'Checking...',
@@ -459,6 +460,7 @@ const COPY = {
         inBreaches: (n) => n === 1 ? '1 breach' : `${n} breaches`,
         accountsIn: 'accounts in this breach',
         showMore: (n) => n === 1 ? 'Show 1 more breach' : `Show the other ${n} breaches`,
+        showAllFree: 'Show me all breaches for free · no credit card',
         noDate: 'Breach date not published',
         notPublished: 'Not published',
         stealerFlag: '<b>This is the serious one.</b> A malicious program copied saved passwords straight off a computer. If you reuse any password across sites, change it today.',
@@ -1315,6 +1317,10 @@ function renderCleanEmail(email) {
             </div>
         </div>`;
     resultDiv.style.display = 'block';
+
+    // No breaches, so no breach list below the money card.
+    const blockDiv = document.getElementById('breachListBlock');
+    if (blockDiv) { blockDiv.innerHTML = ''; blockDiv.style.display = 'none'; }
 }
 
 function renderEmailResult(breaches, email) {
@@ -1323,10 +1329,10 @@ function renderEmailResult(breaches, email) {
     const unlocked = isUnlocked();
 
     // Which breaches you are in is free. What leaked in each one is gated.
-    // A heavily exposed address can return hundreds of breaches. Showing
-    // them all at once buries the gate and the next step under a wall of
-    // names, so the tail is folded behind a button.
-    const VISIBLE = 8;
+    // A heavily exposed address can return hundreds of breaches, so the whole
+    // list is folded behind one button and rendered below the money card: the
+    // first thing under the verdict is whether there is money to claim, not a
+    // wall of breach names.
     const breachCard = (breach) => {
         const label = siteName(breach);
         const when = formatBreachDate(breach.breachDate);
@@ -1362,13 +1368,10 @@ function renderEmailResult(breaches, email) {
             </div>`;
     };
 
-    const shown = breaches.slice(0, VISIBLE).map(breachCard).join('');
-    const restCount = breaches.length - VISIBLE;
-    const breachHTML = restCount > 0
-        ? shown
-            + `<div id="breachRest" hidden>${breaches.slice(VISIBLE).map(breachCard).join('')}</div>`
-            + `<button type="button" class="more-btn" data-action="showAllBreaches">${escapeHtml(t().showMore(restCount))}</button>`
-        : shown;
+    const breachListHTML = `
+        <div class="section-lbl">${escapeHtml(t().lblWhere)}</div>
+        <button type="button" class="more-btn" data-action="showAllBreaches">${escapeHtml(t().showAllFree)}</button>
+        <div id="breachRest" hidden>${breaches.map(breachCard).join('')}</div>`;
 
     // Roll-up: how many breaches exposed each kind of data.
     let rollupHTML = '';
@@ -1444,12 +1447,19 @@ function renderEmailResult(breaches, email) {
             </div>
             ${tallyHTML}
             ${rollupHTML}
-            <div class="section-lbl">${escapeHtml(t().lblWhere)}</div>
-            ${breachHTML}
             ${nextHTML}
             ${gateHTML}
         </div>`;
     resultDiv.style.display = 'block';
+
+    // The breach list lives in its own block below the money card, so the first
+    // thing under the verdict is whether there is money to claim. The whole list
+    // is folded behind one free-to-open button.
+    const blockDiv = document.getElementById('breachListBlock');
+    if (blockDiv) {
+        blockDiv.innerHTML = breachListHTML;
+        blockDiv.style.display = 'block';
+    }
 }
 
 function showAllBreaches(btn) {

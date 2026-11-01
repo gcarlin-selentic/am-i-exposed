@@ -200,6 +200,21 @@
     <div id="emailError" class="error" style="display: none;"></div>
     <div id="emailResult" style="display: none;"></div>
 
+    <!-- Money card, surfaced right under the result and above the breach list:
+         whether there is money to claim is the first thing the reader sees.
+         Filled by app.js from settlements.json; the browser already holds the
+         breach list, so nothing is sent anywhere to match it. -->
+    <section class="offer missed" id="missedCard" hidden>
+        <h2 id="missedTitle" data-i18n="alertsMissedTitle">You could already have claimed, and nobody told you.</h2>
+        <p id="missedLede" data-i18n="alertsMissedLede">Your email appears in breaches that ended in a settlement. This is what they paid, and when the window closed:</p>
+        <p id="missedNone" hidden></p>
+        <ul class="alerts-missed" id="alertsMissedList"></ul>
+        <p class="alerts-caveat" id="missedCaveat" data-i18n="alertsCaveat">Claiming required being in the class, which usually means having received the company&rsquo;s notice letter. Appearing in the breach does not guarantee it. We are not lawyers and we do not claim on your behalf.</p>
+    </section>
+
+    <!-- Breach list, folded behind a free-to-open button, below the money card -->
+    <div id="breachListBlock"></div>
+
     <!-- Password check, folded away so the page opens on one decision -->
     <div class="fold" id="pwFold" data-open="0">
         <button type="button" class="fold-head" data-action="togglePasswordFold">
@@ -243,21 +258,6 @@
                href="/faq/">See all the questions</a>
         </div>
     </div>
-
-    <!-- What somebody could have claimed is information, not a product: it
-         does not depend on where they live or on being able to buy anything,
-         so it has its own card, above the paid one, right where the result
-         leaves the reader. It used to live inside the alerts card, which is
-         offered in the United States only, and everybody else never saw it.
-         Filled by app.js from settlements.json; the browser already holds the
-         breach list, so nothing is sent anywhere to match it. -->
-    <section class="offer missed" id="missedCard" hidden>
-        <h2 id="missedTitle" data-i18n="alertsMissedTitle">You could already have claimed, and nobody told you.</h2>
-        <p id="missedLede" data-i18n="alertsMissedLede">Your email appears in breaches that ended in a settlement. This is what they paid, and when the window closed:</p>
-        <p id="missedNone" hidden></p>
-        <ul class="alerts-missed" id="alertsMissedList"></ul>
-        <p class="alerts-caveat" id="missedCaveat" data-i18n="alertsCaveat">Claiming required being in the class, which usually means having received the company&rsquo;s notice letter. Appearing in the breach does not guarantee it. We are not lawyers and we do not claim on your behalf.</p>
-    </section>
 
     <!-- Paid tier. Hidden once the visitor is known to have bought it: selling
          somebody something they already own reads as a mistake, and it is. -->
