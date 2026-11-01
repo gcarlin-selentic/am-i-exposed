@@ -82,6 +82,67 @@ def demandable(b):
                 or b.get('IsMalware') or b.get('IsFabricated'))
 
 
+EN_CURSO = {'investigacion abierta', 'demanda presentada'}
+
+
+def indexar(filas, clave):
+    idx = {}
+    for r in filas:
+        c = core(r.get(clave))
+        if c:
+            idx.setdefault(c, []).append(r)
+    return idx
+
+
+def match_catalogue(hibp, filas, clave, fuente):
+    idx = indexar(filas, clave)
+    out = []
+    for b in hibp:
+        if b['Name'] in EXCLUIR:
+            continue
+        equiv = EQUIVALENTES.get(b['Name'])
+        for campo in ('Name', 'Title', '_equiv'):
+            c = core(equiv) if campo == '_equiv' else core(b.get(campo))
+            if c and c in idx:
+                for r in idx[c]:
+                    out.append({'breach': b['Name'], 'titulo_hibp': b['Title'],
+                                'cuentas': b['PwnCount'], 'dominio': b.get('Domain'),
+                                'fecha_filtracion': b['BreachDate'],
+                                'fuente': fuente, 'registro': r})
+                break
+    return out
+
+
+def build_card(cruzado, paginas):
+    tarjeta, visto = [], set()
+    for r in sorted(cruzado, key=lambda r: 0 if r['estado'] == 'acuerdo' else 1):
+        estado = r['estado']
+        if estado == 'acuerdo':
+            tipo = 'acuerdo'
+        elif estado in EN_CURSO:
+            tipo = 'demanda'
+        else:
+            continue                      # investigacion cerrada: no hay caso
+        if r['dudoso'] or r['hibp'] in visto:
+            continue
+        visto.add(r['hibp'])
+        s = slugify(r['empresa'])
+        fila = {'hibp': r['hibp'], 'titulo': r['empresa'], 'empresa': r['empresa'],
+                'tipo': tipo, 'fuente': r['url_caso'],
+                'slug': s if s in paginas else None}
+        if tipo == 'acuerdo':
+            fila.update({'porPersona': r.get('pago_por_persona'), 'fondo': r.get('fondo'),
+                         'plazo': r.get('plazo'),
+                         # Validado: este valor viene de raspar otra web y se
+                         # publica como el sitio oficial donde reclamar dinero.
+                         'sitio': claim_site.mostrar(r.get('sitio_reclamo')),
+                         'elegible': r.get('elegible')})
+        tarjeta.append(fila)
+    # Primero lo que paga, y dentro de eso lo que mas paga.
+    tarjeta.sort(key=lambda x: (x['tipo'] != 'acuerdo', -(x.get('porPersona') or 0)))
+    return tarjeta
+
+
 def main():
     hibp = [b for b in cargar('hibp-breaches.json') if demandable(b)]
     tca = cargar('tca-settlements.json')
@@ -90,34 +151,8 @@ def main():
         raise SystemExit('falta data/hibp-breaches.json: corre tools/refresh-cases.py primero')
     print(f'HIBP demandables {len(hibp)} | acuerdos {len(tca)} | demandas {len(cao)}')
 
-    def indexar(filas, clave):
-        idx = {}
-        for r in filas:
-            c = core(r.get(clave))
-            if c:
-                idx.setdefault(c, []).append(r)
-        return idx
-
-    def cruzar(filas, clave, fuente):
-        idx = indexar(filas, clave)
-        out = []
-        for b in hibp:
-            if b['Name'] in EXCLUIR:
-                continue
-            equiv = EQUIVALENTES.get(b['Name'])
-            for campo in ('Name', 'Title', '_equiv'):
-                c = core(equiv) if campo == '_equiv' else core(b.get(campo))
-                if c and c in idx:
-                    for r in idx[c]:
-                        out.append({'breach': b['Name'], 'titulo_hibp': b['Title'],
-                                    'cuentas': b['PwnCount'], 'dominio': b.get('Domain'),
-                                    'fecha_filtracion': b['BreachDate'],
-                                    'fuente': fuente, 'registro': r})
-                    break
-        return out
-
-    m_tca = cruzar(tca, 'empresa', 'topclassactions')
-    m_cao = cruzar(cao, 'empresa', 'classaction.org')
+    m_tca = match_catalogue(hibp, tca, 'empresa', 'topclassactions')
+    m_cao = match_catalogue(hibp, cao, 'empresa', 'classaction.org')
     print(f'coincidencias: TCA {len(m_tca)}, CAO {len(m_cao)}')
 
     cruzado = []
@@ -155,35 +190,9 @@ def main():
     # mas, porque no hay dinero que prometer todavia. Mezclar las dos cosas
     # bajo la palabra "acuerdo" seria contar un cuento sobre el dinero de
     # otro. Solo los acuerdos pagan, y esos son los menos.
-    EN_CURSO = {'investigacion abierta', 'demanda presentada'}
     paginas = {p['ruta'].strip('/').split('/')[-1]
                for p in cargar('settlement-pages.json', [])}
-    tarjeta, visto = [], set()
-    for r in sorted(cruzado, key=lambda r: 0 if r['estado'] == 'acuerdo' else 1):
-        estado = r['estado']
-        if estado == 'acuerdo':
-            tipo = 'acuerdo'
-        elif estado in EN_CURSO:
-            tipo = 'demanda'
-        else:
-            continue                      # investigacion cerrada: no hay caso
-        if r['dudoso'] or r['hibp'] in visto:
-            continue
-        visto.add(r['hibp'])
-        s = slugify(r['empresa'])
-        fila = {'hibp': r['hibp'], 'titulo': r['empresa'], 'empresa': r['empresa'],
-                'tipo': tipo, 'fuente': r['url_caso'],
-                'slug': s if s in paginas else None}
-        if tipo == 'acuerdo':
-            fila.update({'porPersona': r.get('pago_por_persona'), 'fondo': r.get('fondo'),
-                         'plazo': r.get('plazo'),
-                         # Validado: este valor viene de raspar otra web y se
-                         # publica como el sitio oficial donde reclamar dinero.
-                         'sitio': claim_site.mostrar(r.get('sitio_reclamo')),
-                         'elegible': r.get('elegible')})
-        tarjeta.append(fila)
-    # Primero lo que paga, y dentro de eso lo que mas paga.
-    tarjeta.sort(key=lambda x: (x['tipo'] != 'acuerdo', -(x.get('porPersona') or 0)))
+    tarjeta = build_card(cruzado, paginas)
 
     # Las cifras del catalogo entero. La tarjeta las usa cuando el correo no
     # coincide con ningun caso, que es lo que le pasa a casi todo el mundo:
