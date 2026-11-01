@@ -117,7 +117,7 @@ const COPY = {
         alertsBadge: 'Alertas &middot; solo EE.&nbsp;UU.',
         alertsTitle: 'Si demandan a una empresa que filtró tus datos, te avisamos.',
         alertsLede: 'Las empresas que pierden datos terminan pagando acuerdos colectivos. El dinero existe y casi nadie lo reclama, porque el aviso llega por correo postal y se confunde con publicidad.',
-        alertsLi1: '<a href="/settlements/" class="alerts-link">1.614 casos en seguimiento, 307 todavía abiertos</a>',
+        alertsLi1: (casos, abiertos) => `<a href="/settlements/" class="alerts-link">${casos} casos en seguimiento, ${abiertos} abiertos para reclamar ahora</a>`,
         alertsLi2: 'Un aviso al mes, y uno aparte cuando haya algo que reclamar',
         alertsLi3: 'Si vives en California, te marcamos el pago estatutario extra',
         alertsFirstName: 'Nombre', alertsLastName: 'Apellido',
@@ -347,7 +347,7 @@ const COPY = {
         alertsBadge: 'Alerts &middot; US only',
         alertsTitle: 'If a company that leaked your data gets sued, we’ll let you know.',
         alertsLede: 'Companies that lose data end up paying class action settlements. The money is real and almost nobody claims it, because the notice arrives by post and looks like junk mail.',
-        alertsLi1: '<a href="/settlements/" class="alerts-link">1,614 cases tracked, 307 still open</a>',
+        alertsLi1: (casos, abiertos) => `<a href="/settlements/" class="alerts-link">${casos} cases tracked, ${abiertos} open to claim now</a>`,
         alertsLi2: 'One note a month, and a separate one when there is something to claim',
         alertsLi3: 'If you live in California, we flag the extra statutory payment',
         alertsFirstName: 'First name', alertsLastName: 'Last name',
@@ -642,6 +642,9 @@ function applyLang() {
     // The data-i18n sweep above has just overwritten the count with the
     // fixed label, so it has to be written back in the new language.
     renderDailyHack();
+    // Same story for the alerts-card count, which is a function fed by the
+    // funnel dataset rather than a fixed string.
+    renderAlertsCount();
 }
 
 // Redraw every rendered region. Used after a language change and after a
@@ -1655,6 +1658,35 @@ async function loadAlertsConfig() {
 // sigue teniendo la lista vieja en cache y no tiene por que romperse.
 const VACIO = { casos: 0, acuerdos: 0, abiertas: 0, filas: [] };
 let settlements = null;
+
+// El dataset del funnel: cuentas reconciliadas (las mismas que cuenta el hub
+// de /settlements/), los acuerdos abiertos con monto, y las empresas del Paso
+// 2. Una sola fuente para cada numero que ve el visitante.
+let funnelData = null;
+async function loadFunnel() {
+    if (funnelData) return funnelData;
+    try {
+        const response = await fetch('/funnel.json');
+        funnelData = response.ok ? await response.json() : null;
+    } catch (e) {
+        funnelData = null;
+    }
+    if (funnelData) renderAlertsCount();
+    return funnelData;
+}
+
+// El conteo de la tarjeta de alertas ("N casos en seguimiento, M abiertos")
+// sale del dataset, no de un numero escrito a mano que se queda viejo con cada
+// recoleccion. El barrido data-i18n deja intacto el texto de respaldo porque
+// alertsLi1 es una funcion, no una cadena; esto lo rellena cuando hay datos.
+function renderAlertsCount() {
+    const el = document.querySelector('[data-i18n="alertsLi1"]');
+    const li1 = t().alertsLi1;
+    if (!el || !funnelData?.meta || typeof li1 !== 'function') return;
+    const nf = new Intl.NumberFormat(lang === 'en' ? 'en-US' : 'es-CO');
+    el.innerHTML = li1(nf.format(funnelData.meta.casos),
+                       nf.format(funnelData.meta.abiertos));
+}
 
 async function loadSettlements() {
     if (settlements) return settlements;
@@ -2917,6 +2949,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     applyLang();
 
     loadDailyHack();
+    loadFunnel();
 
     const priceReady = loadPrice();
 

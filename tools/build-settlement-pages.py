@@ -35,6 +35,7 @@ import json, os, re, html, datetime, shutil, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import _claim_site as claim_site
+import _funnel
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOM = 'https://www.am-i-exposed.com'
@@ -877,6 +878,14 @@ SEARCH_JS = r'''(function () {
 })();
 '''
 open(os.path.join(OUT, 'search.js'), 'w', encoding='utf-8').write(SEARCH_JS)
+
+# El dataset del funnel: cuentas reconciliadas, los abiertos con monto numerico
+# y las empresas para el Paso 2. Sale del mismo `indice` que cuenta el hub (solo
+# casos en este punto; las paginas de indice se agregan despues), asi que ningun
+# numero del sitio puede contradecir a otro. Servido en /funnel.json.
+json.dump(_funnel.build_funnel(indice, HOY),
+          open(os.path.join(ROOT, 'funnel.json'), 'w', encoding='utf-8'),
+          ensure_ascii=False, separators=(',', ':'))
 
 for c in claves:
     filas = sorted(letras[c], key=lambda i: i['empresa'].lower())
