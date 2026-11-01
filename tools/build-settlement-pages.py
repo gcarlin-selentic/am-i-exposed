@@ -661,6 +661,57 @@ def fila_html(i):
             f'{amt}<span class="settle-when">{nota}</span></a></li>')
 
 
+def dias_restantes(plazo):
+    try:
+        return (datetime.date.fromisoformat(plazo) - HOY).days
+    except Exception:
+        return None
+
+
+def fila_abierta(i):
+    """Una fila de 'Open now': dinero + cuanto falta para que cierre, con
+    urgencia marcada cuando quedan dos semanas o menos."""
+    if i['pago']:
+        amt = f'<span class="settle-amount">up to {money(i["pago"])}</span>'
+    elif i['fondo']:
+        amt = f'<span class="settle-amount">{money(i["fondo"])} fund</span>'
+    else:
+        amt = ''
+    dias = dias_restantes(i['plazo']) if i['plazo'] else None
+    if i['plazo']:
+        cuando = 'Closes ' + fecha_larga(i['plazo'])
+        if dias is not None and dias >= 0:
+            cuando += f' &middot; {dias} day{"" if dias == 1 else "s"} left'
+    else:
+        cuando = 'Open now'
+    soon = dias is not None and 0 <= dias <= 14
+    tag = ' <span class="settle-tag">in our check</span>' if i['en_hibp'] else ''
+    cls = 'open-row open-soon' if soon else 'open-row'
+    return (f'            <li class="{cls}"><a href="{i["ruta"]}">'
+            f'<span class="settle-name">{e(i["empresa"])}{tag}</span>'
+            f'{amt}<span class="settle-when">{cuando}</span></a></li>')
+
+
+def search_row(i):
+    """Fila compacta para el JSON del buscador del lado del cliente."""
+    if i['pago']:
+        a = money(i['pago'])
+    elif i['fondo']:
+        a = money(i['fondo']) + ' fund'
+    else:
+        a = None
+    if i['plazo']:
+        w = ('Closes ' if i['abierto'] else 'Closed ') + fecha_larga(i['plazo'])
+    elif i['tipo'] == 'acuerdo':
+        w = 'Settled'
+    elif i['tipo'] == 'investigacion abierta':
+        w = 'Being investigated'
+    else:
+        w = 'In litigation'
+    return {'n': i['empresa'], 'u': i['ruta'], 'a': a,
+            'w': w, 'o': bool(i['abierto']), 'h': bool(i['en_hibp'])}
+
+
 letras = {}
 for i in indice:
     c = i['empresa'][:1].lower()
@@ -682,15 +733,43 @@ def nav_letras(actual=None):
 
 con_pago = sorted([i for i in indice if i['pago']], key=lambda i: -i['pago'])[:50]
 vivas = [i for i in indice if i['tipo'] == 'investigacion abierta'][:40]
+abiertos_ya = sorted([i for i in indice if i['abierto']],
+                     key=lambda i: (i['plazo'] or '9999-12-31'))
 n_sitio = sum(1 for i in indice if i['sitio'])
 n_ac = sum(1 for i in indice if i['tipo'] == 'acuerdo')
 n_casos = len(indice)
+
+# "Open now": si por alguna razon no hubiera ninguno con plazo futuro, la
+# seccion no se dibuja en vez de quedar vacia.
+if abiertos_ya:
+    bloque_abiertos = f'''    <h2>Open now &mdash; claim before the window closes</h2>
+    <p>These are paying right now and the claim window is still open. File on the
+    administrator&rsquo;s own site before the date shown &mdash; it is free, and nobody
+    should ever charge you to file.</p>
+    <ul class="settle-list open-list">
+{chr(10).join(fila_abierta(i) for i in abiertos_ya)}
+    </ul>
+'''
+else:
+    bloque_abiertos = ''
 
 hub_body = f'''    <h1>Data breach settlements and lawsuits</h1>
     <p class="standfirst">{len(indice):,} cases: {n_ac:,} that reached a settlement and
     {len(indice) - n_ac:,} still in court. Who was covered, how much was paid, and the
     administrator&rsquo;s own claim site where one exists.</p>
 
+    <div class="settle-search">
+        <input type="search" id="settle-q" autocomplete="off" spellcheck="false"
+               placeholder="Search a company you've dealt with (CVS, your bank, your hospital...)"
+               aria-label="Search {len(indice):,} data breach cases by company">
+    </div>
+    <p class="settle-search-hint">Search {len(indice):,} cases. Type a company you have been a
+    customer, patient or employee of &mdash; open claims show up first.</p>
+    <ul class="settle-list" id="settle-results" hidden></ul>
+    <p class="settle-empty" id="settle-empty" hidden>No case under that name yet. Try fewer
+    letters, or browse A&ndash;Z below.</p>
+
+{bloque_abiertos}
     <p>When a company loses your data, what often follows is not a fine but a settlement,
     paid to the people whose data it was. The money is real and most of it goes unclaimed,
     because the notice arrives by post and looks like junk mail. Research out of Duke
@@ -720,7 +799,9 @@ hub_body = f'''    <h1>Data breach settlements and lawsuits</h1>
         <p>The free check tells you which breaches hold your address. Free, no account,
         and we do not store it.</p>
         <a class="cta-btn" href="/">Check my email</a>
-    </div>'''
+    </div>
+
+    <script defer src="/settlements/search.js"></script>'''
 
 hub_ld = '''
     <script type="application/ld+json">
@@ -740,6 +821,62 @@ open(os.path.join(OUT, 'index.html'), 'w', encoding='utf-8').write(SHELL.format(
          f'deadlines and the official claim site for each one.',
     h1='Data breach settlements and lawsuits',
     url=f'{DOM}/settlements/', ld=hub_ld, body=hub_body))
+
+# El buscador del indice es del lado del cliente: una sola peticion a este JSON
+# la primera vez que el campo recibe foco, y de ahi todo se filtra en memoria.
+# Son los casos reales, los abiertos marcados para subirlos en los resultados.
+busca = [search_row(i) for i in indice]
+json.dump(busca, open(os.path.join(OUT, 'search.json'), 'w', encoding='utf-8'),
+          ensure_ascii=False, separators=(',', ':'))
+
+SEARCH_JS = r'''(function () {
+  var q = document.getElementById('settle-q');
+  if (!q) return;
+  var res = document.getElementById('settle-results');
+  var empty = document.getElementById('settle-empty');
+  var data = null, loading = false;
+
+  function esc(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; }
+
+  function row(x) {
+    var tag = x.h ? ' <span class="settle-tag">in our check</span>' : '';
+    var amt = x.a ? '<span class="settle-amount">' + (x.o ? 'up to ' : '') + esc(x.a) + '</span>' : '';
+    return '<li' + (x.o ? ' class="open-row"' : '') + '><a href="' + x.u + '">' +
+      '<span class="settle-name">' + esc(x.n) + tag + '</span>' + amt +
+      '<span class="settle-when">' + esc(x.w) + '</span></a></li>';
+  }
+
+  function render() {
+    var term = q.value.trim().toLowerCase();
+    if (term.length < 2) { res.hidden = true; empty.hidden = true; res.innerHTML = ''; return; }
+    if (!data) return;
+    var open = [], rest = [];
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].n.toLowerCase().indexOf(term) < 0) continue;
+      (data[i].o ? open : rest).push(data[i]);
+    }
+    var hits = open.concat(rest).slice(0, 40);
+    if (!hits.length) { res.hidden = true; empty.hidden = false; res.innerHTML = ''; return; }
+    empty.hidden = true; res.hidden = false;
+    var html = '';
+    for (var j = 0; j < hits.length; j++) html += row(hits[j]);
+    res.innerHTML = html;
+  }
+
+  function load() {
+    if (data || loading) return;
+    loading = true;
+    fetch('/settlements/search.json')
+      .then(function (r) { return r.json(); })
+      .then(function (j) { data = j; loading = false; render(); })
+      .catch(function () { loading = false; });
+  }
+
+  q.addEventListener('focus', load, { once: true });
+  q.addEventListener('input', function () { if (!data) load(); render(); });
+})();
+'''
+open(os.path.join(OUT, 'search.js'), 'w', encoding='utf-8').write(SEARCH_JS)
 
 for c in claves:
     filas = sorted(letras[c], key=lambda i: i['empresa'].lower())

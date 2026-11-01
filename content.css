@@ -450,3 +450,38 @@ details > *:not(summary) { font-size: 16px; }
     border-radius: 4px;
     padding: 2px 6px;
 }
+
+/* Buscador del indice. Grande y arriba del todo: es lo primero que la pagina
+   invita a hacer, buscar la empresa con la que tuviste trato. */
+.settle-search { margin: 0 0 8px; }
+.settle-search input {
+    width: 100%;
+    border: 1.5px solid var(--line);
+    background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 16 16' fill='none'%3E%3Ccircle cx='7' cy='7' r='5.2' stroke='%238A8A8F' stroke-width='1.7'/%3E%3Cpath d='M11 11l3.2 3.2' stroke='%238A8A8F' stroke-width='1.7' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat 18px center;
+    border-radius: 999px;
+    padding: 15px 20px 15px 48px;
+    font-family: var(--sans);
+    font-size: 17px;
+    color: var(--ink);
+}
+.settle-search input::placeholder { color: var(--muted); }
+.settle-search input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+}
+.settle-search-hint { font-size: 14px; color: var(--muted); margin: 0 2px 28px; }
+.settle-empty { color: var(--muted); margin: 0 0 28px; }
+
+/* Los abiertos van en tarjetas, no en filas al ras, para que esta seccion
+   &mdash; la que tiene dinero reclamable hoy &mdash; se despegue del resto. */
+.open-list { display: grid; gap: 8px; margin: 0 0 32px; }
+.open-list .open-row { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.open-list .open-row a { padding: 14px 16px; }
+.open-list .settle-amount { color: var(--accent-ink); }
+.open-soon .settle-when { color: #C2410C; font-weight: 600; }
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .open-soon .settle-when { color: #FDBA74; }
+}
+:root[data-theme="dark"] .open-soon .settle-when { color: #FDBA74; }
