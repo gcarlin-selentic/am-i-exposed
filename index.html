@@ -100,7 +100,7 @@
          never change, and a forgotten bust on a year-long immutable asset would
          leave a returning buyer running last week's payment code. Bump the date
          here and in the other language's page when a change has to land now. -->
-    <link rel="stylesheet" href="/app.css?v=2026-10-21d">
+    <link rel="stylesheet" href="/app.css?v=2026-11-01a">
 </head>
 <body>
 
@@ -210,6 +210,56 @@
         <p id="missedNone" hidden></p>
         <ul class="alerts-missed" id="alertsMissedList"></ul>
         <p class="alerts-caveat" id="missedCaveat" data-i18n="alertsCaveat">Claiming required being in the class, which usually means having received the company&rsquo;s notice letter. Appearing in the breach does not guarantee it. We are not lawyers and we do not claim on your behalf.</p>
+    </section>
+
+    <!-- Cross-check funnel (US only, same gate as the alerts card). Paso 2 lets
+         the visitor add companies they have dealt with, widening the email
+         match; the "up to $X" number is free, the itemized list is behind the
+         $5 one-time unlock and $3/mo monitoring. The free money card above is
+         left untouched so visitors who cannot buy (anywhere but the US) still
+         see what their email found. Built by app.js from funnel.json. -->
+    <section class="offer crosscheck" id="crosscheckCard" hidden>
+        <span class="badge"><span class="dot"></span><span data-i18n="ccBadge">Your claims &middot; US</span></span>
+        <h2 data-i18n="ccTitle">Which settlements could you actually claim?</h2>
+        <p data-i18n="ccLede">Your email only finds breaches we track by email. Tick the companies you have been a customer, patient or employee of &mdash; that is how we find claims your email alone cannot.</p>
+
+        <div class="cc-step" data-i18n="ccStep2">Step 2 &middot; which of these have you used?</div>
+        <div class="cc-chips" id="funnelChips"></div>
+        <div class="cc-state">
+            <label for="funnelState" data-i18n="ccStateLabel">State you live in</label>
+            <select id="funnelState"></select>
+        </div>
+
+        <div class="cc-number" id="funnelNumber" hidden>
+            <span class="cc-n-label" data-i18n="ccNumLabel">You could claim</span>
+            <span class="cc-n-big" id="funnelTotal">&mdash;</span>
+            <span class="cc-n-sub" id="funnelSub"></span>
+            <span class="cc-n-note" data-i18n="ccNumNote">&ldquo;Up to&rdquo; means the published maximums. Appearing is not a promise of payment.</span>
+        </div>
+
+        <div class="cc-locked" id="funnelLocked" hidden>
+            <h3 data-i18n="ccLockedTitle">See which ones, and how to claim</h3>
+            <p class="cc-locked-lede" data-i18n="ccLockedLede">The number is free. To see which companies, the amounts and the official claim links, unlock the list:</p>
+            <ul class="cc-locked-list" id="funnelLockedList"></ul>
+            <div class="cc-gate">
+                <div class="cc-plan primary">
+                    <div class="cc-plan-k" data-i18n="ccPlanOnceK">See now</div>
+                    <div class="cc-plan-v">US$&nbsp;5<small data-i18n="ccPlanOnceP">one time</small></div>
+                    <div class="cc-plan-d" data-i18n="ccPlanOnceD">Unlock your full list: which companies, the amounts, and the official links to claim today.</div>
+                    <button class="btn" id="funnelUnlockBtn" data-action="startListUnlock" data-i18n="ccPlanOnceBtn">See my settlements</button>
+                </div>
+                <div class="cc-plan">
+                    <div class="cc-plan-k" data-i18n="ccPlanSubK">Monitoring</div>
+                    <div class="cc-plan-v">US$&nbsp;3<small data-i18n="ccPlanSubP">a month &middot; $30/yr</small></div>
+                    <div class="cc-plan-d" data-i18n="ccPlanSubD">We watch and tell you the moment a new one opens where you might qualify.</div>
+                    <button class="btn ghost" id="funnelMonitorBtn" data-action="startFunnelMonitor" data-i18n="ccPlanSubBtn">Turn on monitoring</button>
+                </div>
+            </div>
+            <p class="cc-unavail" id="funnelUnavail" hidden data-i18n="ccUnavail">Checkout is being set up for your country. Turn on monitoring below and we will email you the moment it is ready.</p>
+        </div>
+
+        <p class="alerts-caveat" data-i18n="ccCaveat">You might qualify if you were a customer, patient or employee in the affected period. Appearing is not eligibility. We link only to the official administrator. We are not lawyers and we never file for you.</p>
+        <div class="error" id="funnelError" style="display:none"></div>
     </section>
 
     <!-- Breach list, folded behind a free-to-open button, below the money card -->
@@ -441,7 +491,8 @@
     </div>
 </div>
 
-<script src="/app.js?v=2026-10-31a" defer></script>
+<script src="/funnel-match.js?v=2026-11-01a" defer></script>
+<script src="/app.js?v=2026-11-01a" defer></script>
 
 <!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
      a visitor, which is why the privacy policy can still promise no tracking

@@ -368,6 +368,24 @@ const COPY = {
         alertsMissedTitle: 'You could already have claimed, and nobody told you.',
         alertsMissedLede: 'Your email appears in breaches that ended in a settlement. This is what they paid, and when the window closed:',
         alertsCaveat: 'Claiming required being in the class, which usually means having received the company&rsquo;s notice letter. Appearing in the breach does not guarantee it. We are not lawyers and we do not claim on your behalf.',
+        ccBadge: 'Your claims &middot; US',
+        ccTitle: 'Which settlements could you actually claim?',
+        ccLede: 'Your email only finds breaches we track by email. Tick the companies you have been a customer, patient or employee of &mdash; that is how we find claims your email alone cannot.',
+        ccStep2: 'Step 2 &middot; which of these have you used?',
+        ccNumLabel: 'You could claim',
+        ccNumSub: (n) => `across ${n} settlement${n === 1 ? '' : 's'} where you might qualify`,
+        ccNumNote: '&ldquo;Up to&rdquo; means the published maximums. Appearing is not a promise of payment.',
+        ccNumNoAmount: 'money you might be able to claim',
+        ccLockedTitle: 'See which ones, and how to claim',
+        ccLockedLede: 'The number is free. To see which companies, the amounts and the official claim links, unlock the list:',
+        ccPlanOnceK: 'See now', ccPlanOnceP: 'one time',
+        ccPlanOnceD: 'Unlock your full list: which companies, the amounts, and the official links to claim today.',
+        ccPlanOnceBtn: 'See my settlements',
+        ccPlanSubK: 'Monitoring', ccPlanSubP: 'a month &middot; $30/yr',
+        ccPlanSubD: 'We watch and tell you the moment a new one opens where you might qualify.',
+        ccPlanSubBtn: 'Turn on monitoring',
+        ccUnavail: 'Checkout is being set up for your country. Turn on monitoring below and we will email you the moment it is ready.',
+        ccCaveat: 'You might qualify if you were a customer, patient or employee in the affected period. Appearing is not eligibility. We link only to the official administrator. We are not lawyers and we never file for you.',
         alertsMissedMax: 'up to',
         alertsMissedClosed: 'The window closed on',
         alertsMissedNoAmount: 'settled and paid out',
@@ -645,6 +663,9 @@ function applyLang() {
     // Same story for the alerts-card count, which is a function fed by the
     // funnel dataset rather than a fixed string.
     renderAlertsCount();
+    // The funnel's number and locked list carry amounts and a count, both
+    // written per language, so they have to be redrawn after a switch too.
+    renderFunnelNumber();
 }
 
 // Redraw every rendered region. Used after a language change and after a
@@ -1564,6 +1585,9 @@ function refreshOfferCard() {
     // Esta no pregunta nada al servidor y no depende del pais: sale para
     // todo el mundo en cuanto hay un resultado.
     refreshMissed();
+    // El funnel de cross-check (Paso 2 + numero + lista bloqueada). Mismo gate
+    // que la tarjeta de alertas; no bloquea a la tarjeta gratis de arriba.
+    refreshFunnel();
 }
 
 function hideOffer() {
@@ -1892,6 +1916,113 @@ async function refreshAlertsCard() {
 
     fillAlertStates();
 }
+
+// -------------------------------------------------------------- cross-check funnel
+// Paso 2: the visitor ticks companies they have dealt with, which widens the
+// email match with open settlements their email alone cannot find. The number
+// is free; the itemized list and the gate ($5 one-time / $3-mo) are paid.
+
+// Unos pocos nombres salen feos del slug ("Cvs", "Johnson Johnson"). Solo para
+// lo que el visitante lee (chips y lista) se retocan los que se muestran; el
+// resto cae al nombre del dato. La limpieza a fondo del catalogo es aparte.
+const CO_DISPLAY = {
+    'cvs': 'CVS',
+    'johnson-johnson': 'Johnson & Johnson',
+    'its-technologies-logistics-llc': 'ITS Technologies Logistics',
+    'mgm-resorts': 'MGM Resorts',
+    'hyundai-kia': 'Hyundai / Kia',
+    'american-medical-collection-agency': 'American Medical Collection Agency',
+};
+function displayName(slug, fallback) { return CO_DISPLAY[slug] || fallback; }
+
+function fillFunnelStates() {
+    const sel = document.getElementById('funnelState');
+    if (!sel || sel.options.length) return;
+    sel.appendChild(new Option(t().alertsStatePick, ''));
+    for (const name of US_STATES) sel.appendChild(new Option(name, name));
+}
+
+function fillFunnelChips() {
+    const box = document.getElementById('funnelChips');
+    if (!box || box.children.length || !funnelData?.chips) return;
+    box.innerHTML = funnelData.chips.map(c =>
+        `<button type="button" class="cc-chip" data-cc-slug="${escapeHtml(c.slug)}">`
+        + `${escapeHtml(displayName(c.slug, c.empresa))}</button>`).join('');
+}
+
+function funnelPicked() {
+    return Array.from(document.querySelectorAll('#funnelChips .cc-chip.on'))
+        .map(b => b.dataset.ccSlug);
+}
+
+function funnelFmt(n) {
+    return new Intl.NumberFormat(lang === 'en' ? 'en-US' : 'es-CO',
+        { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
+}
+
+function funnelMatch() {
+    return window.FunnelMatch.selectClaimable({
+        breaches: (lastEmailResult?.breaches || []).map(b => b.name),
+        matched: (settlements && settlements.filas) || [],
+        open: (funnelData && funnelData.open) || [],
+        companies: funnelPicked(),
+        state: document.getElementById('funnelState')?.value || '',
+        todayISO: new Date().toISOString().slice(0, 10),
+    });
+}
+
+function renderFunnelLocked(items) {
+    const list = document.getElementById('funnelLockedList');
+    if (!list) return;
+    // Sin enlaces aqui: ver cuales y a donde reclamar es lo que se paga.
+    list.innerHTML = items.map(it => {
+        const amt = it.porPersona ? (t().alertsMissedMax + ' ' + funnelFmt(it.porPersona))
+            : (it.fondo ? funnelFmt(it.fondo) : '');
+        return `<li><span class="cc-l-co">${escapeHtml(displayName(it.slug, it.empresa))}</span>`
+            + (amt ? `<span class="cc-l-amt">${escapeHtml(amt)}</span>` : '')
+            + `<span class="cc-l-lock" aria-hidden="true">&#128274;</span></li>`;
+    }).join('');
+}
+
+function renderFunnelNumber() {
+    if (!funnelData || !window.FunnelMatch) return;
+    const numBox = document.getElementById('funnelNumber');
+    const locked = document.getElementById('funnelLocked');
+    if (!numBox || !locked) return;
+    const res = funnelMatch();
+    if (!res.items.length) { numBox.hidden = true; locked.hidden = true; return; }
+    numBox.hidden = false;
+    locked.hidden = false;
+    document.getElementById('funnelTotal').textContent =
+        res.totalMax > 0 ? (t().alertsMissedMax + ' ' + funnelFmt(res.totalMax))
+            : t().ccNumNoAmount;
+    document.getElementById('funnelSub').textContent = t().ccNumSub(res.items.length);
+    renderFunnelLocked(res.items);
+}
+
+async function refreshFunnel() {
+    const card = document.getElementById('crosscheckCard');
+    if (!card) return;
+    // Same gate as the alerts card: a US visitor, after a check. The free money
+    // card above is left for everyone (including countries that cannot pay); the
+    // funnel is the paid widening layered on top, so it rides the US gate.
+    if (!lastEmailResult || alertsDone) { card.hidden = true; return; }
+    const config = await loadAlertsConfig();
+    if (!config.eligible) { card.hidden = true; return; }
+    const data = await loadFunnel();
+    if (!data) { card.hidden = true; return; }   // degrade: #missedCard remains
+    await loadSettlements();                       // for the email-matched items
+    card.hidden = false;
+    fillFunnelChips();
+    fillFunnelStates();
+    renderFunnelNumber();
+}
+
+// Wired fully in the Paddle task; the buttons only appear when the card is
+// eligible (US + rail live), so the live rail is there to drive them.
+async function startListUnlock() { await startFunnelCheckout('once'); }
+async function startFunnelMonitor() { await startFunnelCheckout('sub'); }
+async function startFunnelCheckout() { /* implemented in the Paddle gate task */ }
 
 function alertsError(message) {
     const box = document.getElementById('alertsError');
@@ -2907,7 +3038,8 @@ const ACTIONS = {
     dismissLangHint, dismissPayBanner, exitDemo, focusEmailCheck, openAuthModal,
     openChangePassword, openReport, openSampleReport, printReport,
     sendPasswordReset, showAllBreaches, signInWithEmail, signInWithProvider,
-    signOut, signUpWithEmail, startAlertsCheckout, startPurchase, switchForm,
+    signOut, signUpWithEmail, startAlertsCheckout, startFunnelMonitor,
+    startListUnlock, startPurchase, switchForm,
     toggleNewPasswordVisibility, togglePasswordFold, togglePasswordVisibility,
     togglePwField, toggleUserMenu,
 };
@@ -2935,6 +3067,19 @@ document.addEventListener('click', (e) => {
     if (!e.target.closest('.user-menu')) {
         document.getElementById('userDropdown').classList.remove('active');
     }
+});
+
+// Paso 2 chips toggle and the state select both change who matches, so each
+// recomputes the number and the locked list. Delegated, because the chips are
+// written into the card after the dataset loads.
+document.addEventListener('click', (e) => {
+    const chip = e.target.closest('.cc-chip');
+    if (!chip) return;
+    chip.classList.toggle('on');
+    renderFunnelNumber();
+});
+document.addEventListener('change', (e) => {
+    if (e.target && e.target.id === 'funnelState') renderFunnelNumber();
 });
 
 // Enter submits from either input.
