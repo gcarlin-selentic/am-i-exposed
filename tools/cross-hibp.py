@@ -143,6 +143,28 @@ def build_card(cruzado, paginas):
     return tarjeta
 
 
+def open_to_cruzado(open_rows, hibp):
+    """HIBP-matches the weekly scraper's open settlements (data/open-settlements.json)
+    and returns rows in the same shape build_card consumes, as paying 'acuerdo'
+    rows. Only data-breach rows (filtracion) are matched, with the same whole-token
+    rules as the historical catalogues."""
+    filtradas = [r for r in open_rows if r.get('filtracion')]
+    cruzado = []
+    for m in match_catalogue(hibp, filtradas, 'empresa', 'classaction.org-open'):
+        r = m['registro']
+        cruzado.append({
+            'hibp': m['breach'], 'titulo_hibp': m['titulo_hibp'],
+            'cuentas': m['cuentas'], 'dominio': m['dominio'],
+            'fecha_filtracion': m['fecha_filtracion'], 'empresa': r['empresa'],
+            'fuente_catalogo': m['fuente'], 'url_caso': None,
+            'dudoso': m['breach'] in DUDOSO, 'estado': 'acuerdo',
+            'fondo': r.get('fondo'), 'pago_por_persona': r.get('pago_por_persona'),
+            'plazo': r.get('plazo'), 'sitio_reclamo': r.get('sitio_reclamo'),
+            'elegible': r.get('cubre'),
+        })
+    return cruzado
+
+
 def main():
     hibp = [b for b in cargar('hibp-breaches.json') if demandable(b)]
     tca = cargar('tca-settlements.json')
@@ -190,6 +212,11 @@ def main():
     # mas, porque no hay dinero que prometer todavia. Mezclar las dos cosas
     # bajo la palabra "acuerdo" seria contar un cuento sobre el dinero de
     # otro. Solo los acuerdos pagan, y esos son los menos.
+    # Fresh open settlements from the weekly scraper, HIBP-matched and prepended
+    # so the dedup in build_card keeps the fresh open row when the same breach
+    # also has a frozen historical row.
+    cruzado = open_to_cruzado(cargar('open-settlements.json'), hibp) + cruzado
+
     paginas = {p['ruta'].strip('/').split('/')[-1]
                for p in cargar('settlement-pages.json', [])}
     tarjeta = build_card(cruzado, paginas)
