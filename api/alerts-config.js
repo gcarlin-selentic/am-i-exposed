@@ -42,5 +42,13 @@ export default function handler(req, res) {
         return res.status(200).json({ eligible: false });
     }
 
-    return res.status(200).json({ eligible: true, ...paddle });
+    // The $5 one-time "see the list" is its own Paddle product. It is optional:
+    // when the owner has not set the price up yet, the funnel shows an
+    // availability note on that button instead of a checkout that cannot charge.
+    // Everything else (the free number, the monthly monitoring) is unaffected.
+    const out = { eligible: true, ...paddle };
+    const listUnlock = process.env.PADDLE_PRICE_LIST_UNLOCK;
+    if (listUnlock) out.listUnlockPriceId = listUnlock;
+
+    return res.status(200).json(out);
 }

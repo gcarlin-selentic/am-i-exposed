@@ -1455,3 +1455,13 @@ a.alerts-missed .m-co,
 .cc-unavail { font-size: 13px; color: var(--warn); margin: 12px 0 0; }
 
 @media (max-width: 480px) { .cc-gate { grid-template-columns: 1fr; } }
+
+/* Lista desbloqueada tras el pago de $5: sin desenfoque, con enlace oficial. */
+.cc-unlocked-row { flex-wrap: wrap; }
+.cc-l-co2 { font-weight: 600; color: var(--ink); text-decoration: none; flex: 1 1 auto; }
+.cc-l-co2:hover { color: var(--accent-ink); }
+.cc-l-claim {
+    flex: 1 1 100%; font-size: 13.5px; font-weight: 600;
+    color: var(--accent-ink); text-decoration: none;
+}
+.cc-l-claim:hover { text-decoration: underline; }

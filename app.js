@@ -147,6 +147,7 @@ const COPY = {
         ccNumNote: '&ldquo;Hasta&rdquo; son los montos máximos publicados. Aparecer no es una promesa de pago.',
         ccNumNoAmount: 'dinero que podrías reclamar',
         ccLockedTitle: 'Ver cuáles son y cómo reclamar',
+        ccUnlockedTitle: 'Tus acuerdos, y dónde reclamar',
         ccLockedLede: 'El número es gratis. Para ver qué empresas, los montos y los enlaces oficiales para reclamar, desbloquea la lista:',
         ccPlanOnceK: 'Ver ahora', ccPlanOnceP: 'una vez',
         ccPlanOnceD: 'Desbloquea tu lista completa: qué empresas, los montos y los enlaces oficiales para reclamar hoy.',
@@ -395,6 +396,7 @@ const COPY = {
         ccNumNote: '&ldquo;Up to&rdquo; means the published maximums. Appearing is not a promise of payment.',
         ccNumNoAmount: 'money you might be able to claim',
         ccLockedTitle: 'See which ones, and how to claim',
+        ccUnlockedTitle: 'Your settlements, and where to claim',
         ccLockedLede: 'The number is free. To see which companies, the amounts and the official claim links, unlock the list:',
         ccPlanOnceK: 'See now', ccPlanOnceP: 'one time',
         ccPlanOnceD: 'Unlock your full list: which companies, the amounts, and the official links to claim today.',
@@ -2034,13 +2036,101 @@ async function refreshFunnel() {
     fillFunnelChips();
     fillFunnelStates();
     renderFunnelNumber();
+    // The $5 list unlock needs a price the owner has set up; without it the
+    // button says so instead of opening a checkout that cannot charge.
+    if (!config.listUnlockPriceId) showFunnelUnavail();
+    // Already paid this session: show the list open rather than the gate.
+    if (funnelUnlocked()) revealFunnelList();
 }
 
-// Wired fully in the Paddle task; the buttons only appear when the card is
-// eligible (US + rail live), so the live rail is there to drive them.
-async function startListUnlock() { await startFunnelCheckout('once'); }
-async function startFunnelMonitor() { await startFunnelCheckout('sub'); }
-async function startFunnelCheckout() { /* implemented in the Paddle gate task */ }
+function funnelErr(message) {
+    const box = document.getElementById('funnelError');
+    if (!box) return;
+    box.textContent = message || '';
+    box.style.display = message ? 'block' : 'none';
+}
+
+// Shown when the $5 list unlock has no price to charge yet (the rail is live
+// but the product is not set up, or checkout is not available for the country).
+// The number and the monitoring path still work.
+function showFunnelUnavail() {
+    const note = document.getElementById('funnelUnavail');
+    if (note) note.hidden = false;
+    const btn = document.getElementById('funnelUnlockBtn');
+    if (btn) btn.disabled = true;
+}
+
+// After the $5 one-time completes: drop the blur, name the companies, and add
+// the official claim links. The gate is done; the list is theirs. Remembered in
+// sessionStorage so a reload in the same session stays open.
+function revealFunnelList() {
+    const locked = document.getElementById('funnelLocked');
+    const list = document.getElementById('funnelLockedList');
+    if (!locked || !list || !window.FunnelMatch) return;
+    const res = funnelMatch();
+    list.innerHTML = res.items.map(it => {
+        const amt = it.porPersona ? (t().alertsMissedMax + ' ' + funnelFmt(it.porPersona))
+            : (it.fondo ? funnelFmt(it.fondo) : '');
+        const sitio = sitioValido(it.sitio);
+        const href = sitio && ('https://' + sitio);
+        const claim = href
+            ? `<a class="cc-l-claim" href="${escapeHtml(href)}" rel="nofollow noopener" target="_blank">${escapeHtml(t().alertsMissedClaim)} ${escapeHtml(sitio)}</a>`
+            : '';
+        return `<li class="cc-unlocked-row">`
+            + `<a class="cc-l-co2" href="/settlements/${encodeURIComponent(it.slug)}/">${escapeHtml(displayName(it.slug, it.empresa))}</a>`
+            + (amt ? `<span class="cc-l-amt">${escapeHtml(amt)}</span>` : '')
+            + claim + `</li>`;
+    }).join('');
+    const gate = locked.querySelector('.cc-gate');
+    if (gate) gate.hidden = true;
+    const lede = locked.querySelector('.cc-locked-lede');
+    if (lede) lede.hidden = true;
+    const title = locked.querySelector('h3');
+    if (title) title.textContent = t().ccUnlockedTitle;
+    try { sessionStorage.setItem('aie-funnel-unlocked', '1'); } catch (e) { /* ignore */ }
+}
+
+function funnelUnlocked() {
+    try { return !!sessionStorage.getItem('aie-funnel-unlocked'); } catch (e) { return false; }
+}
+
+// $5 one-time: open a Paddle checkout for the list-unlock price when the owner
+// has set one up; otherwise say so rather than opening a broken checkout.
+async function startListUnlock() {
+    funnelErr('');
+    const config = await loadAlertsConfig();
+    if (!config.eligible || !config.listUnlockPriceId) { showFunnelUnavail(); return; }
+    const btn = document.getElementById('funnelUnlockBtn');
+    if (btn) { btn.disabled = true; btn.textContent = t().alertsOpening; }
+    try {
+        await startPaddle(config);
+        Paddle.Checkout.open({
+            items: [{ priceId: config.listUnlockPriceId, quantity: 1 }],
+            customer: currentUser ? { email: currentUser.email } : undefined,
+            // kind keeps this apart from a report or an alerts subscription in
+            // the one checkout.completed handler.
+            customData: { kind: 'list_unlock', email: currentUser?.email || '', lang },
+            settings: { displayMode: 'overlay', theme: paddleTheme(), locale: lang },
+        });
+    } catch (e) {
+        funnelErr(t().alertsErrFail);
+    } finally {
+        if (btn) { btn.disabled = false; btn.textContent = t().ccPlanOnceBtn; }
+    }
+}
+
+// $3/mo monitoring is the existing alerts subscription: it already collects the
+// name, state and consent the subscription needs, so the funnel sends the
+// visitor there rather than duplicating that form.
+function startFunnelMonitor() {
+    const card = document.getElementById('alertsCard');
+    if (card && !card.hidden) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.getElementById('alertsFirstName')?.focus({ preventScroll: true });
+    } else {
+        showFunnelUnavail();
+    }
+}
 
 function alertsError(message) {
     const box = document.getElementById('alertsError');
@@ -2094,6 +2184,10 @@ async function startPaddle(config) {
                     refreshAlertsCard();
                 } else if (kind === 'report') {
                     onReportPaid();
+                } else if (kind === 'list_unlock') {
+                    // The list is already in the browser; paying only lifts the
+                    // blur and adds the official claim links.
+                    revealFunnelList();
                 }
             },
         });
