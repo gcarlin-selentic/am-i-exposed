@@ -205,6 +205,20 @@
     <div id="emailError" class="error" style="display: none;"></div>
     <div id="emailResult" style="display: none;"></div>
 
+    <!-- Money card, surfaced right under the result and above the breach list.
+         La llena app.js desde settlements.json; el navegador ya tiene la lista
+         de filtraciones, asi que no se manda nada a ningun sitio. -->
+    <section class="offer missed" id="missedCard" hidden>
+        <h2 id="missedTitle" data-i18n="alertsMissedTitle">Ya pudiste haber cobrado, y nadie te avis&oacute;.</h2>
+        <p id="missedLede" data-i18n="alertsMissedLede">Tu correo aparece en filtraciones que terminaron en acuerdo. Esto es lo que se pagaba, y cu&aacute;ndo venci&oacute; el plazo:</p>
+        <p id="missedNone" hidden></p>
+        <ul class="alerts-missed" id="alertsMissedList"></ul>
+        <p class="alerts-caveat" id="missedCaveat" data-i18n="alertsCaveat">Para cobrar hab&iacute;a que pertenecer a la clase, lo que normalmente exige haber recibido la carta de aviso de la empresa. Aparecer en la filtraci&oacute;n no lo garantiza. No somos abogados y no reclamamos por ti.</p>
+    </section>
+
+    <!-- Breach list, folded behind a free-to-open button, below the money card -->
+    <div id="breachListBlock"></div>
+
     <!-- Password check, folded away so the page opens on one decision -->
     <div class="fold" id="pwFold" data-open="0">
         <button type="button" class="fold-head" data-action="togglePasswordFold">
@@ -248,21 +262,6 @@
                href="/es/preguntas-frecuentes/">Ver todas las preguntas</a>
         </div>
     </div>
-
-    <!-- Lo que alguien pudo haber cobrado es informacion, no producto: no
-         depende de donde viva ni de que pueda comprar nada, asi que tiene su
-         propia tarjeta, encima de la de pago y justo donde el resultado deja
-         al lector. Antes vivia dentro de la de alertas, que solo se ofrece en
-         Estados Unidos, y el resto del mundo no se enteraba nunca. La llena
-         app.js desde settlements.json; el navegador ya tiene la lista de
-         filtraciones, asi que no se manda nada a ningun sitio. -->
-    <section class="offer missed" id="missedCard" hidden>
-        <h2 id="missedTitle" data-i18n="alertsMissedTitle">Ya pudiste haber cobrado, y nadie te avis&oacute;.</h2>
-        <p id="missedLede" data-i18n="alertsMissedLede">Tu correo aparece en filtraciones que terminaron en acuerdo. Esto es lo que se pagaba, y cu&aacute;ndo venci&oacute; el plazo:</p>
-        <p id="missedNone" hidden></p>
-        <ul class="alerts-missed" id="alertsMissedList"></ul>
-        <p class="alerts-caveat" id="missedCaveat" data-i18n="alertsCaveat">Para cobrar hab&iacute;a que pertenecer a la clase, lo que normalmente exige haber recibido la carta de aviso de la empresa. Aparecer en la filtraci&oacute;n no lo garantiza. No somos abogados y no reclamamos por ti.</p>
-    </section>
 
     <!-- Paid tier. Hidden once the visitor is known to have bought it: selling
          somebody something they already own reads as a mistake, and it is. -->
@@ -446,7 +445,7 @@
     </div>
 </div>
 
-<script src="/app.js?v=2026-10-21d" defer></script>
+<script src="/app.js?v=2026-10-31a" defer></script>
 
 <!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
      a visitor, which is why the privacy policy can still promise no tracking
