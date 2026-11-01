@@ -5,3 +5,7 @@ node_modules/
 .vercel
 .claude/
 __pycache__/
+
+# superpowers workspace (scratch)
+.superpowers/
+.pytest_cache/
