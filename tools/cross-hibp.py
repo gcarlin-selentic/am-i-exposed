@@ -129,7 +129,8 @@ def build_card(cruzado, paginas):
         s = slugify(r['empresa'])
         fila = {'hibp': r['hibp'], 'titulo': r['empresa'], 'empresa': r['empresa'],
                 'tipo': tipo, 'fuente': r['url_caso'],
-                'slug': s if s in paginas else None}
+                'slug': s if s in paginas else None,
+                'origen': r.get('origen', 'brecha')}
         if tipo == 'acuerdo':
             fila.update({'porPersona': r.get('pago_por_persona'), 'fondo': r.get('fondo'),
                          'plazo': r.get('plazo'),

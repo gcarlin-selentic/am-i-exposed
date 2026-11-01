@@ -62,3 +62,21 @@ def test_substring_company_does_not_match():
     hibp = [{"Name": "Canva", "Title": "Canva", "PwnCount": 1, "Domain": "canva.com",
              "BreachDate": "2019-05-01", "IsSpamList": False, "IsMalware": False}]
     assert cross_hibp.open_to_cruzado(openrows, hibp) == []
+
+
+def _paying_row():
+    return {"hibp": "Yahoo", "titulo_hibp": "Yahoo", "cuentas": 1, "dominio": "y.com",
+            "fecha_filtracion": "2016-01-01", "empresa": "Yahoo",
+            "fuente_catalogo": "topclassactions", "url_caso": "https://x/y",
+            "dudoso": False, "estado": "acuerdo", "fondo": None,
+            "pago_por_persona": 1, "elegible": "x", "plazo": "2030-01-01",
+            "sitio_reclamo": "y.com", "caso": None}
+
+
+def test_every_card_row_has_origen_default_brecha():
+    assert cross_hibp.build_card([_paying_row()], set())[0]["origen"] == "brecha"
+
+
+def test_ransomware_origen_is_carried_through():
+    cruzado = [{**_paying_row(), "origen": "ransomware"}]
+    assert cross_hibp.build_card(cruzado, set())[0]["origen"] == "ransomware"
