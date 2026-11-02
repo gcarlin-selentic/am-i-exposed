@@ -202,6 +202,30 @@
         </div>
     </div>
 
+    <!-- El fondo de dinero. P&uacute;blico y sin gate: aqu&iacute; el visitante (y quien
+         revisa el cobro) ve que hay dinero que reclamar y cu&aacute;nto cuesta usarnos.
+         Las cifras y los chips se llenan desde funnel.json para que nunca se
+         desvíen del hub de /settlements/; los valores est&aacute;ticos son el
+         respaldo antes de que cargue el JS. -->
+    <section class="pool" id="poolBanner">
+        <span class="pool-tag" data-i18n="poolTag">El fondo de dinero</span>
+        <h2 class="pool-title" data-i18n="poolTitle">Te ayudamos a reclamar el dinero que las empresas te deben.</h2>
+        <p class="pool-lede" data-i18n="poolLede">Las empresas que filtran datos llegan a acuerdos de demanda colectiva y le pagan a los afectados. Ahora mismo hay acuerdos abiertos para reclamar, y seguimos cada uno. Busca una empresa con la que has tenido trato y mira cu&aacute;nto est&aacute;n pagando.</p>
+        <div class="pool-stats">
+            <div class="pstat"><div class="pstat-n" id="poolOpen">14</div><div class="pstat-l" data-i18n="poolStatOpen">abiertos para reclamar ahora</div></div>
+            <div class="pstat"><div class="pstat-n" id="poolTracked">1.081</div><div class="pstat-l" data-i18n="poolStatTracked">acuerdos en seguimiento</div></div>
+            <div class="pstat"><div class="pstat-n" id="poolMax">$5.050</div><div class="pstat-l" data-i18n="poolStatMax">por persona, casos abiertos</div></div>
+        </div>
+        <div class="pool-chips" id="poolChips"></div>
+        <a class="btn pool-btn" href="/settlements/" data-i18n="poolBrowse">Ver todos los acuerdos &rarr;</a>
+
+        <div class="pricing">
+            <div class="price"><div class="price-k" data-i18n="priceFreeK">Chequeo gratis</div><div class="price-v">$0</div><div class="price-d" data-i18n="priceFreeD">Tu correo contra las filtraciones. Sin tarjeta.</div></div>
+            <div class="price"><div class="price-k" data-i18n="priceReportK">Reporte completo</div><div class="price-v">$5<small data-i18n="priceReportP">una vez</small></div><div class="price-d" data-i18n="priceReportD">Tu plan de acci&oacute;n personal.</div></div>
+            <div class="price soon"><div class="price-k"><span data-i18n="priceMonK">Monitoreo</span> <span class="soon-tag" data-i18n="priceSoon">pronto</span></div><div class="price-v">$3<small data-i18n="priceMonP">/mes &middot; $30/a&ntilde;o</small></div><div class="price-d" data-i18n="priceMonD">Te vigilamos y te avisamos cuando se abre un acuerdo nuevo.</div></div>
+        </div>
+    </section>
+
     <div id="emailError" class="error" style="display: none;"></div>
     <div id="emailResult" style="display: none;"></div>
 

@@ -1465,3 +1465,49 @@ a.alerts-missed .m-co,
     color: var(--accent-ink); text-decoration: none;
 }
 .cc-l-claim:hover { text-decoration: underline; }
+
+/* -------------------------------------------------------------- money-pool banner
+   Public and ungated, right under the hero. The settlements pitch + the prices,
+   so a visitor (and a payment reviewer) sees them without running a check. */
+.pool {
+    margin: 30px 0 0; padding: 26px 24px 24px; position: relative; overflow: hidden;
+    background: var(--surface); border: 1px solid var(--line-strong);
+    border-radius: var(--r-lg); box-shadow: var(--shadow-sm);
+}
+.pool::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(120% 90% at 100% 0, var(--accent-soft), transparent 60%);
+}
+.pool > * { position: relative; }
+.pool-tag {
+    display: inline-flex; align-items: center; gap: 7px; margin-bottom: 12px;
+    background: var(--accent-soft); color: var(--accent-ink);
+    font-weight: 700; font-size: 12px; letter-spacing: .03em; text-transform: uppercase;
+    border-radius: var(--r-pill); padding: 4px 12px;
+}
+.pool-title { font-size: clamp(22px, 5.4vw, 28px); font-weight: 800; margin: 0 0 8px; line-height: 1.18; }
+.pool-lede { font-size: 14.5px; color: var(--muted); margin: 0 0 18px; max-width: 56ch; }
+.pool-stats { display: flex; flex-wrap: wrap; gap: 22px 30px; margin: 0 0 16px; }
+.pstat-n { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 26px; color: var(--ink); }
+.pstat-l { font-size: 12.5px; color: var(--muted-2); }
+.pool-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+.pool-chip {
+    background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-pill);
+    padding: 6px 13px; font-size: 13px; color: var(--ink-soft);
+}
+.pool-chip b { color: var(--good); font-weight: 700; }
+.pool-btn { background: var(--accent); color: #fff; }
+
+.pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 22px; }
+.price { background: var(--bg); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; }
+.price-k { font-size: 12.5px; color: var(--muted); margin-bottom: 6px; }
+.price-v { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 20px; }
+.price-v small { font-size: 12px; font-weight: 600; color: var(--muted); margin-left: 4px; }
+.price-d { font-size: 12.5px; color: var(--muted-2); margin-top: 4px; }
+.price.soon { border-color: var(--accent-soft); }
+.soon-tag {
+    font-size: 10.5px; font-weight: 700; color: var(--accent-ink); background: var(--accent-soft);
+    border-radius: var(--r-pill); padding: 2px 8px; vertical-align: 2px;
+    text-transform: uppercase; letter-spacing: .03em;
+}
+@media (max-width: 560px) { .pricing { grid-template-columns: 1fr; } }

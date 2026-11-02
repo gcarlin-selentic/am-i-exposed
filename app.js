@@ -157,6 +157,17 @@ const COPY = {
         ccPlanSubBtn: 'Activar monitoreo',
         ccUnavail: 'Estamos preparando el cobro para tu país. Activa el monitoreo abajo y te avisamos por correo en cuanto esté listo.',
         ccCaveat: 'Podrías calificar si fuiste cliente, paciente o empleado de la empresa en el periodo afectado. Aparecer no es elegibilidad. Enlazamos solo al administrador oficial. No somos abogados y no reclamamos por ti.',
+        poolTag: 'El fondo de dinero',
+        poolTitle: 'Te ayudamos a reclamar el dinero que las empresas te deben.',
+        poolLede: 'Las empresas que filtran datos llegan a acuerdos de demanda colectiva y le pagan a los afectados. Ahora mismo hay acuerdos abiertos para reclamar, y seguimos cada uno. Busca una empresa con la que has tenido trato y mira cuánto están pagando.',
+        poolStatOpen: 'abiertos para reclamar ahora',
+        poolStatTracked: 'acuerdos en seguimiento',
+        poolStatMax: 'por persona, casos abiertos',
+        poolBrowse: 'Ver todos los acuerdos &rarr;',
+        priceFreeK: 'Chequeo gratis', priceFreeD: 'Tu correo contra las filtraciones. Sin tarjeta.',
+        priceReportK: 'Reporte completo', priceReportP: 'una vez', priceReportD: 'Tu plan de acción personal.',
+        priceMonK: 'Monitoreo', priceSoon: 'pronto', priceMonP: '/mes &middot; $30/año',
+        priceMonD: 'Te vigilamos y te avisamos cuando se abre un acuerdo nuevo.',
         alertsMissedMax: 'hasta',
         alertsMissedClosed: 'El plazo cerró el',
         alertsMissedNoAmount: 'con acuerdo pagado',
@@ -406,6 +417,17 @@ const COPY = {
         ccPlanSubBtn: 'Turn on monitoring',
         ccUnavail: 'Checkout is being set up for your country. Turn on monitoring below and we will email you the moment it is ready.',
         ccCaveat: 'You might qualify if you were a customer, patient or employee in the affected period. Appearing is not eligibility. We link only to the official administrator. We are not lawyers and we never file for you.',
+        poolTag: 'The money pool',
+        poolTitle: 'We help you claim the money companies owe you.',
+        poolLede: 'Companies that leak data settle class actions and pay the people affected. Right now there are settlements open to claim, and we track every one. Search a company you have dealt with and see what they are paying.',
+        poolStatOpen: 'open to claim now',
+        poolStatTracked: 'settlements tracked',
+        poolStatMax: 'per person, open cases',
+        poolBrowse: 'Browse all settlements &rarr;',
+        priceFreeK: 'Free check', priceFreeD: 'Your email vs breaches. No card.',
+        priceReportK: 'Full report', priceReportP: 'one time', priceReportD: 'Your personal action plan.',
+        priceMonK: 'Monitoring', priceSoon: 'soon', priceMonP: '/mo &middot; $30/yr',
+        priceMonD: 'We watch and alert you when a new settlement opens.',
         alertsMissedMax: 'up to',
         alertsMissedClosed: 'The window closed on',
         alertsMissedNoAmount: 'settled and paid out',
@@ -686,6 +708,8 @@ function applyLang() {
     // The funnel's number and locked list carry amounts and a count, both
     // written per language, so they have to be redrawn after a switch too.
     renderFunnelNumber();
+    // The money-pool banner's stats and chips are per-language as well.
+    renderPoolStats();
 }
 
 // Redraw every rendered region. Used after a language change and after a
@@ -1715,7 +1739,7 @@ async function loadFunnel() {
     } catch (e) {
         funnelData = null;
     }
-    if (funnelData) renderAlertsCount();
+    if (funnelData) { renderAlertsCount(); renderPoolStats(); }
     return funnelData;
 }
 
@@ -1730,6 +1754,36 @@ function renderAlertsCount() {
     const nf = new Intl.NumberFormat(lang === 'en' ? 'en-US' : 'es-CO');
     el.innerHTML = li1(nf.format(funnelData.meta.casos),
                        nf.format(funnelData.meta.abiertos));
+}
+
+// The public money-pool banner: stats and chips from funnel.json, so the figures
+// a visitor (and a payment reviewer) reads are the same ones /settlements/ shows.
+function renderPoolStats() {
+    if (!funnelData?.meta) return;
+    const m = funnelData.meta;
+    const nf = new Intl.NumberFormat(lang === 'en' ? 'en-US' : 'es-CO');
+    const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+    set('poolOpen', nf.format(m.abiertos));
+    set('poolTracked', nf.format(m.casos));
+    set('poolMax', poolMoney(m.maxPorPersona));
+    renderPoolChips();
+}
+
+// El monto grande se escribe sin decimales y sin el "US$" de la moneda, que en
+// un titular se lee mejor como "$5,050" que como "US$ 5.050".
+function poolMoney(n) {
+    const nf = new Intl.NumberFormat(lang === 'en' ? 'en-US' : 'es-CO');
+    return '$' + nf.format(Number(n) || 0);
+}
+
+function renderPoolChips() {
+    const box = document.getElementById('poolChips');
+    if (!box || !funnelData?.open) return;
+    const top = funnelData.open.filter(o => o.porPersona)
+        .sort((a, b) => b.porPersona - a.porPersona).slice(0, 4);
+    box.innerHTML = top.map(o =>
+        `<span class="pool-chip">${escapeHtml(displayName(o.slug, o.empresa))} `
+        + `<b>${escapeHtml(t().alertsMissedMax + ' ' + poolMoney(o.porPersona))}</b></span>`).join('');
 }
 
 async function loadSettlements() {
