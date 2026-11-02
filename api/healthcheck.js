@@ -59,7 +59,12 @@ function alertRecipient() {
 
 async function checkKeepalive() {
     try {
+        // keepalive is gated by CRON_SECRET too (same variable that enables this
+        // monitor). Forward it so the probe reaches the endpoint instead of
+        // bouncing off its own auth gate with a 401 and reporting a false outage.
+        const secret = process.env.CRON_SECRET;
         const r = await fetch(`${SITE}/api/keepalive`, {
+            headers: secret ? { authorization: `Bearer ${secret}` } : {},
             signal: AbortSignal.timeout(10000),
         });
         if (!r.ok) {
