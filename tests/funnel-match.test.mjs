@@ -68,3 +68,15 @@ test('state is a modifier, not a filter', () => {
   assert.equal(r.hasState, true);
   assert.equal(r.items.length, 2);
 });
+
+test('open-only total and items exclude a closed email match', () => {
+  // Yahoo (email) closed in 2020; CVS (company) open. The claimable headline
+  // must count only the open one, not the closed settlement.
+  const r = selectClaimable({ breaches: ['Yahoo'], matched: MATCHED, open: OPEN,
+    companies: ['cvs'], state: '', todayISO: TODAY });
+  assert.equal(r.items.length, 2);            // both still returned
+  assert.equal(r.totalMax, 25010);            // all-items total unchanged
+  assert.equal(r.openItems.length, 1);        // only the open one is claimable
+  assert.equal(r.openItems[0].slug, 'cvs');
+  assert.equal(r.openTotalMax, 10);           // closed Yahoo excluded
+});

@@ -47,10 +47,17 @@
 
     const items = Array.from(bySlug.values());
     const totalMax = items.reduce((s, it) => s + (it.porPersona || 0), 0);
-    const openCount = items.filter(
-      it => it.plazo && todayISO && it.plazo >= todayISO).length;
 
-    return { items, totalMax, openCount, hasState: !!state };
+    // Only settlements still open can be claimed, so the "you could claim up to
+    // $X" headline is built from these alone. A closed email match (its window
+    // has passed) belongs in the historical money card, not in a claimable
+    // number — counting it there would promise money nobody can still get.
+    const openItems = items.filter(
+      it => it.plazo && todayISO && it.plazo >= todayISO);
+    const openCount = openItems.length;
+    const openTotalMax = openItems.reduce((s, it) => s + (it.porPersona || 0), 0);
+
+    return { items, totalMax, openItems, openCount, openTotalMax, hasState: !!state };
   }
 
   root.FunnelMatch = { selectClaimable };

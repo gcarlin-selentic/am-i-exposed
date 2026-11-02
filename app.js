@@ -142,6 +142,7 @@ const COPY = {
         ccTitle: '¿Qué acuerdos podrías reclamar realmente?',
         ccLede: 'Tu correo solo encuentra filtraciones que seguimos por correo. Marca las empresas de las que has sido cliente, paciente o empleado &mdash; así encontramos reclamos que tu correo solo no detecta.',
         ccStep2: 'Paso 2 &middot; ¿cuáles de estas has usado?',
+        ccStateLabel: 'Estado donde resides',
         ccNumLabel: 'Podrías reclamar',
         ccNumSub: (n) => `en ${n} acuerdo${n === 1 ? '' : 's'} donde podrías calificar`,
         ccNumNote: '&ldquo;Hasta&rdquo; son los montos máximos publicados. Aparecer no es una promesa de pago.',
@@ -402,6 +403,7 @@ const COPY = {
         ccTitle: 'Which settlements could you actually claim?',
         ccLede: 'Your email only finds breaches we track by email. Tick the companies you have been a customer, patient or employee of &mdash; that is how we find claims your email alone cannot.',
         ccStep2: 'Step 2 &middot; which of these have you used?',
+        ccStateLabel: 'State you live in',
         ccNumLabel: 'You could claim',
         ccNumSub: (n) => `across ${n} settlement${n === 1 ? '' : 's'} where you might qualify`,
         ccNumNote: '&ldquo;Up to&rdquo; means the published maximums. Appearing is not a promise of payment.',
@@ -1874,7 +1876,14 @@ function renderMissed(rows, meta) {
         list.innerHTML = '';
         caveat.hidden = true;
         none.hidden = false;
-        none.textContent = t().missedNoneBody(meta.casos, meta.abiertas);
+        // Counts come from funnel.json (the same source as the hub, the alerts
+        // card and the banner) so this line cannot contradict them. "Live right
+        // now" is cases not yet settled: casos - acuerdos (= the hub's "still in
+        // court"). Falls back to the settlements meta only until funnel.json loads.
+        const fm = funnelData && funnelData.meta;
+        const casos = fm ? fm.casos : meta.casos;
+        const live = fm ? (fm.casos - fm.acuerdos) : meta.abiertas;
+        none.textContent = t().missedNoneBody(casos, live);
         return;
     }
 
@@ -1972,7 +1981,9 @@ function sitioExterno(url) {
 async function refreshMissed() {
     if (!document.getElementById('missedCard')) return;
     if (!lastEmailResult?.breaches?.length) { renderMissed([], null); return; }
-    const [filas, meta] = await Promise.all([missedSettlements(), loadSettlements()]);
+    // loadFunnel too, so the no-match count reads the single-source figures
+    // rather than the settlements.json meta that disagrees with them.
+    const [filas, meta] = await Promise.all([missedSettlements(), loadSettlements(), loadFunnel()]);
     renderMissed(filas, meta);
 }
 
@@ -2064,14 +2075,20 @@ function renderFunnelNumber() {
     const locked = document.getElementById('funnelLocked');
     if (!numBox || !locked) return;
     const res = funnelMatch();
-    if (!res.items.length) { numBox.hidden = true; locked.hidden = true; return; }
+    // Only claimable (open) settlements drive the number and the list; closed
+    // email matches stay in the historical money card above.
+    const claim = res.openItems;
+    if (!claim.length) { numBox.hidden = true; locked.hidden = true; return; }
     numBox.hidden = false;
     locked.hidden = false;
     document.getElementById('funnelTotal').textContent =
-        res.totalMax > 0 ? (t().alertsMissedMax + ' ' + funnelFmt(res.totalMax))
+        res.openTotalMax > 0 ? (t().alertsMissedMax + ' ' + funnelFmt(res.openTotalMax))
             : t().ccNumNoAmount;
-    document.getElementById('funnelSub').textContent = t().ccNumSub(res.items.length);
-    renderFunnelLocked(res.items);
+    document.getElementById('funnelSub').textContent = t().ccNumSub(claim.length);
+    renderFunnelLocked(claim);
+    // If this session already paid, keep the list open instead of re-blurring
+    // it every time a chip or the state changes.
+    if (funnelUnlocked()) revealFunnelList();
 }
 
 async function refreshFunnel() {
@@ -2122,7 +2139,7 @@ function revealFunnelList() {
     const list = document.getElementById('funnelLockedList');
     if (!locked || !list || !window.FunnelMatch) return;
     const res = funnelMatch();
-    list.innerHTML = res.items.map(it => {
+    list.innerHTML = res.openItems.map(it => {
         const amt = it.porPersona ? (t().alertsMissedMax + ' ' + funnelFmt(it.porPersona))
             : (it.fondo ? funnelFmt(it.fondo) : '');
         const sitio = sitioValido(it.sitio);

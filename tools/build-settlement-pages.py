@@ -842,7 +842,7 @@ SEARCH_JS = r'''(function () {
   function row(x) {
     var tag = x.h ? ' <span class="settle-tag">in our check</span>' : '';
     var amt = x.a ? '<span class="settle-amount">' + (x.o ? 'up to ' : '') + esc(x.a) + '</span>' : '';
-    return '<li' + (x.o ? ' class="open-row"' : '') + '><a href="' + x.u + '">' +
+    return '<li' + (x.o ? ' class="open-row"' : '') + '><a href="' + esc(x.u) + '">' +
       '<span class="settle-name">' + esc(x.n) + tag + '</span>' + amt +
       '<span class="settle-when">' + esc(x.w) + '</span></a></li>';
   }
