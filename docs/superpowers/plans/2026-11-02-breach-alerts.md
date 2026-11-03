@@ -20,7 +20,7 @@
 - Copy is neutral Spanish (tú-form, no voseo) and English, both provided. No emojis, no em-dashes.
 - Mail path reuses `layout()` and the `send()` contract in `_email.js` (returns false, never throws).
 - US-only gating does NOT apply here: breach-capture is open to ES and EN visitors. (Paddle billing, which is US-only, is out of scope.)
-- Double opt-in is mandatory: signup never activates a subscription directly. It writes/keeps `status='pending'` with an app-generated `confirm_token`, sends a confirm link, and only `/api/confirm-subscription` sets `active`. An `unsubscribed` row is never auto-reactivated; a re-signup sends a fresh confirm. Signup responses never reveal whether the email already existed.
+- Double opt-in is mandatory: signup never activates a subscription directly. It writes/keeps `status='pending'` with an app-generated `confirm_token`, sends a confirm link, and only `/api/confirm-subscription` sets `active`. An `unsubscribed` row is never auto-reactivated; a re-signup sends a fresh confirm. Signup responses never reveal whether the email already existed. Resending the confirm mail (pending or unsubscribed re-signup) is throttled per address via `confirm_sent_at` (15 min), which is set only after a successful send so a failed send stays retryable.
 
 ## Review Focus
 
@@ -46,6 +46,7 @@ create table if not exists breach_watch (
   known_breaches     text[] not null default '{}',
   baseline_done      boolean not null default false,
   confirm_token      uuid,
+  confirm_sent_at    timestamptz,
   confirmed_at       timestamptz,
   last_checked_at    timestamptz,
   created_at         timestamptz not null default now(),
@@ -54,7 +55,7 @@ create table if not exists breach_watch (
 create unique index if not exists breach_watch_email_key on breach_watch (email);
 ```
 
-Emails are normalized (lowercased/trimmed) in app code before insert, so the plain `email` unique index is sufficient. **Double opt-in (decided 2026-11-02):** signup rows are born `pending` and only become `active` via a confirm-link click, closing the consent-bypass the security review flagged.
+Emails are normalized (lowercased/trimmed) in app code before insert, so the plain `email` unique index is sufficient. **Double opt-in (decided 2026-11-02):** signup rows are born `pending` and only become `active` via a confirm-link click, closing the consent-bypass the security review flagged. A `pending` row can re-request the confirm mail, throttled per address via `confirm_sent_at` (resolves the lockout a second security review flagged, without enabling mail-bomb).
 
 - **`CRON_SECRET`:** already set on the project (it gates `keepalive` and `healthcheck`). No new env var is needed for the MVP.
 - **Radar trigger (ops, after Task 5 deploys):** the daily routine adds one authenticated call `POST https://www.am-i-exposed.com/api/run-breach-alerts` with header `Authorization: Bearer <CRON_SECRET>`. The routine must hold the secret. No `vercel.json` cron change (Hobby's 2 slots stay as-is).
@@ -374,18 +375,20 @@ by Task 3R and rewritten in Task 5N.
 Rewrite `planSignup(existingRow, { email, lang }) ->`
 - `null` -> `{ action: 'insert', row: { email, lang, status: 'pending', plan: 'free_capture' } }`
 - `existingRow.status === 'unsubscribed'` -> `{ action: 'reconfirm', patch: { status: 'pending', lang } }`
-- `existingRow.status === 'pending'` -> `{ action: 'noop' }`
+- `existingRow.status === 'pending'` -> `{ action: 'reconfirm', patch: { status: 'pending', lang } }` (resend-with-throttle; the endpoint enforces the per-address throttle)
 - `existingRow.status === 'active'` -> `{ action: 'noop' }`
 - any other (e.g. `'paused'`) -> `{ action: 'noop' }`
 
 The endpoint (Task 5N) attaches the `confirm_token` to the insert row / reconfirm
-patch and sends the confirm mail; planSignup stays pure and token-free.
+patch, enforces the `confirm_sent_at` throttle, and sends the confirm mail;
+planSignup stays pure and token-free.
 
 Replace the three existing planSignup tests with:
 - null -> insert, `row.status === 'pending'`, `row.plan === 'free_capture'`, `row.email === 'a@b.com'`
 - unsubscribed -> reconfirm, `patch.status === 'pending'`
-- pending -> noop
+- pending -> reconfirm, `patch.status === 'pending'`
 - active -> noop
+- paused -> noop
 
 TDD: update tests (RED), rewrite planSignup (GREEN), `node --test api/_breach-watch.test.mjs` all pass. Do NOT touch `api/monitor-signup.js` in this task. Commit.
 
@@ -410,10 +413,14 @@ Senders in `_email.js` (I/O, deploy-verified), reusing `layout()` + internal `se
 **Files:** Rewrite `api/monitor-signup.js`; create `api/confirm-subscription.js`; modify `api/_shared.js`.
 
 `api/monitor-signup.js` (double opt-in): same guards as before (POST-only, origin, `typeof raw !== 'string'` -> 400 before `normalizeEmail`, `consent === true` -> else 400, rate-limit, never log email, always `200 {ok:true}`). After `planSignup`:
-- `insert`: `const token = crypto.randomUUID();` insert row with `confirm_token: token`; then `sendBreachConfirm({ to: email, lang, confirmUrl: \`${base}/api/confirm-subscription?token=${token}\` })`.
-- `reconfirm`: `const token = crypto.randomUUID();` patch with `{ ...patch, confirm_token: token }`; then send the same confirm mail.
+The select must include `confirm_sent_at` and the row `id`:
+`select=id,status,confirm_sent_at`. `const THROTTLE_MS = 15 * 60 * 1000;`
+
+- `insert`: `const token = crypto.randomUUID();` `const ins = await sbInsert('breach_watch', { ...plan.row, confirm_token: token });` if `!ins.ok` -> 500 generic. If `base`: `const sent = await sendBreachConfirm({ to: email, lang, confirmUrl: \`${base}/api/confirm-subscription?token=${token}\` });` and if `sent`, `await sbPatch(\`breach_watch?id=eq.${ins.rows[0].id}\`, { confirm_sent_at: new Date().toISOString() });`. If `!base`, log a constant string (do not leave the failure invisible).
+- `reconfirm` (covers pending AND unsubscribed): apply the per-address throttle FIRST. `const last = row.confirm_sent_at ? Date.parse(row.confirm_sent_at) : 0;` if `last && Date.now() - last < THROTTLE_MS` -> do nothing (no token rotation, no send; the prior confirm link stays valid) and return `200 {ok:true}`. Otherwise `const token = crypto.randomUUID();` `const upd = await sbPatch(\`breach_watch?id=eq.${row.id}\`, { ...plan.patch, confirm_token: token });` if `!upd.ok` -> 500 generic. If `base`: send the confirm mail and, if `sent`, patch `{ confirm_sent_at: new Date().toISOString() }`; if `!base`, log a constant.
 - `noop`: send nothing.
-`base` from `publicBaseUrl(req)`. A failed send is logged by name only and still returns `200 {ok:true}` (the row is pending; they can re-signup). `crypto` is `node:crypto` (global `crypto.randomUUID` on Node 24).
+
+`base` from `publicBaseUrl(req)`. `confirm_sent_at` is set ONLY after a successful send, so a failed send stays retryable (not throttled). A failed send is logged by name only and still returns `200 {ok:true}`. `crypto` is `node:crypto` (global `crypto.randomUUID` on Node 24).
 
 `api/confirm-subscription.js` (`GET`): read `token` from query; if not a non-empty string -> a generic "invalid/expired" HTML page (200). `sbSelect(\`breach_watch?confirm_token=eq.${encodeURIComponent(token)}&status=eq.pending&select=id,lang\`)`. If a row: `sbPatch(\`breach_watch?id=eq.${id}\`, { status: 'active', confirmed_at: new Date().toISOString(), confirm_token: null })` and show a localized "confirmed" HTML page. If no row: the same generic "invalid/expired" page (do not distinguish). Light rate-limit by IP. `Cache-Control: private, no-store`. Never log the token's email (there is none in query; fine).
 

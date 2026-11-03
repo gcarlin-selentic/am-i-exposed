@@ -72,6 +72,7 @@ create table if not exists breach_watch (
   known_breaches     text[] not null default '{}',      -- HIBP Names ya vistos para este email
   baseline_done      boolean not null default false,    -- true tras el primer chequeo
   confirm_token      uuid,                              -- lo genera la app por alta/reconfirmación
+  confirm_sent_at    timestamptz,                       -- último envío de confirmación (throttle anti-mail-bomb)
   confirmed_at       timestamptz,                       -- cuando se confirmó el doble opt-in
   last_checked_at    timestamptz,
   created_at         timestamptz not null default now(),
@@ -99,6 +100,14 @@ Emails normalizados (minúsculas/trim) en la app antes de insertar, así el índ
 - Re-alta de un `unsubscribed`: NO se reactiva solo; vuelve a `pending` con un
   token nuevo y re-envía la confirmación. La activación siempre exige el clic,
   así que una baja nunca se revierte sin el dueño del buzón.
+- Re-alta de un `pending` (confirmación perdida o en spam): re-envía la
+  confirmación con un token nuevo, pero **con throttle por dirección**: a lo sumo
+  un correo de confirmación cada 15 minutos por fila, medido con `confirm_sent_at`
+  (que solo se fija tras un envío exitoso). Dentro de la ventana no se reenvía ni
+  se rota el token (el enlace anterior sigue válido). Esto resuelve a la vez el
+  bloqueo del usuario legítimo (security review 2026-11-02) y el riesgo de
+  mail-bomb a una víctima. Un envío fallido no fija `confirm_sent_at`, así que se
+  puede reintentar enseguida.
 - El job diario de alertas lee solo `status='active'`, así que `pending` y
   `unsubscribed` quedan fuera automáticamente.
 
