@@ -20,6 +20,7 @@
 - Copy is neutral Spanish (tú-form, no voseo) and English, both provided. No emojis, no em-dashes.
 - Mail path reuses `layout()` and the `send()` contract in `_email.js` (returns false, never throws).
 - US-only gating does NOT apply here: breach-capture is open to ES and EN visitors. (Paddle billing, which is US-only, is out of scope.)
+- Double opt-in is mandatory: signup never activates a subscription directly. It writes/keeps `status='pending'` with an app-generated `confirm_token`, sends a confirm link, and only `/api/confirm-subscription` sets `active`. An `unsubscribed` row is never auto-reactivated; a re-signup sends a fresh confirm. Signup responses never reveal whether the email already existed.
 
 ## Review Focus
 
@@ -39,11 +40,13 @@
 create table if not exists breach_watch (
   id                 bigint generated always as identity primary key,
   email              text not null,
-  status             text not null default 'active',
+  status             text not null default 'pending',   -- pending | active | unsubscribed | paused
   plan               text not null default 'free_capture',
   lang               text,
   known_breaches     text[] not null default '{}',
   baseline_done      boolean not null default false,
+  confirm_token      uuid,
+  confirmed_at       timestamptz,
   last_checked_at    timestamptz,
   created_at         timestamptz not null default now(),
   unsubscribe_token  uuid not null default gen_random_uuid()
@@ -51,7 +54,7 @@ create table if not exists breach_watch (
 create unique index if not exists breach_watch_email_key on breach_watch (email);
 ```
 
-Emails are normalized (lowercased/trimmed) in app code before insert, so the plain `email` unique index is sufficient.
+Emails are normalized (lowercased/trimmed) in app code before insert, so the plain `email` unique index is sufficient. **Double opt-in (decided 2026-11-02):** signup rows are born `pending` and only become `active` via a confirm-link click, closing the consent-bypass the security review flagged.
 
 - **`CRON_SECRET`:** already set on the project (it gates `keepalive` and `healthcheck`). No new env var is needed for the MVP.
 - **Radar trigger (ops, after Task 5 deploys):** the daily routine adds one authenticated call `POST https://www.am-i-exposed.com/api/run-breach-alerts` with header `Authorization: Bearer <CRON_SECRET>`. The routine must hold the secret. No `vercel.json` cron change (Hobby's 2 slots stay as-is).
@@ -351,3 +354,79 @@ A small capture block ("we monitor your email and alert you") that POSTs to `/ap
 - Spec coverage: capture (Task 3 + 6), daily per-subscriber check (Task 5 + 2), diff/dedup (Task 1), welcome vs alert (Task 1 + 4), send (Task 4), gate (Task 2 + 5), privacy consent + no-email-logs (Task 3/5 + Global Constraints), DDL + Radar trigger (Prerequisites). Settlements/combo and Paddle billing are explicit non-goals of this plan.
 - Type consistency: `hibpLookup` returns `{status,names}` everywhere; `patch(id, fields)` signature is identical in Task 2 tests and Task 5 wiring; copy builders return `{subject,lines}` consumed by `_email.js` senders.
 - The two handlers (Tasks 5, 6) carry the only deploy-verified surface; all branching logic is pushed into the `.mjs` core and unit-tested, keeping the untested glue minimal and honest given the project has no local handler test harness.
+
+---
+
+## AMENDMENT 2026-11-02 — Double opt-in (supersedes Tasks 3-6 above)
+
+The product owner chose double opt-in after the security review flagged that
+immediate activation lets anyone subscribe/re-subscribe an address they don't
+own. This amendment redefines the remaining tasks and their numbering. Where it
+conflicts with the tasks above, this governs. Task 1 and Task 2 are unchanged
+and complete. Task 3's committed work (faab302) is partly superseded: its
+`planSignup` is rewritten in Task 3R; its `api/monitor-signup.js` is left as-is
+by Task 3R and rewritten in Task 5N.
+
+### Task 3R: planSignup (double opt-in, pure) — REVISED
+
+**Files:** Modify `api/_breach-watch.mjs`, `api/_breach-watch.test.mjs`.
+
+Rewrite `planSignup(existingRow, { email, lang }) ->`
+- `null` -> `{ action: 'insert', row: { email, lang, status: 'pending', plan: 'free_capture' } }`
+- `existingRow.status === 'unsubscribed'` -> `{ action: 'reconfirm', patch: { status: 'pending', lang } }`
+- `existingRow.status === 'pending'` -> `{ action: 'noop' }`
+- `existingRow.status === 'active'` -> `{ action: 'noop' }`
+- any other (e.g. `'paused'`) -> `{ action: 'noop' }`
+
+The endpoint (Task 5N) attaches the `confirm_token` to the insert row / reconfirm
+patch and sends the confirm mail; planSignup stays pure and token-free.
+
+Replace the three existing planSignup tests with:
+- null -> insert, `row.status === 'pending'`, `row.plan === 'free_capture'`, `row.email === 'a@b.com'`
+- unsubscribed -> reconfirm, `patch.status === 'pending'`
+- pending -> noop
+- active -> noop
+
+TDD: update tests (RED), rewrite planSignup (GREEN), `node --test api/_breach-watch.test.mjs` all pass. Do NOT touch `api/monitor-signup.js` in this task. Commit.
+
+### Task 4: Mail — confirm + welcome + alert (REVISED to add confirm)
+
+**Files:** Modify `api/_breach-watch.mjs`, `api/_email.js`, `api/_breach-watch.test.mjs`.
+
+Pure copy builders in `_breach-watch.mjs` (tested):
+- `breachConfirmCopy(lang) -> { subject, lines }` — the confirm-your-subscription mail (the confirm link is added by `_email.js`, not embedded in the pure copy).
+- `breachWelcomeCopy(lang, breaches) -> { subject, lines }`
+- `breachAlertCopy(lang, newBreaches) -> { subject, lines }`
+
+Tests: confirm/welcome/alert copy differ by lang; welcome lists exposure and handles `[]`; alert names the new breaches; confirm subject non-empty per lang.
+
+Senders in `_email.js` (I/O, deploy-verified), reusing `layout()` + internal `send()`:
+- `sendBreachConfirm({ to, lang, confirmUrl }) -> Promise<boolean>` — button/link to `confirmUrl`.
+- `sendBreachWelcome({ to, lang, breaches, siteUrl, unsubscribeUrl }) -> Promise<boolean>`
+- `sendBreachAlert({ to, lang, newBreaches, siteUrl, unsubscribeUrl }) -> Promise<boolean>`
+
+### Task 5N: Signup + confirm endpoints + _shared fixes (NEW)
+
+**Files:** Rewrite `api/monitor-signup.js`; create `api/confirm-subscription.js`; modify `api/_shared.js`.
+
+`api/monitor-signup.js` (double opt-in): same guards as before (POST-only, origin, `typeof raw !== 'string'` -> 400 before `normalizeEmail`, `consent === true` -> else 400, rate-limit, never log email, always `200 {ok:true}`). After `planSignup`:
+- `insert`: `const token = crypto.randomUUID();` insert row with `confirm_token: token`; then `sendBreachConfirm({ to: email, lang, confirmUrl: \`${base}/api/confirm-subscription?token=${token}\` })`.
+- `reconfirm`: `const token = crypto.randomUUID();` patch with `{ ...patch, confirm_token: token }`; then send the same confirm mail.
+- `noop`: send nothing.
+`base` from `publicBaseUrl(req)`. A failed send is logged by name only and still returns `200 {ok:true}` (the row is pending; they can re-signup). `crypto` is `node:crypto` (global `crypto.randomUUID` on Node 24).
+
+`api/confirm-subscription.js` (`GET`): read `token` from query; if not a non-empty string -> a generic "invalid/expired" HTML page (200). `sbSelect(\`breach_watch?confirm_token=eq.${encodeURIComponent(token)}&status=eq.pending&select=id,lang\`)`. If a row: `sbPatch(\`breach_watch?id=eq.${id}\`, { status: 'active', confirmed_at: new Date().toISOString(), confirm_token: null })` and show a localized "confirmed" HTML page. If no row: the same generic "invalid/expired" page (do not distinguish). Light rate-limit by IP. `Cache-Control: private, no-store`. Never log the token's email (there is none in query; fine).
+
+`api/_shared.js` fixes (address Task 3 review Important findings):
+- **Email-in-logs:** in `rest()`, the failure logs at the two `console.error` lines must NOT include the query string or the response body (a PostgREST duplicate-key body echoes `Key (email)=(...)`). Log only method + the table (the path up to `?`) + status. Apply once in `rest()`; it covers all callers.
+- **Rate-limit:** export `clientIp(req)` and `makeLocalLimiter(max, windowMs)` from `_shared.js` (lift the in-memory fallback out of `check-email.js`'s shape) and use them in `monitor-signup.js` instead of a copied block. Namespace the shared-limiter key per endpoint: signup uses `` `signup:${ip}` `` (check-email keeps its bare `ip` key; this prevents the two endpoints sharing one Postgres bucket with different max values). Leaving `check-email.js` to keep its local copy is acceptable for this task; do not refactor check-email.
+
+Deploy-verified (no local handler tests). planSignup and copy builders remain unit-tested.
+
+### Task 6: run-breach-alerts (was Task 5) — unchanged
+
+As specified above. It already selects `status=eq.active`, so pending/unsubscribed subscribers are excluded by construction — double opt-in needs no change here.
+
+### Task 7: Minimal capture form (was Task 6) — success copy changes
+
+As specified above, except the success state reads "revisa tu correo y confirma para activar el monitoreo" (ES) / "check your inbox and confirm to activate monitoring" (EN), since activation now requires the confirm click.

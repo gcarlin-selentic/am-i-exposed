@@ -57,25 +57,50 @@ comparando contra el estado guardado de esa persona.
 ## Modelo de datos
 
 Tabla nueva `breach_watch` (DDL la corre el dueño en el dashboard de Supabase,
-proyecto `am-i-exposed`, id `morosdhhoznicppmrqyr`):
+proyecto `am-i-exposed`, id `morosdhhoznicppmrqyr`). **Doble opt-in**: el alta
+nace `pending` y solo pasa a `active` cuando la persona hace clic en el enlace
+de confirmación enviado a su correo (decidido 2026-11-02, cierra el bypass de
+consentimiento que marcó el security review).
 
 ```sql
 create table if not exists breach_watch (
   id                 bigint generated always as identity primary key,
   email              text not null,
-  status             text not null default 'active',   -- active | paused | unsubscribed
+  status             text not null default 'pending',   -- pending | active | unsubscribed | paused
   plan               text not null default 'free_capture', -- free_capture | breach | combo
   lang               text,                              -- 'es' | 'en'
   known_breaches     text[] not null default '{}',      -- HIBP Names ya vistos para este email
   baseline_done      boolean not null default false,    -- true tras el primer chequeo
+  confirm_token      uuid,                              -- lo genera la app por alta/reconfirmación
+  confirmed_at       timestamptz,                       -- cuando se confirmó el doble opt-in
   last_checked_at    timestamptz,
   created_at         timestamptz not null default now(),
   unsubscribe_token  uuid not null default gen_random_uuid()
 );
 
 create unique index if not exists breach_watch_email_key
-  on breach_watch (lower(email));
+  on breach_watch (email);
 ```
+
+Emails normalizados (minúsculas/trim) en la app antes de insertar, así el índice
+único sobre `email` plano basta.
+
+### Doble opt-in (flujo de consentimiento)
+
+- Alta (`/api/monitor-signup`): valida email + casilla de consentimiento, inserta
+  `status='pending'` con un `confirm_token` nuevo (app, `crypto.randomUUID()`),
+  y envía el correo de confirmación con el enlace. Responde siempre 200
+  `{ok:true}` (no revela si el email ya existía).
+- Confirmación (`GET /api/confirm-subscription?token=<uuid>`): busca el token en
+  una fila `pending`, la pasa a `active` + `confirmed_at=now()` + limpia el
+  token, y muestra una página de "listo". Token no encontrado -> página
+  "enlace inválido o vencido". El token es el secreto (uuid impredecible), así
+  que un GET con el token es el patrón estándar de confirmación por correo.
+- Re-alta de un `unsubscribed`: NO se reactiva solo; vuelve a `pending` con un
+  token nuevo y re-envía la confirmación. La activación siempre exige el clic,
+  así que una baja nunca se revierte sin el dueño del buzón.
+- El job diario de alertas lee solo `status='active'`, así que `pending` y
+  `unsubscribed` quedan fuera automáticamente.
 
 Notas de diseño:
 
