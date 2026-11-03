@@ -98,16 +98,18 @@ export async function processSubscribers({ subscribers, hibpLookup, sendWelcome,
     return counts;
 }
 
-// Decides what a signup does to the table. An unknown address is inserted, an
-// unsubscribed one is switched back on, and anything else (active, paused) is
-// left alone, so a repeat signup can never reset a subscriber's state.
+// Decides what a signup does to the table under double opt-in. Nothing here
+// activates a subscription: a new address is stored as pending, an unsubscribed
+// one is asked to confirm again, and every other state is left alone so a
+// repeat signup can never reset a subscriber. The endpoint attaches the
+// confirm token.
 export function planSignup(existingRow, { email, lang }) {
     const cleanLang = lang === 'en' ? 'en' : 'es';
     if (!existingRow) {
-        return { action: 'insert', row: { email, lang: cleanLang, status: 'active', plan: 'free_capture' } };
+        return { action: 'insert', row: { email, lang: cleanLang, status: 'pending', plan: 'free_capture' } };
     }
     if (existingRow.status === 'unsubscribed') {
-        return { action: 'reactivate', patch: { status: 'active', lang: cleanLang } };
+        return { action: 'reconfirm', patch: { status: 'pending', lang: cleanLang } };
     }
     return { action: 'noop' };
 }

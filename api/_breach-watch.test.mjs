@@ -95,18 +95,20 @@ test('send failure does not mark breach known (retries next day)', async () => {
 
 import { planSignup } from './_breach-watch.mjs';
 
-test('planSignup inserts a new active free_capture row', () => {
+test('planSignup inserts a new pending free_capture row', () => {
   const p = planSignup(null, { email: 'a@b.com', lang: 'es' });
   assert.equal(p.action, 'insert');
-  assert.equal(p.row.status, 'active');
+  assert.equal(p.row.status, 'pending');
   assert.equal(p.row.plan, 'free_capture');
   assert.equal(p.row.email, 'a@b.com');
 });
-test('planSignup reactivates an unsubscribed row', () => {
+test('planSignup asks an unsubscribed row to reconfirm', () => {
   const p = planSignup({ id: 5, status: 'unsubscribed' }, { email: 'a@b.com', lang: 'en' });
-  assert.equal(p.action, 'reactivate');
-  assert.equal(p.patch.status, 'active');
+  assert.equal(p.action, 'reconfirm');
+  assert.equal(p.patch.status, 'pending');
 });
-test('planSignup is a noop for an already-active row', () => {
-  assert.deepEqual(planSignup({ id: 5, status: 'active' }, { email: 'a@b.com', lang: 'es' }), { action: 'noop' });
-});
+for (const status of ['pending', 'active', 'paused']) {
+  test(`planSignup is a noop for a ${status} row`, () => {
+    assert.deepEqual(planSignup({ id: 5, status }, { email: 'a@b.com', lang: 'es' }), { action: 'noop' });
+  });
+}
