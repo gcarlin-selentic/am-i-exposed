@@ -113,3 +113,79 @@ export function planSignup(existingRow, { email, lang }) {
     }
     return { action: 'noop' };
 }
+
+// Copy for the three breach-monitoring mails. Pure: they return plain text
+// lines and a subject, never a URL. The sender adds the button and the footer
+// through the mail layout, and escapes each line before it becomes HTML.
+function names(list) {
+    return (Array.isArray(list) ? list : []).join(', ');
+}
+
+export function breachConfirmCopy(lang) {
+    if (lang === 'en') {
+        return {
+            subject: 'Confirm your breach monitoring',
+            lines: [
+                'You asked to be alerted if your email address shows up in a data breach.',
+                'To turn the monitoring on, confirm with the button below.',
+                'If you did not ask for this, ignore this email. Nothing is activated until you confirm.',
+            ],
+        };
+    }
+    return {
+        subject: 'Confirma tu monitoreo de brechas',
+        lines: [
+            'Pediste que te avisemos si tu correo aparece en una filtración de datos.',
+            'Para activar el monitoreo, confirma con el botón de abajo.',
+            'Si no lo pediste tú, ignora este correo. No se activa nada hasta que confirmes.',
+        ],
+    };
+}
+
+export function breachWelcomeCopy(lang, breaches) {
+    const found = names(breaches);
+    if (lang === 'en') {
+        return {
+            subject: 'Your monitoring is active',
+            lines: [
+                'Your breach monitoring is on.',
+                found
+                    ? `Today your email appears in: ${found}.`
+                    : 'Right now your email does not appear in any known breach.',
+                'If it shows up in a new one, we will email you.',
+            ],
+        };
+    }
+    return {
+        subject: 'Tu monitoreo está activo',
+        lines: [
+            'Tu monitoreo de brechas está activo.',
+            found
+                ? `Hoy apareces en: ${found}.`
+                : 'Ahora mismo tu correo no aparece en ninguna filtración conocida.',
+            'Si aparece en una nueva, te avisaremos por correo.',
+        ],
+    };
+}
+
+export function breachAlertCopy(lang, newBreaches) {
+    const found = names(newBreaches);
+    if (lang === 'en') {
+        return {
+            subject: 'You appeared in a new breach',
+            lines: [
+                `Your email address showed up in a new breach: ${found}.`,
+                'Change the password you used on that service, and on any other site where you reused it. Turn on two-step verification where you can.',
+                'This is monitoring, not a guarantee: we can only report breaches that have been made public.',
+            ],
+        };
+    }
+    return {
+        subject: 'Apareciste en una filtración nueva',
+        lines: [
+            `Tu correo apareció en una filtración nueva: ${found}.`,
+            'Cambia la contraseña que usabas en ese servicio y en cualquier otro sitio donde la repetiste. Activa la verificación en dos pasos donde puedas.',
+            'Esto es monitoreo, no una garantía: solo podemos avisarte de filtraciones que ya son públicas.',
+        ],
+    };
+}

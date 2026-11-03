@@ -14,6 +14,8 @@
 // Pago retry, and the money is already recorded by then. Every function below
 // reports failure by returning false, never by throwing.
 
+import { breachConfirmCopy, breachWelcomeCopy, breachAlertCopy } from './_breach-watch.mjs';
+
 const BREVO_API = 'https://api.brevo.com/v3/smtp/email';
 
 function sender() {
@@ -196,4 +198,77 @@ export async function sendRefundNotice({ to, lang, amount, currency, paidAt }) {
 // layout.
 export async function sendOpsAlert({ to, subject, html }) {
     return send({ to, subject, html });
+}
+
+// Breach monitoring mail. The copy comes from the pure builders in
+// _breach-watch.mjs as plain text, so each line is escaped here before it
+// becomes HTML. Same contract as above: false on failure, never a throw.
+const BREACH_UI = {
+    es: {
+        confirmTitle: 'Confirma tu monitoreo',
+        confirmButton: 'Confirmar',
+        confirmFooter: 'Si no fuiste tú, ignora este correo.',
+        welcomeTitle: 'Tu monitoreo está activo',
+        alertTitle: 'Apareciste en una filtración nueva',
+        siteButton: 'Ver mi exposición',
+        unsubscribe: 'Para dejar de recibir estos avisos:',
+        unsubscribeLink: 'darte de baja',
+    },
+    en: {
+        confirmTitle: 'Confirm your monitoring',
+        confirmButton: 'Confirm',
+        confirmFooter: 'If this was not you, ignore this email.',
+        welcomeTitle: 'Your monitoring is active',
+        alertTitle: 'You appeared in a new breach',
+        siteButton: 'See my exposure',
+        unsubscribe: 'To stop receiving these alerts:',
+        unsubscribeLink: 'unsubscribe',
+    },
+};
+
+function breachFooter(ui, unsubscribeUrl) {
+    if (!unsubscribeUrl) return escapeHtml(ui.unsubscribe);
+    return `${escapeHtml(ui.unsubscribe)} <a href="${escapeHtml(unsubscribeUrl)}" style="color:#666666;">${escapeHtml(ui.unsubscribeLink)}</a>`;
+}
+
+export async function sendBreachConfirm({ to, lang, confirmUrl }) {
+    const l = pickLang(lang);
+    const ui = BREACH_UI[l];
+    const copy = breachConfirmCopy(l);
+    const html = layout({
+        title: ui.confirmTitle,
+        lines: copy.lines.map(escapeHtml),
+        buttonLabel: ui.confirmButton,
+        buttonUrl: confirmUrl,
+        footer: escapeHtml(ui.confirmFooter),
+    });
+    return send({ to, subject: copy.subject, html });
+}
+
+export async function sendBreachWelcome({ to, lang, breaches, siteUrl, unsubscribeUrl }) {
+    const l = pickLang(lang);
+    const ui = BREACH_UI[l];
+    const copy = breachWelcomeCopy(l, breaches);
+    const html = layout({
+        title: ui.welcomeTitle,
+        lines: copy.lines.map(escapeHtml),
+        buttonLabel: ui.siteButton,
+        buttonUrl: siteUrl || null,
+        footer: breachFooter(ui, unsubscribeUrl),
+    });
+    return send({ to, subject: copy.subject, html });
+}
+
+export async function sendBreachAlert({ to, lang, newBreaches, siteUrl, unsubscribeUrl }) {
+    const l = pickLang(lang);
+    const ui = BREACH_UI[l];
+    const copy = breachAlertCopy(l, newBreaches);
+    const html = layout({
+        title: ui.alertTitle,
+        lines: copy.lines.map(escapeHtml),
+        buttonLabel: ui.siteButton,
+        buttonUrl: siteUrl || null,
+        footer: breachFooter(ui, unsubscribeUrl),
+    });
+    return send({ to, subject: copy.subject, html });
 }

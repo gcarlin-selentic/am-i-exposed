@@ -112,3 +112,27 @@ for (const status of ['pending', 'active', 'paused']) {
     assert.deepEqual(planSignup({ id: 5, status }, { email: 'a@b.com', lang: 'es' }), { action: 'noop' });
   });
 }
+
+import { breachConfirmCopy, breachWelcomeCopy, breachAlertCopy } from './_breach-watch.mjs';
+
+test('confirm copy has a subject per lang and differs by lang', () => {
+  const es = breachConfirmCopy('es');
+  const en = breachConfirmCopy('en');
+  assert.ok(es.subject.length > 0 && en.subject.length > 0);
+  assert.notEqual(es.subject, en.subject);
+  assert.ok(es.lines.length > 0);
+});
+test('welcome copy lists current exposure and differs by lang', () => {
+  const es = breachWelcomeCopy('es', ['LinkedIn']);
+  const en = breachWelcomeCopy('en', ['LinkedIn']);
+  assert.ok(es.lines.join(' ').includes('LinkedIn'));
+  assert.notEqual(es.subject, en.subject);
+});
+test('welcome copy handles a clean result', () => {
+  const es = breachWelcomeCopy('es', []);
+  assert.ok(es.lines.length > 0);
+});
+test('alert copy names the new breaches', () => {
+  const es = breachAlertCopy('es', ['Dropbox']);
+  assert.ok(es.lines.join(' ').includes('Dropbox'));
+});
