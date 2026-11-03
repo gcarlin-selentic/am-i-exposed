@@ -179,6 +179,36 @@ export function isAllowedOrigin(origin, host) {
     return configured.split(',').map(o => o.trim()).filter(Boolean).includes(origin);
 }
 
+export function clientIp(req) {
+    const forwarded = req.headers['x-forwarded-for'];
+    if (typeof forwarded === 'string' && forwarded.length > 0) {
+        return forwarded.split(',')[0].trim();
+    }
+    return req.socket?.remoteAddress || 'unknown';
+}
+
+// In-memory sliding-window fallback for when the shared Postgres limiter
+// cannot answer. Each limiter owns a private map. Returns a function that
+// takes a key and answers true when that key is over the limit.
+export function makeLocalLimiter(max, windowMs) {
+    const hits = new Map();
+    return function overLimit(key) {
+        const now = Date.now();
+        const recent = (hits.get(key) || []).filter(t => now - t < windowMs);
+        recent.push(now);
+        hits.set(key, recent);
+
+        // Keep the map from growing without bound on a long-lived instance.
+        if (hits.size > 5000) {
+            for (const [k, times] of hits) {
+                if (times.every(t => now - t >= windowMs)) hits.delete(k);
+            }
+        }
+
+        return recent.length > max;
+    };
+}
+
 export function safeParse(raw) {
     try { return JSON.parse(raw); } catch { return null; }
 }
@@ -252,6 +282,9 @@ function restUrl(path) {
 // always means "no access": failing closed is the only safe direction.
 async function rest(path, init) {
     const url = restUrl(path);
+    // Log the table only. The query string carries email=eq.<address> and a
+    // PostgREST error body can echo the offending key, so neither is logged.
+    const table = path.split('?')[0];
     if (!url) return { ok: false, status: 0, rows: [] };
 
     try {
@@ -259,11 +292,11 @@ async function rest(path, init) {
         const text = await response.text();
         const rows = text ? (safeParse(text) ?? []) : [];
         if (!response.ok) {
-            console.error(`Supabase ${init?.method || 'GET'} ${path} failed:`, response.status, text.slice(0, 200));
+            console.error(`Supabase ${init?.method || 'GET'} ${table} failed: ${response.status}`);
         }
         return { ok: response.ok, status: response.status, rows: Array.isArray(rows) ? rows : [rows] };
     } catch (error) {
-        console.error(`Supabase ${init?.method || 'GET'} ${path} error:`, error.name);
+        console.error(`Supabase ${init?.method || 'GET'} ${table} error: ${error.name}`);
         return { ok: false, status: 0, rows: [] };
     }
 }
