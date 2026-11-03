@@ -159,7 +159,7 @@ def firecrawl(url):
         except urllib.error.HTTPError as e:
             print(f'    HTTP {e.code} en {url}', file=sys.stderr)
             if e.code in (402, 401, 403):
-                return {}, [], url, url
+                return {}, [], url
             time.sleep(10 * (n + 1))
         except Exception as e:
             print(f'    {e} en {url}', file=sys.stderr)
