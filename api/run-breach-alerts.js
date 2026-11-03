@@ -23,16 +23,23 @@ import { sbSelect, sbPatch, publicBaseUrl } from './_shared.js';
 import { sendBreachWelcome, sendBreachAlert } from './_email.js';
 
 const HIBP_ENDPOINT = 'https://haveibeenpwned.com/api/v3/breachedaccount';
+const HIBP_PACE_MS = 6500;
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+
+export const config = { maxDuration: 60 };
 
 // Must never throw: processSubscribers has no try/catch around the lookup, so a
 // throw would abort the whole batch. Every failure maps to status 'error', which
 // leaves the row untouched and retries tomorrow.
 //
-// No pacing between lookups: the early-access list is small and stays under
-// HIBP's 10 requests per minute. Per-subscriber pacing or batching across runs
-// is the scaling step once the list outgrows that (see the design doc).
+// Pacing: each lookup waits HIBP_PACE_MS first, keeping calls under HIBP's
+// 10 requests per minute. At ~6.5s per subscriber under the 60s maxDuration cap
+// below, a single run handles roughly 8 subscribers. Beyond that, process a
+// slice per run (batching) or raise the HIBP plan. A persistently high `errors`
+// count in the response means the list has outgrown one run.
 async function hibpLookup(email) {
     try {
+        await sleep(HIBP_PACE_MS);
         const response = await fetch(
             `${HIBP_ENDPOINT}/${encodeURIComponent(email)}?truncateResponse=false`,
             {
@@ -49,9 +56,10 @@ async function hibpLookup(email) {
 
         if (response.status === 200) {
             const body = await response.json().catch(() => []);
-            const names = Array.isArray(body)
-                ? body.map(b => b && b.Name).filter(n => typeof n === 'string')
-                : [];
+            // A malformed 200 is an error, not "found with no names": on a
+            // baseline run it would store an empty known_breaches list.
+            if (!Array.isArray(body)) return { status: 'error', names: [] };
+            const names = body.map(b => b && b.Name).filter(n => typeof n === 'string');
             return { status: 'found', names };
         }
 

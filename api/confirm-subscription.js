@@ -11,6 +11,8 @@ import { rateLimitOk, sbSelect, sbPatch, clientIp, makeLocalLimiter } from './_s
 const RATE_LIMIT_MAX = 20;
 const RATE_LIMIT_WINDOW_SECONDS = 60;
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 const localLimiter = makeLocalLimiter(RATE_LIMIT_MAX, RATE_LIMIT_WINDOW_SECONDS * 1000);
 
 const PAGES = {
@@ -74,7 +76,8 @@ export default async function handler(req, res) {
     }
 
     const token = req.query?.token;
-    if (typeof token !== 'string' || token.length === 0) {
+    // The column is a uuid: a non-uuid value would make PostgREST answer 400.
+    if (typeof token !== 'string' || !UUID_RE.test(token)) {
         return sendPage(res, PAGES.invalid.es);
     }
 

@@ -146,8 +146,8 @@ async function send({ to, subject, html }) {
             signal: AbortSignal.timeout(8000),
         });
         if (!response.ok) {
-            const detail = await response.text().catch(() => '');
-            console.error('Mail send failed:', response.status, detail.slice(0, 200));
+            // Status only: Brevo's body can echo the recipient address.
+            console.error('Mail send failed, status:', response.status);
             return false;
         }
         return true;

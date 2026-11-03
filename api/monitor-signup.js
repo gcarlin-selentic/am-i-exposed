@@ -5,8 +5,13 @@
 // logged. Nothing is activated here: a pending row is stored with a one-time
 // token and a confirmation mail is sent. The row only becomes active when the
 // person opens the link (see confirm-subscription.js). The answer is always the
-// same { ok: true } so the endpoint cannot be used to find out whether an
-// address is already subscribed.
+// same { ok: true }, so the response body does not reveal whether an address
+// is already subscribed. Response timing does: the noop path (already-active
+// address) returns fast, while insert/reconfirm awaits the confirm-mail send,
+// so an attacker timing the response can tell an active subscriber apart.
+// Accepted for now (the endpoint is rate-limited); equalizing it would need a
+// background-send mechanism (e.g. waitUntil), which the zero-dependency
+// constraint rules out.
 
 import {
     isAllowedOrigin, rateLimitOk, readBody, sbSelect, sbInsert, sbPatch,
