@@ -108,7 +108,7 @@ export function planSignup(existingRow, { email, lang }) {
     if (!existingRow) {
         return { action: 'insert', row: { email, lang: cleanLang, status: 'pending', plan: 'free_capture' } };
     }
-    if (existingRow.status === 'unsubscribed') {
+    if (existingRow.status === 'unsubscribed' || existingRow.status === 'pending') {
         return { action: 'reconfirm', patch: { status: 'pending', lang: cleanLang } };
     }
     return { action: 'noop' };

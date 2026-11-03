@@ -28,15 +28,15 @@ const PAGES = {
     },
     invalid: {
         es: {
-            title: 'Enlace no válido o vencido',
-            text: 'Este enlace de confirmación no es válido, ya se usó o venció. Si quieres activar el monitoreo, vuelve a suscribirte desde la página y te enviaremos un enlace nuevo.',
-            en: 'This confirmation link is invalid, already used or expired. Sign up again from the site to get a new one.',
+            title: 'Enlace no válido',
+            text: 'Este enlace no es válido o ya se usó. Si quieres activar el monitoreo, vuelve a suscribirte desde la página y te enviaremos un enlace nuevo.',
+            en: 'This link is invalid or already used. Sign up again from the site to get a new one.',
         },
     },
 };
 
-function pageHtml({ title, text, en }) {
-    return `<!doctype html><html lang="es"><head><meta charset="utf-8">`
+function pageHtml({ title, text, en }, lang) {
+    return `<!doctype html><html lang="${lang}"><head><meta charset="utf-8">`
         + `<meta name="viewport" content="width=device-width,initial-scale=1">`
         + `<meta name="robots" content="noindex">`
         + `<title>${title} · Am I Exposed</title></head>`
@@ -52,9 +52,9 @@ function pageHtml({ title, text, en }) {
         + `</div></body></html>`;
 }
 
-function sendPage(res, page) {
+function sendPage(res, page, lang = 'es') {
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    return res.status(200).send(pageHtml(page));
+    return res.status(200).send(pageHtml(page, lang));
 }
 
 export default async function handler(req, res) {
@@ -91,7 +91,7 @@ export default async function handler(req, res) {
             return sendPage(res, PAGES.invalid.es);
         }
 
-        const saved = await sbPatch(`breach_watch?id=eq.${row.id}`, {
+        const saved = await sbPatch(`breach_watch?id=eq.${row.id}&status=eq.pending`, {
             status: 'active',
             confirmed_at: new Date().toISOString(),
             confirm_token: null,
@@ -100,7 +100,8 @@ export default async function handler(req, res) {
             return res.status(500).json({ error: 'Service unavailable' });
         }
 
-        return sendPage(res, PAGES.confirmed[row.lang === 'en' ? 'en' : 'es']);
+        const lang = row.lang === 'en' ? 'en' : 'es';
+        return sendPage(res, PAGES.confirmed[lang], lang);
     } catch (error) {
         // Name only: the token must not reach a log.
         console.error('confirm-subscription error:', error.name);

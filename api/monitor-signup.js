@@ -18,6 +18,9 @@ import { sendBreachConfirm } from './_email.js';
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_SECONDS = 60;
 
+// Minimum gap between confirmation mails to the same address.
+const THROTTLE_MS = 15 * 60 * 1000;
+
 // Fallback used only when the shared limiter cannot answer, so a database
 // blip does not take signups down.
 const localLimiter = makeLocalLimiter(RATE_LIMIT_MAX, RATE_LIMIT_WINDOW_SECONDS * 1000);
@@ -75,32 +78,50 @@ export default async function handler(req, res) {
     const lang = body?.lang === 'en' ? 'en' : 'es';
 
     try {
-        const sel = await sbSelect(`breach_watch?email=eq.${encodeURIComponent(email)}&select=id,status`);
+        const sel = await sbSelect(`breach_watch?email=eq.${encodeURIComponent(email)}&select=id,status,confirm_sent_at`);
         if (!sel.ok) {
             return res.status(500).json({ error: 'Service unavailable' });
         }
 
-        const existing = sel.rows?.[0] || null;
-        const plan = planSignup(existing, { email, lang });
+        const row = sel.rows?.[0] || null;
+        const plan = planSignup(row, { email, lang });
         const base = publicBaseUrl(req);
+
+        // A confirm mail went out recently: do nothing, so the earlier link
+        // stays valid and the endpoint cannot be used to spam an address.
+        if (plan.action === 'reconfirm') {
+            const last = row.confirm_sent_at ? Date.parse(row.confirm_sent_at) : 0;
+            if (last && Date.now() - last < THROTTLE_MS) {
+                return res.status(200).json({ ok: true });
+            }
+        }
 
         if (plan.action === 'insert' || plan.action === 'reconfirm') {
             const token = crypto.randomUUID();
             const saved = plan.action === 'insert'
                 ? await sbInsert('breach_watch', { ...plan.row, confirm_token: token })
-                : await sbPatch(`breach_watch?id=eq.${existing.id}`, { ...plan.patch, confirm_token: token });
+                : await sbPatch(`breach_watch?id=eq.${row.id}`, { ...plan.patch, confirm_token: token });
 
             if (!saved.ok) {
                 return res.status(500).json({ error: 'Service unavailable' });
             }
 
-            if (base) {
+            const id = plan.action === 'insert' ? saved.rows?.[0]?.id : row.id;
+
+            if (!base) {
+                console.error('monitor-signup: no base url; confirm mail skipped');
+            } else {
                 try {
-                    await sendBreachConfirm({
+                    const sent = await sendBreachConfirm({
                         to: email,
                         lang,
                         confirmUrl: `${base}/api/confirm-subscription?token=${token}`,
                     });
+                    // Stamped only after a successful send, so a failed send
+                    // stays retryable instead of being throttled.
+                    if (sent && id != null) {
+                        await sbPatch(`breach_watch?id=eq.${id}`, { confirm_sent_at: new Date().toISOString() });
+                    }
                 } catch (error) {
                     // The row is pending and the person can sign up again, so a
                     // mail failure must not turn into a 500. Name only: the

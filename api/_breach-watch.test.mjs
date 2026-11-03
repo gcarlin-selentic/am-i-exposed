@@ -107,7 +107,13 @@ test('planSignup asks an unsubscribed row to reconfirm', () => {
   assert.equal(p.action, 'reconfirm');
   assert.equal(p.patch.status, 'pending');
 });
-for (const status of ['pending', 'active', 'paused']) {
+test('planSignup asks a pending row to reconfirm (endpoint throttles)', () => {
+  const p = planSignup({ id: 5, status: 'pending' }, { email: 'a@b.com', lang: 'es' });
+  assert.equal(p.action, 'reconfirm');
+  assert.equal(p.patch.status, 'pending');
+});
+
+for (const status of ['active', 'paused']) {
   test(`planSignup is a noop for a ${status} row`, () => {
     assert.deepEqual(planSignup({ id: 5, status }, { email: 'a@b.com', lang: 'es' }), { action: 'noop' });
   });
