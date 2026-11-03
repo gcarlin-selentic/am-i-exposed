@@ -30,7 +30,7 @@ const THROTTLE_MS = 15 * 60 * 1000;
 // blip does not take signups down.
 const localLimiter = makeLocalLimiter(RATE_LIMIT_MAX, RATE_LIMIT_WINDOW_SECONDS * 1000);
 
-export default async function handler(req, res) {
+export async function handleSignup(req, res) {
     const origin = req.headers.origin;
     const host = req.headers['x-forwarded-host'] || req.headers.host;
 

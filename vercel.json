@@ -37,6 +37,13 @@
     { "source": "/ataques-ransomware", "destination": "/es/daily-hack/", "permanent": true },
     { "source": "/ataques-ransomware/", "destination": "/es/daily-hack/", "permanent": true }
   ],
+  "rewrites": [
+    { "source": "/api/monitor-signup", "destination": "/api/monitor?op=signup" },
+    { "source": "/api/confirm-subscription", "destination": "/api/monitor?op=confirm" },
+    { "source": "/api/unsubscribe", "destination": "/api/monitor?op=unsubscribe" },
+    { "source": "/api/run-breach-alerts", "destination": "/api/monitor?op=run" },
+    { "source": "/api/alerts-config", "destination": "/api/monitor?op=config" }
+  ],
   "headers": [
     {
       "source": "/(.*)",

@@ -26,7 +26,6 @@ const HIBP_ENDPOINT = 'https://haveibeenpwned.com/api/v3/breachedaccount';
 const HIBP_PACE_MS = 6500;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
-export const config = { maxDuration: 60 };
 
 // Must never throw: processSubscribers has no try/catch around the lookup, so a
 // throw would abort the whole batch. Every failure maps to status 'error', which
@@ -70,7 +69,7 @@ async function hibpLookup(email) {
     }
 }
 
-export default async function handler(req, res) {
+export async function handleRun(req, res) {
     res.setHeader('Cache-Control', 'private, no-store');
 
     if (req.method !== 'POST') {

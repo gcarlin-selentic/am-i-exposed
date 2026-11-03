@@ -59,7 +59,7 @@ function sendPage(res, page, lang = 'es') {
     return res.status(200).send(pageHtml(page, lang));
 }
 
-export default async function handler(req, res) {
+export async function handleConfirm(req, res) {
     res.setHeader('Cache-Control', 'private, no-store');
 
     if (req.method !== 'GET') {
