@@ -253,8 +253,8 @@ const COPY = {
 
         cleanTitle: 'Buenas noticias: no apareces',
         cleanBody: (email) => `No encontramos <span class="who">${email}</span> en ninguna filtración conocida. Esto no garantiza que nunca pase, así que vale la pena repetir el chequeo de vez en cuando.`,
-        expTitle: 'Tu correo sí aparece',
-        expBody: (email, n) => `Encontramos <span class="who">${email}</span> en ${n} ${n === 1 ? 'filtración de datos' : 'filtraciones de datos'}. Esto es común y tiene solución.`,
+        expTitle: 'Tu correo está expuesto',
+        expBody: (email, n) => `Encontramos <span class="who">${email}</span> en ${n} ${n === 1 ? 'filtración de datos' : 'filtraciones de datos'}. Algunas terminaron en acuerdos que pagaron a los afectados. Mira abajo lo que puedes reclamar.`,
         tallyBreaches: (n) => n === 1 ? 'filtración' : 'filtraciones',
         tallyAccounts: 'cuentas afectadas en total',
         tallyOldest: 'la más antigua',
@@ -512,8 +512,8 @@ const COPY = {
 
         cleanTitle: 'Good news: you are not in there',
         cleanBody: (email) => `We did not find <span class="who">${email}</span> in any known breach. That is no guarantee for the future, so it is worth checking again now and then.`,
-        expTitle: 'Your email does show up',
-        expBody: (email, n) => `We found <span class="who">${email}</span> in ${n} data ${n === 1 ? 'breach' : 'breaches'}. This is common and it can be fixed.`,
+        expTitle: 'Your email is exposed',
+        expBody: (email, n) => `We found <span class="who">${email}</span> in ${n} data ${n === 1 ? 'breach' : 'breaches'}. Some of them ended in settlements that paid people out. See what you can claim below.`,
         tallyBreaches: (n) => n === 1 ? 'breach' : 'breaches',
         tallyAccounts: 'accounts affected in total',
         tallyOldest: 'oldest one',
@@ -1364,6 +1364,16 @@ async function checkEmail() {
         hasSearched = true;
         refreshPasswordCTA();
         refreshOfferCard();
+        // The result is the whole point of the visit, but it renders below the
+        // hero and the Money Pool section, far enough down that a visitor can
+        // type an email, watch the page not move, and assume nothing happened.
+        // Bring it to the top of the viewport so it lands as the alert it is;
+        // the claim-now money card and the regret strip sit right beneath it.
+        // rAF lets the display:block set during render lay out before we measure.
+        requestAnimationFrame(() => {
+            const top = resultDiv.getBoundingClientRect().top + window.pageYOffset - 16;
+            window.scrollTo({ top: top < 0 ? 0 : top, behavior: 'smooth' });
+        });
     } catch (error) {
         errorDiv.textContent = error.message || t().errEmailFail;
         errorDiv.style.display = 'block';
