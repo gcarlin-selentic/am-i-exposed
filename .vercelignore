@@ -1,1 +1,3 @@
 api/_breach-watch.test.mjs
+api/_stripe.test.mjs
+api/__tests__
