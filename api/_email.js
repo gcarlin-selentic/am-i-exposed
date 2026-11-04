@@ -200,6 +200,13 @@ export async function sendOpsAlert({ to, subject, html }) {
     return send({ to, subject, html });
 }
 
+// Settlement digest. The subject/html are built by _settlement-alerts.mjs
+// (already escaped and self-contained), so this just hands them to send().
+// Same contract: false on failure, never a throw.
+export async function sendSettlementAlert({ to, subject, html }) {
+    return send({ to, subject, html });
+}
+
 // Breach monitoring mail. The copy comes from the pure builders in
 // _breach-watch.mjs as plain text, so each line is escaped here before it
 // becomes HTML. Same contract as above: false on failure, never a throw.

@@ -3,8 +3,6 @@
 // Vercel does not turn a file in /api whose name begins with an underscore
 // into a route, so this is a module, not an endpoint.
 
-export const MP_API = 'https://api.mercadopago.com';
-
 // Publishable key. Already public in the page source; used only to satisfy the
 // apikey header when asking Supabase to identify a user's access token.
 const SUPABASE_PUBLISHABLE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY
@@ -14,151 +12,31 @@ const SUPABASE_PUBLISHABLE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY
 // Environment
 // ---------------------------------------------------------------------------
 
-// 'test' while the Mercado Pago test credentials are in use, 'live' once the
-// real ones are. Test and real purchases share one Supabase table, so this is
-// what keeps them from being confused for one another: it decides which
-// checkout URL the browser is sent to, which notifications are accepted, and
-// which purchase rows grant access.
-export function mpMode() {
-    return process.env.MP_MODE === 'live' ? 'live' : 'test';
-}
-
-export function expectLiveMode() {
-    return mpMode() === 'live';
-}
-
-// Whether a purchase row from this provider was made with real money.
+// The live_mode a purchase/subscription row must carry to be accepted, by
+// provider. Stripe is the only accepted provider now.
 //
-// One flag was enough while Mercado Pago was the only seller: live_mode
-// meant MP_MODE. With two, it means something different per row. Mercado
-// Pago's environment is MP_MODE; Paddle's is written into its own client
-// token, test_ or live_. The two move independently, and they already have:
-// Mercado Pago is live in production while Paddle is still in sandbox, so
-// a real Paddle purchase and a test one are told apart by Paddle's setting,
-// not by Mercado Pago's.
+// Returns null for any other provider (the legacy Mercado Pago / Paddle rows),
+// and null never equals a boolean live_mode, so a legacy row can never unlock a
+// report in ANY environment. Returning false would have matched the old
+// live_mode=false test rows on a preview deploy, which is why this fails closed.
 //
-// Comparing every row against MP_MODE is what made a paid Paddle report
-// read as unpaid: the buyer saw their own confirmation and then the
-// padlocks, because the browser matched on one rule and the server on
-// another.
+// For Stripe: in production only a real-money row counts (true). On a preview a
+// test secret key (sk_test_) accepts the test rows it writes (live_mode false);
+// a live key would accept only live_mode true.
 export function liveModeFor(provider) {
-    // On the live site, only a purchase made with real money counts, full
-    // stop. Matching each row against its provider's current setting is the
-    // right rule for a preview deployment, where everything is a test, and
-    // the wrong one here: with Paddle in sandbox it resolves to false, which
-    // is exactly what a sandbox purchase writes, so a test card bought the
-    // paid report for nothing. Hiding the offer card did not fix that. The
-    // checkout can still be opened by anyone holding the sandbox price id,
-    // and that id was public, served by /api/checkout to every visitor in
-    // the United States for days.
-    //
-    // There are five paid rows carrying live_mode false in the database. This
-    // is what stops them, and anything like them, from unlocking a report.
+    if (provider !== 'stripe') return null;
     if (process.env.VERCEL_ENV === 'production') return true;
-
-    if (provider === 'paddle') {
-        return (process.env.PADDLE_CLIENT_TOKEN || '').startsWith('live_');
-    }
-    return mpMode() === 'live';
+    return (process.env.STRIPE_SECRET_KEY || '').startsWith('sk_live');
 }
 
-// The account the deployment's credentials belong to. A Mercado Pago access
-// token ends in the id of its owner, so this needs no API call.
-//
-// This is what separates a test payment from a real one now. Mercado Pago's own
-// live_mode flag no longer does it: the modern test credentials belong to a
-// test user who is a real account as far as their API is concerned, so a
-// sandbox payment comes back with live_mode true. The collector does not lie —
-// a payment made to the other set of credentials simply has a different one.
-export function credentialOwnerId() {
-    const token = process.env.MP_ACCESS_TOKEN;
-    if (!token) return null;
-    const tail = token.split('-').pop();
-    return /^\d+$/.test(tail) ? tail : null;
-}
-
-// The site's own origin, used for the checkout's return URLs. Set explicitly
-// rather than derived from the request, so a request arriving on some other
-// host cannot send the buyer back somewhere else.
+// The site's own origin, used for checkout return URLs. Set explicitly rather
+// than derived from the request, so a request arriving on some other host
+// cannot send the buyer back somewhere else.
 export function publicBaseUrl(req) {
     const configured = process.env.PUBLIC_BASE_URL;
     if (configured) return configured.replace(/\/+$/, '');
     const host = req?.headers?.['x-forwarded-host'] || req?.headers?.host;
     return host ? `https://${host}` : null;
-}
-
-// Where the visitor is, as Vercel's edge sees it. Not a header a browser can
-// forge: Vercel overwrites whatever arrives with its own value.
-//
-// Used to decide which payment provider a visitor is offered. Mercado Pago
-// settles in soles and does not operate in the United States; Paddle is the
-// merchant of record there and charges in dollars. Sending a buyer in Miami
-// to a checkout that says S/ 19 costs the sale, and sending a buyer in Lima
-// to one that says $5 charges them a foreign transaction fee.
-//
-// Absent on a local request, which therefore falls through to Mercado Pago.
-// That is the right default: it is the path that has been taking real money
-// for weeks.
-export function isUnitedStates(req) {
-    return req?.headers?.['x-vercel-ip-country'] === 'US';
-}
-
-// Peru is the only country that pays in soles. Mercado Pago liquida en soles
-// desde una cuenta peruana, asi que el sol es la moneda de su pais y la
-// moneda extranjera de todos los demas: cobrarle soles a alguien en Mexico le
-// mete una comision de cambio encima del precio.
-//
-// Falso cuando la cabecera no esta, que es lo que pasa en una peticion local.
-// Eso manda al visitante por Mercado Pago igual, porque la rama de abajo cae
-// ahi cuando Paddle no contesta, y Mercado Pago es el camino que lleva
-// semanas tomando dinero de verdad.
-export function isPeru(req) {
-    return req?.headers?.['x-vercel-ip-country'] === 'PE';
-}
-
-// Paddle's client-side tokens are prefixed test_ in sandbox and live_ in
-// production, so the environment is read off the token rather than kept as a
-// second setting that can disagree with it.
-export function paddleConfig(priceEnv) {
-    const token = process.env.PADDLE_CLIENT_TOKEN;
-    const priceId = process.env[priceEnv];
-    if (!token || !priceId) return null;
-    const environment = token.startsWith('test_') ? 'sandbox' : 'production';
-
-    // A sandbox token on the live site is not a configuration, it is a hole.
-    // The checkout only takes test cards, so nobody with a real card can pay;
-    // and a test card does go through, writing live_mode false, which is
-    // exactly what the entitlement check in report.js accepts. So the report
-    // is free to anyone who notices.
-    //
-    // Read off the token rather than kept as a switch somebody has to
-    // remember to flip: the offer comes back by itself the day the live token
-    // is set, with no second deploy and nothing left behind to clean up.
-    if (environment === 'sandbox' && process.env.VERCEL_ENV === 'production') {
-        return null;
-    }
-
-    return { token, priceId, environment };
-}
-
-// Cuanto cuesta el reporte en dolares, solo para mostrarlo. Mientras Paddle
-// no este en vivo, fuera de Peru el cobro lo sigue haciendo Mercado Pago en
-// soles: este numero no se le pasa nunca a la pasarela, solo lo pinta la
-// pagina en ingles, donde "S/ 19" no le dice nada a nadie, y debajo va la
-// linea que dice que el cargo es en soles. Si no esta puesto, la pagina en
-// ingles muestra el precio real en soles, que es la respuesta segura.
-export function usdReference() {
-    const amount = Number(process.env.REPORT_USD_PRICE);
-    return Number.isFinite(amount) && amount > 0 ? amount : null;
-}
-
-// The price lives on the server. If the browser could name the amount, the
-// report could be bought for one sol.
-export function priceConfig() {
-    const amount = Number(process.env.MP_PRICE);
-    const currency = (process.env.MP_CURRENCY || '').trim().toUpperCase();
-    if (!Number.isFinite(amount) || amount <= 0 || !/^[A-Z]{3}$/.test(currency)) return null;
-    return { amount, currency };
 }
 
 // ---------------------------------------------------------------------------
@@ -215,6 +93,30 @@ export function safeParse(raw) {
 
 export function readBody(req) {
     return typeof req.body === 'string' ? safeParse(req.body) : req.body;
+}
+
+const MAX_BODY_BYTES = 1_000_000;
+
+// Raw request body, for webhook signature checks. The signature covers the exact
+// bytes as they arrived, so the body must not be reparsed or reformatted.
+// Endpoints that use this set `export const config = { api: { bodyParser: false } }`
+// so the stream is still intact when the handler runs.
+export function readRawBody(req) {
+    return new Promise((resolve, reject) => {
+        const chunks = [];
+        let size = 0;
+        req.on('data', chunk => {
+            size += chunk.length;
+            if (size > MAX_BODY_BYTES) {
+                reject(new Error('Body too large'));
+                req.destroy();
+                return;
+            }
+            chunks.push(chunk);
+        });
+        req.on('end', () => resolve(Buffer.concat(chunks)));
+        req.on('error', reject);
+    });
 }
 
 // The session token, from the Authorization header first and the request body

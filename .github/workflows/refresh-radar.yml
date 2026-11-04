@@ -189,3 +189,25 @@ jobs:
           if [ "${code}" != "200" ]; then
             echo "::warning::run-breach-alerts devolvio HTTP ${code} (esperado 200); revisar CRON_SECRET/endpoint"
           fi
+
+      # El mismo Radar dispara el monitoreo de settlements: avisa a los
+      # suscriptores (settlement/combo, confirmados y pagando) cuando se abre un
+      # acuerdo nuevo que podrian reclamar. Mismo CRON_SECRET, best-effort.
+      - name: Disparar alertas de settlements
+        if: ${{ !inputs.dry_run }}
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          if [ -z "${CRON_SECRET}" ]; then
+            echo '::warning::CRON_SECRET no esta en los secrets de GitHub Actions; no se dispara el job de settlements'
+            exit 0
+          fi
+          code=$(curl -sS -o /tmp/sa.out -w '%{http_code}' -X POST \
+            -H "Authorization: Bearer ${CRON_SECRET}" \
+            https://www.am-i-exposed.com/api/run-settlement-alerts || echo 000)
+          echo "run-settlement-alerts -> HTTP ${code}"
+          cat /tmp/sa.out || true    # solo contadores, nunca correos
+          echo
+          if [ "${code}" != "200" ]; then
+            echo "::warning::run-settlement-alerts devolvio HTTP ${code} (esperado 200); revisar CRON_SECRET/endpoint"
+          fi

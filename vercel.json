@@ -42,6 +42,7 @@
     { "source": "/api/confirm-subscription", "destination": "/api/monitor?op=confirm" },
     { "source": "/api/unsubscribe", "destination": "/api/monitor?op=unsubscribe" },
     { "source": "/api/run-breach-alerts", "destination": "/api/monitor?op=run" },
+    { "source": "/api/run-settlement-alerts", "destination": "/api/monitor?op=run-settlements" },
     { "source": "/api/alerts-config", "destination": "/api/monitor?op=config" }
   ],
   "headers": [
