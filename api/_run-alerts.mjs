@@ -19,7 +19,7 @@
 // address or an unsubscribe token.
 
 import { authorizeCron, processSubscribers } from './_breach-watch.mjs';
-import { sbSelect, sbPatch, publicBaseUrl } from './_shared.js';
+import { sbSelect, sbPatch, publicBaseUrl, liveModeFor } from './_shared.js';
 import { sendBreachWelcome, sendBreachAlert } from './_email.js';
 
 const HIBP_ENDPOINT = 'https://haveibeenpwned.com/api/v3/breachedaccount';
@@ -87,8 +87,14 @@ export async function handleRun(req, res) {
     const dry = req.query?.dryrun === '1' || (req.url || '').includes('dryrun=1');
 
     try {
+        // Paid breach/combo subscribers who have confirmed their email, in this
+        // environment only. status=active is the confirmation (double opt-in);
+        // sub_status=active is a paying subscription; live_mode keeps a preview's
+        // test subscribers out of a production run (and vice versa).
+        const liveMode = liveModeFor('stripe');
         const sel = await sbSelect(
-            'breach_watch?status=eq.active&select=id,email,known_breaches,baseline_done,lang,unsubscribe_token'
+            `breach_watch?status=eq.active&sub_status=eq.active&plan=in.(breach,combo)&live_mode=eq.${liveMode}` +
+            '&select=id,email,known_breaches,baseline_done,lang,unsubscribe_token'
         );
         // A failed read is not an empty list: say so, so the routine sees red
         // instead of a quiet "checked: 0".
