@@ -135,6 +135,21 @@ async function grantReport(session, liveMode) {
     const email = lc(session.customer_details?.email || session.customer_email);
     if (!email) return;
     const payId = session.payment_intent || session.id;
+
+    // Authoritative refund/dispute check. A completion event can arrive (or be
+    // redelivered) after the charge was already refunded or disputed, racing the
+    // revocation. Re-read the payment intent from Stripe and refuse to grant if
+    // the money is no longer held, so a late grant cannot resurrect a refunded
+    // report. A fetch failure throws, so Stripe redelivers rather than granting
+    // blind. (no_payment_required has no payment intent, so nothing to re-check.)
+    if (session.payment_intent) {
+        const pi = await stripeGet(`payment_intents/${encodeURIComponent(session.payment_intent)}?expand[]=latest_charge`);
+        if (!pi) throw new Error('payment intent fetch failed');
+        if (pi.status !== 'succeeded') return;
+        const charge = pi.latest_charge && typeof pi.latest_charge === 'object' ? pi.latest_charge : null;
+        if (charge && (charge.refunded || charge.amount_refunded > 0 || charge.disputed)) return;
+    }
+
     const dup = must(await sbSelect(`purchases?provider_payment_id=eq.${encodeURIComponent(payId)}&select=id`), 'report dup check');
     if (dup.rows?.length) return;
     must(await sbInsert('purchases', {
