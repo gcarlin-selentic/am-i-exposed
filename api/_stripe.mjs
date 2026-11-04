@@ -103,6 +103,16 @@ export function planFromPriceId(priceId, env = process.env) {
     return null;
 }
 
+// A Stripe subscription status mapped to the one breach_watch stores. Only
+// 'active' is alerted by the daily jobs; past_due is a grace state (Stripe is
+// retrying the card), canceled/incomplete stop alerts, paused holds them.
+export function monitorStatus(stripeStatus) {
+    if (stripeStatus === 'active' || stripeStatus === 'trialing') return 'active';
+    if (stripeStatus === 'past_due' || stripeStatus === 'unpaid') return 'past_due';
+    if (stripeStatus === 'paused') return 'paused';
+    return 'canceled';
+}
+
 // ---------------------------------------------------------------------------
 // Form encoding for the Stripe REST API
 // ---------------------------------------------------------------------------

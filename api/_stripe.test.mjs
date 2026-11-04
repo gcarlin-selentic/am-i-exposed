@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import {
     parseStripeSig, verifyStripeSignature,
-    planSpec, priceIdFor, planFromPriceId, toForm,
+    planSpec, priceIdFor, planFromPriceId, toForm, monitorStatus,
 } from './_stripe.mjs';
 
 const SECRET = 'whsec_testsecret';
@@ -122,6 +122,17 @@ test('toForm encodes nested objects and arrays in Stripe bracket notation', () =
     assert.equal(params.get('metadata[lang]'), 'en');
     assert.equal(params.get('tags[0]'), 'a');
     assert.equal(params.get('tags[1]'), 'b');
+});
+
+test('monitorStatus maps Stripe statuses to what the daily jobs read', () => {
+    assert.equal(monitorStatus('active'), 'active');
+    assert.equal(monitorStatus('trialing'), 'active');
+    assert.equal(monitorStatus('past_due'), 'past_due');
+    assert.equal(monitorStatus('unpaid'), 'past_due');
+    assert.equal(monitorStatus('paused'), 'paused');
+    assert.equal(monitorStatus('canceled'), 'canceled');
+    assert.equal(monitorStatus('incomplete_expired'), 'canceled');
+    assert.equal(monitorStatus('anything_else'), 'canceled');
 });
 
 test('toForm skips null and undefined values', () => {

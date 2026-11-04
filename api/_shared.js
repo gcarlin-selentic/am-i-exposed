@@ -54,16 +54,18 @@ export function liveModeFor(provider) {
     //
     // There are five paid rows carrying live_mode false in the database. This
     // is what stops them, and anything like them, from unlocking a report.
-    if (process.env.VERCEL_ENV === 'production') return true;
+    // Stripe is the only accepted provider now. Anything else (the legacy
+    // Mercado Pago / Paddle rows) returns null, which never equals a boolean
+    // live_mode, so a legacy row can never unlock a report in ANY environment.
+    // This fails closed: returning false here would have matched the five legacy
+    // paid rows (live_mode false) on a preview deploy.
+    if (provider !== 'stripe') return null;
 
-    // Stripe is the only live provider now. A test secret key (sk_test_) means a
-    // preview deploy, so a row from it (live_mode false) is accepted only here,
-    // never in production, where the guard above already forced true.
-    if (provider === 'stripe') {
-        return (process.env.STRIPE_SECRET_KEY || '').startsWith('sk_live');
-    }
-    // Legacy Mercado Pago / Paddle rows: never accepted off production.
-    return false;
+    // In production only a real-money row counts. On a preview, a test secret
+    // key (sk_test_) accepts the test rows it writes (live_mode false); a live
+    // key would accept only live_mode true.
+    if (process.env.VERCEL_ENV === 'production') return true;
+    return (process.env.STRIPE_SECRET_KEY || '').startsWith('sk_live');
 }
 
 // The account the deployment's credentials belong to. A Mercado Pago access
