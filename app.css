@@ -1499,6 +1499,39 @@ a.alerts-missed .m-co,
 }
 .cc-l-claim:hover { text-decoration: underline; }
 
+/* -------------------------------------------------------------- monitoring plans
+   Three email-based plans (breach, settlement, both) with a month/year switch.
+   Same build as the cross-check plan cards; the combo is featured in green
+   because it is about the money, like the Money Pool. */
+/* This card lives inside .offer, which is dark in light mode and light in
+   dark mode, with its text set to var(--bg). So text here inherits that, and
+   borders use a neutral grey that reads on either card colour. */
+.monitor-interval {
+    display: inline-flex; align-items: center; gap: 9px;
+    margin: 4px 0 18px; font-size: 14px; font-weight: 600; cursor: pointer; color: inherit;
+}
+.monitor-interval input { width: 16px; height: 16px; accent-color: var(--good); cursor: pointer; }
+.monitor-plans { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.mon-plan {
+    border: 1px solid rgba(128,128,128,.32); border-radius: var(--r);
+    padding: 18px; display: flex; flex-direction: column;
+}
+.mon-plan.featured { border-color: var(--good); background: var(--good-soft); }
+.mon-k { font-size: 13px; opacity: .72; font-weight: 600; }
+.mon-v { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 24px; margin: 2px 0; }
+.mon-v small { font-size: 12px; font-weight: 600; opacity: .62; margin-left: 4px; }
+.mon-d { font-size: 13px; opacity: .72; margin-bottom: 14px; min-height: 3.6em; flex: 1; }
+.mon-plan .btn { width: 100%; }
+.mon-plan.featured .btn { background: var(--good); color: #fff; }
+.mon-plan.featured .btn:hover { opacity: .9; }
+.monitor-note { font-size: 12.5px; opacity: .62; margin: 14px 0 0; }
+/* The dark palette's green is light, so white on it is low contrast. */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .mon-plan.featured .btn { color: #0A1A02; }
+}
+:root[data-theme="dark"] .mon-plan.featured .btn { color: #0A1A02; }
+@media (max-width: 560px) { .monitor-plans { grid-template-columns: 1fr; } }
+
 /* -------------------------------------------------------------- money-pool banner
    Public and ungated, right under the hero. The settlements pitch + the prices,
    so a visitor (and a payment reviewer) sees them without running a check. */
