@@ -785,6 +785,14 @@ hub_body = f'''    <span class="pool-eyebrow">The Money Pool</span>
     letters, or browse A&ndash;Z below.</p>
 
 {bloque_abiertos}
+    <h2>What it costs</h2>
+    <div class="pool-prices">
+        <div class="pp"><div class="pp-k">Free check</div><div class="pp-v">$0</div><div class="pp-d">Your email vs breaches. No card.</div></div>
+        <div class="pp"><div class="pp-k">Full report</div><div class="pp-v">$5<small>one time</small></div><div class="pp-d">Your breaches explained + step-by-step fixes. Claim links free.</div></div>
+        <div class="pp"><div class="pp-k">Monitoring</div><div class="pp-v">$3<small>/mo</small></div><div class="pp-d">Pick one: new-breach alerts or new-settlement alerts. $30/yr.</div></div>
+        <div class="pp featured"><div class="pp-k">Combo</div><div class="pp-v">$5<small>/mo</small></div><div class="pp-d">Both: breach and settlement monitoring. $50/yr.</div></div>
+    </div>
+
     <p>When a company loses your data, what often follows is not a fine but a settlement,
     paid to the people whose data it was. The money is real and most of it goes unclaimed,
     because the notice arrives by post and looks like junk mail. Research out of Duke
@@ -809,16 +817,8 @@ hub_body = f'''    <span class="pool-eyebrow">The Money Pool</span>
     <h2>Every company, A to Z</h2>
 {nav_letras()}
 
-    <h2>What it costs</h2>
-    <div class="pool-prices">
-        <div class="pp"><div class="pp-k">Free check</div><div class="pp-v">$0</div><div class="pp-d">Your email vs breaches. No card.</div></div>
-        <div class="pp"><div class="pp-k">Full report</div><div class="pp-v">$5<small>one time</small></div><div class="pp-d">Your breaches explained + step-by-step fixes. Claim links free.</div></div>
-        <div class="pp"><div class="pp-k">Monitoring</div><div class="pp-v">$3<small>/mo</small></div><div class="pp-d">Pick one: new-breach alerts or new-settlement alerts. $30/yr.</div></div>
-        <div class="pp featured"><div class="pp-k">Combo</div><div class="pp-v">$5<small>/mo</small></div><div class="pp-d">Both: breach and settlement monitoring. $50/yr.</div></div>
-    </div>
-
     <div class="cta">
-        <h2>Find out which of these touched you</h2>
+        <h2>Is your email in any of these?</h2>
         <p>The free check tells you which breaches hold your address. Free, no account,
         and we do not store it.</p>
         <a class="cta-btn" href="/">Check my email</a>
