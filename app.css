@@ -1499,6 +1499,25 @@ a.alerts-missed .m-co,
 }
 .cc-l-claim:hover { text-decoration: underline; }
 
+/* The money ask on the cross-check card: a green box that sells settlement
+   monitoring at the moment the visitor is looking at claimable money. Inside
+   the dark .offer card, so text inherits the card colour; the button is solid
+   green with the dark-palette text flip. */
+.cc-upsell {
+    margin: 24px 0 6px; padding: 20px;
+    border: 1px solid var(--good); border-radius: var(--r);
+    background: var(--good-soft);
+}
+.cc-upsell h3 { font-size: 17px; margin: 0 0 8px; line-height: 1.3; }
+.cc-upsell > p { font-size: 14px; opacity: .82; margin: 0 0 14px; }
+.cc-upsell .btn { background: var(--good); color: #fff; border: none; }
+.cc-upsell .btn:hover { opacity: .9; }
+.cc-upsell-note { font-size: 12.5px; opacity: .6; margin: 10px 0 0; }
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .cc-upsell .btn { color: #0A1A02; }
+}
+:root[data-theme="dark"] .cc-upsell .btn { color: #0A1A02; }
+
 /* -------------------------------------------------------------- monitoring plans
    Three email-based plans (breach, settlement, both) with a month/year switch.
    Same build as the cross-check plan cards; the combo is featured in green

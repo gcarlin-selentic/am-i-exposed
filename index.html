@@ -100,7 +100,7 @@
          never change, and a forgotten bust on a year-long immutable asset would
          leave a returning buyer running last week's payment code. Bump the date
          here and in the other language's page when a change has to land now. -->
-    <link rel="stylesheet" href="/app.css?v=2026-11-01b">
+    <link rel="stylesheet" href="/app.css?v=2026-11-04a">
 </head>
 <body>
 
@@ -274,6 +274,17 @@
             <h3 data-i18n="ccLockedTitle">Open settlements for you</h3>
             <p class="cc-locked-lede" data-i18n="ccLockedLede">These are the open settlements matched to your email. The official claim links are free.</p>
             <ul class="cc-locked-list" id="funnelLockedList"></ul>
+        </div>
+
+        <!-- The money ask. A visitor looking at claimable settlements is at the
+             peak moment to sell monitoring: the windows close, so urgency does
+             the selling. The button starts settlement monitoring for the email
+             already checked. -->
+        <div class="cc-upsell">
+            <h3 data-i18n="ccUpsellTitle">New settlements open every week. The windows close fast.</h3>
+            <p data-i18n="ccUpsellBody">Miss a deadline and that money is gone for good. Turn on monitoring and we will email you the moment a new settlement opens where you might qualify, so you never leave money on the table again.</p>
+            <button class="btn" data-action="startMonitor" data-arg="settlement" data-i18n="ccUpsellBtn">Turn on settlement alerts &middot; US$&nbsp;3/mo</button>
+            <p class="cc-upsell-note" data-i18n="ccUpsellNote">Or breach and settlement monitoring together for US$&nbsp;5/mo. Cancel anytime.</p>
         </div>
 
         <p class="alerts-caveat" data-i18n="ccCaveat">You might qualify if you were a customer, patient or employee in the affected period. Appearing is not eligibility. We link only to the official administrator. We are not lawyers and we never file for you.</p>
@@ -502,8 +513,8 @@
     </div>
 </div>
 
-<script src="/funnel-match.js?v=2026-11-01b" defer></script>
-<script src="/app.js?v=2026-11-01b" defer></script>
+<script src="/funnel-match.js?v=2026-11-04a" defer></script>
+<script src="/app.js?v=2026-11-04a" defer></script>
 
 <!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
      a visitor, which is why the privacy policy can still promise no tracking
