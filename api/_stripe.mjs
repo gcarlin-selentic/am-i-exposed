@@ -5,7 +5,7 @@
 //
 // We talk to Stripe over raw REST with fetch and verify the webhook signature by
 // hand, so the project keeps its zero-dependency shape (no `stripe` SDK), the
-// same way _paddle.js and _shared.js already do.
+// same way _shared.js already does.
 
 import crypto from 'node:crypto';
 
