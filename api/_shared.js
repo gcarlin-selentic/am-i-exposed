@@ -56,10 +56,14 @@ export function liveModeFor(provider) {
     // is what stops them, and anything like them, from unlocking a report.
     if (process.env.VERCEL_ENV === 'production') return true;
 
-    if (provider === 'paddle') {
-        return (process.env.PADDLE_CLIENT_TOKEN || '').startsWith('live_');
+    // Stripe is the only live provider now. A test secret key (sk_test_) means a
+    // preview deploy, so a row from it (live_mode false) is accepted only here,
+    // never in production, where the guard above already forced true.
+    if (provider === 'stripe') {
+        return (process.env.STRIPE_SECRET_KEY || '').startsWith('sk_live');
     }
-    return mpMode() === 'live';
+    // Legacy Mercado Pago / Paddle rows: never accepted off production.
+    return false;
 }
 
 // The account the deployment's credentials belong to. A Mercado Pago access
@@ -215,6 +219,30 @@ export function safeParse(raw) {
 
 export function readBody(req) {
     return typeof req.body === 'string' ? safeParse(req.body) : req.body;
+}
+
+const MAX_BODY_BYTES = 1_000_000;
+
+// Raw request body, for webhook signature checks. The signature covers the exact
+// bytes as they arrived, so the body must not be reparsed or reformatted.
+// Endpoints that use this set `export const config = { api: { bodyParser: false } }`
+// so the stream is still intact when the handler runs.
+export function readRawBody(req) {
+    return new Promise((resolve, reject) => {
+        const chunks = [];
+        let size = 0;
+        req.on('data', chunk => {
+            size += chunk.length;
+            if (size > MAX_BODY_BYTES) {
+                reject(new Error('Body too large'));
+                req.destroy();
+                return;
+            }
+            chunks.push(chunk);
+        });
+        req.on('end', () => resolve(Buffer.concat(chunks)));
+        req.on('error', reject);
+    });
 }
 
 // The session token, from the Authorization header first and the request body

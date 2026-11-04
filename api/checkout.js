@@ -1,87 +1,29 @@
 // Vercel serverless function: /api/checkout
 //
-// GET  returns the price, so the page never hardcodes an amount or a currency.
-// POST creates a Mercado Pago preference and returns the URL to send the
-//      buyer to.
+// POST { plan } (or ?plan=) creates a Stripe Checkout Session and returns its
+// url; the browser redirects there. One rail, Stripe, for everyone, in USD.
 //
-// The amount is read from the environment on both paths. It is never accepted
-// from the browser: a price in the request body is a price the buyer can edit.
+// The price is never accepted from the browser: the plan names a server-side
+// env var (STRIPE_PRICE_*) that holds the real price id, so a price in the
+// request body is ignored. An unconfigured plan (e.g. a gated one whose price
+// id is not set) returns 503, never a broken checkout.
 //
-// Note there is deliberately no notification_url on the preference. The
-// webhook is registered in the Mercado Pago panel instead, which is what makes
-// the notifications arrive signed. See api/mp-webhook.js.
+// mode is 'payment' for the one-time report and 'subscription' for monitoring.
+// The entitlement plan (report|breach|settlement|combo) rides in the session
+// metadata, and on a subscription also in subscription_data.metadata, so the
+// webhook can act on it without re-reading the line items.
 
 import {
-    MP_API,
-    credentialOwnerId,
-    expectLiveMode,
-    isAllowedOrigin,
-    isPeru,
-    isUnitedStates,
-    mpMode,
-    paddleConfig,
-    priceConfig,
-    usdReference,
-    publicBaseUrl,
-    readBody,
-    sbInsert,
-    tokenFrom,
-    userFromToken,
+    isAllowedOrigin, clientIp, makeLocalLimiter, rateLimitOk, readBody, publicBaseUrl,
 } from './_shared.js';
+import { planSpec, priceIdFor, toForm } from './_stripe.mjs';
 
+const STRIPE_SESSIONS = 'https://api.stripe.com/v1/checkout/sessions';
 const RATE_LIMIT_MAX = 10;
-const RATE_LIMIT_WINDOW_MS = 60 * 1000;
-const hits = new Map();
+const RATE_LIMIT_WINDOW_SECONDS = 60;
+const localLimiter = makeLocalLimiter(RATE_LIMIT_MAX, RATE_LIMIT_WINDOW_SECONDS * 1000);
 
-function clientIp(req) {
-    const fwd = req.headers['x-forwarded-for'];
-    if (typeof fwd === 'string' && fwd.length) return fwd.split(',')[0].trim();
-    return req.socket?.remoteAddress || 'unknown';
-}
-
-function rateLimited(ip) {
-    const now = Date.now();
-    const recent = (hits.get(ip) || []).filter(t => now - t < RATE_LIMIT_WINDOW_MS);
-    recent.push(now);
-    hits.set(ip, recent);
-    if (hits.size > 5000) {
-        for (const [k, times] of hits) {
-            if (times.every(t => now - t >= RATE_LIMIT_WINDOW_MS)) hits.delete(k);
-        }
-    }
-    return recent.length > RATE_LIMIT_MAX;
-}
-
-const ITEM_TEXT = {
-    es: {
-        title: 'Plan de acción personalizado',
-        description: 'Tu plan completo, paso a paso, con 30 días de acceso.',
-    },
-    en: {
-        title: 'Personalised action plan',
-        description: 'Your full step-by-step plan, with 30 days of access.',
-    },
-};
-
-function pickLang(value) {
-    return value === 'es' ? 'es' : 'en';
-}
-
-// Normally the webhook is registered in the Mercado Pago panel, which is what
-// makes notifications arrive signed. With the test credentials the panel's
-// registration never fires: the preference is created under the application
-// Mercado Pago generates for the test seller, not the one the panel shows, so
-// no notification is produced for a test payment at all.
-//
-// Setting this puts the URL on the preference instead, which Mercado Pago
-// documents as taking priority over the panel. Whether those notifications
-// carry x-signature is not documented, and api/mp-webhook.js rejects an
-// unsigned one either way, so this can only ever add a notification, never
-// weaken the check. Left unset, nothing changes.
-function notificationUrl() {
-    const configured = process.env.MP_NOTIFICATION_URL;
-    return configured ? configured.trim() : null;
-}
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default async function handler(req, res) {
     const origin = req.headers.origin;
@@ -94,190 +36,75 @@ export default async function handler(req, res) {
         res.setHeader('Access-Control-Allow-Origin', origin);
         res.setHeader('Vary', 'Origin');
     }
-    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Cache-Control', 'private, no-store');
 
     if (req.method === 'OPTIONS') return res.status(204).end();
-
-    const price = priceConfig();
-
-    // GET: what the report costs and who takes the money. The page asks on
-    // load to fill in the offer card.
-    if (req.method === 'GET') {
-        // Per visitor: the answer now depends on where they are, so a shared
-        // cache would serve one country's checkout to another's buyer.
-        res.setHeader('Cache-Control', 'private, no-store');
-
-        // Soles only in Peru. Everywhere else the sol is a foreign currency,
-        // and Mercado Pago settles in soles from a Peruvian account, so a
-        // buyer in Miami or in Mexico City would be quoted S/ 19 and charged
-        // an exchange fee on top of it. Paddle takes dollars as merchant of
-        // record, so outside Peru it is asked first.
-        //
-        // Deliberately no amount in this branch. Paddle owns the price, and
-        // keeping a copy of it here would be a number that silently stops
-        // matching the one actually charged the day it changes in the Paddle
-        // panel. The page asks Paddle instead, through Paddle.PricePreview,
-        // which also returns it already formatted for the buyer's location.
-        if (!isPeru(req)) {
-            const paddle = paddleConfig('PADDLE_REPORT_PRICE_ID');
-            if (paddle) {
-                return res.status(200).json({
-                    available: true,
-                    provider: 'paddle',
-                    priceId: paddle.priceId,
-                    token: paddle.token,
-                    environment: paddle.environment,
-                    // The entitlement check matches purchases on live_mode,
-                    // and knows this word, not Paddle's.
-                    mode: paddle.environment === 'production' ? 'live' : 'test',
-                });
-            }
-
-            // The United States is the one place that gets no offer at all
-            // while Paddle is not live, because the FAQ promises US$ 5 there
-            // and a price that contradicts the published one is worse than no
-            // offer. This reads as "not for sale here yet", which is the
-            // truth while Paddle reviews the domain.
-            if (isUnitedStates(req)) {
-                return res.status(200).json({ available: false });
-            }
-
-            // The rest of the world keeps paying in soles until Paddle is
-            // live, with the page saying so under the price. Closing the sale
-            // instead would cost every buyer in Latin America, which is where
-            // the money actually comes from today, and buy nothing: the day
-            // the live Paddle token is set, this branch stops being reached.
-        }
-
-        if (!price) return res.status(200).json({ available: false });
-        return res.status(200).json({
-            available: true,
-            provider: 'mercadopago',
-            amount: price.amount,
-            currency: price.currency,
-            // Solo para mostrar, y solo lo usa la pagina en ingles. El cobro
-            // sigue siendo amount/currency de arriba, y la pagina lo dice
-            // debajo del precio: ensenar dolares y cobrar soles en silencio
-            // seria mentir sobre el importe.
-            amountUsd: usdReference(),
-            mode: mpMode(),
-        });
-    }
-
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-    if (rateLimited(clientIp(req))) {
-        res.setHeader('Retry-After', String(RATE_LIMIT_WINDOW_MS / 1000));
+    const ip = clientIp(req);
+    const shared = await rateLimitOk(`checkout:${ip}`, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW_SECONDS);
+    if (shared === null ? localLimiter(ip) : !shared) {
+        res.setHeader('Retry-After', String(RATE_LIMIT_WINDOW_SECONDS));
         return res.status(429).json({ error: 'Too many requests. Please wait a minute and try again.' });
     }
 
-    const accessToken = process.env.MP_ACCESS_TOKEN;
-    const base = publicBaseUrl(req);
-    if (!accessToken || !price || !base) {
-        console.error('Checkout not configured:', { token: !!accessToken, price: !!price, base: !!base });
-        return res.status(503).json({ error: 'Payment is not available right now' });
-    }
+    const body = readBody(req) || {};
+    const planParam = req.query?.plan || body.plan;
+    const spec = planSpec(planParam);
+    if (!spec) return res.status(400).json({ error: 'Unknown plan' });
 
-    const body = readBody(req);
-    const lang = pickLang(body?.lang);
+    const secret = process.env.STRIPE_SECRET_KEY;
+    if (!secret) return res.status(503).json({ error: 'Payments not configured' });
 
-    // A purchase has to belong to an account, because that is what the
-    // entitlement hangs off. Anonymous checkout would take the money and have
-    // nobody to give access to.
-    const user = await userFromToken(tokenFrom(req, body));
-    if (!user) return res.status(401).json({ error: 'Sign in first' });
+    const price = priceIdFor(planParam);
+    // A plan whose price id is not set is intentionally unavailable (e.g. a
+    // gated tier). 503, not a checkout that cannot charge.
+    if (!price) return res.status(503).json({ error: 'This plan is not available yet' });
 
+    const base = publicBaseUrl(req) || 'https://www.am-i-exposed.com';
+    const lang = body.lang === 'es' ? 'es' : 'en';
+    const email = typeof body.email === 'string' && EMAIL_RE.test(body.email.trim())
+        ? body.email.trim().toLowerCase()
+        : null;
 
-    const text = ITEM_TEXT[lang];
+    const meta = { plan: spec.plan, plan_param: planParam, lang };
+    const form = toForm({
+        mode: spec.mode,
+        'line_items[0][price]': price,
+        'line_items[0][quantity]': 1,
+        success_url: `${base}/?checkout=success&plan=${encodeURIComponent(spec.plan)}&session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${base}/?checkout=cancel`,
+        customer_email: email,
+        allow_promotion_codes: true,
+        metadata: meta,
+        // Carry the plan onto the subscription (payment) object too, so the
+        // subscription.* / payment_intent.* events can act without a lookup.
+        ...(spec.mode === 'subscription'
+            ? { subscription_data: { metadata: meta } }
+            : { payment_intent_data: { metadata: meta } }),
+    });
 
-    const notifyUrl = notificationUrl();
-
-    let preference;
     try {
-        const response = await fetch(`${MP_API}/checkout/preferences`, {
+        const r = await fetch(STRIPE_SESSIONS, {
             method: 'POST',
             headers: {
-                Authorization: `Bearer ${accessToken}`,
-                'Content-Type': 'application/json',
-                // Lets Mercado Pago collapse a double click into one preference
-                // instead of two.
-                'X-Idempotency-Key': `pref-${user.id}-${Math.floor(Date.now() / 60000)}`,
+                Authorization: `Bearer ${secret}`,
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: JSON.stringify({
-                items: [{
-                    id: 'report-30d',
-                    title: text.title,
-                    description: text.description,
-                    category_id: 'services',
-                    quantity: 1,
-                    unit_price: price.amount,
-                    currency_id: price.currency,
-                }],
-                payer: { email: user.email },
-                // The webhook maps a payment back to an account through this.
-                external_reference: user.id,
-                // lang rides along so the receipt can be written in the
-                // language the buyer was actually reading. It comes back on the
-                // payment, which saves a column on purchases and a migration.
-                metadata: { user_id: user.id, lang },
-                back_urls: {
-                    success: `${base}/?pago=ok`,
-                    failure: `${base}/?pago=error`,
-                    pending: `${base}/?pago=pendiente`,
-                },
-                auto_return: 'approved',
-                statement_descriptor: 'AMIEXPOSED',
-                ...(notifyUrl ? { notification_url: notifyUrl } : {}),
-            }),
-            signal: AbortSignal.timeout(8000),
+            body: form,
+            signal: AbortSignal.timeout(10000),
         });
-
-        const payload = await response.json().catch(() => null);
-        if (!response.ok) {
-            // Which account the stored token belongs to, and whether a
-            // notification_url was attached. Both are what a wrong environment
-            // variable gets wrong, and neither is a secret: the owner id is
-            // public in every preference Mercado Pago returns.
-            console.error('Preference creation failed:', response.status,
-                JSON.stringify(payload).slice(0, 400),
-                JSON.stringify({ mode: mpMode(), owner: credentialOwnerId(),
-                    notify: !!notifyUrl, base }));
-            return res.status(502).json({ error: 'Could not open the checkout right now' });
+        const data = await r.json().catch(() => null);
+        if (!r.ok || !data?.url) {
+            // Status only: the Stripe error body can echo the email.
+            console.error('checkout: stripe session create failed', r.status);
+            return res.status(502).json({ error: 'Could not start checkout' });
         }
-        preference = payload;
+        return res.status(200).json({ url: data.url });
     } catch (error) {
-        console.error('Preference creation error:', error.name);
-        return res.status(502).json({ error: 'Could not open the checkout right now' });
+        console.error('checkout error:', error.name);
+        return res.status(502).json({ error: 'Could not start checkout' });
     }
-
-    // Recorded as pending so an abandoned checkout is still visible. The
-    // webhook is what turns this into access; if this insert fails the webhook
-    // still has external_reference to work from, so it is not worth failing the
-    // purchase over.
-    const inserted = await sbInsert('purchases', {
-        user_id: user.id,
-        email: user.email,
-        status: 'pending',
-        provider: 'mercadopago',
-        provider_preference_id: preference.id,
-        amount: price.amount,
-        currency: price.currency,
-        live_mode: expectLiveMode(),
-    });
-    if (!inserted.ok) console.error('Pending purchase not recorded for', user.id);
-
-    // With test credentials Mercado Pago returns a separate sandbox URL. Using
-    // the live one there sends the buyer to a checkout the test cards cannot
-    // pay.
-    const checkoutUrl = mpMode() === 'test'
-        ? (preference.sandbox_init_point || preference.init_point)
-        : preference.init_point;
-
-    if (!checkoutUrl) {
-        console.error('Preference has no checkout URL:', preference.id);
-        return res.status(502).json({ error: 'Could not open the checkout right now' });
-    }
-
-    return res.status(200).json({ checkoutUrl, preferenceId: preference.id });
 }
