@@ -2118,11 +2118,19 @@ async function refreshFunnel() {
     fillFunnelChips();
     fillFunnelStates();
     renderFunnelNumber();
+    // The free funnel (matched settlements + claim links) shows regardless; the
+    // paid upsell only when Stripe is configured to sell monitoring, so it stays
+    // hidden on an environment with no payments rather than 503-ing on a click.
+    const up = card.querySelector('.cc-upsell');
+    if (up) {
+        const config = await loadAlertsConfig();
+        up.hidden = !config.eligible;
+    }
 }
 
-// After the $5 one-time completes: drop the blur, name the companies, and add
-// the official claim links. The gate is done; the list is theirs. Remembered in
-// sessionStorage so a reload in the same session stays open.
+// Rebuilds the matched open-settlement list: names the companies and adds the
+// official (free) claim links. Remembered in sessionStorage so a reload in the
+// same session keeps it in view.
 function revealFunnelList() {
     const locked = document.getElementById('funnelLocked');
     const list = document.getElementById('funnelLockedList');
