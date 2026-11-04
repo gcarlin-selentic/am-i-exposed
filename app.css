@@ -349,10 +349,43 @@ img { max-width: 100%; }
 }
 :root[data-theme="dark"] .hook-live .hook-tag { color: #2A0608; }
 
+/* The third pill links to the Money Pool, in green because it is about money
+   you can claim, not exposure. Same build as the Daily Hack link, reusing the
+   established --good tokens so it themes with the rest of the page. */
+.hook-pool {
+    background: var(--good-soft);
+    color: var(--good);
+    text-decoration: none;
+    transition: opacity .15s ease;
+}
+.hook-pool:hover { opacity: .85; text-decoration: none; }
+.hook-pool .hook-tag { background: var(--good); color: #fff; }
+.hook-new {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 10px;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    background: var(--good);
+    color: #fff;
+    padding: 2px 7px;
+    border-radius: var(--r-pill);
+    flex-shrink: 0;
+}
+/* The dark palette's green is light, so white on it is low contrast: flip the
+   tag and the NEW chip to dark text, like .hook-tag and .hook-live above. */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .hook-pool .hook-tag,
+    :root:not([data-theme="light"]) .hook-new { color: #0A1A02; }
+}
+:root[data-theme="dark"] .hook-pool .hook-tag,
+:root[data-theme="dark"] .hook-new { color: #0A1A02; }
+
 @media (max-width: 420px) {
     .hook { font-size: 13px; gap: 8px; padding-right: 13px; }
     .hook-tag { font-size: 12px; padding: 4px 11px; }
     .hooks { gap: 8px; }
+    .hook-new { font-size: 9px; padding: 2px 6px; }
 }
 
 .hero h1 { font-size: clamp(34px, 8.2vw, 54px); font-weight: 900; margin-bottom: 16px; }

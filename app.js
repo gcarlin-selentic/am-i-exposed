@@ -83,6 +83,9 @@ const COPY = {
         dailyTag: 'Hackeos hoy',
         dailyBadge: 'Actualizado cada mañana',
         dailyCount: (n) => (n === 1 ? '1 víctima nueva hoy' : `${num(n)} víctimas nuevas hoy`),
+        poolHookTag: 'Fondo de dinero',
+        poolHookLabel: 'por persona, abiertos ahora',
+        poolHookNew: 'NUEVO',
         heroTitle: 'Puede que te deban dinero. Nadie te avisó.',
         heroLede: 'Cuando una empresa filtra tus datos, por un ataque de ransomware o una brecha común, muchas veces tiene que pagarte. El aviso llega por correo postal, parece basura y casi nadie reclama. Escribe tu correo y te decimos si hay dinero que puedas reclamar, y qué más hacer.',
         heroBtn: 'Revisar mi correo',
@@ -346,6 +349,9 @@ const COPY = {
         dailyTag: 'Daily Hack',
         dailyBadge: 'Updated every morning',
         dailyCount: (n) => (n === 1 ? '1 new victim today' : `${num(n)} new victims today`),
+        poolHookTag: 'Money Pool',
+        poolHookLabel: 'per person, open now',
+        poolHookNew: 'NEW',
         heroTitle: 'You may be owed money. Nobody told you.',
         heroLede: 'When a company leaks your data, in a ransomware attack or an ordinary breach, it often has to pay you. The notice comes by post, looks like junk, and almost nobody claims. Enter your email and we will tell you if there is money you can claim, and what else to do.',
         heroBtn: 'Check my email',
@@ -1778,6 +1784,9 @@ function renderPoolStats() {
     set('poolOpen', nf.format(m.abiertos));
     set('poolTracked', nf.format(m.casos));
     set('poolMax', poolMoney(m.maxPorPersona));
+    // The hero's Money Pool badge shows the same "most any one person can claim"
+    // figure, so it never drifts from the pool stats below it.
+    set('poolBadgeNum', poolMoney(m.maxPorPersona));
     renderPoolChips();
 }
 
