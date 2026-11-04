@@ -2500,20 +2500,13 @@ let priceInfo = null;
 let priceChecked = false;
 
 async function loadPrice() {
-    try {
-        const response = await fetch('/api/checkout');
-        if (!response.ok) return;
-        const data = await response.json();
-        priceChecked = true;
-        if (data && data.available) {
-            priceInfo = data;
-            renderPrice();
-        }
-        // Tambien cuando no hay oferta: la sugerencia de idioma se apoya en
-        // saber donde esta el visitante, y esa pregunta ya se hizo.
-        maybeShowLangHint();
-        refreshOfferCard();
-    } catch (e) { /* sin respuesta no se esconde nada: puede ser un fallo de red */ }
+    // The report is a fixed US$5 now (Stripe, USD for everyone), so there is no
+    // per-visit price call: set the figure directly. /api/checkout is POST-only.
+    priceChecked = true;
+    priceInfo = { available: true, amount: 5, currency: 'USD', plan: 'report' };
+    renderPrice();
+    maybeShowLangHint();
+    refreshOfferCard();
 }
 
 const LANG_HINT_DISMISSED = 'aie-lang-hint-off';
@@ -2705,39 +2698,6 @@ async function startPurchase(btn) {
         btn.innerHTML = '<span class="spinner"></span>' + escapeHtml(t().payOpening);
     }
 
-    // Paddle, for a buyer in the United States. It opens over the page
-    // instead of sending them away, so there is no round trip to park
-    // anything across and no return URL to come back to: the overlay closes
-    // and they are still where they were.
-    if (priceInfo?.provider === 'paddle') {
-        try {
-            await startPaddle(priceInfo);
-            Paddle.Checkout.open({
-                items: [{ priceId: priceInfo.priceId, quantity: 1 }],
-                customer: { email: currentUser.email },
-                customData: {
-                    kind: 'report',
-                    user_id: currentUser.id,
-                    email: currentUser.email,
-                    // So the receipt is written in the language they were
-                    // reading. The transaction carries nothing else that
-                    // says which page this was bought from.
-                    lang,
-                },
-                settings: {
-                    displayMode: 'overlay',
-                    theme: paddleTheme(),
-                    locale: lang,
-                },
-            });
-        } catch (error) {
-            showPayBanner(t().payFail, 'warn');
-        } finally {
-            restore();
-        }
-        return;
-    }
-
     try {
         const { data: { session } } = await window.sbClient.auth.getSession();
         const accessToken = session?.access_token || null;
@@ -2747,22 +2707,24 @@ async function startPurchase(btn) {
             return;
         }
 
-        // The checked address does not survive the round trip to Mercado
-        // Pago, so it is parked here and picked up again on the way back.
+        // The checked address does not survive the round trip to Stripe
+        // Checkout, so it is parked here and picked up again on the way back.
         try {
             if (lastEmailResult) sessionStorage.setItem('aie-pending-email', lastEmailResult.email);
         } catch (e) { /* not essential */ }
 
-        const response = await fetch('/api/checkout', {
+        // Stripe Checkout (hosted). The token resolves the account server-side
+        // so the purchase is bound to it (client_reference_id -> purchases.user_id).
+        const response = await fetch('/api/checkout?plan=report', {
             method: 'POST',
             headers: authHeaders(accessToken),
-            body: JSON.stringify({ lang }),
+            body: JSON.stringify({ lang, email: currentUser.email }),
         });
         const data = await response.json().catch(() => null);
-        if (!response.ok || !data?.checkoutUrl) {
+        if (!response.ok || !data?.url) {
             throw new Error(data?.error || t().payFail);
         }
-        window.location.href = data.checkoutUrl;
+        window.location.href = data.url;
     } catch (error) {
         restore();
         showPayBanner(error.message || t().payFail, 'warn');
@@ -3300,17 +3262,36 @@ window.addEventListener('DOMContentLoaded', async () => {
     // second says whether this deployment is looking at test rows or real
     // ones.
     const pago = params.get('pago');
+    // Stripe return: ?checkout=success|cancel (&plan=report|breach|...).
+    const checkout = params.get('checkout');
     // ?plan=1 is the link in the purchase receipt. It needs the session
     // resolved too, because whose plan to open is a question only the
     // session answers.
     const wantsPlan = params.get('plan') === '1';
     if (window.sbClient) {
         const ready = initAuth();
-        if (pago || wantsPlan) await ready;
+        if (pago || checkout || wantsPlan) await ready;
     }
     if (pago) {
         await priceReady;
         await handleReturnFromCheckout(pago);
+        return;
+    }
+    if (checkout) {
+        await priceReady;
+        try { history.replaceState(null, '', window.location.pathname); } catch (e) { /* ignore */ }
+        if (checkout === 'cancel') {
+            showPayBanner(t().payCancelled, 'warn');
+        } else if (params.get('plan') === 'report') {
+            // Report access is on the account: confirm entitlement, then open it.
+            await handleReturnFromCheckout('ok');
+        } else {
+            // A monitoring subscription: it activates once the owner confirms
+            // the email we just sent.
+            showPayBanner(lang === 'es'
+                ? 'Pago recibido. Revisa tu correo para confirmar el monitoreo.'
+                : 'Payment received. Check your email to confirm your monitoring.');
+        }
         return;
     }
     if (wantsPlan) {

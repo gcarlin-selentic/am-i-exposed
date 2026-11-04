@@ -15,6 +15,7 @@
 
 import {
     isAllowedOrigin, clientIp, makeLocalLimiter, rateLimitOk, readBody, publicBaseUrl,
+    tokenFrom, userFromToken,
 } from './_shared.js';
 import { planSpec, priceIdFor, toForm } from './_stripe.mjs';
 
@@ -69,6 +70,19 @@ export default async function handler(req, res) {
         ? body.email.trim().toLowerCase()
         : null;
 
+    // The report's access is attached to a Supabase account (report.js matches
+    // purchases by user_id), so the buyer must be signed in and the user id is
+    // carried to the webhook as client_reference_id. Resolved from the token
+    // server-side, never trusted from the body. Monitoring plans are email-based
+    // and need no account.
+    let clientReferenceId;
+    if (spec.plan === 'report') {
+        const user = await userFromToken(tokenFrom(req, body));
+        if (!user) return res.status(401).json({ error: 'Sign in required to buy the report' });
+        clientReferenceId = user.id;
+        if (!email && typeof user.email === 'string') email = user.email.trim().toLowerCase();
+    }
+
     const meta = { plan: spec.plan, plan_param: planParam, lang };
     const form = toForm({
         mode: spec.mode,
@@ -77,6 +91,7 @@ export default async function handler(req, res) {
         success_url: `${base}/?checkout=success&plan=${encodeURIComponent(spec.plan)}&session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${base}/?checkout=cancel`,
         customer_email: email,
+        client_reference_id: clientReferenceId,
         allow_promotion_codes: true,
         metadata: meta,
         // Carry the plan onto the subscription (payment) object too, so the
