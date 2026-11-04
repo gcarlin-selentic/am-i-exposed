@@ -5,23 +5,24 @@
 // secret is 503, a bad signature is 400, nothing is written for either.
 //
 // Security posture (money path):
-//  - A one-time report is granted only when payment_status is 'paid' (or
-//    'no_payment_required'); an async method that completes unpaid grants
-//    nothing until async_payment_succeeded.
+//  - A one-time report is granted only when payment_status is paid (or
+//    no_payment_required) AND the payment intent is still succeeded and not
+//    refunded/disputed when re-read from Stripe.
 //  - An event whose livemode does not match this deployment is ignored.
 //  - Subscription status is read from the AUTHORITATIVE subscription fetched
-//    live from Stripe, so a replayed/out-of-order invoice.paid cannot
-//    re-activate a canceled subscription. A cancellation (subscription.deleted)
-//    is applied straight from the signed event, so a revocation is never lost
-//    to a fetch failure.
-//  - A row is rebound to a new subscription by email only when it is unbound or
-//    belongs to the same Stripe customer, so one buyer cannot take over
-//    another's row by typing their address.
-//  - Refunds and disputes revoke the report.
-//  - Every Supabase call is checked: a failed read/write throws, so the handler
-//    returns 500 and Stripe redelivers rather than silently dropping the change.
+//    live from Stripe and written to sub_status (the paid gate). The email
+//    lifecycle (status) is separate: a routine event never touches it, so a
+//    webhook can neither auto-confirm nor un-unsubscribe an address.
+//  - A paid subscription binds the row as status='pending' and the inbox owner
+//    must confirm before any alert is sent. The confirm mail is sent only on a
+//    binding event and through an atomic 15-minute throttle, so a retried or
+//    duplicated event cannot mail-bomb the address.
+//  - A row is rebound to a new subscription only when unbound or the same
+//    customer. Refunds/disputes revoke the report.
+//  - Every Supabase call is checked: a failure throws, so the handler returns
+//    500 and Stripe redelivers rather than silently dropping the change.
 //
-// Idempotent throughout. Never logs an email/token.
+// Never logs an email/token.
 
 export const config = { api: { bodyParser: false } };
 
@@ -30,6 +31,7 @@ import { verifyStripeSignature, monitorStatus } from './_stripe.mjs';
 import { sendBreachConfirm } from './_email.js';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
+const CONFIRM_THROTTLE_MS = 15 * 60 * 1000;
 
 const lc = (s) => (typeof s === 'string' ? s.trim().toLowerCase() : '');
 const isoFromUnix = (sec) =>
@@ -62,96 +64,21 @@ async function stripeGet(path) {
     }
 }
 
-// Grant/refresh a monitor subscription from the live Stripe subscription, so
-// out-of-order or replayed events converge on the current state. `email` (from
-// the checkout session) is needed only to first bind a row; later events match
-// by subscription id.
-async function applySubscription(subId, email) {
-    if (!subId) return;
-    const sub = await stripeGet(`subscriptions/${encodeURIComponent(subId)}`);
-    // Could not verify: throw so Stripe redelivers rather than losing the change
-    // (e.g. a past_due/cancel we must apply).
-    if (!sub) throw new Error('subscription fetch failed');
-
-    const item = sub.items?.data?.[0];
-    const lang = sub.metadata?.lang === 'es' ? 'es' : 'en';
-    // Stripe's state goes to sub_status. The email-confirmation lifecycle
-    // (status) is set to 'pending' only on a fresh bind and never touched by a
-    // routine event, so a webhook can neither auto-confirm nor un-unsubscribe.
-    const subFields = clean({
-        sub_status: monitorStatus(sub.status),
-        plan: sub.metadata?.plan,
-        lang,
-        bill_interval: item?.price?.recurring?.interval || null,
-        current_period_end: isoFromUnix(sub.current_period_end),
-        live_mode: !!sub.livemode,
-        stripe_customer_id: sub.customer || null,
-        stripe_subscription_id: subId,
-    });
+// Atomically claim the right to send a confirmation to this row, throttled so a
+// retried or duplicated event cannot mail-bomb the address. Only the slot winner
+// sends; a send failure releases the slot and throws so a redelivery retries.
+async function sendConfirmThrottled(rowId, email, lang, existingToken) {
+    if (!rowId || !email) return;
     const now = new Date().toISOString();
+    const cutoff = new Date(Date.now() - CONFIRM_THROTTLE_MS).toISOString();
+    const token = existingToken || crypto.randomUUID();
 
-    // Already bound: update the subscription state only. If the address never
-    // confirmed, (re)send the confirmation so a failed first send is recovered
-    // when Stripe redelivers this event.
-    const bySub = must(await sbSelect(
-        `breach_watch?stripe_subscription_id=eq.${encodeURIComponent(subId)}&select=id,email,status,confirm_token`
-    ), 'select by sub');
-    if (bySub.rows?.length) {
-        const r = bySub.rows[0];
-        must(await sbPatch(`breach_watch?id=eq.${r.id}`, { ...subFields, updated_at: now }), 'patch by sub');
-        if (r.status === 'pending') {
-            const token = r.confirm_token || crypto.randomUUID();
-            if (!r.confirm_token) {
-                must(await sbPatch(`breach_watch?id=eq.${r.id}`, { confirm_token: token, confirm_sent_at: now }), 'set token');
-            }
-            await sendConfirmOrThrow(r.email, lang, token);
-        }
-        return;
-    }
+    const claim = must(await sbPatch(
+        `breach_watch?id=eq.${rowId}&or=(confirm_sent_at.is.null,confirm_sent_at.lt.${encodeURIComponent(cutoff)})`,
+        { confirm_token: token, confirm_sent_at: now }
+    ), 'claim confirm send');
+    if (!claim.rows?.length) return; // a confirmation was sent recently; do not spam
 
-    // Not bound yet: bind by the checkout email.
-    const addr = lc(email || sub.metadata?.email);
-    if (!addr) return; // checkout.session.completed carries the email and will bind it
-
-    const byEmail = must(await sbSelect(
-        `breach_watch?email=eq.${encodeURIComponent(addr)}&select=id,status,confirm_token,stripe_subscription_id,stripe_customer_id`
-    ), 'select by email');
-    const row = byEmail.rows?.[0];
-
-    if (row) {
-        // Rebind only when the row is unbound or belongs to the SAME customer,
-        // so a buyer cannot take over someone else's address by typing it.
-        const sameCustomer = row.stripe_customer_id && sub.customer && row.stripe_customer_id === sub.customer;
-        if (row.stripe_subscription_id && row.stripe_subscription_id !== subId && !sameCustomer) {
-            console.error('stripe-webhook: email bound to a different subscription/customer; skipping');
-            return;
-        }
-        if (row.status === 'active') {
-            // Address already confirmed: bind the subscription, no re-confirm.
-            must(await sbPatch(`breach_watch?id=eq.${row.id}`, { ...subFields, updated_at: now }), 'patch active by email');
-        } else {
-            // New or previously unsubscribed: require (re)confirmation first.
-            const token = crypto.randomUUID();
-            must(await sbPatch(`breach_watch?id=eq.${row.id}`, {
-                ...subFields, status: 'pending', confirm_token: token, confirm_sent_at: now, confirmed_at: null, updated_at: now,
-            }), 'patch pending by email');
-            await sendConfirmOrThrow(addr, lang, token);
-        }
-    } else {
-        const token = crypto.randomUUID();
-        must(await sbInsert('breach_watch', {
-            email: addr, baseline_done: false, ...subFields,
-            status: 'pending', confirm_token: token, confirm_sent_at: now,
-        }), 'insert pending');
-        await sendConfirmOrThrow(addr, lang, token);
-    }
-}
-
-// The confirmation mail is required before any alert is sent, so the inbox owner
-// (not whoever typed the address at checkout) activates monitoring. A send
-// failure throws, so Stripe redelivers and the bind-by-sub path above resends
-// the same token until it lands.
-async function sendConfirmOrThrow(email, lang, token) {
     const base = (process.env.PUBLIC_BASE_URL || 'https://www.am-i-exposed.com').replace(/\/+$/, '');
     let ok = false;
     try {
@@ -164,21 +91,99 @@ async function sendConfirmOrThrow(email, lang, token) {
         console.error('confirm mail error:', error.name);
         ok = false;
     }
-    if (!ok) throw new Error('confirm mail failed');
+    if (!ok) {
+        // Release the slot so a redelivery can retry, then fail the handler.
+        await sbPatch(`breach_watch?id=eq.${rowId}`, { confirm_sent_at: null });
+        throw new Error('confirm mail failed');
+    }
 }
 
-// Cancellation, applied straight from the signed event. One-way and safe, so it
-// does not depend on a live fetch and can never be lost to a fetch failure.
+// Grant/refresh a monitor subscription from the live Stripe subscription, so
+// out-of-order or replayed events converge on the current state. Stripe state
+// goes to sub_status; status is the email-confirmation lifecycle and is set to
+// 'pending' only on a fresh bind, never by a routine event. `email` (from the
+// checkout session) is needed only to first bind a row. The confirm mail is
+// (re)sent only when `sendConfirm` (a binding event), and throttled.
+async function applySubscription(subId, email, sendConfirm) {
+    if (!subId) return;
+    const sub = await stripeGet(`subscriptions/${encodeURIComponent(subId)}`);
+    if (!sub) throw new Error('subscription fetch failed');
+
+    const item = sub.items?.data?.[0];
+    const lang = sub.metadata?.lang === 'es' ? 'es' : 'en';
+    const subFields = clean({
+        sub_status: monitorStatus(sub.status),
+        plan: sub.metadata?.plan,
+        lang,
+        bill_interval: item?.price?.recurring?.interval || null,
+        current_period_end: isoFromUnix(sub.current_period_end),
+        live_mode: !!sub.livemode,
+        stripe_customer_id: sub.customer || null,
+        stripe_subscription_id: subId,
+    });
+    const now = new Date().toISOString();
+
+    // Already bound: update the subscription state only.
+    const bySub = must(await sbSelect(
+        `breach_watch?stripe_subscription_id=eq.${encodeURIComponent(subId)}&select=id,email,status,confirm_token`
+    ), 'select by sub');
+    if (bySub.rows?.length) {
+        const r = bySub.rows[0];
+        must(await sbPatch(`breach_watch?id=eq.${r.id}`, { ...subFields, updated_at: now }), 'patch by sub');
+        if (sendConfirm && r.status === 'pending') {
+            await sendConfirmThrottled(r.id, r.email, lang, r.confirm_token);
+        }
+        return;
+    }
+
+    // Not bound yet: bind by the checkout email (routine events carry none).
+    const addr = lc(email || sub.metadata?.email);
+    if (!addr) return;
+
+    const byEmail = must(await sbSelect(
+        `breach_watch?email=eq.${encodeURIComponent(addr)}&select=id,status,stripe_subscription_id,stripe_customer_id`
+    ), 'select by email');
+    const row = byEmail.rows?.[0];
+
+    if (row) {
+        // Rebind only when the row is unbound or belongs to the SAME customer.
+        const sameCustomer = row.stripe_customer_id && sub.customer && row.stripe_customer_id === sub.customer;
+        if (row.stripe_subscription_id && row.stripe_subscription_id !== subId && !sameCustomer) {
+            console.error('stripe-webhook: email bound to a different subscription/customer; skipping');
+            return;
+        }
+        if (row.status === 'active') {
+            // Already email-confirmed: bind the subscription, no re-confirm.
+            must(await sbPatch(`breach_watch?id=eq.${row.id}`, { ...subFields, updated_at: now }), 'patch active by email');
+        } else {
+            // New or previously unsubscribed: require (re)confirmation first.
+            must(await sbPatch(`breach_watch?id=eq.${row.id}`, {
+                ...subFields, status: 'pending', confirmed_at: null, updated_at: now,
+            }), 'patch pending by email');
+            if (sendConfirm) await sendConfirmThrottled(row.id, addr, lang, null);
+        }
+    } else {
+        const ins = must(await sbInsert('breach_watch', {
+            email: addr, baseline_done: false, ...subFields, status: 'pending',
+        }), 'insert pending');
+        const newId = ins.rows?.[0]?.id;
+        if (sendConfirm && newId) await sendConfirmThrottled(newId, addr, lang, null);
+    }
+}
+
+// Cancellation, applied straight from the signed event. Writes sub_status (the
+// paid gate the daily jobs read), not status (email confirmation). One-way and
+// safe, so it does not depend on a live fetch and is never lost to a fetch error.
 async function cancelSubscription(subId, periodEndUnix) {
     if (!subId) return;
     must(await sbPatch(
         `breach_watch?stripe_subscription_id=eq.${encodeURIComponent(subId)}`,
-        { status: 'canceled', current_period_end: isoFromUnix(periodEndUnix), updated_at: new Date().toISOString() }
+        { sub_status: 'canceled', current_period_end: isoFromUnix(periodEndUnix), updated_at: new Date().toISOString() }
     ), 'cancel');
 }
 
-// Record the one-time report, only on a genuinely paid session. Idempotent by
-// the payment id so a retry cannot grant a second window.
+// Record the one-time report, only on a genuinely paid session that is still
+// paid (not refunded/disputed) when re-read from Stripe. Idempotent by payment id.
 async function grantReport(session, liveMode) {
     const paid = session.payment_status === 'paid' || session.payment_status === 'no_payment_required';
     if (!paid) return;
@@ -186,12 +191,7 @@ async function grantReport(session, liveMode) {
     if (!email) return;
     const payId = session.payment_intent || session.id;
 
-    // Authoritative refund/dispute check. A completion event can arrive (or be
-    // redelivered) after the charge was already refunded or disputed, racing the
-    // revocation. Re-read the payment intent from Stripe and refuse to grant if
-    // the money is no longer held, so a late grant cannot resurrect a refunded
-    // report. A fetch failure throws, so Stripe redelivers rather than granting
-    // blind. (no_payment_required has no payment intent, so nothing to re-check.)
+    // Authoritative refund/dispute check against a completion that races a refund.
     if (session.payment_intent) {
         const pi = await stripeGet(`payment_intents/${encodeURIComponent(session.payment_intent)}?expand[]=latest_charge`);
         if (!pi) throw new Error('payment intent fetch failed');
@@ -265,7 +265,7 @@ export default async function handler(req, res) {
             case 'checkout.session.completed':
             case 'checkout.session.async_payment_succeeded': {
                 if (obj.mode === 'subscription') {
-                    await applySubscription(obj.subscription, lc(obj.customer_details?.email || obj.customer_email));
+                    await applySubscription(obj.subscription, lc(obj.customer_details?.email || obj.customer_email), true);
                 } else if (obj.mode === 'payment' && obj.metadata?.plan === 'report') {
                     await grantReport(obj, liveMode);
                 }
@@ -274,7 +274,7 @@ export default async function handler(req, res) {
 
             case 'customer.subscription.created':
             case 'customer.subscription.updated': {
-                await applySubscription(obj.id);
+                await applySubscription(obj.id, undefined, false);
                 break;
             }
 
@@ -285,7 +285,7 @@ export default async function handler(req, res) {
 
             case 'invoice.paid':
             case 'invoice.payment_failed': {
-                if (obj.subscription) await applySubscription(obj.subscription);
+                if (obj.subscription) await applySubscription(obj.subscription, undefined, false);
                 break;
             }
 
