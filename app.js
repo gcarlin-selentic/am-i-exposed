@@ -105,12 +105,12 @@ const COPY = {
         explainP3: 'No lo causaste tú. Lo causó la empresa a la que le confiaste tus datos.',
         explainBtn: 'Ver todas las preguntas',
 
-        offerBadge: 'Kit de Reclamo',
-        offerTitle: 'Estás expuesto. Ahora ve por lo que te deben.',
-        offerLede: 'Un Kit de Reclamo armado desde tus filtraciones: a qué acuerdos están ligados tus datos, cómo reclamar los abiertos para cobrar lo máximo, y un plan en palabras normales para blindar tus cuentas.',
-        offerLi1: 'Acuerdos ligados a tu correo y cuánto pagaron',
-        offerLi2: 'Cómo reclamar los abiertos para que te paguen, no te rechacen',
-        offerLi3: 'Tu plan de seguridad completo, descargable en PDF',
+        offerBadge: 'Informe Completo',
+        offerTitle: 'Estás expuesto. Esto es exactamente qué hacer.',
+        offerLede: 'Un Informe Completo sobre tu correo filtrado: todo lo que quedó expuesto, un plan paso a paso para blindar tus cuentas, y los acuerdos que tus datos podrían reclamar.',
+        offerLi1: 'Todo lo que quedó expuesto, y cómo arreglar cada cosa',
+        offerLi2: 'Tu plan de seguridad completo, paso a paso, descargable en PDF',
+        offerLi3: 'Acuerdos que tu correo podría reclamar, con enlaces oficiales gratis',
         offerPer: 'pago único',
         offerBtn: 'Ver un ejemplo',
 
@@ -186,7 +186,7 @@ const COPY = {
         poolStatMax: 'por persona, casos abiertos',
         poolBrowse: 'Ver todos los acuerdos &rarr;',
         priceFreeK: 'Chequeo gratis', priceFreeD: 'Tu correo contra las filtraciones. Sin tarjeta.',
-        priceReportK: 'Kit de Reclamo', priceReportP: 'pago único', priceReportD: 'A qué acuerdos tienes derecho + cómo reclamar + plan de seguridad. Enlaces de reclamo gratis.',
+        priceReportK: 'Informe Completo', priceReportP: 'pago único', priceReportD: 'Todo lo expuesto + cómo arreglarlo + acuerdos que podrían deberte. Enlaces de reclamo gratis.',
         priceMonK: 'Monitoreo', priceSoon: 'pronto', priceMonP: '/mes &middot; $30/año',
         priceMonD: 'Elige uno: alertas de filtraciones o alertas de acuerdos.',
         priceComboK: 'Combo', priceComboP: '/mes &middot; $50/año',
@@ -325,7 +325,7 @@ const COPY = {
         pwPlanBodyB: 'Revisa también tu correo y te armamos un plan que cubre cada filtración en la que aparece, qué se llevaron y qué hacer.',
         pwPlanBtnB: 'Revisar mi correo también',
 
-        planHeading: 'Lo que te deben, y cómo protegerte',
+        planHeading: 'Lo que quedó expuesto, y cómo protegerte',
         planPreparedFor: 'Preparado para',
         planWhatHappened: 'Qué pasó',
         planWhyMatters: 'Por qué importa',
@@ -345,12 +345,12 @@ const COPY = {
         planFooter: (date) => `Generado por ¿Estoy expuesto? con datos de Have I Been Pwned el ${date}. Esto es orientación general de seguridad, no asesoría legal ni financiera.`,
         teaserNote: 'Aquí va el primer paso completo, para que veas exactamente qué recibes.',
         paywallTitle: (n) => n === 1 ? 'Falta 1 paso más, escrito igual' : `Faltan ${n} pasos más, escritos igual`,
-        paywallPitch: 'Al desbloquear recibes la guía para reclamar cada acuerdo abierto (cómo calificar, qué comprobante sube tu pago y cómo reclamar para que no te lo rechacen), además de tu plan de seguridad completo en palabras normales y una copia para imprimir o guardar.',
-        paywallBtn: 'Desbloquear mi Kit de Reclamo',
-        paywallFine: 'Un solo pago. Puedes volver y actualizar tu kit durante 30 días.',
+        paywallPitch: 'Al desbloquear recibes tu plan de seguridad completo en palabras normales — qué quedó expuesto y exactamente cómo arreglar cada cosa — además de la guía para reclamar cada acuerdo abierto que tus datos podrían reclamar, y una copia para imprimir o guardar.',
+        paywallBtn: 'Desbloquear mi Informe Completo',
+        paywallFine: 'Un solo pago. Puedes volver y actualizar tu informe durante 30 días.',
 
-        // Claim Pack (the money half of the paid report).
-        claimPackTitle: 'Tu Kit de Reclamo',
+        // Full Report: the settlements half of the paid report.
+        claimPackTitle: 'Acuerdos que tus datos podrían reclamar',
         claimPersonalTitle: 'Acuerdos ligados a tu correo',
         claimPersonalLede: (open) => open > 0
             ? 'Tu correo apareció en las filtraciones detrás de estos acuerdos. Los abiertos todavía los puedes reclamar; los demás muestran cuánto ha valido este tipo de exposición.'
@@ -409,12 +409,12 @@ const COPY = {
         explainP3: 'You did not cause it. The company you trusted with your details did.',
         explainBtn: 'See all the questions',
 
-        offerBadge: 'Claim Pack',
-        offerTitle: "You're exposed. Now go get what you're owed.",
-        offerLede: 'A Claim Pack built from your breaches: which settlements your data is tied to, how to file the open ones for the biggest payout, and a plain-words plan to lock your accounts down.',
-        offerLi1: 'Settlements tied to your email, and what they paid',
-        offerLi2: 'How to file the open ones so you get paid, not rejected',
-        offerLi3: 'Your full security plan, downloadable as a PDF',
+        offerBadge: 'Full Report',
+        offerTitle: "You're exposed. Here's exactly what to do.",
+        offerLede: 'A Full Report on your breached email: everything that was exposed, a step-by-step plan to lock your accounts down, and the settlements your data may be owed.',
+        offerLi1: 'Everything that was exposed, and how to fix each one',
+        offerLi2: 'Your full security plan, step by step, downloadable as a PDF',
+        offerLi3: 'Settlements your email may be owed, with free official claim links',
         offerPer: 'one time',
         offerBtn: 'See an example',
 
@@ -490,7 +490,7 @@ const COPY = {
         poolStatMax: 'per person, open cases',
         poolBrowse: 'Browse all settlements &rarr;',
         priceFreeK: 'Free check', priceFreeD: 'Your email vs breaches. No card.',
-        priceReportK: 'Claim Pack', priceReportP: 'one time', priceReportD: 'Settlements you may be owed + how to claim + security plan. Claim links free.',
+        priceReportK: 'Full Report', priceReportP: 'one time', priceReportD: 'Everything exposed + how to fix it + settlements you may be owed. Claim links free.',
         priceMonK: 'Monitoring', priceSoon: 'soon', priceMonP: '/mo &middot; $30/yr',
         priceMonD: 'Pick one: new-breach alerts or new-settlement alerts.',
         priceComboK: 'Combo', priceComboP: '/mo &middot; $50/yr',
@@ -627,7 +627,7 @@ const COPY = {
         pwPlanBodyB: 'Check your email address as well, and we will build you a plan covering every breach it appears in, what was taken, and what to do about it.',
         pwPlanBtnB: 'Check my email too',
 
-        planHeading: "What you're owed, and how to protect yourself",
+        planHeading: "What was exposed, and how to protect yourself",
         planPreparedFor: 'Prepared for',
         planWhatHappened: 'What happened',
         planWhyMatters: 'Why this matters',
@@ -646,12 +646,12 @@ const COPY = {
         planFooter: (date) => `Generated by Am I Exposed? from Have I Been Pwned breach data on ${date}. This is general security guidance, not legal or financial advice.`,
         teaserNote: 'Here is the first step in full, so you can see exactly what you are getting.',
         paywallTitle: (n) => n === 1 ? '1 more step, written the same way' : `${n} more steps, written the same way`,
-        paywallPitch: 'Unlocking gives you the filing guide for every open settlement (how to qualify, what proof raises your payout, and how to file so it is not rejected), plus your full security action plan in plain English and a copy you can print or save.',
-        paywallBtn: 'Unlock my Claim Pack',
-        paywallFine: 'One payment. You can come back and update your pack for 30 days.',
+        paywallPitch: 'Unlocking gives you your full security action plan in plain English — what was exposed and exactly how to fix each one — plus the filing guide for every open settlement your data may be owed, and a copy you can print or save.',
+        paywallBtn: 'Unlock my Full Report',
+        paywallFine: 'One payment. You can come back and update your report for 30 days.',
 
-        // Claim Pack (the money half of the paid report).
-        claimPackTitle: 'Your Claim Pack',
+        // Full Report: the settlements half of the paid report.
+        claimPackTitle: 'Settlements your data may be owed',
         claimPersonalTitle: 'Settlements tied to your email',
         claimPersonalLede: (open) => open > 0
             ? 'Your email was found in the breaches behind these settlements. The open ones you can still claim; the rest show what this kind of exposure has been worth.'
@@ -2334,7 +2334,7 @@ function planSummaryHTML(stats, actionCount, criticals) {
         </section>`;
 }
 
-// --- Claim Pack rendering --------------------------------------------------
+// --- Full Report: settlements rendering --------------------------------------------------
 
 function claimMoney(n) {
     const v = Number(n);
@@ -2469,10 +2469,10 @@ function fullReportHTML(data) {
     }).join('');
 
     return reportHeaderHTML(data.email)
-        + claimsFullHTML(data.claims)
         + `<h2 class="plan-security-title">${escapeHtml(t().planSecurityTitle)}</h2>`
         + planSummaryHTML(data.stats, data.actions.length, criticals)
         + data.actions.map(actionHTML).join('')
+        + claimsFullHTML(data.claims)
         + (rows ? `
             <section class="plan-appendix">
                 <h2>${escapeHtml(t().appendixTitle)}</h2>
@@ -2508,7 +2508,6 @@ function teaserHTML(data) {
         </div>`).join('');
 
     return reportHeaderHTML(data.email)
-        + claimsTeaserHTML(data.claims)
         + `<h2 class="plan-security-title">${escapeHtml(t().planSecurityTitle)}</h2>`
         + planSummaryHTML(data.stats, data.totalActions, criticals)
         + `<div class="teaser-note">${escapeHtml(t().teaserNote)}</div>`
@@ -2520,7 +2519,8 @@ function teaserHTML(data) {
             <p class="paywall-pitch">${escapeHtml(t().paywallPitch)}</p>
             <button class="btn accent" data-action="startPurchase">${escapeHtml(t().paywallBtn)}</button>
             <p class="paywall-fine">${escapeHtml(t().paywallFine)}</p>
-        </section>`;
+        </section>`
+        + claimsTeaserHTML(data.claims);
 }
 
 // =======================================================================
