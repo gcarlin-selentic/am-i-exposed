@@ -2082,13 +2082,6 @@ const CO_DISPLAY = {
 };
 function displayName(slug, fallback) { return CO_DISPLAY[slug] || fallback; }
 
-function fillFunnelStates() {
-    const sel = document.getElementById('funnelState');
-    if (!sel || sel.options.length) return;
-    sel.appendChild(new Option(t().alertsStatePick, ''));
-    for (const name of US_STATES) sel.appendChild(new Option(name, name));
-}
-
 function fillFunnelChips() {
     const box = document.getElementById('funnelChips');
     if (!box || box.children.length || !funnelData?.chips) return;
@@ -2113,7 +2106,6 @@ function funnelMatch() {
         matched: (settlements && settlements.filas) || [],
         open: (funnelData && funnelData.open) || [],
         companies: funnelPicked(),
-        state: document.getElementById('funnelState')?.value || '',
         todayISO: new Date().toISOString().slice(0, 10),
     });
 }
@@ -2152,7 +2144,6 @@ async function refreshFunnel() {
     await loadSettlements();                       // for the email-matched items
     card.hidden = false;
     fillFunnelChips();
-    fillFunnelStates();
     renderFunnelNumber();
     // The free funnel (matched settlements + claim links) shows regardless; the
     // paid upsell only when Stripe is configured to sell monitoring, so it stays
@@ -3105,7 +3096,6 @@ document.addEventListener('click', (e) => {
     renderFunnelNumber();
 });
 document.addEventListener('change', (e) => {
-    if (e.target && e.target.id === 'funnelState') renderFunnelNumber();
     // The month/year switch rewrites the three monitoring prices in place.
     if (e.target && e.target.id === 'monitorYearly') renderMonitorPrices();
 });
