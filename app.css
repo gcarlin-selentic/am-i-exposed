@@ -967,6 +967,10 @@ a.alerts-missed .m-co,
 
 .price { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 26px; letter-spacing: -.02em; }
 .price small { font-size: 13px; font-weight: 600; opacity: .6; margin-left: 5px; }
+/* The pricing grid also uses a .price class (a bordered, filled box). Scope that
+   box styling out of the offer footer so it never lands on the offer's price
+   text, which otherwise renders dark-on-dark and vanishes. */
+.offer-foot .price { background: none; border: 0; padding: 0; }
 
 /* ---------------- footer ---------------- */
 .foot {
