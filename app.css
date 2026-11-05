@@ -390,6 +390,22 @@ img { max-width: 100%; }
 :root[data-theme="dark"] .hook-pool .hook-tag,
 :root[data-theme="dark"] .hook-new { color: #2A1500; }
 
+/* The fourth pill: Pricing. Green, to sit apart from the blue Free, red Daily
+   Hack and orange Money Pool pills. */
+.hook-pricing {
+    background: var(--good-soft);
+    color: var(--good);
+    text-decoration: none;
+    transition: opacity .15s ease;
+}
+.hook-pricing:hover { opacity: .85; text-decoration: none; }
+.hook-pricing .hook-tag { background: var(--good); color: #fff; }
+/* The dark palette's green is light, so the tag text flips to dark there. */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .hook-pricing .hook-tag { color: #0C2200; }
+}
+:root[data-theme="dark"] .hook-pricing .hook-tag { color: #0C2200; }
+
 @media (max-width: 420px) {
     .hook { font-size: 13px; gap: 8px; padding-right: 13px; }
     .hook-tag { font-size: 12px; padding: 4px 11px; }
