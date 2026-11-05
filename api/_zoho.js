@@ -1,4 +1,4 @@
-// Pushing customers into Selentic's Zoho CRM.
+// Pushing customers into the project's Zoho CRM.
 //
 // Vercel does not turn a file in /api whose name begins with an underscore
 // into a route, so this is a module, not an endpoint.

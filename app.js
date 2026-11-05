@@ -210,7 +210,7 @@ const COPY = {
         // Spanish, for the same reason and in the other direction.
         langHintText: 'This page is also available in',
         langHintLink: 'English',
-        footLeft: '<a href="https://www.selenticgroup.com/" rel="noopener">Selentic Group</a> · Datos de filtraciones por <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a>',
+        footLeft: '<a href="https://www.am-i-exposed.com/" rel="noopener">Guillermo Carlin</a> · Datos de filtraciones por <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a>',
         footCases: 'Casos y acuerdos',
         footFaq: 'Preguntas frecuentes',
         footLeaked: 'Si se filtró tu correo',
@@ -511,7 +511,7 @@ const COPY = {
         // the page it is sitting on.
         langHintText: 'Esta página también está disponible en',
         langHintLink: 'español',
-        footLeft: '<a href="https://www.selenticgroup.com/" rel="noopener">Selentic Group</a> · Breach data by <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a>',
+        footLeft: '<a href="https://www.am-i-exposed.com/" rel="noopener">Guillermo Carlin</a> · Breach data by <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a>',
         footCases: 'Settlements',
         footFaq: 'FAQ',
         footLeaked: 'If your email leaked',

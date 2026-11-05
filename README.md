@@ -1,6 +1,6 @@
 # Am I Exposed? — Breach Checker
 
-Free and paid breach exposure checking tool for Selentic Group.
+Free and paid breach exposure checking tool by Guillermo Carlin.
 
 ## Setup
 

@@ -101,7 +101,7 @@ const COPY = {
             `<b>Importe devuelto:</b> ${amount}<br><b>Fecha de la compra:</b> ${date}`,
             'Con la devolución, el acceso al plan completo queda cerrado.',
         ],
-        footer: 'Selentic Group · Este es un correo automático, pero puedes responderlo.',
+        footer: 'Guillermo Carlin · Este es un correo automático, pero puedes responderlo.',
     },
     en: {
         receiptSubject: 'Your Am I Exposed? receipt',
@@ -120,7 +120,7 @@ const COPY = {
             `<b>Amount refunded:</b> ${amount}<br><b>Purchase date:</b> ${date}`,
             'With the refund, access to the full plan is closed.',
         ],
-        footer: 'Selentic Group · This is an automated message, but you can reply to it.',
+        footer: 'Guillermo Carlin · This is an automated message, but you can reply to it.',
     },
 };
 

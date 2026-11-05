@@ -532,7 +532,7 @@ def render(p):
             <li><a href="/us-privacy-notice/">U.S. privacy</a></li>
             <li><a href="/terms/">Terms</a></li>
         </ul>
-        <p>Selentic Group &middot; Breach data by
+        <p>Guillermo Carlin &middot; Breach data by
         <a href="https://haveibeenpwned.com" rel="noopener">Have I Been Pwned</a></p>
     </div>
 </footer>
@@ -632,7 +632,7 @@ SHELL = '''<!DOCTYPE html>
             <li><a href="/us-privacy-notice/">U.S. privacy</a></li>
             <li><a href="/terms/">Terms</a></li>
         </ul>
-        <p>Selentic Group &middot; Breach data by
+        <p>Guillermo Carlin &middot; Breach data by
         <a href="https://haveibeenpwned.com" rel="noopener">Have I Been Pwned</a></p>
     </div>
 </footer>
