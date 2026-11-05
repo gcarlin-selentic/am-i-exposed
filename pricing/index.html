@@ -23,7 +23,7 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/content.css">
+    <link rel="stylesheet" href="/content.css?v=2026-11-05b">
 </head>
 <body>
 
@@ -46,35 +46,100 @@
     The paid plans are a one-time report and optional monitoring &mdash; a flat price, shown before you
     pay, that you can cancel anytime.</p>
 
-    <div class="plan-grid">
-        <div class="plan-card">
-            <div class="plan-name">Free check</div>
-            <div class="plan-price">$0</div>
-            <p class="plan-desc">Check your email address or a password against known breaches.
-            No account, no card, no catch.</p>
+    <div class="plan-tiles">
+
+        <div class="plan-tile">
+            <div class="plan-head">
+                <span class="plan-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.2-4.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+                <div>
+                    <h2 class="plan-title">Free check</h2>
+                    <p class="plan-sub">See whether your email or a password turns up in known breaches.</p>
+                </div>
+            </div>
+            <div class="plan-divider"></div>
+            <div class="plan-body">
+                <ul class="plan-feats">
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Your email checked against known breaches</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Any password checked privately, on your device</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>No account, no card, no catch</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Result in seconds</span></li>
+                </ul>
+                <div class="plan-buy">
+                    <div class="plan-price">$0<span class="plan-per">to check</span></div>
+                    <a class="plan-cta" href="/">Check my email</a>
+                </div>
+            </div>
         </div>
 
-        <div class="plan-card featured">
-            <div class="plan-name">Full Report</div>
-            <div class="plan-price">$5<small>one time</small></div>
-            <p class="plan-desc">Everything that was exposed about you, a step-by-step plan to fix it
-            in plain language, and the settlements your data may be owed. 30 days of access,
-            downloadable as a PDF. Not a subscription.</p>
+        <div class="plan-tile featured">
+            <div class="plan-head">
+                <span class="plan-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 2.5h7l5 5v14H6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M13 2.5v5h5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 13h6M9 17h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+                <div>
+                    <h2 class="plan-title">Full Report</h2>
+                    <p class="plan-sub">Everything exposed, a plan to fix it, and the money you may be owed.</p>
+                </div>
+            </div>
+            <div class="plan-divider"></div>
+            <div class="plan-body">
+                <ul class="plan-feats">
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Everything that was exposed about you, item by item</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>A step-by-step plan to fix it, in plain English</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Settlements your data may be owed, with free official claim links</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>30 days of access, downloadable as a PDF</span></li>
+                </ul>
+                <div class="plan-buy">
+                    <div class="plan-price">$5<span class="plan-per">one time</span></div>
+                    <a class="plan-cta" href="/">Get started</a>
+                </div>
+            </div>
         </div>
 
-        <div class="plan-card">
-            <div class="plan-name">Monitoring</div>
-            <div class="plan-price">$3<small>/mo &middot; $30/yr</small></div>
-            <p class="plan-desc">Pick one: an alert the moment a new breach includes your email, or
-            the moment a new settlement opens that you might qualify for. Cancel anytime.</p>
+        <div class="plan-tile">
+            <div class="plan-head">
+                <span class="plan-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9a6 6 0 0112 0c0 5 2 6 2 6H4s2-1 2-6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10 20a2 2 0 004 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+                <div>
+                    <h2 class="plan-title">Monitoring</h2>
+                    <p class="plan-sub">Get alerted the moment something new affects you.</p>
+                </div>
+            </div>
+            <div class="plan-divider"></div>
+            <div class="plan-body">
+                <ul class="plan-feats">
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Pick one: new-breach alerts or new-settlement alerts</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Emailed the moment a new breach includes you</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Or when a new settlement opens that you may qualify for</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Cancel anytime</span></li>
+                </ul>
+                <div class="plan-buy">
+                    <div class="plan-price">$3<span class="plan-per">/mo &middot; $30/yr</span></div>
+                    <a class="plan-cta" href="/">Get started</a>
+                </div>
+            </div>
         </div>
 
-        <div class="plan-card">
-            <div class="plan-name">Combo</div>
-            <div class="plan-price">$5<small>/mo &middot; $50/yr</small></div>
-            <p class="plan-desc">Both breach and settlement monitoring, together, at a lower price than
-            buying them separately. Cancel anytime.</p>
+        <div class="plan-tile">
+            <div class="plan-head">
+                <span class="plan-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l8 3v5c0 5-3.4 8.2-8 10-4.6-1.8-8-5-8-10V6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 12l2.5 2.5 4.5-4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <div>
+                    <h2 class="plan-title">Combo</h2>
+                    <p class="plan-sub">Both breach and settlement monitoring, together.</p>
+                </div>
+            </div>
+            <div class="plan-divider"></div>
+            <div class="plan-body">
+                <ul class="plan-feats">
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Every new breach that includes your email</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Every new settlement you may qualify for</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Both in one subscription, cheaper than separately</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Cancel anytime</span></li>
+                </ul>
+                <div class="plan-buy">
+                    <div class="plan-price">$5<span class="plan-per">/mo &middot; $50/yr</span></div>
+                    <a class="plan-cta" href="/">Get started</a>
+                </div>
+            </div>
         </div>
+
     </div>
 
     <div class="note">
