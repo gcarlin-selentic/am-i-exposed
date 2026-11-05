@@ -39,12 +39,11 @@
          cannot tell this tool apart from the several others with nearly the
          same name, which is the actual problem being solved here.
 
-         The price is a second copy of a number that really lives in the
-         MP_PRICE environment variable, and there is no build step to keep them
-         in step. renderPrice() rewrites the offer below from the live API on
-         every load, so a rendering crawler always sees the true figure and only
-         a non-rendering one can ever read a stale number. If the price changes,
-         update it here too. -->
+         The price is a second copy of the fixed US$5 the app uses. renderPrice()
+         and syncJsonLdPrice() rewrite the offer below from that figure on every
+         load, so a rendering crawler always sees the true number and only a
+         non-rendering one can read a stale copy. If the price changes, update it
+         here too. -->
     <script type="application/ld+json" id="appJsonLd">
     {
         "@context": "https://schema.org",
