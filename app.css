@@ -1447,6 +1447,20 @@ a.alerts-missed .m-co,
     color: var(--accent-ink); font-weight: 600;
 }
 .cc-chip.on::before { content: "\2713"; color: var(--accent); font-weight: 800; }
+/* Closed: matched but the claim window has passed. Greyed, dashed, not clickable;
+   it states what it paid and when it shut instead of pretending to be selectable. */
+.cc-chip.cc-closed {
+    flex-direction: column; align-items: flex-start; gap: 3px;
+    border-style: dashed; cursor: default; opacity: .72;
+}
+.cc-chip.cc-closed:hover { border-color: var(--line-strong); }
+.cc-closed-name { display: inline-flex; align-items: center; gap: 7px; font-weight: 600; }
+.cc-tag {
+    font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+    padding: 1px 7px; border-radius: var(--r-pill);
+    background: color-mix(in srgb, var(--ink-soft) 16%, transparent); color: var(--ink-soft);
+}
+.cc-closed-meta { font-size: 12px; opacity: .85; }
 
 .cc-state { margin-top: 16px; }
 .cc-state label { display: block; font-size: 12.5px; opacity: .62; margin-bottom: 6px; }
