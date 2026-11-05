@@ -82,7 +82,7 @@
             },
             {
                 "@type": "Offer",
-                "name": "Report with action plan",
+                "name": "Claim Pack",
                 "price": "19.00",
                 "priceCurrency": "PEN"
             }
@@ -100,7 +100,7 @@
          never change, and a forgotten bust on a year-long immutable asset would
          leave a returning buyer running last week's payment code. Bump the date
          here and in the other language's page when a change has to land now. -->
-    <link rel="stylesheet" href="/app.css?v=2026-11-05a">
+    <link rel="stylesheet" href="/app.css?v=2026-11-05b">
 </head>
 <body>
 
@@ -224,7 +224,7 @@
 
         <div class="pricing">
             <div class="price"><div class="price-k" data-i18n="priceFreeK">Free check</div><div class="price-v">$0</div><div class="price-d" data-i18n="priceFreeD">Your email vs breaches. No card.</div></div>
-            <div class="price"><div class="price-k" data-i18n="priceReportK">Full report</div><div class="price-v">$5<small data-i18n="priceReportP">one time</small></div><div class="price-d" data-i18n="priceReportD">Your breaches explained + step-by-step fixes. Claim links free.</div></div>
+            <div class="price"><div class="price-k" data-i18n="priceReportK">Claim Pack</div><div class="price-v">$5<small data-i18n="priceReportP">one time</small></div><div class="price-d" data-i18n="priceReportD">Settlements you may be owed + how to claim + security plan. Claim links free.</div></div>
             <div class="price"><div class="price-k" data-i18n="priceMonK">Monitoring</div><div class="price-v">$3<small data-i18n="priceMonP">/mo &middot; $30/yr</small></div><div class="price-d" data-i18n="priceMonD">Pick one: new-breach alerts or new-settlement alerts.</div></div>
             <div class="price"><div class="price-k" data-i18n="priceComboK">Combo</div><div class="price-v">$5<small data-i18n="priceComboP">/mo &middot; $50/yr</small></div><div class="price-d" data-i18n="priceComboD">Both: breach and settlement monitoring.</div></div>
         </div>
@@ -341,16 +341,16 @@
     <!-- Paid tier. Hidden once the visitor is known to have bought it: selling
          somebody something they already own reads as a mistake, and it is. -->
     <div class="offer" id="offerCard" hidden>
-        <span class="badge"><span class="dot"></span><span data-i18n="offerBadge">Full report</span></span>
-        <h2 data-i18n="offerTitle">You know you are exposed. Now, what to do.</h2>
-        <p data-i18n="offerLede">A personal plan written in plain words, ordered from most urgent to what can wait.</p>
+        <span class="badge"><span class="dot"></span><span data-i18n="offerBadge">Claim Pack</span></span>
+        <h2 data-i18n="offerTitle">You're exposed. Now go get what you're owed.</h2>
+        <p data-i18n="offerLede">A Claim Pack built from your breaches: which settlements your data is tied to, how to file the open ones for the biggest payout, and a plain-words plan to lock your accounts down.</p>
         <ul>
-            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi1">Which account to fix first, and exactly how</span></li>
-            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi2">Numbered steps, no technical words</span></li>
-            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi3">Downloadable as a PDF to print or share</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi1">Settlements tied to your email, and what they paid</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi2">How to file the open ones so you get paid, not rejected</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi3">Your full security plan, downloadable as a PDF</span></li>
         </ul>
         <div class="offer-foot">
-            <span class="price"><span id="offerPriceAmount">&mdash;</span><small data-i18n="offerPer">per report</small></span>
+            <span class="price"><span id="offerPriceAmount">&mdash;</span><small data-i18n="offerPer">one time</small></span>
             <small class="price-note" id="offerPriceNote" hidden></small>
             <button class="btn" data-action="openSampleReport" data-i18n="offerBtn">See an example</button>
         </div>
@@ -513,8 +513,8 @@
     </div>
 </div>
 
-<script src="/funnel-match.js?v=2026-11-05a" defer></script>
-<script src="/app.js?v=2026-11-05a" defer></script>
+<script src="/funnel-match.js?v=2026-11-05b" defer></script>
+<script src="/app.js?v=2026-11-05b" defer></script>
 
 <!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
      a visitor, which is why the privacy policy can still promise no tracking

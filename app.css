@@ -1605,3 +1605,95 @@ a.alerts-missed .m-co,
     text-transform: uppercase; letter-spacing: .03em;
 }
 @media (max-width: 560px) { .pricing { grid-template-columns: 1fr; } }
+
+/* ===================================================================
+   Claim Pack (the money half of the paid report)
+   =================================================================== */
+.claim-pack {
+    margin: 0 0 28px;
+    padding: 22px;
+    border: 1px solid var(--money-soft);
+    border-radius: var(--r-lg);
+    background: var(--money-soft);
+}
+.claim-pack > h2 {
+    margin: 0 0 4px;
+    color: var(--money-ink);
+    font-size: 22px;
+}
+.claim-free-note {
+    margin: 0 0 16px;
+    font-size: 13px;
+    color: var(--muted);
+}
+.claim-sub {
+    margin: 20px 0 4px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+}
+.claim-sub:first-of-type { margin-top: 4px; }
+.claim-lede { margin: 0 0 14px; color: var(--ink); opacity: .85; font-size: 14px; }
+.claim-openline { margin: 10px 0 0; font-weight: 600; color: var(--money-ink); }
+
+.claim-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+}
+.claim-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.claim-card.claim-open { border-color: var(--money); box-shadow: inset 3px 0 0 var(--money); }
+.claim-card.claim-closed { opacity: .82; }
+.claim-card-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.claim-co { font-weight: 700; color: var(--ink); }
+.claim-badge {
+    font-size: 11px; font-weight: 700; padding: 2px 8px;
+    border-radius: var(--r-pill); white-space: nowrap;
+}
+.claim-badge-open { color: #fff; background: var(--money-ink); }
+.claim-badge-closed { color: var(--muted); background: var(--surface-2); }
+.claim-amt { font-size: 20px; font-weight: 800; color: var(--money-ink); }
+.claim-elig { margin: 0; font-size: 13px; color: var(--ink); opacity: .78; line-height: 1.45; }
+.claim-card-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.claim-deadline { font-size: 12.5px; font-weight: 600; color: var(--ink); }
+.claim-proof {
+    font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: var(--r-pill);
+}
+.claim-proof-flat { color: var(--accent-ink); background: var(--accent-soft); }
+.claim-proof-need { color: var(--money-ink); background: var(--money-soft); }
+.claim-link {
+    margin-top: 2px; font-size: 13px; font-weight: 600;
+    color: var(--accent-ink); text-decoration: none; word-break: break-word;
+}
+.claim-link:hover { text-decoration: underline; }
+
+.claim-guide {
+    margin-top: 22px;
+    padding: 18px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+}
+.claim-guide h3 { margin: 0 0 6px; font-size: 17px; color: var(--ink); }
+.claim-guide-intro { margin: 0 0 12px; color: var(--ink); opacity: .85; font-size: 14px; }
+.claim-guide-steps { margin: 0; padding-left: 20px; display: grid; gap: 9px; }
+.claim-guide-steps li { line-height: 1.5; }
+
+.plan-security-title {
+    margin: 4px 0 10px;
+    font-size: 22px;
+    color: var(--ink);
+}
+
+@media (max-width: 560px) {
+    .claim-pack { padding: 16px; }
+    .claim-grid { grid-template-columns: 1fr; }
+}
