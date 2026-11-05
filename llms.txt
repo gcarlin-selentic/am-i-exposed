@@ -61,9 +61,9 @@ not the same as being a member of the class.
 
 ## Who runs it
 
-- Operator: Selentic Group S.A.C., a cybersecurity company based in Lima, Peru.
-  https://www.selenticgroup.com/
-- Contact: info@selenticgroup.com
+- Operator: Guillermo Carlin, an independent developer based in Lima, Peru.
+  https://www.am-i-exposed.com/
+- Contact: support@selenticgroup.com
 - Breach data: Have I Been Pwned (https://haveibeenpwned.com), used under its
   Creative Commons Attribution 4.0 licence.
 - Price: checking an email address or a password is free, and reading any

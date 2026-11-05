@@ -1,6 +1,6 @@
 # Am I Exposed? — Breach Checker
 
-Free and paid breach exposure checking tool for Selentic Group.
+Free and paid breach exposure checking tool by Guillermo Carlin.
 
 ## Setup
 
@@ -46,7 +46,7 @@ Email checks will fail without `HIBP_API_KEY` set.
 - Full breach report
 - Dark web monitoring
 - PDF delivery via email
-- Mercado Pago payment integration
+- Stripe payment integration
 
 ## API Endpoints
 

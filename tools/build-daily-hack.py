@@ -117,7 +117,7 @@ T = {
            'grupos dicen tener. Cada fila dice en qué estado está y enlaza su '
            'fuente para que lo compruebes tú.'),
   'src': 'Fuentes', 'under': 'bajo',
-  'foot': 'Selentic Group, Lima.',
+  'foot': 'Guillermo Carlin, Lima.',
   'fcheck': 'Revisar mi correo', 'fcases': 'Acuerdos', 'ffaq': 'Preguntas frecuentes',
   'fmail': 'Si se filtró mi correo', 'fpw': 'Si se filtró mi contraseña',
   'fpriv': 'Privacidad', 'fterms': 'Términos',
@@ -191,7 +191,7 @@ T = {
            'Every row states its status and links to its source so you can '
            'check it yourself.'),
   'src': 'Sources', 'under': 'under',
-  'foot': 'Selentic Group, Lima.',
+  'foot': 'Guillermo Carlin, Lima.',
   'fcheck': 'Check my email', 'fcases': 'Settlements', 'ffaq': 'FAQ',
   'fmail': 'If your email leaked', 'fpw': 'If your password leaked',
   'fpriv': 'Privacy', 'fterms': 'Terms',
@@ -521,8 +521,8 @@ def pagina(idioma, datos, hoy):
         'license': 'https://creativecommons.org/licenses/by/4.0/',
         'dateModified': datos['generated'][:10],
         'isAccessibleForFree': True,
-        'creator': {'@type': 'Organization', 'name': 'Selentic Group',
-                    'url': 'https://www.selenticgroup.com/'},
+        'creator': {'@type': 'Person', 'name': 'Guillermo Carlin',
+                    'url': 'https://www.am-i-exposed.com/'},
         'isBasedOn': [f['url'] for f in datos['sources']],
         'variableMeasured': ['victim', 'country', 'industry', 'group', 'status'],
     }

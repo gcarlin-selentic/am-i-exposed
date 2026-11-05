@@ -11,16 +11,16 @@
 // This endpoint receives a token and nothing else, so there is no point at
 // which a visitor's query and their account could be put side by side.
 
-import { userFromToken, readBody, sbSelect, tokenFrom } from './_shared.js';
+import { userFromToken, readBody, sbSelect, tokenFrom, liveModeFor } from './_shared.js';
 import { syncUserOnce } from './_zoho.js';
 
-// Same test as the report's: a paid row, for this deployment's Mercado Pago
+// Same test as the report's: a paid row, for this deployment's Stripe
 // credentials, that has not run out. Repeated here rather than imported
 // because api/report.js is a route, not a module.
 async function hasActiveAccess(userId) {
     if (!userId) return false;
 
-    const liveMode = process.env.MP_MODE === 'live';
+    const liveMode = liveModeFor('stripe');
     const path = 'purchases?select=expires_at'
         + `&user_id=eq.${encodeURIComponent(userId)}`
         + '&status=eq.paid'

@@ -1,4 +1,4 @@
-// Pushing customers into Selentic's Zoho CRM.
+// Pushing customers into the project's Zoho CRM.
 //
 // Vercel does not turn a file in /api whose name begins with an underscore
 // into a route, so this is a module, not an endpoint.
@@ -96,7 +96,7 @@ async function upsert(fields) {
         }),
         // Bounded like every other outbound call here. This one runs inside
         // the checkout request, so a slow CRM must not become a buyer staring
-        // at a button that never opens Mercado Pago.
+        // at a button that never opens checkout.
         signal: AbortSignal.timeout(5000),
     });
 
@@ -224,7 +224,7 @@ export async function syncSignup({ email, lang, createdAt }) {
     }
 }
 
-// Called from the Mercado Pago webhook, on a real transition to paid. A
+// Called from the Stripe webhook, on a real transition to paid. A
 // repeated notification returns before reaching here, so nobody is written
 // twice for one purchase.
 export async function syncPurchase({ email, lang, amount, currency, paidAt }) {

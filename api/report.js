@@ -11,10 +11,17 @@
 
 
 // Imported rather than repeated. Deciding "was this real money" in two
-// places is what broke entitlement for Paddle: the browser used one rule
-// and this file another, so a buyer saw their own payment confirmed and
-// then the padlocks.
+// places once broke entitlement: the browser used one rule and this file
+// another, so a buyer saw their own payment confirmed and then the padlocks.
 import { liveModeFor, rateLimitOk, tokenFrom } from './_shared.js';
+
+// The personalised matches come from the HIBP-keyed settlement list (each row
+// names the breach it belongs to), the currently-open claims from the scraper's
+// open set. The first is mostly historical; the second is not keyed to an email
+// at all, so it is the same pool for everyone and is never presented as "you
+// personally qualify". Both ship in the deployed bundle, read at import time.
+import SETTLEMENTS from '../settlements.json' with { type: 'json' };
+import OPEN_SETTLEMENTS from '../data/open-settlements.json' with { type: 'json' };
 
 const HIBP_ENDPOINT = 'https://haveibeenpwned.com/api/v3/breachedaccount';
 
@@ -125,9 +132,8 @@ async function hasActiveAccess(userId) {
 
     // Test and real purchases share one table, and live_mode is what stops a
     // test purchase unlocking the real site. What it has to be compared
-    // against is the environment of the provider that took the money, which
-    // is why the filter is not in the query: Mercado Pago can be live while
-    // Paddle is still in sandbox, and one SQL predicate cannot say that.
+    // against is the Stripe environment the row's live_mode means (test vs
+    // live), which is a per-row decision, so the filter is not in the query.
     //
     // Filtered here instead of in PostgREST because a person has a handful of
     // purchase rows at most, and a readable loop beats a nested or() that
@@ -197,6 +203,13 @@ const DEMO_BREACHES = [
       dataClasses: ['Security questions and answers', 'Passwords', 'Email addresses'] },
     { name: 'DemoClinic', title: 'Sample Health Group', domain: null, breachDate: '2023-11-05', pwnCount: 411902, isStealerLog: false,
       dataClasses: ['Health insurance information', 'Names', 'Dates of birth'] },
+    // Two real breach names (Yahoo, Experian) so the sample Claim Pack shows
+    // personal settlement matches. Both settled years ago, so they appear as
+    // closed exposure history, which is what a real match usually looks like.
+    { name: 'Yahoo', title: 'Yahoo', domain: 'yahoo.com', breachDate: '2016-12-14', pwnCount: 3000000000, isStealerLog: false,
+      dataClasses: ['Email addresses', 'Passwords', 'Security questions and answers'] },
+    { name: 'Experian', title: 'Experian', domain: 'experian.com', breachDate: '2015-10-01', pwnCount: 15000000, isStealerLog: false,
+      dataClasses: ['Email addresses', 'Names', 'Dates of birth'] },
 ];
 
 // ---------------------------------------------------------------------------
@@ -685,6 +698,129 @@ function toTeaser(plan) {
 }
 
 // ---------------------------------------------------------------------------
+// The Claim Pack: the money half of the paid report.
+//
+// Two honest, separate things. "Personal" matches are the settlements whose
+// breach this email actually turned up in (keyed by HIBP name); almost all of
+// them have closed, so they are shown as exposure history and proof the pool is
+// real, with any still-open one flagged. "Open" is the pool of settlements open
+// right now; it is not keyed to any email, so it is never claimed to be a
+// personal match. The paid value is the filing guide, which is the same honest,
+// general advice for anybody: it never leaves the server for an unpaid caller.
+// ---------------------------------------------------------------------------
+
+const CLAIM_TEXT = {
+    en: {
+        guide: {
+            title: 'How to actually get paid',
+            intro: 'Every claim site below is the official one, and filing is always free. Never pay anyone to file for you. Here is how to file so your claim is accepted and you get the larger payout where one is offered.',
+            steps: [
+                'Read the eligibility line on each settlement. You usually qualify if you were a customer, patient, member or employee of the company during the dates it names, even if you never received a letter.',
+                'Where a settlement offers a choice, the "documented" payout is larger than the flat one. To claim it, gather proof of losses tied to the breach: bank or card statements showing fraud, fees you had to pay, and the hours you spent sorting it out (most settlements pay for a few hours at a set rate).',
+                'Where a settlement says no proof is required, you can claim the flat cash payment with nothing more than your name, your address, and the claim or notice number if you were sent one.',
+                'File before the deadline. A claim one day late is rejected automatically, so do the ones closing soonest first.',
+                'Use the exact name and address the company had on file for you. A mismatch is the most common reason a valid claim is thrown out.',
+                'Choose direct deposit or a digital payment over a mailed cheque when you are offered the choice. Cheques get lost and they expire.',
+                'Keep your confirmation number. Payouts usually arrive six to eighteen months after the deadline, once the court gives final approval.',
+            ],
+        },
+    },
+    es: {
+        guide: {
+            title: 'Cómo cobrar de verdad',
+            intro: 'Cada sitio de reclamo de abajo es el oficial, y reclamar siempre es gratis. Nunca le pagues a nadie por reclamar en tu nombre. Así se reclama para que acepten tu solicitud y recibas el pago más alto cuando lo ofrecen.',
+            steps: [
+                'Lee la línea de quién califica en cada acuerdo. Por lo general calificas si fuiste cliente, paciente, miembro o empleado de la empresa durante las fechas que indica, aunque nunca te haya llegado una carta.',
+                'Cuando el acuerdo te da a elegir, el pago "con comprobante" es más alto que el pago fijo. Para reclamarlo, reúne pruebas de pérdidas ligadas a la filtración: extractos del banco o la tarjeta que muestren fraude, comisiones que tuviste que pagar y las horas que gastaste resolviéndolo (casi todos pagan unas horas a una tarifa fija).',
+                'Cuando el acuerdo dice que no hace falta comprobante, puedes reclamar el pago fijo en efectivo solo con tu nombre, tu dirección y el número de reclamo o de aviso si te lo mandaron.',
+                'Reclama antes de la fecha límite. Un reclamo un día tarde se rechaza solo, así que haz primero los que cierran más pronto.',
+                'Usa el nombre y la dirección exactos que la empresa tenía registrados. Que no coincidan es el motivo más común por el que se bota un reclamo válido.',
+                'Elige depósito directo o pago digital en vez de un cheque por correo cuando te den a elegir. Los cheques se pierden y se vencen.',
+                'Guarda tu número de confirmación. Los pagos suelen llegar entre seis y dieciocho meses después de la fecha límite, cuando el tribunal aprueba todo.',
+            ],
+        },
+    },
+};
+
+// Personalised matches: settlements whose breach this email appeared in. Rows
+// are passed in so this is testable against fixed data; defaults to the bundle.
+export function matchPersonalSettlements(breaches, todayISO, rows = SETTLEMENTS.filas) {
+    const names = new Set((Array.isArray(breaches) ? breaches : []).map(b => b && b.name).filter(Boolean));
+    const seen = new Set();
+    const items = [];
+
+    for (const r of (Array.isArray(rows) ? rows : [])) {
+        if (!r || !r.hibp || !names.has(r.hibp)) continue;
+        const key = r.slug || r.hibp;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        const open = !!(r.plazo && todayISO && r.plazo >= todayISO);
+        items.push({
+            empresa: r.empresa || r.titulo || r.hibp,
+            porPersona: r.porPersona != null ? r.porPersona : null,
+            plazo: r.plazo || null,
+            sitio: r.sitio || null,
+            elegible: r.elegible || null,
+            status: open ? 'open' : 'closed',
+        });
+    }
+
+    // Open matches first (they can still be claimed), then by size.
+    items.sort((a, b) => (a.status === b.status
+        ? (b.porPersona || 0) - (a.porPersona || 0)
+        : (a.status === 'open' ? -1 : 1)));
+
+    const totalMax = items.reduce((s, it) => s + (it.porPersona || 0), 0);
+    const openCount = items.filter(it => it.status === 'open').length;
+    return { items, totalMax, openCount };
+}
+
+// The pool of settlements open right now. Not keyed to any email: the same list
+// for everyone, soonest deadline first, so the guide can be about real claims.
+export function openPool(todayISO, rows = OPEN_SETTLEMENTS) {
+    return (Array.isArray(rows) ? rows : [])
+        .filter(r => r && r.filtracion === true && r.plazo && todayISO && r.plazo >= todayISO)
+        .sort((a, b) => String(a.plazo || '').localeCompare(String(b.plazo || '')))
+        .map(r => ({
+            empresa: r.empresa,
+            pagoTexto: r.pago_texto || null,     // verbatim; never computed
+            plazo: r.plazo,
+            sitio: r.sitio_reclamo || null,
+            cubre: r.cubre || null,
+            comprobante: r.comprobante || null,  // 'yes' | 'no'
+        }));
+}
+
+const MAX_OPEN_IN_PACK = 12;
+
+export function buildClaimPack(breaches, lang = 'en', todayISO = '',
+    settlementRows = SETTLEMENTS.filas, openRows = OPEN_SETTLEMENTS) {
+    const text = CLAIM_TEXT[pickLang(lang)];
+    const personal = matchPersonalSettlements(breaches, todayISO, settlementRows);
+    const open = openPool(todayISO, openRows);
+    return {
+        personal: personal.items,
+        personalTotalMax: personal.totalMax,
+        personalOpenCount: personal.openCount,
+        open: open.slice(0, MAX_OPEN_IN_PACK),
+        openCount: open.length,
+        guide: text.guide,
+    };
+}
+
+// The unpaid view of the Claim Pack: the exposure history stays visible (it is
+// honest, it sells, and it gives nothing paid away), and the open count is
+// shown, but the filing guide and the open-settlement detail stay on the server.
+export function toClaimsTeaser(pack) {
+    return {
+        personal: pack.personal,
+        personalTotalMax: pack.personalTotalMax,
+        personalOpenCount: pack.personalOpenCount,
+        openCount: pack.openCount,
+    };
+}
+
+// ---------------------------------------------------------------------------
 
 export default async function handler(req, res) {
     const origin = req.headers.origin;
@@ -722,15 +858,20 @@ export default async function handler(req, res) {
     // from one written in the language now selected.
     const lang = pickLang(body?.lang);
 
+    // One "today" for the whole response, so the open/closed line in the Claim
+    // Pack and the open pool are decided against the same date.
+    const todayISO = new Date().toISOString().slice(0, 10);
+
     // Preview mode: fixed fictional data, always returned in full. No email is
     // read and no breach lookup happens, so this can never leak a real result.
     if (body?.demo === true) {
         const plan = buildRemediationPlan(DEMO_BREACHES, lang);
+        const pack = buildClaimPack(DEMO_BREACHES, lang, todayISO);
 
         // demoTeaser lets the unpaid view be inspected without signing in and
         // running a real check, so the sales page can be reviewed directly.
         if (body.teaser === true) {
-            return res.status(200).json({ demo: true, lang, found: true, email: 'sample.person@example.com', ...toTeaser(plan) });
+            return res.status(200).json({ demo: true, lang, found: true, email: 'sample.person@example.com', claims: toClaimsTeaser(pack), ...toTeaser(plan) });
         }
 
         return res.status(200).json({
@@ -739,6 +880,7 @@ export default async function handler(req, res) {
             lang,
             email: 'sample.person@example.com',
             breaches: DEMO_BREACHES,
+            claims: pack,
             ...plan,
         });
     }
@@ -767,9 +909,10 @@ export default async function handler(req, res) {
     }
 
     const plan = buildRemediationPlan(breaches, lang);
+    const pack = buildClaimPack(breaches, lang, todayISO);
 
     if (!entitled) {
-        return res.status(200).json({ found: true, lang, email, ...toTeaser(plan) });
+        return res.status(200).json({ found: true, lang, email, claims: toClaimsTeaser(pack), ...toTeaser(plan) });
     }
 
     return res.status(200).json({
@@ -778,6 +921,7 @@ export default async function handler(req, res) {
         lang,
         email,
         breaches,
+        claims: pack,
         ...plan,
     });
 }

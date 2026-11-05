@@ -39,12 +39,11 @@
          cannot tell this tool apart from the several others with nearly the
          same name, which is the actual problem being solved here.
 
-         The price is a second copy of a number that really lives in the
-         MP_PRICE environment variable, and there is no build step to keep them
-         in step. renderPrice() rewrites the offer below from the live API on
-         every load, so a rendering crawler always sees the true figure and only
-         a non-rendering one can ever read a stale number. If the price changes,
-         update it here too. -->
+         The price is a second copy of the fixed US$5 the app uses. renderPrice()
+         and syncJsonLdPrice() rewrite the offer below from that figure on every
+         load, so a rendering crawler always sees the true number and only a
+         non-rendering one can read a stale copy. If the price changes, update it
+         here too. -->
     <script type="application/ld+json" id="appJsonLd">
     {
         "@context": "https://schema.org",
@@ -59,30 +58,23 @@
         "inLanguage": ["es", "en"],
         "description": "Revisa si un correo o una contraseña aparece en una filtración de datos conocida y explica en lenguaje simple qué cambiar primero. No pide cuenta, no guarda el correo, y la contraseña nunca sale del navegador.",
         "publisher": {
-            "@type": "Organization",
-            "@id": "https://www.selenticgroup.com/#org",
-            "name": "Selentic Group",
-            "url": "https://www.selenticgroup.com/",
-            "email": "info@selenticgroup.com",
-            "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Lima",
-                "addressCountry": "PE"
-            },
-            "sameAs": ["https://github.com/gcarlin-selentic/am-i-exposed"]
+            "@type": "Person",
+            "@id": "https://www.am-i-exposed.com/#owner",
+            "name": "Guillermo Carlin",
+            "url": "https://www.am-i-exposed.com/"
         },
         "offers": [
             {
                 "@type": "Offer",
                 "name": "Revisión de correo y contraseña",
                 "price": "0",
-                "priceCurrency": "PEN"
+                "priceCurrency": "USD"
             },
             {
                 "@type": "Offer",
-                "name": "Reporte con plan de acción",
-                "price": "19.00",
-                "priceCurrency": "PEN"
+                "name": "Kit de Reclamo",
+                "price": "5.00",
+                "priceCurrency": "USD"
             }
         ]
     }
@@ -98,7 +90,7 @@
          never change, and a forgotten bust on a year-long immutable asset would
          leave a returning buyer running last week's payment code. Bump the date
          here and in the other language's page when a change has to land now. -->
-    <link rel="stylesheet" href="/app.css?v=2026-11-04a">
+    <link rel="stylesheet" href="/app.css?v=2026-11-05d">
 </head>
 <body>
 
@@ -115,7 +107,7 @@
     <button data-action="exitDemo" data-i18n="demoExit"></button>
 </div>
 
-<!-- Shown on the way back from Mercado Pago, with the outcome of the payment -->
+<!-- Shown on the way back from Stripe Checkout, with the outcome of the payment -->
 <div id="payBanner" class="pay-banner">
     <span id="payBannerText"></span>
     <button type="button" data-action="dismissPayBanner" data-i18n="payClose">Cerrar</button>
@@ -230,7 +222,7 @@
 
         <div class="pricing">
             <div class="price"><div class="price-k" data-i18n="priceFreeK">Chequeo gratis</div><div class="price-v">$0</div><div class="price-d" data-i18n="priceFreeD">Tu correo contra las filtraciones. Sin tarjeta.</div></div>
-            <div class="price"><div class="price-k" data-i18n="priceReportK">Reporte completo</div><div class="price-v">$5<small data-i18n="priceReportP">una vez</small></div><div class="price-d" data-i18n="priceReportD">Tus filtraciones explicadas + pasos para arreglarlo. Enlaces de reclamo gratis.</div></div>
+            <div class="price"><div class="price-k" data-i18n="priceReportK">Kit de Reclamo</div><div class="price-v">$5<small data-i18n="priceReportP">pago único</small></div><div class="price-d" data-i18n="priceReportD">A qué acuerdos tienes derecho + cómo reclamar + plan de seguridad. Enlaces de reclamo gratis.</div></div>
             <div class="price"><div class="price-k" data-i18n="priceMonK">Monitoreo</div><div class="price-v">$3<small data-i18n="priceMonP">/mes &middot; $30/a&ntilde;o</small></div><div class="price-d" data-i18n="priceMonD">Elige uno: alertas de filtraciones o alertas de acuerdos.</div></div>
             <div class="price"><div class="price-k" data-i18n="priceComboK">Combo</div><div class="price-v">$5<small data-i18n="priceComboP">/mes &middot; $50/a&ntilde;o</small></div><div class="price-d" data-i18n="priceComboD">Ambos: monitoreo de filtraciones y de acuerdos.</div></div>
         </div>
@@ -344,16 +336,16 @@
     <!-- Paid tier. Hidden once the visitor is known to have bought it: selling
          somebody something they already own reads as a mistake, and it is. -->
     <div class="offer" id="offerCard" hidden>
-        <span class="badge"><span class="dot"></span><span data-i18n="offerBadge">Reporte completo</span></span>
-        <h2 data-i18n="offerTitle">Sabes que estás expuesto. Ahora, qué hacer.</h2>
-        <p data-i18n="offerLede">Un plan personalizado, escrito en palabras normales, ordenado de lo más urgente a lo que puede esperar.</p>
+        <span class="badge"><span class="dot"></span><span data-i18n="offerBadge">Kit de Reclamo</span></span>
+        <h2 data-i18n="offerTitle">Estás expuesto. Ahora ve por lo que te deben.</h2>
+        <p data-i18n="offerLede">Un Kit de Reclamo armado desde tus filtraciones: a qué acuerdos están ligados tus datos, cómo reclamar los abiertos para cobrar lo máximo, y un plan en palabras normales para blindar tus cuentas.</p>
         <ul>
-            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi1">Qué cuenta cambiar primero y exactamente cómo hacerlo</span></li>
-            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi2">Pasos numerados, sin palabras técnicas</span></li>
-            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi3">Descargable en PDF para imprimir o compartir</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi1">Acuerdos ligados a tu correo y cuánto pagaron</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi2">Cómo reclamar los abiertos para que te paguen, no te rechacen</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi3">Tu plan de seguridad completo, descargable en PDF</span></li>
         </ul>
         <div class="offer-foot">
-            <span class="price"><span id="offerPriceAmount">&mdash;</span><small data-i18n="offerPer">por reporte</small></span>
+            <span class="price"><span id="offerPriceAmount">&mdash;</span><small data-i18n="offerPer">pago único</small></span>
             <small class="price-note" id="offerPriceNote" hidden></small>
             <button class="btn" data-action="openSampleReport" data-i18n="offerBtn">Ver un ejemplo</button>
         </div>
@@ -412,7 +404,7 @@
             <a data-i18n="footPrivacyUs" data-href-es="/es/aviso-privacidad-eeuu/" data-href-en="/us-privacy-notice/" href="/es/aviso-privacidad-eeuu/">Privacidad EE.&nbsp;UU.</a>
             <a data-i18n="footTerms" data-href-es="/es/terminos/" data-href-en="/terms/" href="/es/terminos/">Términos</a>
         </nav>
-        <span data-i18n="footLeft"><a href="https://www.selenticgroup.com/" rel="noopener">Selentic Group</a> · Datos de filtraciones por <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a></span>
+        <span data-i18n="footLeft"><a href="https://www.am-i-exposed.com/" rel="noopener">Guillermo Carlin</a> · Datos de filtraciones por <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a></span>
     </div>
 
 </div>
@@ -517,8 +509,8 @@
     </div>
 </div>
 
-<script src="/funnel-match.js?v=2026-11-04a" defer></script>
-<script src="/app.js?v=2026-11-04a" defer></script>
+<script src="/funnel-match.js?v=2026-11-05d" defer></script>
+<script src="/app.js?v=2026-11-05d" defer></script>
 
 <!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
      a visitor, which is why the privacy policy can still promise no tracking

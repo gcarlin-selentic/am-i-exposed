@@ -88,7 +88,7 @@ const COPY = {
         heroBtn: 'Revisar mi correo',
         heroPlaceholder: 'tucorreo@ejemplo.com',
         checking: 'Revisando...',
-        trust1: 'No guardamos tu correo', trust2: 'Resultado inmediato', trust3: 'Sin publicidad',
+        trust1: 'Solo sitios oficiales', trust2: 'Nunca cobramos comisión', trust3: 'No guardamos tu correo',
 
         pwTitle: 'Revisar también una contraseña',
         pwSub: 'Tu contraseña nunca sale de este dispositivo.',
@@ -105,14 +105,14 @@ const COPY = {
         explainP3: 'No lo causaste tú. Lo causó la empresa a la que le confiaste tus datos.',
         explainBtn: 'Ver todas las preguntas',
 
-        offerBadge: 'Reporte completo',
-        offerTitle: 'Sabes que estás expuesto. Ahora, qué hacer.',
-        offerLede: 'Un plan personalizado, escrito en palabras normales, ordenado de lo más urgente a lo que puede esperar.',
-        offerLi1: 'Qué cuenta cambiar primero y exactamente cómo hacerlo',
-        offerLi2: 'Pasos numerados, sin palabras técnicas',
-        offerLi3: 'Descargable en PDF para imprimir o compartir',
-        offerPer: 'por reporte',
-        offerChargedAs: (real) => `El cobro se hace en ${real} por Mercado Pago.`, offerBtn: 'Ver un ejemplo',
+        offerBadge: 'Kit de Reclamo',
+        offerTitle: 'Estás expuesto. Ahora ve por lo que te deben.',
+        offerLede: 'Un Kit de Reclamo armado desde tus filtraciones: a qué acuerdos están ligados tus datos, cómo reclamar los abiertos para cobrar lo máximo, y un plan en palabras normales para blindar tus cuentas.',
+        offerLi1: 'Acuerdos ligados a tu correo y cuánto pagaron',
+        offerLi2: 'Cómo reclamar los abiertos para que te paguen, no te rechacen',
+        offerLi3: 'Tu plan de seguridad completo, descargable en PDF',
+        offerPer: 'pago único',
+        offerBtn: 'Ver un ejemplo',
 
         alertsBadge: 'Alertas &middot; solo EE.&nbsp;UU.',
         alertsTitle: 'Si demandan a una empresa que filtró tus datos, te avisamos.',
@@ -184,7 +184,7 @@ const COPY = {
         poolStatMax: 'por persona, casos abiertos',
         poolBrowse: 'Ver todos los acuerdos &rarr;',
         priceFreeK: 'Chequeo gratis', priceFreeD: 'Tu correo contra las filtraciones. Sin tarjeta.',
-        priceReportK: 'Reporte completo', priceReportP: 'una vez', priceReportD: 'Tus filtraciones explicadas + pasos para arreglarlo. Enlaces de reclamo gratis.',
+        priceReportK: 'Kit de Reclamo', priceReportP: 'pago único', priceReportD: 'A qué acuerdos tienes derecho + cómo reclamar + plan de seguridad. Enlaces de reclamo gratis.',
         priceMonK: 'Monitoreo', priceSoon: 'pronto', priceMonP: '/mes &middot; $30/año',
         priceMonD: 'Elige uno: alertas de filtraciones o alertas de acuerdos.',
         priceComboK: 'Combo', priceComboP: '/mes &middot; $50/año',
@@ -210,7 +210,7 @@ const COPY = {
         // Spanish, for the same reason and in the other direction.
         langHintText: 'This page is also available in',
         langHintLink: 'English',
-        footLeft: '<a href="https://www.selenticgroup.com/" rel="noopener">Selentic Group</a> · Datos de filtraciones por <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a>',
+        footLeft: '<a href="https://www.am-i-exposed.com/" rel="noopener">Guillermo Carlin</a> · Datos de filtraciones por <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a>',
         footCases: 'Casos y acuerdos',
         footFaq: 'Preguntas frecuentes',
         footLeaked: 'Si se filtró tu correo',
@@ -323,7 +323,7 @@ const COPY = {
         pwPlanBodyB: 'Revisa también tu correo y te armamos un plan que cubre cada filtración en la que aparece, qué se llevaron y qué hacer.',
         pwPlanBtnB: 'Revisar mi correo también',
 
-        planHeading: 'Tu plan de acción',
+        planHeading: 'Lo que te deben, y cómo protegerte',
         planPreparedFor: 'Preparado para',
         planWhatHappened: 'Qué pasó',
         planWhyMatters: 'Por qué importa',
@@ -343,17 +343,35 @@ const COPY = {
         planFooter: (date) => `Generado por ¿Estoy expuesto? con datos de Have I Been Pwned el ${date}. Esto es orientación general de seguridad, no asesoría legal ni financiera.`,
         teaserNote: 'Aquí va el primer paso completo, para que veas exactamente qué recibes.',
         paywallTitle: (n) => n === 1 ? 'Falta 1 paso más, escrito igual' : `Faltan ${n} pasos más, escritos igual`,
-        paywallPitch: 'Cada uno te dice qué pasó, por qué importa y exactamente qué hacer, en palabras normales. También recibes la lista completa de todas las filtraciones en las que apareces, y una copia para imprimir o guardar.',
-        paywallBtn: 'Desbloquear mi plan completo',
-        paywallFine: 'Un solo pago. Puedes volver y actualizar tu plan durante 30 días.',
+        paywallPitch: 'Al desbloquear recibes la guía para reclamar cada acuerdo abierto (cómo calificar, qué comprobante sube tu pago y cómo reclamar para que no te lo rechacen), además de tu plan de seguridad completo en palabras normales y una copia para imprimir o guardar.',
+        paywallBtn: 'Desbloquear mi Kit de Reclamo',
+        paywallFine: 'Un solo pago. Puedes volver y actualizar tu kit durante 30 días.',
+
+        // Claim Pack (the money half of the paid report).
+        claimPackTitle: 'Tu Kit de Reclamo',
+        claimPersonalTitle: 'Acuerdos ligados a tu correo',
+        claimPersonalLede: (open) => open > 0
+            ? 'Tu correo apareció en las filtraciones detrás de estos acuerdos. Los abiertos todavía los puedes reclamar; los demás muestran cuánto ha valido este tipo de exposición.'
+            : 'Tu correo apareció en las filtraciones detrás de estos acuerdos. Sus plazos ya cerraron, pero prueban que tus datos estuvieron en el fondo y cuánto valían. Abren acuerdos nuevos todo el tiempo.',
+        claimOpenTitle: 'Abiertos ahora mismo',
+        claimOpenLede: 'Estos acuerdos en Estados Unidos están abiertos hoy. Puedes reclamar si fuiste cliente, paciente, miembro o empleado de la empresa durante el periodo que cubre. La guía de abajo es cómo reclamarlos bien.',
+        claimOpenLine: (n) => n === 1 ? 'Hay 1 acuerdo abierto ahora mismo.' : `Hay ${n} acuerdos abiertos ahora mismo.`,
+        claimUpTo: (money) => `hasta ${money}`,
+        claimStatusOpen: 'Abierto',
+        claimStatusClosed: 'Cerrado',
+        claimProofFlat: 'Sin comprobante',
+        claimProofNeeded: 'Con comprobante cobras más',
+        claimOfficial: 'Sitio oficial de reclamo',
+        claimDeadline: (d) => `Reclama antes del ${d}`,
+        claimFreeNote: 'Reclamar siempre es gratis. Solo enlazamos al administrador oficial.',
+        planSecurityTitle: 'Protégete de aquí en adelante',
 
         payOpening: 'Abriendo la caja',
         payClose: 'Cerrar',
-        payConfirming: 'Confirmando tu pago con Mercado Pago…',
+        payConfirming: 'Confirmando tu pago…',
         payReady: 'Pago confirmado. Tu plan completo ya está disponible.',
         payReadyCheck: 'Pago confirmado. Escribe tu correo arriba y te damos el plan completo.',
         paySlow: 'Tu pago se está procesando. Puede tardar unos minutos; vuelve a entrar con la misma cuenta y tu plan estará listo.',
-        payPending: 'Tu pago quedó pendiente de acreditación. Cuando Mercado Pago lo confirme, tu plan completo se desbloquea solo.',
         payCancelled: 'El pago no se completó. No se cobró nada.',
         payFail: 'No pudimos abrir la caja. Intenta de nuevo en un momento.',
     },
@@ -374,7 +392,7 @@ const COPY = {
         heroBtn: 'Check my email',
         heroPlaceholder: 'you@example.com',
         checking: 'Checking...',
-        trust1: 'We never store your email', trust2: 'Instant result', trust3: 'No ads',
+        trust1: 'Official claim sites only', trust2: 'We never take a cut', trust3: 'We never store your email',
 
         pwTitle: 'Check a password too',
         pwSub: 'Your password never leaves this device.',
@@ -389,14 +407,14 @@ const COPY = {
         explainP3: 'You did not cause it. The company you trusted with your details did.',
         explainBtn: 'See all the questions',
 
-        offerBadge: 'Full report',
-        offerTitle: 'You know you are exposed. Now, what to do.',
-        offerLede: 'A personal plan written in plain words, ordered from most urgent to what can wait.',
-        offerLi1: 'Which account to fix first, and exactly how',
-        offerLi2: 'Numbered steps, no technical words',
-        offerLi3: 'Downloadable as a PDF to print or share',
-        offerPer: 'per report',
-        offerChargedAs: (real) => `Charged as ${real} through Mercado Pago.`, offerBtn: 'See an example',
+        offerBadge: 'Claim Pack',
+        offerTitle: "You're exposed. Now go get what you're owed.",
+        offerLede: 'A Claim Pack built from your breaches: which settlements your data is tied to, how to file the open ones for the biggest payout, and a plain-words plan to lock your accounts down.',
+        offerLi1: 'Settlements tied to your email, and what they paid',
+        offerLi2: 'How to file the open ones so you get paid, not rejected',
+        offerLi3: 'Your full security plan, downloadable as a PDF',
+        offerPer: 'one time',
+        offerBtn: 'See an example',
 
         alertsBadge: 'Alerts &middot; US only',
         alertsTitle: 'If a company that leaked your data gets sued, we’ll let you know.',
@@ -468,7 +486,7 @@ const COPY = {
         poolStatMax: 'per person, open cases',
         poolBrowse: 'Browse all settlements &rarr;',
         priceFreeK: 'Free check', priceFreeD: 'Your email vs breaches. No card.',
-        priceReportK: 'Full report', priceReportP: 'one time', priceReportD: 'Your breaches explained + step-by-step fixes. Claim links free.',
+        priceReportK: 'Claim Pack', priceReportP: 'one time', priceReportD: 'Settlements you may be owed + how to claim + security plan. Claim links free.',
         priceMonK: 'Monitoring', priceSoon: 'soon', priceMonP: '/mo &middot; $30/yr',
         priceMonD: 'Pick one: new-breach alerts or new-settlement alerts.',
         priceComboK: 'Combo', priceComboP: '/mo &middot; $50/yr',
@@ -492,7 +510,7 @@ const COPY = {
         // the page it is sitting on.
         langHintText: 'Esta página también está disponible en',
         langHintLink: 'español',
-        footLeft: '<a href="https://www.selenticgroup.com/" rel="noopener">Selentic Group</a> · Breach data by <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a>',
+        footLeft: '<a href="https://www.am-i-exposed.com/" rel="noopener">Guillermo Carlin</a> · Breach data by <a href="https://haveibeenpwned.com/" rel="noopener">Have I Been Pwned</a>',
         footCases: 'Settlements',
         footFaq: 'FAQ',
         footLeaked: 'If your email leaked',
@@ -605,7 +623,7 @@ const COPY = {
         pwPlanBodyB: 'Check your email address as well, and we will build you a plan covering every breach it appears in, what was taken, and what to do about it.',
         pwPlanBtnB: 'Check my email too',
 
-        planHeading: 'Your Personal Action Plan',
+        planHeading: "What you're owed, and how to protect yourself",
         planPreparedFor: 'Prepared for',
         planWhatHappened: 'What happened',
         planWhyMatters: 'Why this matters',
@@ -624,17 +642,35 @@ const COPY = {
         planFooter: (date) => `Generated by Am I Exposed? from Have I Been Pwned breach data on ${date}. This is general security guidance, not legal or financial advice.`,
         teaserNote: 'Here is the first step in full, so you can see exactly what you are getting.',
         paywallTitle: (n) => n === 1 ? '1 more step, written the same way' : `${n} more steps, written the same way`,
-        paywallPitch: 'Each one tells you what happened, why it matters, and exactly what to do, in plain English. You also get the full list of every break-in you appear in, and a copy you can print or save.',
-        paywallBtn: 'Unlock my full plan',
-        paywallFine: 'One payment. You can come back and update your plan for 30 days.',
+        paywallPitch: 'Unlocking gives you the filing guide for every open settlement (how to qualify, what proof raises your payout, and how to file so it is not rejected), plus your full security action plan in plain English and a copy you can print or save.',
+        paywallBtn: 'Unlock my Claim Pack',
+        paywallFine: 'One payment. You can come back and update your pack for 30 days.',
+
+        // Claim Pack (the money half of the paid report).
+        claimPackTitle: 'Your Claim Pack',
+        claimPersonalTitle: 'Settlements tied to your email',
+        claimPersonalLede: (open) => open > 0
+            ? 'Your email was found in the breaches behind these settlements. The open ones you can still claim; the rest show what this kind of exposure has been worth.'
+            : 'Your email was found in the breaches behind these settlements. Their claim windows have closed, but they show your data was in the pool and what it was worth. New ones open all the time.',
+        claimOpenTitle: 'Open right now',
+        claimOpenLede: 'These US settlements are open today. You may be able to claim if you were a customer, patient, member or employee of the company during the period it covers. The guide below is how to claim them well.',
+        claimOpenLine: (n) => n === 1 ? 'There is 1 settlement open right now.' : `There are ${n} settlements open right now.`,
+        claimUpTo: (money) => `up to ${money}`,
+        claimStatusOpen: 'Open',
+        claimStatusClosed: 'Closed',
+        claimProofFlat: 'No proof needed',
+        claimProofNeeded: 'Proof can raise your payout',
+        claimOfficial: 'Official claim site',
+        claimDeadline: (d) => `Claim by ${d}`,
+        claimFreeNote: 'Filing is always free. We only link to the official administrator.',
+        planSecurityTitle: 'Protect yourself going forward',
 
         payOpening: 'Opening the checkout',
         payClose: 'Close',
-        payConfirming: 'Confirming your payment with Mercado Pago…',
+        payConfirming: 'Confirming your payment…',
         payReady: 'Payment confirmed. Your full plan is ready.',
         payReadyCheck: 'Payment confirmed. Type your email above and we will build your full plan.',
         paySlow: 'Your payment is still processing. It can take a few minutes; come back with the same account and your plan will be waiting.',
-        payPending: 'Your payment has not cleared yet. As soon as Mercado Pago confirms it, your full plan unlocks on its own.',
         payCancelled: 'The payment was not completed. Nothing was charged.',
         payFail: 'We could not open the checkout. Please try again in a moment.',
     },
@@ -2272,6 +2308,126 @@ function planSummaryHTML(stats, actionCount, criticals) {
         </section>`;
 }
 
+// --- Claim Pack rendering --------------------------------------------------
+
+function claimMoney(n) {
+    const v = Number(n);
+    if (!isFinite(v) || v <= 0) return '';
+    try { return '$' + v.toLocaleString('en-US'); } catch (e) { return '$' + v; }
+}
+
+function claimSiteUrl(sitio) {
+    const s = String(sitio || '').trim().replace(/^https?:\/\//i, '').replace(/\/+$/, '');
+    return s ? 'https://' + s : '';
+}
+
+function claimLinkHTML(sitio) {
+    const url = claimSiteUrl(sitio);
+    if (!url) return '';
+    const host = url.replace(/^https?:\/\//, '');
+    return `<a class="claim-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer nofollow">${escapeHtml(t().claimOfficial)} &rarr; ${escapeHtml(host)}</a>`;
+}
+
+function personalClaimCardHTML(c) {
+    const open = c.status === 'open';
+    const amount = claimMoney(c.porPersona);
+    const deadline = open && c.plazo ? formatBreachDate(c.plazo) : '';
+    return `
+        <div class="claim-card ${open ? 'claim-open' : 'claim-closed'}">
+            <div class="claim-card-head">
+                <span class="claim-co">${escapeHtml(c.empresa)}</span>
+                <span class="claim-badge ${open ? 'claim-badge-open' : 'claim-badge-closed'}">${escapeHtml(open ? t().claimStatusOpen : t().claimStatusClosed)}</span>
+            </div>
+            ${amount ? `<div class="claim-amt">${escapeHtml(t().claimUpTo(amount))}</div>` : ''}
+            ${c.elegible ? `<p class="claim-elig">${escapeHtml(c.elegible)}</p>` : ''}
+            ${deadline ? `<div class="claim-deadline">${escapeHtml(t().claimDeadline(deadline))}</div>` : ''}
+            ${open ? claimLinkHTML(c.sitio) : ''}
+        </div>`;
+}
+
+function openClaimCardHTML(c) {
+    const deadline = c.plazo ? formatBreachDate(c.plazo) : '';
+    let proof = '';
+    if (c.comprobante === 'no') proof = `<span class="claim-proof claim-proof-flat">${escapeHtml(t().claimProofFlat)}</span>`;
+    else if (c.comprobante === 'yes') proof = `<span class="claim-proof claim-proof-need">${escapeHtml(t().claimProofNeeded)}</span>`;
+    return `
+        <div class="claim-card claim-open">
+            <div class="claim-card-head">
+                <span class="claim-co">${escapeHtml(c.empresa)}</span>
+                ${c.pagoTexto ? `<span class="claim-badge claim-badge-open">${escapeHtml(c.pagoTexto)}</span>` : ''}
+            </div>
+            ${c.cubre ? `<p class="claim-elig">${escapeHtml(c.cubre)}</p>` : ''}
+            <div class="claim-card-foot">
+                ${deadline ? `<span class="claim-deadline">${escapeHtml(t().claimDeadline(deadline))}</span>` : ''}
+                ${proof}
+            </div>
+            ${claimLinkHTML(c.sitio)}
+        </div>`;
+}
+
+function claimGuideHTML(guide) {
+    if (!guide) return '';
+    return `
+        <section class="claim-guide">
+            <h3>${escapeHtml(guide.title)}</h3>
+            <p class="claim-guide-intro">${escapeHtml(guide.intro)}</p>
+            <ol class="claim-guide-steps">
+                ${(guide.steps || []).map(s => `<li>${escapeHtml(s)}</li>`).join('')}
+            </ol>
+        </section>`;
+}
+
+// Paid: exposure history + the open pool + the filing guide (money first).
+function claimsFullHTML(claims) {
+    if (!claims) return '';
+    const personal = claims.personal || [];
+    const open = claims.open || [];
+    if (!personal.length && !open.length) return '';
+
+    const personalBlock = personal.length ? `
+        <h3 class="claim-sub">${escapeHtml(t().claimPersonalTitle)}</h3>
+        <p class="claim-lede">${escapeHtml(t().claimPersonalLede(claims.personalOpenCount || 0))}</p>
+        <div class="claim-grid">${personal.map(personalClaimCardHTML).join('')}</div>` : '';
+
+    const openBlock = open.length ? `
+        <h3 class="claim-sub">${escapeHtml(t().claimOpenTitle)}</h3>
+        <p class="claim-lede">${escapeHtml(t().claimOpenLede)}</p>
+        <div class="claim-grid">${open.map(openClaimCardHTML).join('')}</div>` : '';
+
+    return `
+        <section class="claim-pack">
+            <h2>${escapeHtml(t().claimPackTitle)}</h2>
+            <p class="claim-free-note">${escapeHtml(t().claimFreeNote)}</p>
+            ${personalBlock}
+            ${openBlock}
+            ${claimGuideHTML(claims.guide)}
+        </section>`;
+}
+
+// Teaser: exposure history stays visible (free, and it sells), plus a line on
+// how many are open. The guide and the open-settlement detail are paid.
+function claimsTeaserHTML(claims) {
+    if (!claims) return '';
+    const personal = claims.personal || [];
+    if (!personal.length && !(claims.openCount > 0)) return '';
+
+    const personalBlock = personal.length ? `
+        <h3 class="claim-sub">${escapeHtml(t().claimPersonalTitle)}</h3>
+        <p class="claim-lede">${escapeHtml(t().claimPersonalLede(claims.personalOpenCount || 0))}</p>
+        <div class="claim-grid">${personal.map(personalClaimCardHTML).join('')}</div>` : '';
+
+    const openLine = claims.openCount > 0
+        ? `<p class="claim-openline">${escapeHtml(t().claimOpenLine(claims.openCount))}</p>` : '';
+
+    return `
+        <section class="claim-pack">
+            <h2>${escapeHtml(t().claimPackTitle)}</h2>
+            <p class="claim-free-note">${escapeHtml(t().claimFreeNote)}</p>
+            ${personalBlock}
+            ${openLine}
+        </section>`;
+}
+
 function fullReportHTML(data) {
     const criticals = data.actions.filter(a => a.priority === 'critical').length;
 
@@ -2287,6 +2443,8 @@ function fullReportHTML(data) {
     }).join('');
 
     return reportHeaderHTML(data.email)
+        + claimsFullHTML(data.claims)
+        + `<h2 class="plan-security-title">${escapeHtml(t().planSecurityTitle)}</h2>`
         + planSummaryHTML(data.stats, data.actions.length, criticals)
         + data.actions.map(actionHTML).join('')
         + (rows ? `
@@ -2324,6 +2482,8 @@ function teaserHTML(data) {
         </div>`).join('');
 
     return reportHeaderHTML(data.email)
+        + claimsTeaserHTML(data.claims)
+        + `<h2 class="plan-security-title">${escapeHtml(t().planSecurityTitle)}</h2>`
         + planSummaryHTML(data.stats, data.totalActions, criticals)
         + `<div class="teaser-note">${escapeHtml(t().teaserNote)}</div>`
         + (data.preview ? actionHTML(data.preview, 0) : '')
@@ -2338,7 +2498,7 @@ function teaserHTML(data) {
 }
 
 // =======================================================================
-// PAYMENT (Mercado Pago)
+// PAYMENT (Stripe)
 // The amount is never written here. It comes from /api/checkout, which
 // reads it from the environment, so the price exists in one place and a
 // visitor cannot name their own.
@@ -2361,27 +2521,12 @@ async function loadPrice() {
 
 const LANG_HINT_DISMISSED = 'aie-lang-hint-off';
 
-// Suggested, never forced. A redirect by IP would hand Googlebot, which
-// crawls almost entirely from United States addresses, the English page
-// every time it asked for this Spanish one.
-//
-// provider is the signal because /api/checkout already runs on load and
-// already has to say who takes the money, so this costs no extra request
-// and no extra fact about the visitor: a page that must open the right
-// checkout cannot avoid knowing which one that is.
+// The language hint used to key off which payment provider the visitor's
+// country resolved to (a US visitor got a different checkout). With a single
+// USD checkout there is no geo signal any more, so the hint stays dormant
+// rather than guessing which language a visitor would prefer.
 function maybeShowLangHint() {
-    const hint = document.getElementById('langHint');
-    if (!hint) return;
-    // Each page suggests the other one, and only to the readers it is likely
-    // to help: the United States visitor who landed on the Spanish page, and
-    // the Latin American visitor who landed on the English one, which is now
-    // the default and so receives everybody whose language we cannot infer.
-    const esUS = priceInfo?.provider === 'paddle';
-    if (lang === 'es' ? !esUS : esUS) return;
-    try {
-        if (localStorage.getItem(LANG_HINT_DISMISSED) === '1') return;
-    } catch (e) { /* private browsing; show it, it is only a suggestion */ }
-    hint.hidden = false;
+    return;
 }
 
 function dismissLangHint() {
@@ -2402,11 +2547,8 @@ const CURRENCY_LOCALE = {
 
 function formatPrice({ amount, currency }) {
     try {
-        // El simbolo local solo se usa en la pagina en espanol, donde "S/" se
-        // lee sin pensar. En la inglesa ese simbolo no dice nada: la misma
-        // cifra sale como "PEN 19", que al menos nombra la moneda. El importe
-        // no cambia, porque el cobro tampoco: fuera de Estados Unidos lo hace
-        // Mercado Pago en soles, viva el lector donde viva.
+        // The currency symbol follows the currency's own locale, not the
+        // reader's, so the fixed USD price renders as "$5" in both languages.
         const fmt = lang === 'en' ? 'en-US' : (CURRENCY_LOCALE[currency] || locale());
         return new Intl.NumberFormat(fmt, {
             style: 'currency',
@@ -2562,7 +2704,7 @@ async function hasPaidAccess() {
     }
 }
 
-// Mercado Pago sends the buyer back to the site and the webhook separately,
+// Stripe sends the buyer back to the site and the webhook arrives separately,
 // and the redirect usually wins the race. Polling for a few seconds is the
 // difference between "your plan is ready" and telling someone who has just
 // paid that they have not.
@@ -2605,10 +2747,6 @@ async function handleReturnFromCheckout(outcome) {
 
     if (outcome === 'error') {
         showPayBanner(t().payCancelled, 'warn');
-        return;
-    }
-    if (outcome === 'pendiente') {
-        showPayBanner(t().payPending, 'warn');
         return;
     }
 
@@ -3002,11 +3140,10 @@ window.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    // Coming back from Mercado Pago needs the session resolved and the
+    // Coming back from Stripe Checkout needs the session resolved and the
     // price loaded first: the first says whose purchase to look for, the
     // second says whether this deployment is looking at test rows or real
     // ones.
-    const pago = params.get('pago');
     // Stripe return: ?checkout=success|cancel (&plan=report|breach|...).
     const checkout = params.get('checkout');
     // ?plan=1 is the link in the purchase receipt. It needs the session
@@ -3015,12 +3152,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     const wantsPlan = params.get('plan') === '1';
     if (window.sbClient) {
         const ready = initAuth();
-        if (pago || checkout || wantsPlan) await ready;
-    }
-    if (pago) {
-        await priceReady;
-        await handleReturnFromCheckout(pago);
-        return;
+        if (checkout || wantsPlan) await ready;
     }
     if (checkout) {
         await priceReady;

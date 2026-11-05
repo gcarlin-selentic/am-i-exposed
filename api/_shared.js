@@ -15,9 +15,9 @@ const SUPABASE_PUBLISHABLE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY
 // The live_mode a purchase/subscription row must carry to be accepted, by
 // provider. Stripe is the only accepted provider now.
 //
-// Returns null for any other provider (the legacy Mercado Pago / Paddle rows),
-// and null never equals a boolean live_mode, so a legacy row can never unlock a
-// report in ANY environment. Returning false would have matched the old
+// Returns null for any other provider (any legacy rows), and null never equals
+// a boolean live_mode, so a legacy row can never unlock a report in ANY
+// environment. Returning false would have matched the old
 // live_mode=false test rows on a preview deploy, which is why this fails closed.
 //
 // For Stripe: in production only a real-money row counts (true). On a preview a
