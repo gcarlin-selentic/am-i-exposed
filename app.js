@@ -160,6 +160,8 @@ const COPY = {
         ccNumLabel: 'Podrías reclamar',
         ccNumSub: (n) => `en ${n} acuerdo${n === 1 ? '' : 's'} donde podrías calificar`,
         ccNumNote: '&ldquo;Hasta&rdquo; son los montos máximos publicados. Aparecer no es una promesa de pago.',
+        ccClosedTag: 'cerrado',
+        ccClosedWhen: (d) => `cerró ${d}`,
         ccNumNoAmount: 'dinero que podrías reclamar',
         ccLockedTitle: 'Acuerdos abiertos para ti',
         ccUnlockedTitle: 'Tus acuerdos, y dónde reclamar',
@@ -462,6 +464,8 @@ const COPY = {
         ccNumLabel: 'You could claim',
         ccNumSub: (n) => `across ${n} settlement${n === 1 ? '' : 's'} where you might qualify`,
         ccNumNote: '&ldquo;Up to&rdquo; means the published maximums. Appearing is not a promise of payment.',
+        ccClosedTag: 'closed',
+        ccClosedWhen: (d) => `closed ${d}`,
         ccNumNoAmount: 'money you might be able to claim',
         ccLockedTitle: 'Open settlements for you',
         ccUnlockedTitle: 'Your settlements, and where to claim',
@@ -2082,12 +2086,43 @@ const CO_DISPLAY = {
 };
 function displayName(slug, fallback) { return CO_DISPLAY[slug] || fallback; }
 
+// A bare YYYY-MM-DD, formatted as a short local date for the closed-chip meta.
+// Parsed as parts, not through Date(iso), which reads a bare date as UTC
+// midnight and can print the day before west of London.
+function funnelWhen(iso) {
+    const [y, m, d] = (iso || '').split('-').map(Number);
+    if (!y) return '';
+    return new Date(y, m - 1, d).toLocaleDateString(lang === 'en' ? 'en-US' : 'es-ES',
+        { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
 function fillFunnelChips() {
     const box = document.getElementById('funnelChips');
     if (!box || box.children.length || !funnelData?.chips) return;
-    box.innerHTML = funnelData.chips.map(c =>
-        `<button type="button" class="cc-chip" data-cc-slug="${escapeHtml(c.slug)}">`
-        + `${escapeHtml(displayName(c.slug, c.empresa))}</button>`).join('');
+    const openSlugs = new Set((funnelData.open || []).map(o => o.slug));
+    const closedBySlug = {};
+    for (const r of (settlements?.filas || [])) closedBySlug[r.slug] = r;
+    box.innerHTML = funnelData.chips.map(c => {
+        const slug = escapeHtml(c.slug);
+        const name = escapeHtml(displayName(c.slug, c.empresa));
+        // Open: a real toggle that adds to the claimable total.
+        if (openSlugs.has(c.slug)) {
+            return `<button type="button" class="cc-chip" data-cc-slug="${slug}">${name}</button>`;
+        }
+        // Closed: matched in the history but the claim window has passed. Never
+        // counted toward the total. Shown greyed, with what it paid per person
+        // and when the window shut, so the chip informs instead of doing nothing
+        // when tapped. A span, not a button, so it is not an action.
+        const row = closedBySlug[c.slug] || {};
+        const amt = row.porPersona ? t().claimUpTo(funnelFmt(row.porPersona)) : '';
+        const date = funnelWhen(row.plazo);
+        const meta = [amt, date && t().ccClosedWhen(date)].filter(Boolean).join(' · ');
+        return `<span class="cc-chip cc-closed" data-cc-slug="${slug}">`
+            + `<span class="cc-closed-name">${name}`
+            + `<span class="cc-tag">${escapeHtml(t().ccClosedTag)}</span></span>`
+            + (meta ? `<span class="cc-closed-meta">${escapeHtml(meta)}</span>` : '')
+            + `</span>`;
+    }).join('');
 }
 
 function funnelPicked() {
@@ -3091,7 +3126,9 @@ document.addEventListener('click', (e) => {
 // written into the card after the dataset loads.
 document.addEventListener('click', (e) => {
     const chip = e.target.closest('.cc-chip');
-    if (!chip) return;
+    // Closed chips are informational, not selectable: they carry no open claim,
+    // so toggling one would offer a selection that can never add to the total.
+    if (!chip || chip.classList.contains('cc-closed')) return;
     chip.classList.toggle('on');
     renderFunnelNumber();
 });
