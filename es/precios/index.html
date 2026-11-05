@@ -23,7 +23,7 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/content.css">
+    <link rel="stylesheet" href="/content.css?v=2026-11-05b">
 </head>
 <body>
 
@@ -46,35 +46,100 @@
     Los planes pagados son un informe único y el monitoreo opcional &mdash; un precio fijo, que ves antes
     de pagar y que puedes cancelar cuando quieras.</p>
 
-    <div class="plan-grid">
-        <div class="plan-card">
-            <div class="plan-name">Revisión gratis</div>
-            <div class="plan-price">$0</div>
-            <p class="plan-desc">Revisa tu correo o una contraseña contra filtraciones conocidas.
-            Sin cuenta, sin tarjeta, sin trampa.</p>
+    <div class="plan-tiles">
+
+        <div class="plan-tile">
+            <div class="plan-head">
+                <span class="plan-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.2-4.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+                <div>
+                    <h2 class="plan-title">Revisión gratis</h2>
+                    <p class="plan-sub">Ve si tu correo o una contraseña aparece en filtraciones conocidas.</p>
+                </div>
+            </div>
+            <div class="plan-divider"></div>
+            <div class="plan-body">
+                <ul class="plan-feats">
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Tu correo revisado contra filtraciones conocidas</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Cualquier contraseña revisada en privado, en tu dispositivo</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Sin cuenta, sin tarjeta, sin trampa</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Resultado en segundos</span></li>
+                </ul>
+                <div class="plan-buy">
+                    <div class="plan-price">$0<span class="plan-per">por revisar</span></div>
+                    <a class="plan-cta" href="/es/">Revisar mi correo</a>
+                </div>
+            </div>
         </div>
 
-        <div class="plan-card featured">
-            <div class="plan-name">Informe Completo</div>
-            <div class="plan-price">$5<small>pago único</small></div>
-            <p class="plan-desc">Todo lo que quedó expuesto sobre ti, un plan paso a paso para arreglarlo
-            en palabras normales, y los acuerdos que tus datos podrían reclamar. 30 días de acceso,
-            descargable en PDF. No es una suscripción.</p>
+        <div class="plan-tile featured">
+            <div class="plan-head">
+                <span class="plan-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 2.5h7l5 5v14H6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M13 2.5v5h5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 13h6M9 17h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+                <div>
+                    <h2 class="plan-title">Informe Completo</h2>
+                    <p class="plan-sub">Todo lo expuesto, un plan para arreglarlo, y el dinero que podrían deberte.</p>
+                </div>
+            </div>
+            <div class="plan-divider"></div>
+            <div class="plan-body">
+                <ul class="plan-feats">
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Todo lo que quedó expuesto sobre ti, punto por punto</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Un plan paso a paso para arreglarlo, en palabras normales</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Acuerdos que tus datos podrían reclamar, con enlaces oficiales gratis</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>30 días de acceso, descargable en PDF</span></li>
+                </ul>
+                <div class="plan-buy">
+                    <div class="plan-price">$5<span class="plan-per">pago único</span></div>
+                    <a class="plan-cta" href="/es/">Empezar</a>
+                </div>
+            </div>
         </div>
 
-        <div class="plan-card">
-            <div class="plan-name">Monitoreo</div>
-            <div class="plan-price">$3<small>/mes &middot; $30/año</small></div>
-            <p class="plan-desc">Elige uno: una alerta apenas una nueva filtración incluya tu correo, o
-            apenas se abra un acuerdo donde podrías calificar. Cancela cuando quieras.</p>
+        <div class="plan-tile">
+            <div class="plan-head">
+                <span class="plan-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9a6 6 0 0112 0c0 5 2 6 2 6H4s2-1 2-6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10 20a2 2 0 004 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+                <div>
+                    <h2 class="plan-title">Monitoreo</h2>
+                    <p class="plan-sub">Recibe una alerta apenas algo nuevo te afecte.</p>
+                </div>
+            </div>
+            <div class="plan-divider"></div>
+            <div class="plan-body">
+                <ul class="plan-feats">
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Elige uno: alertas de filtraciones o de acuerdos</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Un correo apenas una nueva filtración te incluya</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>O apenas se abra un acuerdo donde podrías calificar</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Cancela cuando quieras</span></li>
+                </ul>
+                <div class="plan-buy">
+                    <div class="plan-price">$3<span class="plan-per">/mes &middot; $30/año</span></div>
+                    <a class="plan-cta" href="/es/">Empezar</a>
+                </div>
+            </div>
         </div>
 
-        <div class="plan-card">
-            <div class="plan-name">Combo</div>
-            <div class="plan-price">$5<small>/mes &middot; $50/año</small></div>
-            <p class="plan-desc">Monitoreo de filtraciones y de acuerdos, juntos, a un precio menor que
-            comprarlos por separado. Cancela cuando quieras.</p>
+        <div class="plan-tile">
+            <div class="plan-head">
+                <span class="plan-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l8 3v5c0 5-3.4 8.2-8 10-4.6-1.8-8-5-8-10V6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 12l2.5 2.5 4.5-4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <div>
+                    <h2 class="plan-title">Combo</h2>
+                    <p class="plan-sub">Monitoreo de filtraciones y de acuerdos, juntos.</p>
+                </div>
+            </div>
+            <div class="plan-divider"></div>
+            <div class="plan-body">
+                <ul class="plan-feats">
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Cada nueva filtración que incluya tu correo</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Cada nuevo acuerdo donde podrías calificar</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Ambos en una suscripción, más barato que por separado</span></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Cancela cuando quieras</span></li>
+                </ul>
+                <div class="plan-buy">
+                    <div class="plan-price">$5<span class="plan-per">/mes &middot; $50/año</span></div>
+                    <a class="plan-cta" href="/es/">Empezar</a>
+                </div>
+            </div>
         </div>
+
     </div>
 
     <div class="note">
