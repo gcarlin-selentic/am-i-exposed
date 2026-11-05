@@ -203,7 +203,7 @@ const DEMO_BREACHES = [
       dataClasses: ['Security questions and answers', 'Passwords', 'Email addresses'] },
     { name: 'DemoClinic', title: 'Sample Health Group', domain: null, breachDate: '2023-11-05', pwnCount: 411902, isStealerLog: false,
       dataClasses: ['Health insurance information', 'Names', 'Dates of birth'] },
-    // Two real breach names (Yahoo, Experian) so the sample Claim Pack shows
+    // Two real breach names (Yahoo, Experian) so the sample Full Report shows
     // personal settlement matches. Both settled years ago, so they appear as
     // closed exposure history, which is what a real match usually looks like.
     { name: 'Yahoo', title: 'Yahoo', domain: 'yahoo.com', breachDate: '2016-12-14', pwnCount: 3000000000, isStealerLog: false,
@@ -698,7 +698,7 @@ function toTeaser(plan) {
 }
 
 // ---------------------------------------------------------------------------
-// The Claim Pack: the money half of the paid report.
+// Full Report: the settlements half of the paid report.
 //
 // Two honest, separate things. "Personal" matches are the settlements whose
 // breach this email actually turned up in (keyed by HIBP name); almost all of
@@ -808,7 +808,7 @@ export function buildClaimPack(breaches, lang = 'en', todayISO = '',
     };
 }
 
-// The unpaid view of the Claim Pack: the exposure history stays visible (it is
+// The unpaid view of the Full Report: the exposure history stays visible (it is
 // honest, it sells, and it gives nothing paid away), and the open count is
 // shown, but the filing guide and the open-settlement detail stay on the server.
 export function toClaimsTeaser(pack) {
