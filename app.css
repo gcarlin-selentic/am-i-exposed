@@ -327,14 +327,14 @@ img { max-width: 100%; }
    disappears, even on a day with no new victims, because it is the only
    internal link that page has. */
 .hook-live {
-    background: var(--bad-soft);
-    color: var(--bad);
+    background: var(--accent-soft);
+    color: var(--accent-ink);
     text-decoration: none;
     transition: opacity .15s ease;
 }
 .hook-live:hover { opacity: .85; text-decoration: none; }
 .hook-live .hook-tag {
-    background: var(--bad);
+    background: var(--accent);
     color: #fff;
     display: inline-flex;
     align-items: center;
@@ -362,20 +362,20 @@ img { max-width: 100%; }
    because it is about money you can claim, not exposure. Same build as the
    Daily Hack link. */
 .hook-pool {
-    background: var(--money-soft);
-    color: var(--money-ink);
+    background: var(--accent-soft);
+    color: var(--accent-ink);
     text-decoration: none;
     transition: opacity .15s ease;
 }
 .hook-pool:hover { opacity: .85; text-decoration: none; }
-.hook-pool .hook-tag { background: var(--money); color: #fff; }
+.hook-pool .hook-tag { background: var(--accent); color: #fff; }
 .hook-new {
     font-family: 'Nunito', sans-serif;
     font-weight: 900;
     font-size: 10px;
     letter-spacing: .09em;
     text-transform: uppercase;
-    background: var(--money);
+    background: var(--accent);
     color: #fff;
     padding: 2px 7px;
     border-radius: var(--r-pill);
@@ -393,13 +393,13 @@ img { max-width: 100%; }
 /* The fourth pill: Pricing. Green, to sit apart from the blue Free, red Daily
    Hack and orange Money Pool pills. */
 .hook-pricing {
-    background: var(--good-soft);
-    color: var(--good);
+    background: var(--accent-soft);
+    color: var(--accent-ink);
     text-decoration: none;
     transition: opacity .15s ease;
 }
 .hook-pricing:hover { opacity: .85; text-decoration: none; }
-.hook-pricing .hook-tag { background: var(--good); color: #fff; }
+.hook-pricing .hook-tag { background: var(--accent); color: #fff; }
 /* The dark palette's green is light, so the tag text flips to dark there. */
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) .hook-pricing .hook-tag { color: #0C2200; }
