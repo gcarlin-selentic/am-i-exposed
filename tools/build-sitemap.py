@@ -22,6 +22,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PAIRS = [
     ('/es/', '/', '2026-09-25', '2026-09-25', '1.0', 'weekly'),
     ('/es/preguntas-frecuentes/', '/faq/', '2026-10-01', '2026-10-01', '0.8', None),
+    ('/es/precios/', '/pricing/', '2026-11-05', '2026-11-05', '0.7', None),
     ('/es/que-hacer-si-se-filtro-mi-correo/', '/what-to-do-if-your-email-was-leaked/',
      '2026-09-25', '2026-09-25', '0.8', None),
     ('/es/como-saber-si-mi-contrasena-fue-filtrada/', '/how-to-know-if-your-password-was-leaked/',

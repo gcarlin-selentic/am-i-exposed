@@ -250,6 +250,60 @@ hr {
 
 .note p:last-child { margin-bottom: 0; }
 
+/* Pricing page: the plan cards. Own classes, not the app's .price, so there is
+   no collision with the offer card's price text on the main page. */
+.plan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 30px 0 26px;
+}
+.plan-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+.plan-card.featured {
+    border-color: var(--money);
+    box-shadow: 0 0 0 1px var(--money-soft);
+}
+.plan-name {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+.plan-card.featured .plan-name { color: var(--money-ink); }
+.plan-price {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--ink);
+}
+.plan-price small {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-left: 5px;
+}
+.plan-desc {
+    margin: 2px 0 0;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+}
+.plan-fine {
+    margin-top: 18px;
+    font-size: 13.5px;
+    color: var(--muted);
+}
+
 /* The FAQ. Only the first one is open: the list is long enough now that all of
    them open is a wall of text. The answers are in the markup either way, so
    crawlers and assistants read them closed. */

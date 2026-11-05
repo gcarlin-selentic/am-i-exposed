@@ -92,7 +92,7 @@
          never change, and a forgotten bust on a year-long immutable asset would
          leave a returning buyer running last week's payment code. Bump the date
          here and in the other language's page when a change has to land now. -->
-    <link rel="stylesheet" href="/app.css?v=2026-11-05h">
+    <link rel="stylesheet" href="/app.css?v=2026-11-05i">
 </head>
 <body>
 
@@ -214,12 +214,7 @@
         <div class="pool-chips" id="poolChips"></div>
         <a class="btn pool-btn" href="/settlements/" data-i18n="poolBrowse">Browse all settlements &rarr;</a>
 
-        <div class="pricing">
-            <div class="price"><div class="price-k" data-i18n="priceFreeK">Free check</div><div class="price-v">$0</div><div class="price-d" data-i18n="priceFreeD">Your email vs breaches. No card.</div></div>
-            <div class="price"><div class="price-k" data-i18n="priceReportK">Full Report</div><div class="price-v">$5<small data-i18n="priceReportP">one time</small></div><div class="price-d" data-i18n="priceReportD">Everything exposed + how to fix it + settlements you may be owed. Claim links free.</div></div>
-            <div class="price"><div class="price-k" data-i18n="priceMonK">Monitoring</div><div class="price-v">$3<small data-i18n="priceMonP">/mo &middot; $30/yr</small></div><div class="price-d" data-i18n="priceMonD">Pick one: new-breach alerts or new-settlement alerts.</div></div>
-            <div class="price"><div class="price-k" data-i18n="priceComboK">Combo</div><div class="price-v">$5<small data-i18n="priceComboP">/mo &middot; $50/yr</small></div><div class="price-d" data-i18n="priceComboD">Both: breach and settlement monitoring.</div></div>
-        </div>
+        <a class="btn pool-btn" href="/pricing/" data-i18n="poolPricing" data-href-es="/es/precios/" data-href-en="/pricing/">See all plans &amp; pricing &rarr;</a>
     </section>
 
     <div id="emailError" class="error" style="display: none;"></div>
@@ -389,6 +384,7 @@
              only the label. applyLang() does the swap. -->
         <nav class="foot-nav">
             <a data-i18n="footCases" href="/settlements/">Settlements</a>
+            <a data-i18n="footPricing" data-href-es="/es/precios/" data-href-en="/pricing/" href="/pricing/">Pricing</a>
             <a data-i18n="footFaq" data-href-es="/es/preguntas-frecuentes/" data-href-en="/faq/" href="/faq/">FAQ</a>
             <a data-i18n="footLeaked" data-href-es="/es/que-hacer-si-se-filtro-mi-correo/" data-href-en="/what-to-do-if-your-email-was-leaked/" href="/what-to-do-if-your-email-was-leaked/">If your email leaked</a>
             <a data-i18n="footPassword" data-href-es="/es/como-saber-si-mi-contrasena-fue-filtrada/" data-href-en="/how-to-know-if-your-password-was-leaked/" href="/how-to-know-if-your-password-was-leaked/">If your password leaked</a>
@@ -501,8 +497,8 @@
     </div>
 </div>
 
-<script src="/funnel-match.js?v=2026-11-05h" defer></script>
-<script src="/app.js?v=2026-11-05h" defer></script>
+<script src="/funnel-match.js?v=2026-11-05i" defer></script>
+<script src="/app.js?v=2026-11-05i" defer></script>
 
 <!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
      a visitor, which is why the privacy policy can still promise no tracking
