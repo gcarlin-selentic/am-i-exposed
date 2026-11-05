@@ -21,6 +21,8 @@
     --accent:      #0098F2;
     --accent-ink:  #0077C2;
     --accent-soft: rgba(0,152,242,.11);
+    --good:        #2E7D12;
+    --good-soft:   rgba(46,125,18,.10);
     --btn-bg:      #0F0F0F;
     --btn-ink:     #FFFFFF;
 
@@ -45,6 +47,8 @@
         --accent:      #4DB5FF;
         --accent-ink:  #7CCAFF;
         --accent-soft: rgba(77,181,255,.14);
+        --good:        #8FCB3A;
+        --good-soft:   rgba(143,203,58,.14);
         --btn-bg:      #F6F6F7;
         --btn-ink:     #0B0B0D;
     }
@@ -62,6 +66,8 @@
     --accent:      #4DB5FF;
     --accent-ink:  #7CCAFF;
     --accent-soft: rgba(77,181,255,.14);
+    --good:        #8FCB3A;
+    --good-soft:   rgba(143,203,58,.14);
     --btn-bg:      #F6F6F7;
     --btn-ink:     #0B0B0D;
 }
@@ -485,3 +491,69 @@ details > *:not(summary) { font-size: 16px; }
     :root:not([data-theme="light"]) .open-soon .settle-when { color: #FDBA74; }
 }
 :root[data-theme="dark"] .open-soon .settle-when { color: #FDBA74; }
+
+/* ====================================================================
+   MONEY POOL hub extras: the eyebrow, the three-stat row and the price
+   cards. The home-page badge links here, so this page carries the same
+   Money Pool identity. Tokens only, so it themes with the rest.
+   ==================================================================== */
+.pool-eyebrow {
+    display: inline-block;
+    font-family: var(--display); font-weight: 900;
+    font-size: 13px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--good); margin-bottom: 10px;
+}
+.pool-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    margin: 6px 0 30px;
+}
+.pstat {
+    border: 1px solid var(--line); border-radius: 16px; padding: 16px 14px;
+    background: var(--surface); text-align: center;
+}
+.pstat-n { font-family: var(--display); font-weight: 900; font-size: 26px; line-height: 1.1; }
+.pstat-n.money { color: var(--good); }
+.pstat-l { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+@media (max-width: 560px) { .pstat { padding: 13px 10px; } .pstat-n { font-size: 21px; } }
+
+.pool-prices {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin: 10px 0 8px;
+}
+.pp {
+    border: 1px solid var(--line); border-radius: 16px; padding: 16px;
+    background: var(--surface); display: flex; flex-direction: column;
+}
+.pp.featured { border-color: var(--good); background: var(--good-soft); }
+.pp-k { font-size: 13px; color: var(--muted); font-weight: 600; }
+.pp-v { font-family: var(--display); font-weight: 900; font-size: 22px; margin: 3px 0; }
+.pp-v small { font-size: 12px; font-weight: 600; color: var(--muted); margin-left: 3px; }
+.pp-d { font-size: 12.5px; color: var(--muted); }
+@media (max-width: 720px) { .pool-prices { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 400px) { .pool-prices { grid-template-columns: 1fr; } }
+
+/* "What it costs" collapsed behind an expand toggle under Open now, so the
+   open-to-claim cards stay the focus and pricing unfolds on demand. Native
+   <details>, so this page needs no extra JS. */
+.costs-fold { margin: 26px 0 8px; }
+.costs-fold > summary {
+    list-style: none; cursor: pointer;
+    display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    padding: 15px 18px;
+    border: 1px solid var(--line); border-radius: 16px;
+    background: var(--surface);
+    transition: border-color .15s ease;
+}
+.costs-fold > summary::-webkit-details-marker { display: none; }
+.costs-fold > summary:hover { border-color: var(--accent); }
+.costs-title { font-family: var(--display); font-weight: 800; font-size: 21px; color: var(--ink); }
+.costs-hint { font-size: 13.5px; color: var(--muted); }
+.costs-fold > summary::after {
+    content: ""; margin-left: auto; align-self: center;
+    width: 9px; height: 9px;
+    border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted);
+    transform: rotate(45deg); transition: transform .2s ease;
+}
+.costs-fold[open] > summary::after { transform: rotate(-135deg); }
+.costs-fold[open] > summary { border-radius: 16px 16px 0 0; border-bottom-color: transparent; }
+.costs-fold .pool-prices { margin-top: 12px; }

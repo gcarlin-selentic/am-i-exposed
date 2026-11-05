@@ -50,11 +50,8 @@ try { pendingPurchase = sessionStorage.getItem(PURCHASE_INTENT) === '1'; } catch
 // GitHub. The flag is cleared first, so whichever arrives second does
 // nothing.
 function resumePendingPurchase() {
-    // The alert subscription takes the same route back from sign-in, and the
-    // two are mutually exclusive: whichever button was pressed cleared the
-    // other's flag before leaving.
-    resumePendingAlerts();
-
+    // Only the report purchase takes this sign-in round trip now. Monitoring is
+    // email-based and goes straight to Stripe Checkout without an account.
     if (!pendingPurchase || !currentUser) return;
     wantsToBuy(false);
     // A beat for the modal to close, so the checkout does not open behind it.
@@ -83,6 +80,9 @@ const COPY = {
         dailyTag: 'Hackeos hoy',
         dailyBadge: 'Actualizado cada mañana',
         dailyCount: (n) => (n === 1 ? '1 víctima nueva hoy' : `${num(n)} víctimas nuevas hoy`),
+        poolHookTag: 'Fondo de dinero',
+        poolHookLabel: 'por persona, abiertos ahora',
+        poolHookNew: 'NUEVO',
         heroTitle: 'Puede que te deban dinero. Nadie te avisó.',
         heroLede: 'Cuando una empresa filtra tus datos, por un ataque de ransomware o una brecha común, muchas veces tiene que pagarte. El aviso llega por correo postal, parece basura y casi nadie reclama. Escribe tu correo y te decimos si hay dinero que puedas reclamar, y qué más hacer.',
         heroBtn: 'Revisar mi correo',
@@ -130,6 +130,20 @@ const COPY = {
         alertsErrState: 'Elige el estado donde resides.',
         alertsErrConsent: 'Marca la casilla para continuar.',
         alertsErrFail: 'No pudimos abrir el pago. Inténtalo de nuevo en un momento.',
+        monitorBadge: 'Monitoreo',
+        monitorTitle: 'No te pierdas más dinero.',
+        monitorLede: 'Vigilamos tu correo y te avisamos apenas aparece en una filtración nueva, o apenas se abre un acuerdo que podrías reclamar.',
+        monitorYearlyLabel: 'Pagar al año y ahorrar (2 meses gratis)',
+        monitorMo: '/mes', monitorYr: '/año',
+        monitorBreachK: 'Alertas de filtraciones',
+        monitorBreachD: 'Te avisamos apenas tu correo aparece en una filtración nueva.',
+        monitorSettlementK: 'Alertas de acuerdos',
+        monitorSettlementD: 'Te avisamos apenas se abre un acuerdo nuevo que podrías reclamar.',
+        monitorComboK: 'Ambos &middot; mejor valor',
+        monitorComboD: 'Monitoreo de filtraciones y de acuerdos, juntos.',
+        monitorBtn: 'Activar', monitorBtnBoth: 'Activar ambos',
+        monitorNote: 'No necesitas cuenta. Te enviamos un correo para confirmar y puedes darte de baja cuando quieras. Los enlaces para reclamar siempre son gratis.',
+        monitorErrEmail: 'Primero revisa un correo arriba para activar el monitoreo.',
         alertsActive: 'Tus alertas están activas.',
 
         // La cara con coincidencia. El titular cambia porque un hecho ya
@@ -140,16 +154,16 @@ const COPY = {
         alertsCaveat: 'Para cobrar había que pertenecer a la clase, lo que normalmente exige haber recibido la carta de aviso de la empresa. Aparecer en la filtración no lo garantiza. No somos abogados y no reclamamos por ti.',
         ccBadge: 'Tus reclamos &middot; EE.&nbsp;UU.',
         ccTitle: '¿Qué acuerdos podrías reclamar realmente?',
-        ccLede: 'Tu correo solo encuentra filtraciones que seguimos por correo. Marca las empresas de las que has sido cliente, paciente o empleado &mdash; así encontramos reclamos que tu correo solo no detecta.',
+        ccLede: 'Tu correo encontró las filtraciones. Esto encuentra el dinero. Marca cada empresa de la que hayas sido cliente, paciente o empleado, y sumamos lo que podrías reclamar ahora mismo.',
         ccStep2: 'Paso 2 &middot; ¿cuáles de estas has usado?',
         ccStateLabel: 'Estado donde resides',
         ccNumLabel: 'Podrías reclamar',
         ccNumSub: (n) => `en ${n} acuerdo${n === 1 ? '' : 's'} donde podrías calificar`,
         ccNumNote: '&ldquo;Hasta&rdquo; son los montos máximos publicados. Aparecer no es una promesa de pago.',
         ccNumNoAmount: 'dinero que podrías reclamar',
-        ccLockedTitle: 'Ver cuáles son y cómo reclamar',
+        ccLockedTitle: 'Acuerdos abiertos para ti',
         ccUnlockedTitle: 'Tus acuerdos, y dónde reclamar',
-        ccLockedLede: 'El número es gratis. Para ver qué empresas, los montos y los enlaces oficiales para reclamar, desbloquea la lista:',
+        ccLockedLede: 'Estos son los acuerdos abiertos que coinciden con tu correo. Los enlaces oficiales para reclamar son gratis.',
         ccPlanOnceK: 'Ver ahora', ccPlanOnceP: 'una vez',
         ccPlanOnceD: 'Desbloquea tu lista completa: qué empresas, los montos y los enlaces oficiales para reclamar hoy.',
         ccPlanOnceBtn: 'Ver mis acuerdos',
@@ -158,6 +172,10 @@ const COPY = {
         ccPlanSubBtn: 'Activar monitoreo',
         ccUnavail: 'Estamos preparando el cobro para tu país. Activa el monitoreo abajo y te avisamos por correo en cuanto esté listo.',
         ccCaveat: 'Podrías calificar si fuiste cliente, paciente o empleado de la empresa en el periodo afectado. Aparecer no es elegibilidad. Enlazamos solo al administrador oficial. No somos abogados y no reclamamos por ti.',
+        ccUpsellTitle: 'Cada semana se abren acuerdos nuevos. Y los plazos cierran rápido.',
+        ccUpsellBody: 'Si se te pasa una fecha, ese dinero se pierde para siempre. Activa el monitoreo y te avisamos por correo apenas se abre un acuerdo nuevo donde podrías calificar, para que nunca dejes dinero sobre la mesa.',
+        ccUpsellBtn: 'Activar alertas de acuerdos &middot; US$&nbsp;3/mes',
+        ccUpsellNote: 'O monitoreo de filtraciones y acuerdos juntos por US$&nbsp;5/mes. Cancela cuando quieras.',
         poolTag: 'El fondo de dinero',
         poolTitle: 'Te ayudamos a reclamar el dinero que las empresas te deben.',
         poolLede: 'Las empresas que filtran datos llegan a acuerdos de demanda colectiva y le pagan a los afectados. Ahora mismo hay acuerdos abiertos para reclamar, y seguimos cada uno. Busca una empresa con la que has tenido trato y mira cuánto están pagando.',
@@ -166,9 +184,11 @@ const COPY = {
         poolStatMax: 'por persona, casos abiertos',
         poolBrowse: 'Ver todos los acuerdos &rarr;',
         priceFreeK: 'Chequeo gratis', priceFreeD: 'Tu correo contra las filtraciones. Sin tarjeta.',
-        priceReportK: 'Reporte completo', priceReportP: 'una vez', priceReportD: 'Tu plan de acción personal.',
+        priceReportK: 'Reporte completo', priceReportP: 'una vez', priceReportD: 'Tus filtraciones explicadas + pasos para arreglarlo. Enlaces de reclamo gratis.',
         priceMonK: 'Monitoreo', priceSoon: 'pronto', priceMonP: '/mes &middot; $30/año',
-        priceMonD: 'Te vigilamos y te avisamos cuando se abre un acuerdo nuevo.',
+        priceMonD: 'Elige uno: alertas de filtraciones o alertas de acuerdos.',
+        priceComboK: 'Combo', priceComboP: '/mes &middot; $50/año',
+        priceComboD: 'Ambos: monitoreo de filtraciones y de acuerdos.',
         alertsMissedMax: 'hasta',
         alertsMissedClosed: 'El plazo cerró el',
         alertsMissedNoAmount: 'con acuerdo pagado',
@@ -253,8 +273,8 @@ const COPY = {
 
         cleanTitle: 'Buenas noticias: no apareces',
         cleanBody: (email) => `No encontramos <span class="who">${email}</span> en ninguna filtración conocida. Esto no garantiza que nunca pase, así que vale la pena repetir el chequeo de vez en cuando.`,
-        expTitle: 'Tu correo sí aparece',
-        expBody: (email, n) => `Encontramos <span class="who">${email}</span> en ${n} ${n === 1 ? 'filtración de datos' : 'filtraciones de datos'}. Esto es común y tiene solución.`,
+        expTitle: 'Tu correo está expuesto',
+        expBody: (email, n) => `Encontramos <span class="who">${email}</span> en ${n} ${n === 1 ? 'filtración de datos' : 'filtraciones de datos'}. Algunas terminaron en acuerdos que pagaron a los afectados. Mira abajo lo que puedes reclamar.`,
         tallyBreaches: (n) => n === 1 ? 'filtración' : 'filtraciones',
         tallyAccounts: 'cuentas afectadas en total',
         tallyOldest: 'la más antigua',
@@ -346,6 +366,9 @@ const COPY = {
         dailyTag: 'Daily Hack',
         dailyBadge: 'Updated every morning',
         dailyCount: (n) => (n === 1 ? '1 new victim today' : `${num(n)} new victims today`),
+        poolHookTag: 'Money Pool',
+        poolHookLabel: 'per person, open now',
+        poolHookNew: 'NEW',
         heroTitle: 'You may be owed money. Nobody told you.',
         heroLede: 'When a company leaks your data, in a ransomware attack or an ordinary breach, it often has to pay you. The notice comes by post, looks like junk, and almost nobody claims. Enter your email and we will tell you if there is money you can claim, and what else to do.',
         heroBtn: 'Check my email',
@@ -391,6 +414,20 @@ const COPY = {
         alertsErrState: 'Choose the state you live in.',
         alertsErrConsent: 'Tick the box to continue.',
         alertsErrFail: 'We could not open the payment. Try again in a moment.',
+        monitorBadge: 'Monitoring',
+        monitorTitle: 'Never miss money again.',
+        monitorLede: 'We watch your email and tell you the moment it turns up in a new breach, or a new settlement opens that you could claim.',
+        monitorYearlyLabel: 'Pay yearly and save (2 months free)',
+        monitorMo: '/mo', monitorYr: '/yr',
+        monitorBreachK: 'Breach alerts',
+        monitorBreachD: 'Email the moment your address turns up in a new breach.',
+        monitorSettlementK: 'Settlement alerts',
+        monitorSettlementD: 'Email the moment a new settlement opens that you may be able to claim.',
+        monitorComboK: 'Both &middot; best value',
+        monitorComboD: 'Breach and settlement monitoring, together.',
+        monitorBtn: 'Turn on', monitorBtnBoth: 'Turn on both',
+        monitorNote: 'No account needed. We email you to confirm, and you can unsubscribe anytime. Claim links are always free.',
+        monitorErrEmail: 'Check an email above first to turn on monitoring.',
         alertsActive: 'Your alerts are on.',
 
         // The matched face. The headline changes because something that
@@ -401,16 +438,16 @@ const COPY = {
         alertsCaveat: 'Claiming required being in the class, which usually means having received the company&rsquo;s notice letter. Appearing in the breach does not guarantee it. We are not lawyers and we do not claim on your behalf.',
         ccBadge: 'Your claims &middot; US',
         ccTitle: 'Which settlements could you actually claim?',
-        ccLede: 'Your email only finds breaches we track by email. Tick the companies you have been a customer, patient or employee of &mdash; that is how we find claims your email alone cannot.',
+        ccLede: 'Your email found the breaches. This finds the money. Tick every company you have been a customer, patient or employee of, and we add up what you could claim right now.',
         ccStep2: 'Step 2 &middot; which of these have you used?',
         ccStateLabel: 'State you live in',
         ccNumLabel: 'You could claim',
         ccNumSub: (n) => `across ${n} settlement${n === 1 ? '' : 's'} where you might qualify`,
         ccNumNote: '&ldquo;Up to&rdquo; means the published maximums. Appearing is not a promise of payment.',
         ccNumNoAmount: 'money you might be able to claim',
-        ccLockedTitle: 'See which ones, and how to claim',
+        ccLockedTitle: 'Open settlements for you',
         ccUnlockedTitle: 'Your settlements, and where to claim',
-        ccLockedLede: 'The number is free. To see which companies, the amounts and the official claim links, unlock the list:',
+        ccLockedLede: 'These are the open settlements matched to your email. The official claim links are free.',
         ccPlanOnceK: 'See now', ccPlanOnceP: 'one time',
         ccPlanOnceD: 'Unlock your full list: which companies, the amounts, and the official links to claim today.',
         ccPlanOnceBtn: 'See my settlements',
@@ -419,6 +456,10 @@ const COPY = {
         ccPlanSubBtn: 'Turn on monitoring',
         ccUnavail: 'Checkout is being set up for your country. Turn on monitoring below and we will email you the moment it is ready.',
         ccCaveat: 'You might qualify if you were a customer, patient or employee in the affected period. Appearing is not eligibility. We link only to the official administrator. We are not lawyers and we never file for you.',
+        ccUpsellTitle: 'New settlements open every week. The windows close fast.',
+        ccUpsellBody: 'Miss a deadline and that money is gone for good. Turn on monitoring and we will email you the moment a new settlement opens where you might qualify, so you never leave money on the table again.',
+        ccUpsellBtn: 'Turn on settlement alerts &middot; US$&nbsp;3/mo',
+        ccUpsellNote: 'Or breach and settlement monitoring together for US$&nbsp;5/mo. Cancel anytime.',
         poolTag: 'The money pool',
         poolTitle: 'We help you claim the money companies owe you.',
         poolLede: 'Companies that leak data settle class actions and pay the people affected. Right now there are settlements open to claim, and we track every one. Search a company you have dealt with and see what they are paying.',
@@ -427,9 +468,11 @@ const COPY = {
         poolStatMax: 'per person, open cases',
         poolBrowse: 'Browse all settlements &rarr;',
         priceFreeK: 'Free check', priceFreeD: 'Your email vs breaches. No card.',
-        priceReportK: 'Full report', priceReportP: 'one time', priceReportD: 'Your personal action plan.',
+        priceReportK: 'Full report', priceReportP: 'one time', priceReportD: 'Your breaches explained + step-by-step fixes. Claim links free.',
         priceMonK: 'Monitoring', priceSoon: 'soon', priceMonP: '/mo &middot; $30/yr',
-        priceMonD: 'We watch and alert you when a new settlement opens.',
+        priceMonD: 'Pick one: new-breach alerts or new-settlement alerts.',
+        priceComboK: 'Combo', priceComboP: '/mo &middot; $50/yr',
+        priceComboD: 'Both: breach and settlement monitoring.',
         alertsMissedMax: 'up to',
         alertsMissedClosed: 'The window closed on',
         alertsMissedNoAmount: 'settled and paid out',
@@ -512,8 +555,8 @@ const COPY = {
 
         cleanTitle: 'Good news: you are not in there',
         cleanBody: (email) => `We did not find <span class="who">${email}</span> in any known breach. That is no guarantee for the future, so it is worth checking again now and then.`,
-        expTitle: 'Your email does show up',
-        expBody: (email, n) => `We found <span class="who">${email}</span> in ${n} data ${n === 1 ? 'breach' : 'breaches'}. This is common and it can be fixed.`,
+        expTitle: 'Your email is exposed',
+        expBody: (email, n) => `We found <span class="who">${email}</span> in ${n} data ${n === 1 ? 'breach' : 'breaches'}. Some of them ended in settlements that paid people out. See what you can claim below.`,
         tallyBreaches: (n) => n === 1 ? 'breach' : 'breaches',
         tallyAccounts: 'accounts affected in total',
         tallyOldest: 'oldest one',
@@ -1364,6 +1407,16 @@ async function checkEmail() {
         hasSearched = true;
         refreshPasswordCTA();
         refreshOfferCard();
+        // The result is the whole point of the visit, but it renders below the
+        // hero and the Money Pool section, far enough down that a visitor can
+        // type an email, watch the page not move, and assume nothing happened.
+        // Bring it to the top of the viewport so it lands as the alert it is;
+        // the claim-now money card and the regret strip sit right beneath it.
+        // rAF lets the display:block set during render lay out before we measure.
+        requestAnimationFrame(() => {
+            const top = resultDiv.getBoundingClientRect().top + window.pageYOffset - 16;
+            window.scrollTo({ top: top < 0 ? 0 : top, behavior: 'smooth' });
+        });
     } catch (error) {
         errorDiv.textContent = error.message || t().errEmailFail;
         errorDiv.style.display = 'block';
@@ -1608,10 +1661,9 @@ async function openReport() {
 // good.
 function refreshOfferCard() {
     const card = document.getElementById('offerCard');
-    // priceInfo null means the server said there is nothing on sale here. In
-    // the United States that is true while Paddle reviews the domain, and the
-    // card must go with it: shown without a price it reads "&mdash; per
-    // report" over a buy button, which is worse than not offering at all.
+    // priceInfo is set directly now (a fixed US$5), so it is never null in
+    // practice; the guard stays so the card hides rather than showing
+    // "&mdash; per report" over a buy button if that ever changes.
     if (card) {
         card.hidden = !lastEmailResult || !!currentUser || knownEntitled
             || (priceChecked && !priceInfo);
@@ -1666,41 +1718,12 @@ const US_STATES = [
     'West Virginia', 'Wisconsin', 'Wyoming',
 ];
 
-// Same shape as PURCHASE_INTENT above, and for the same reason: Google and
-// GitHub sign-in leave the page entirely, so a variable does not survive the
-// trip. The form values ride along, because being sent to sign in and coming
-// back to three empty fields is a good way to lose somebody.
-const ALERTS_INTENT = 'aie-alerts-after-signin';
-
-let alertsConfig = null;      // null until asked, then {eligible, ...}
+let alertsConfig = null;      // null until asked, then {eligible, plans}
 // La promesa, no un booleano. Marcar "ya preguntado" antes de que llegue la
 // respuesta hacia que una segunda llamada devolviera null mientras la primera
 // seguia en vuelo, y quien la recibia leia .eligible de null. Guardar la
 // promesa hace que la segunda espere a la misma peticion.
 let alertsConfigPromise = null;
-let paddleReady = false;
-let alertsDone = false;       // checkout completed in this session
-
-function stashAlertsIntent(value) {
-    try {
-        if (value) sessionStorage.setItem(ALERTS_INTENT, JSON.stringify(value));
-        else sessionStorage.removeItem(ALERTS_INTENT);
-    } catch (e) { /* private browsing; the click simply will not resume */ }
-}
-
-function readAlertsIntent() {
-    try {
-        const raw = sessionStorage.getItem(ALERTS_INTENT);
-        return raw ? JSON.parse(raw) : null;
-    } catch (e) { return null; }
-}
-
-function fillAlertStates() {
-    const select = document.getElementById('alertsState');
-    if (!select || select.options.length) return;
-    select.appendChild(new Option(t().alertsStatePick, ''));
-    for (const name of US_STATES) select.appendChild(new Option(name, name));
-}
 
 // Asked once per visit, and only after somebody has actually run a check, so
 // a visitor who reads the page and leaves never costs an invocation.
@@ -1768,6 +1791,9 @@ function renderPoolStats() {
     set('poolOpen', nf.format(m.abiertos));
     set('poolTracked', nf.format(m.casos));
     set('poolMax', poolMoney(m.maxPorPersona));
+    // The hero's Money Pool badge shows the same "most any one person can claim"
+    // figure, so it never drifts from the pool stats below it.
+    set('poolBadgeNum', poolMoney(m.maxPorPersona));
     renderPoolChips();
 }
 
@@ -1991,15 +2017,15 @@ async function refreshAlertsCard() {
     const card = document.getElementById('alertsCard');
     if (!card) return;
 
-    // Same trigger as the paid card: only once a check has actually found
-    // something. Before that the pitch has nothing to attach itself to.
-    if (!lastEmailResult || alertsDone) { card.hidden = true; return; }
+    // Only once a check has found something: the monitoring pitch has nothing
+    // to attach itself to before that. Monitoring is email-based, so there is
+    // no US gate and no account form; eligibility is just whether Stripe is
+    // configured to sell the plans.
+    if (!lastEmailResult) { card.hidden = true; return; }
 
     const config = await loadAlertsConfig();
     card.hidden = !config.eligible;
-    if (!config.eligible) return;
-
-    fillAlertStates();
+    if (config.eligible) renderMonitorPrices();
 }
 
 // -------------------------------------------------------------- cross-check funnel
@@ -2056,19 +2082,6 @@ function funnelMatch() {
     });
 }
 
-function renderFunnelLocked(items) {
-    const list = document.getElementById('funnelLockedList');
-    if (!list) return;
-    // Sin enlaces aqui: ver cuales y a donde reclamar es lo que se paga.
-    list.innerHTML = items.map(it => {
-        const amt = it.porPersona ? (t().alertsMissedMax + ' ' + funnelFmt(it.porPersona))
-            : (it.fondo ? funnelFmt(it.fondo) : '');
-        return `<li><span class="cc-l-co">${escapeHtml(displayName(it.slug, it.empresa))}</span>`
-            + (amt ? `<span class="cc-l-amt">${escapeHtml(amt)}</span>` : '')
-            + `<span class="cc-l-lock" aria-hidden="true">&#128274;</span></li>`;
-    }).join('');
-}
-
 function renderFunnelNumber() {
     if (!funnelData || !window.FunnelMatch) return;
     const numBox = document.getElementById('funnelNumber');
@@ -2085,21 +2098,19 @@ function renderFunnelNumber() {
         res.openTotalMax > 0 ? (t().alertsMissedMax + ' ' + funnelFmt(res.openTotalMax))
             : t().ccNumNoAmount;
     document.getElementById('funnelSub').textContent = t().ccNumSub(claim.length);
-    renderFunnelLocked(claim);
-    // If this session already paid, keep the list open instead of re-blurring
-    // it every time a chip or the state changes.
-    if (funnelUnlocked()) revealFunnelList();
+    // The list is free: the official claim links are always free, so the
+    // matched settlements are named in full with their links, no gate.
+    revealFunnelList();
 }
 
 async function refreshFunnel() {
     const card = document.getElementById('crosscheckCard');
     if (!card) return;
-    // Same gate as the alerts card: a US visitor, after a check. The free money
-    // card above is left for everyone (including countries that cannot pay); the
-    // funnel is the paid widening layered on top, so it rides the US gate.
-    if (!lastEmailResult || alertsDone) { card.hidden = true; return; }
-    const config = await loadAlertsConfig();
-    if (!config.eligible) { card.hidden = true; return; }
+    // After a check, whenever we have funnel data. The free money card above is
+    // for everyone; this is the company-ticking layer that widens the email
+    // match with settlements the address alone cannot find. It is free, so it
+    // does not depend on whether payments are configured.
+    if (!lastEmailResult) { card.hidden = true; return; }
     const data = await loadFunnel();
     if (!data) { card.hidden = true; return; }   // degrade: #missedCard remains
     await loadSettlements();                       // for the email-matched items
@@ -2107,33 +2118,19 @@ async function refreshFunnel() {
     fillFunnelChips();
     fillFunnelStates();
     renderFunnelNumber();
-    // The $5 list unlock needs a price the owner has set up; without it the
-    // button says so instead of opening a checkout that cannot charge.
-    if (!config.listUnlockPriceId) showFunnelUnavail();
-    // Already paid this session: show the list open rather than the gate.
-    if (funnelUnlocked()) revealFunnelList();
+    // The free funnel (matched settlements + claim links) shows regardless; the
+    // paid upsell only when Stripe is configured to sell monitoring, so it stays
+    // hidden on an environment with no payments rather than 503-ing on a click.
+    const up = card.querySelector('.cc-upsell');
+    if (up) {
+        const config = await loadAlertsConfig();
+        up.hidden = !config.eligible;
+    }
 }
 
-function funnelErr(message) {
-    const box = document.getElementById('funnelError');
-    if (!box) return;
-    box.textContent = message || '';
-    box.style.display = message ? 'block' : 'none';
-}
-
-// Shown when the $5 list unlock has no price to charge yet (the rail is live
-// but the product is not set up, or checkout is not available for the country).
-// The number and the monitoring path still work.
-function showFunnelUnavail() {
-    const note = document.getElementById('funnelUnavail');
-    if (note) note.hidden = false;
-    const btn = document.getElementById('funnelUnlockBtn');
-    if (btn) btn.disabled = true;
-}
-
-// After the $5 one-time completes: drop the blur, name the companies, and add
-// the official claim links. The gate is done; the list is theirs. Remembered in
-// sessionStorage so a reload in the same session stays open.
+// Rebuilds the matched open-settlement list: names the companies and adds the
+// official (free) claim links. Remembered in sessionStorage so a reload in the
+// same session keeps it in view.
 function revealFunnelList() {
     const locked = document.getElementById('funnelLocked');
     const list = document.getElementById('funnelLockedList');
@@ -2152,54 +2149,69 @@ function revealFunnelList() {
             + (amt ? `<span class="cc-l-amt">${escapeHtml(amt)}</span>` : '')
             + claim + `</li>`;
     }).join('');
-    const gate = locked.querySelector('.cc-gate');
-    if (gate) gate.hidden = true;
-    const lede = locked.querySelector('.cc-locked-lede');
-    if (lede) lede.hidden = true;
     const title = locked.querySelector('h3');
     if (title) title.textContent = t().ccUnlockedTitle;
-    try { sessionStorage.setItem('aie-funnel-unlocked', '1'); } catch (e) { /* ignore */ }
 }
 
-function funnelUnlocked() {
-    try { return !!sessionStorage.getItem('aie-funnel-unlocked'); } catch (e) { return false; }
+// Monitoring goes straight to Stripe Checkout for the email just checked. It is
+// email-based: no account, no form. base is 'breach' | 'settlement' | 'combo';
+// the month/year switch decides the interval. Double opt-in confirms the
+// address after payment, so there is no consent form here.
+function monitorEmail() {
+    return lastEmailResult?.email || currentUser?.email || null;
 }
 
-// $5 one-time: open a Paddle checkout for the list-unlock price when the owner
-// has set one up; otherwise say so rather than opening a broken checkout.
-async function startListUnlock() {
-    funnelErr('');
-    const config = await loadAlertsConfig();
-    if (!config.eligible || !config.listUnlockPriceId) { showFunnelUnavail(); return; }
-    const btn = document.getElementById('funnelUnlockBtn');
-    if (btn) { btn.disabled = true; btn.textContent = t().alertsOpening; }
+function monitorInterval() {
+    const yearly = document.getElementById('monitorYearly');
+    return yearly && yearly.checked ? 'year' : 'month';
+}
+
+// The prices shown on the three monitoring cards. These are display only; the
+// real prices live in Stripe and are keyed by the plan name checkout.js sends.
+// Two months free on the yearly, which is the whole reason to offer it.
+const MONITOR_PRICES = {
+    breach: { month: 3, year: 30 },
+    settlement: { month: 3, year: 30 },
+    combo: { month: 5, year: 50 },
+};
+
+// Rewrites each card's figure when the month/year switch moves, so the price
+// the visitor reads always matches the plan the button will buy.
+function renderMonitorPrices() {
+    const yearly = monitorInterval() === 'year';
+    const per = yearly ? t().monitorYr : t().monitorMo;
+    document.querySelectorAll('#alertsCard .mon-plan').forEach(card => {
+        const base = card.querySelector('[data-action="startMonitor"]')?.dataset.arg;
+        const p = MONITOR_PRICES[base];
+        const v = card.querySelector('.mon-v');
+        if (!p || !v) return;
+        v.innerHTML = `US$&nbsp;${yearly ? p.year : p.month}<small>${escapeHtml(per)}</small>`;
+    });
+}
+
+async function startMonitor(btn) {
+    const base = btn?.dataset?.arg;
+    if (!base) return;
+    const email = monitorEmail();
+    if (!email) { alertsError(t().monitorErrEmail); return; }
+    alertsError('');
+    const plan = `${base}_${monitorInterval()}`;
+    const original = btn ? btn.innerHTML : null;
+    if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>' + escapeHtml(t().alertsOpening); }
     try {
-        await startPaddle(config);
-        Paddle.Checkout.open({
-            items: [{ priceId: config.listUnlockPriceId, quantity: 1 }],
-            customer: currentUser ? { email: currentUser.email } : undefined,
-            // kind keeps this apart from a report or an alerts subscription in
-            // the one checkout.completed handler.
-            customData: { kind: 'list_unlock', email: currentUser?.email || '', lang },
-            settings: { displayMode: 'overlay', theme: paddleTheme(), locale: lang },
+        // No account and no token: monitoring is keyed on the email, not a
+        // Supabase user, so checkout.js takes the email straight from the body.
+        const response = await fetch(`/api/checkout?plan=${encodeURIComponent(plan)}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, lang }),
         });
+        const data = await response.json().catch(() => null);
+        if (!response.ok || !data?.url) throw new Error(data?.error || t().alertsErrFail);
+        window.location.href = data.url;
     } catch (e) {
-        funnelErr(t().alertsErrFail);
-    } finally {
-        if (btn) { btn.disabled = false; btn.textContent = t().ccPlanOnceBtn; }
-    }
-}
-
-// $3/mo monitoring is the existing alerts subscription: it already collects the
-// name, state and consent the subscription needs, so the funnel sends the
-// visitor there rather than duplicating that form.
-function startFunnelMonitor() {
-    const card = document.getElementById('alertsCard');
-    if (card && !card.hidden) {
-        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        document.getElementById('alertsFirstName')?.focus({ preventScroll: true });
-    } else {
-        showFunnelUnavail();
+        if (btn) { btn.disabled = false; btn.innerHTML = original; }
+        alertsError(t().alertsErrFail);
     }
 }
 
@@ -2210,168 +2222,6 @@ function alertsError(message) {
     box.style.display = message ? 'block' : 'none';
 }
 
-function loadPaddle() {
-    if (paddleReady) return Promise.resolve();
-    return new Promise((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = 'https://cdn.paddle.com/paddle/v2/paddle.js';
-        script.onload = () => { paddleReady = true; resolve(); };
-        script.onerror = () => reject(new Error('paddle.js'));
-        document.head.appendChild(script);
-    });
-}
-
-// Loaded and initialised once, whichever of the two things is bought first.
-// Paddle.Initialize registers the event callback, and calling it twice would
-// mean handling every completion twice.
-let paddleStarted = null;
-
-async function startPaddle(config) {
-    if (paddleStarted) return paddleStarted;
-    paddleStarted = (async () => {
-        await loadPaddle();
-        if (config.environment === 'sandbox') Paddle.Environment.set('sandbox');
-        Paddle.Initialize({
-            token: config.token,
-            eventCallback: (event) => {
-                if (event?.name !== 'checkout.completed') return;
-                // Which of the two was bought is read back from the data the
-                // checkout was opened with, not from a variable: two tabs,
-                // or a checkout reopened after a cancel, would both make a
-                // flag lie.
-                const kind = event?.data?.custom_data?.kind;
-
-                // Paddle leaves its own success screen up, and everything
-                // below happens behind it: the plan opened under the
-                // overlay and the buyer saw a tick and a sentence about
-                // email. Closing it first is what makes the next screen
-                // theirs rather than Paddle's.
-                try { Paddle.Checkout.close(); } catch (e) { /* already gone */ }
-
-                if (kind === 'alerts') {
-                    // The row is written by the webhook, not here. This only
-                    // stops the page offering something just bought.
-                    alertsDone = true;
-                    refreshAlertsCard();
-                } else if (kind === 'report') {
-                    onReportPaid();
-                } else if (kind === 'list_unlock') {
-                    // The list is already in the browser; paying only lifts the
-                    // blur and adds the official claim links.
-                    revealFunnelList();
-                }
-            },
-        });
-    })();
-    return paddleStarted;
-}
-
-// The theme Paddle should draw its overlay in, so it does not arrive as a
-// white sheet over a dark page.
-function paddleTheme() {
-    return document.documentElement.dataset.theme === 'dark'
-        || (document.documentElement.dataset.theme !== 'light'
-            && window.matchMedia('(prefers-color-scheme: dark)').matches)
-        ? 'dark' : 'light';
-}
-
-function alertsFormValues() {
-    return {
-        firstName: (document.getElementById('alertsFirstName')?.value || '').trim(),
-        lastName: (document.getElementById('alertsLastName')?.value || '').trim(),
-        state: document.getElementById('alertsState')?.value || '',
-        consent: !!document.getElementById('alertsConsent')?.checked,
-    };
-}
-
-function applyAlertsForm(values) {
-    if (!values) return;
-    const set = (id, value) => {
-        const el = document.getElementById(id);
-        if (el && value) el.value = value;
-    };
-    set('alertsFirstName', values.firstName);
-    set('alertsLastName', values.lastName);
-    set('alertsState', values.state);
-    const consent = document.getElementById('alertsConsent');
-    if (consent && values.consent) consent.checked = true;
-}
-
-async function startAlertsCheckout() {
-    const form = alertsFormValues();
-
-    // Checked before anything else, so somebody is never sent off to create
-    // an account only to be told on the way back that a field was empty.
-    if (!form.firstName || !form.lastName) return alertsError(t().alertsErrName);
-    if (!form.state) return alertsError(t().alertsErrState);
-    if (!form.consent) return alertsError(t().alertsErrConsent);
-    alertsError('');
-
-    // No account yet. The subscription has to belong to one: user_id is what
-    // the webhook writes the row against, and without it the event arrives
-    // with nowhere to put it.
-    if (!currentUser) {
-        stashAlertsIntent(form);
-        wantsToBuy(false);   // the two intents are mutually exclusive
-        openAuthModal('signup');
-        return;
-    }
-
-    await openAlertsCheckout(form);
-}
-
-async function openAlertsCheckout(form) {
-    const button = document.getElementById('alertsBtn');
-    const config = await loadAlertsConfig();
-    if (!config.eligible) return alertsError(t().alertsErrFail);
-
-    if (button) { button.disabled = true; button.textContent = t().alertsOpening; }
-
-    try {
-        await startPaddle(config);
-
-        Paddle.Checkout.open({
-            items: [{ priceId: config.priceId, quantity: 1 }],
-            customer: { email: currentUser.email },
-            // Paddle copies this onto the subscription when it is created,
-            // which is how /api/paddle-webhook knows whose account this is.
-            // Nothing else carries the link.
-            //
-            // kind is what keeps this apart from a report purchase. Paddle
-            // raises transaction.completed for both, and without it the
-            // first payment of a subscription would read as somebody buying
-            // a report.
-            customData: {
-                kind: 'alerts',
-                user_id: currentUser.id,
-                email: currentUser.email,
-                lang,
-                first_name: form.firstName,
-                last_name: form.lastName,
-                state: form.state,
-            },
-            settings: {
-                displayMode: 'overlay',
-                theme: paddleTheme(),
-                locale: lang,
-            },
-        });
-    } catch (error) {
-        alertsError(t().alertsErrFail);
-    } finally {
-        if (button) { button.disabled = false; button.textContent = t().alertsBtn; }
-    }
-}
-
-// Called from the same places as resumePendingPurchase, for the same reason.
-function resumePendingAlerts() {
-    const form = readAlertsIntent();
-    if (!form || !currentUser) return;
-    stashAlertsIntent(null);
-    applyAlertsForm(form);
-    // A beat for the modal to close, so the checkout does not open behind it.
-    setTimeout(() => openAlertsCheckout(form), 400);
-}
 
 function reportHeaderHTML(email) {
     return `
@@ -2500,20 +2350,13 @@ let priceInfo = null;
 let priceChecked = false;
 
 async function loadPrice() {
-    try {
-        const response = await fetch('/api/checkout');
-        if (!response.ok) return;
-        const data = await response.json();
-        priceChecked = true;
-        if (data && data.available) {
-            priceInfo = data;
-            renderPrice();
-        }
-        // Tambien cuando no hay oferta: la sugerencia de idioma se apoya en
-        // saber donde esta el visitante, y esa pregunta ya se hizo.
-        maybeShowLangHint();
-        refreshOfferCard();
-    } catch (e) { /* sin respuesta no se esconde nada: puede ser un fallo de red */ }
+    // The report is a fixed US$5 now (Stripe, USD for everyone), so there is no
+    // per-visit price call: set the figure directly. /api/checkout is POST-only.
+    priceChecked = true;
+    priceInfo = { available: true, amount: 5, currency: 'USD', plan: 'report' };
+    renderPrice();
+    maybeShowLangHint();
+    refreshOfferCard();
 }
 
 const LANG_HINT_DISMISSED = 'aie-lang-hint-off';
@@ -2589,67 +2432,12 @@ function renderPrice() {
     }
     if (price) price.style.display = '';
 
-    // Paddle owns its price, so it is asked rather than remembered. Hidden
-    // until the answer arrives: a dash that turns into a figure looks like a
-    // glitch, and a stale figure that corrects itself looks like a trick.
-    if (priceInfo.provider === 'paddle') {
-        if (price) price.style.display = 'none';
-        renderPaddlePrice();
-        return;
-    }
-
-    // En ingles el precio se muestra en dolares, que es la moneda que ese
-    // lector entiende, y justo debajo dice en que moneda se cobra de verdad.
-    // El importe que se cobra no cambia: lo fija el servidor y lo ejecuta
-    // Mercado Pago en soles. Sin referencia en dolares configurada se muestra
-    // el precio real, que es la respuesta segura.
+    // One fixed price for everyone now: US$5, in USD, through Stripe. No
+    // per-provider branch and no dual-currency note.
+    el.textContent = formatPrice(priceInfo);
     const nota = document.getElementById('offerPriceNote');
-    const enDolares = lang === 'en' && priceInfo.provider === 'mercadopago'
-        && Number(priceInfo.amountUsd) > 0;
-
-    el.textContent = enDolares
-        ? formatPrice({ amount: priceInfo.amountUsd, currency: 'USD' })
-        : formatPrice(priceInfo);
-
-    if (nota) {
-        nota.hidden = !enDolares;
-        nota.textContent = enDolares ? t().offerChargedAs(formatPrice(priceInfo)) : '';
-    }
+    if (nota) { nota.hidden = true; nota.textContent = ''; }
     syncJsonLdPrice();
-}
-
-// Paddle returns the price already formatted for the buyer's location, with
-// tax worked out, which is more than a currency symbol: it is the figure
-// their card will actually be charged.
-async function renderPaddlePrice() {
-    const el = document.getElementById('offerPriceAmount');
-    if (!el) return;
-    try {
-        await startPaddle(priceInfo);
-        const preview = await Paddle.PricePreview({
-            items: [{ priceId: priceInfo.priceId, quantity: 1 }],
-        });
-        const item = (preview?.data?.details?.lineItems || [])[0];
-        const shown = item?.formattedTotals?.total;
-        if (!shown) return;
-
-        el.textContent = shown;
-        const box = el.closest('.price');
-        if (box) box.style.display = '';
-
-        // The raw total, so the structured data can carry the same number
-        // rather than the soles price baked into the HTML.
-        const cents = Number(item?.totals?.total);
-        if (Number.isFinite(cents)) {
-            priceInfo.amount = cents / 100;
-            priceInfo.currency = preview?.data?.currencyCode || 'USD';
-            syncJsonLdPrice();
-        }
-    } catch (e) {
-        // The card still reads fine without a figure: its button offers the
-        // sample, and the real amount is shown in Paddle's own overlay.
-        console.error('Could not read the Paddle price:', e?.name || e);
-    }
 }
 
 // The structured data carries a hardcoded price because a crawler that does
@@ -2687,7 +2475,6 @@ async function startPurchase(btn) {
     // dropping them back where they started, wondering what happened.
     if (!currentUser) {
         wantsToBuy(true);
-        stashAlertsIntent(null);   // the two intents are mutually exclusive
         openAuthModal('signup');
         return;
     }
@@ -2705,39 +2492,6 @@ async function startPurchase(btn) {
         btn.innerHTML = '<span class="spinner"></span>' + escapeHtml(t().payOpening);
     }
 
-    // Paddle, for a buyer in the United States. It opens over the page
-    // instead of sending them away, so there is no round trip to park
-    // anything across and no return URL to come back to: the overlay closes
-    // and they are still where they were.
-    if (priceInfo?.provider === 'paddle') {
-        try {
-            await startPaddle(priceInfo);
-            Paddle.Checkout.open({
-                items: [{ priceId: priceInfo.priceId, quantity: 1 }],
-                customer: { email: currentUser.email },
-                customData: {
-                    kind: 'report',
-                    user_id: currentUser.id,
-                    email: currentUser.email,
-                    // So the receipt is written in the language they were
-                    // reading. The transaction carries nothing else that
-                    // says which page this was bought from.
-                    lang,
-                },
-                settings: {
-                    displayMode: 'overlay',
-                    theme: paddleTheme(),
-                    locale: lang,
-                },
-            });
-        } catch (error) {
-            showPayBanner(t().payFail, 'warn');
-        } finally {
-            restore();
-        }
-        return;
-    }
-
     try {
         const { data: { session } } = await window.sbClient.auth.getSession();
         const accessToken = session?.access_token || null;
@@ -2747,22 +2501,24 @@ async function startPurchase(btn) {
             return;
         }
 
-        // The checked address does not survive the round trip to Mercado
-        // Pago, so it is parked here and picked up again on the way back.
+        // The checked address does not survive the round trip to Stripe
+        // Checkout, so it is parked here and picked up again on the way back.
         try {
             if (lastEmailResult) sessionStorage.setItem('aie-pending-email', lastEmailResult.email);
         } catch (e) { /* not essential */ }
 
-        const response = await fetch('/api/checkout', {
+        // Stripe Checkout (hosted). The token resolves the account server-side
+        // so the purchase is bound to it (client_reference_id -> purchases.user_id).
+        const response = await fetch('/api/checkout?plan=report', {
             method: 'POST',
             headers: authHeaders(accessToken),
-            body: JSON.stringify({ lang }),
+            body: JSON.stringify({ lang, email: currentUser.email }),
         });
         const data = await response.json().catch(() => null);
-        if (!response.ok || !data?.checkoutUrl) {
+        if (!response.ok || !data?.url) {
             throw new Error(data?.error || t().payFail);
         }
-        window.location.href = data.checkoutUrl;
+        window.location.href = data.url;
     } catch (error) {
         restore();
         showPayBanner(error.message || t().payFail, 'warn');
@@ -2787,20 +2543,16 @@ function dismissPayBanner() {
 // webhook; /api/report remains the authority on what gets sent.
 async function hasPaidAccess() {
     if (!window.sbClient || !currentUser) return false;
-    // Test purchases and real ones share a table, and which is which depends
-    // on the provider that took the money. Matching on the provider being
-    // offered right now as well as its mode is what keeps this agreeing with
-    // /api/report, which is the actual authority: this only decides when to
-    // stop waiting, and a check that disagrees with the server announces a
-    // plan that is then refused.
-    if (!priceInfo) return false;
+    // When to stop waiting for the webhook. /api/report stays the authority on
+    // access (it filters live_mode against the server's Stripe env); this only
+    // decides the polling, from the account's own paid, unexpired Stripe rows
+    // read through RLS.
     try {
         const { data, error } = await window.sbClient
             .from('purchases')
             .select('id')
             .eq('status', 'paid')
-            .eq('provider', priceInfo.provider)
-            .eq('live_mode', priceInfo.mode === 'live')
+            .eq('provider', 'stripe')
             .or(`expires_at.is.null,expires_at.gt.${new Date().toISOString()}`)
             .limit(1);
         if (error) return false;
@@ -2820,52 +2572,6 @@ async function waitForEntitlement(attempts = 8, gapMs = 2000) {
         await new Promise(resolve => setTimeout(resolve, gapMs));
     }
     return hasPaidAccess();
-}
-
-// A report bought through Paddle, which never leaves the page: the overlay
-// closes and the buyer is still standing where they were.
-//
-// So there is no return URL to handle and nothing parked in sessionStorage,
-// but the wait is the same as Mercado Pago's. The webhook is what grants
-// access, and it is still in flight while the overlay is closing.
-async function onReportPaid() {
-    showPayBanner(t().payConfirming);
-
-    const paid = await waitForEntitlement();
-    if (!paid) {
-        showPayBanner(t().paySlow, 'warn');
-        return;
-    }
-
-    // The cached plan was fetched as a teaser; it has to be asked for again
-    // now that the account is entitled.
-    lastReport = null;
-
-    // And the teaser has to be switched off, not just uncached. openReport
-    // sends `teaser: demoTeaser` to the server, so while this stays true the
-    // server keeps returning the locked version and the buyer pays to see
-    // the same padlocks again. The sample is the strongest pitch on the
-    // site and people do buy straight from it.
-    demoTeaser = false;
-
-    hideOffer();
-
-    // Bought from the sample, so there is no address of their own to build a
-    // plan from yet. Say what to do rather than announcing that something is
-    // ready and showing nothing.
-    if (!lastEmailResult) {
-        showPayBanner(t().payReadyCheck);
-        closeReport();
-        const input = document.getElementById('emailInput');
-        if (input) {
-            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            input.focus();
-        }
-        return;
-    }
-
-    showPayBanner(t().payReady);
-    await openReport();
 }
 
 // Straight to the plan from the receipt. The buyer's address is taken from
@@ -3221,8 +2927,7 @@ const ACTIONS = {
     dismissLangHint, dismissPayBanner, exitDemo, focusEmailCheck, openAuthModal,
     openChangePassword, openReport, openSampleReport, printReport,
     sendPasswordReset, showAllBreaches, signInWithEmail, signInWithProvider,
-    signOut, signUpWithEmail, startAlertsCheckout, startFunnelMonitor,
-    startListUnlock, startPurchase, switchForm,
+    signOut, signUpWithEmail, startMonitor, startPurchase, switchForm,
     toggleNewPasswordVisibility, togglePasswordFold, togglePasswordVisibility,
     togglePwField, toggleUserMenu,
 };
@@ -3230,7 +2935,7 @@ const ACTIONS = {
 // These two were written to take the button itself, to put a spinner in it
 // and to find the list it belongs to. The rest take the attribute's literals,
 // or nothing at all.
-const ACTIONS_TAKING_ELEMENT = new Set(['showAllBreaches', 'startPurchase']);
+const ACTIONS_TAKING_ELEMENT = new Set(['showAllBreaches', 'startPurchase', 'startMonitor']);
 
 document.addEventListener('click', (e) => {
     const el = e.target.closest('[data-action]');
@@ -3263,6 +2968,8 @@ document.addEventListener('click', (e) => {
 });
 document.addEventListener('change', (e) => {
     if (e.target && e.target.id === 'funnelState') renderFunnelNumber();
+    // The month/year switch rewrites the three monitoring prices in place.
+    if (e.target && e.target.id === 'monitorYearly') renderMonitorPrices();
 });
 
 // Enter submits from either input.
@@ -3300,17 +3007,36 @@ window.addEventListener('DOMContentLoaded', async () => {
     // second says whether this deployment is looking at test rows or real
     // ones.
     const pago = params.get('pago');
+    // Stripe return: ?checkout=success|cancel (&plan=report|breach|...).
+    const checkout = params.get('checkout');
     // ?plan=1 is the link in the purchase receipt. It needs the session
     // resolved too, because whose plan to open is a question only the
     // session answers.
     const wantsPlan = params.get('plan') === '1';
     if (window.sbClient) {
         const ready = initAuth();
-        if (pago || wantsPlan) await ready;
+        if (pago || checkout || wantsPlan) await ready;
     }
     if (pago) {
         await priceReady;
         await handleReturnFromCheckout(pago);
+        return;
+    }
+    if (checkout) {
+        await priceReady;
+        try { history.replaceState(null, '', window.location.pathname); } catch (e) { /* ignore */ }
+        if (checkout === 'cancel') {
+            showPayBanner(t().payCancelled, 'warn');
+        } else if (params.get('plan') === 'report') {
+            // Report access is on the account: confirm entitlement, then open it.
+            await handleReturnFromCheckout('ok');
+        } else {
+            // A monitoring subscription: it activates once the owner confirms
+            // the email we just sent.
+            showPayBanner(lang === 'es'
+                ? 'Pago recibido. Revisa tu correo para confirmar el monitoreo.'
+                : 'Payment received. Check your email to confirm your monitoring.');
+        }
         return;
     }
     if (wantsPlan) {

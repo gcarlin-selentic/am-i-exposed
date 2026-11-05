@@ -204,6 +204,10 @@ async function grantReport(session, liveMode) {
     if (dup.rows?.length) return;
     must(await sbInsert('purchases', {
         email,
+        // The report's access is attached to a Supabase account; checkout.js
+        // puts the user id in client_reference_id so report.js (which matches
+        // purchases by user_id) can grant it. Absent for a session without one.
+        user_id: session.client_reference_id || null,
         status: 'paid',
         provider: 'stripe',
         provider_payment_id: payId,

@@ -740,6 +740,12 @@ n_sitio = sum(1 for i in indice if i['sitio'])
 n_ac = sum(1 for i in indice if i['tipo'] == 'acuerdo')
 n_casos = len(indice)
 
+# Las cifras del Fondo de dinero (las mismas que la pagina de inicio): abiertos
+# para reclamar ahora, casos en seguimiento y el maximo por persona. Una sola
+# fuente para el hub y para funnel.json, asi ningun numero se contradice.
+_fdata = _funnel.build_funnel(indice, HOY)
+_fmeta = _fdata['meta']
+
 # "Open now": si por alguna razon no hubiera ninguno con plazo futuro, la
 # seccion no se dibuja en vez de quedar vacia.
 if abiertos_ya:
@@ -754,10 +760,18 @@ if abiertos_ya:
 else:
     bloque_abiertos = ''
 
-hub_body = f'''    <h1>Data breach settlements and lawsuits</h1>
-    <p class="standfirst">{len(indice):,} cases: {n_ac:,} that reached a settlement and
-    {len(indice) - n_ac:,} still in court. Who was covered, how much was paid, and the
-    administrator&rsquo;s own claim site where one exists.</p>
+hub_body = f'''    <span class="pool-eyebrow">The Money Pool</span>
+    <h1>We help you claim the money companies owe you.</h1>
+    <p class="standfirst">Companies that leak data settle class actions and pay the people
+    affected. We track all {len(indice):,} cases: {n_ac:,} that reached a settlement and
+    {len(indice) - n_ac:,} still in court. Search a company you have dealt with and see what
+    they are paying.</p>
+
+    <div class="pool-stats">
+        <div class="pstat"><div class="pstat-n">{_fmeta['abiertos']:,}</div><div class="pstat-l">open to claim now</div></div>
+        <div class="pstat"><div class="pstat-n">{_fmeta['casos']:,}</div><div class="pstat-l">settlements tracked</div></div>
+        <div class="pstat"><div class="pstat-n money">${_fmeta['maxPorPersona']:,}</div><div class="pstat-l">per person, open cases</div></div>
+    </div>
 
     <div class="settle-search">
         <input type="search" id="settle-q" autocomplete="off" spellcheck="false"
@@ -771,6 +785,16 @@ hub_body = f'''    <h1>Data breach settlements and lawsuits</h1>
     letters, or browse A&ndash;Z below.</p>
 
 {bloque_abiertos}
+    <details class="costs-fold">
+        <summary><span class="costs-title">What it costs</span><span class="costs-hint">Free check, or $5 / $3 / $5 combo</span></summary>
+        <div class="pool-prices">
+            <div class="pp"><div class="pp-k">Free check</div><div class="pp-v">$0</div><div class="pp-d">Your email vs breaches. No card.</div></div>
+            <div class="pp"><div class="pp-k">Full report</div><div class="pp-v">$5<small>one time</small></div><div class="pp-d">Your breaches explained + step-by-step fixes. Claim links free.</div></div>
+            <div class="pp"><div class="pp-k">Monitoring</div><div class="pp-v">$3<small>/mo</small></div><div class="pp-d">Pick one: new-breach alerts or new-settlement alerts. $30/yr.</div></div>
+            <div class="pp featured"><div class="pp-k">Combo</div><div class="pp-v">$5<small>/mo</small></div><div class="pp-d">Both: breach and settlement monitoring. $50/yr.</div></div>
+        </div>
+    </details>
+
     <p>When a company loses your data, what often follows is not a fine but a settlement,
     paid to the people whose data it was. The money is real and most of it goes unclaimed,
     because the notice arrives by post and looks like junk mail. Research out of Duke
@@ -796,7 +820,7 @@ hub_body = f'''    <h1>Data breach settlements and lawsuits</h1>
 {nav_letras()}
 
     <div class="cta">
-        <h2>Find out which of these touched you</h2>
+        <h2>Is your email in any of these?</h2>
         <p>The free check tells you which breaches hold your address. Free, no account,
         and we do not store it.</p>
         <a class="cta-btn" href="/">Check my email</a>
@@ -883,7 +907,7 @@ open(os.path.join(OUT, 'search.js'), 'w', encoding='utf-8').write(SEARCH_JS)
 # y las empresas para el Paso 2. Sale del mismo `indice` que cuenta el hub (solo
 # casos en este punto; las paginas de indice se agregan despues), asi que ningun
 # numero del sitio puede contradecir a otro. Servido en /funnel.json.
-json.dump(_funnel.build_funnel(indice, HOY),
+json.dump(_fdata,
           open(os.path.join(ROOT, 'funnel.json'), 'w', encoding='utf-8'),
           ensure_ascii=False, separators=(',', ':'))
 

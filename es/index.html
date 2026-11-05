@@ -98,7 +98,7 @@
          never change, and a forgotten bust on a year-long immutable asset would
          leave a returning buyer running last week's payment code. Bump the date
          here and in the other language's page when a change has to land now. -->
-    <link rel="stylesheet" href="/app.css?v=2026-11-01b">
+    <link rel="stylesheet" href="/app.css?v=2026-11-04a">
 </head>
 <body>
 
@@ -186,6 +186,15 @@
                 </span>
                 <span id="dailyHackCount" data-i18n="dailyBadge">Actualizado cada mañana</span>
             </a>
+            <!-- La tercera pastilla es el Fondo de dinero: el numero sale de
+                 funnel.json (la misma fuente que las cifras del fondo mas
+                 abajo), asi que es el dato de hoy sin regenerar la pagina. -->
+            <a class="hook hook-pool" href="/settlements/"
+               data-href-es="/settlements/" data-href-en="/settlements/">
+                <span class="hook-tag" data-i18n="poolHookTag">Fondo de dinero</span>
+                <span><span id="poolBadgeNum">$5,050</span> <span data-i18n="poolHookLabel">por persona, abiertos ahora</span></span>
+                <span class="hook-new" data-i18n="poolHookNew">NUEVO</span>
+            </a>
         </div>
         <h1 data-i18n="heroTitle">Puede que te deban dinero. Nadie te avisó.</h1>
         <p class="lede" data-i18n="heroLede">Cuando una empresa filtra tus datos, por un ataque de ransomware o una brecha común, muchas veces tiene que pagarte. El aviso llega por correo postal, parece basura y casi nadie reclama. Escribe tu correo y te decimos si hay dinero que puedas reclamar, y qué más hacer.</p>
@@ -221,8 +230,9 @@
 
         <div class="pricing">
             <div class="price"><div class="price-k" data-i18n="priceFreeK">Chequeo gratis</div><div class="price-v">$0</div><div class="price-d" data-i18n="priceFreeD">Tu correo contra las filtraciones. Sin tarjeta.</div></div>
-            <div class="price"><div class="price-k" data-i18n="priceReportK">Reporte completo</div><div class="price-v">$5<small data-i18n="priceReportP">una vez</small></div><div class="price-d" data-i18n="priceReportD">Tu plan de acci&oacute;n personal.</div></div>
-            <div class="price soon"><div class="price-k"><span data-i18n="priceMonK">Monitoreo</span> <span class="soon-tag" data-i18n="priceSoon">pronto</span></div><div class="price-v">$3<small data-i18n="priceMonP">/mes &middot; $30/a&ntilde;o</small></div><div class="price-d" data-i18n="priceMonD">Te vigilamos y te avisamos cuando se abre un acuerdo nuevo.</div></div>
+            <div class="price"><div class="price-k" data-i18n="priceReportK">Reporte completo</div><div class="price-v">$5<small data-i18n="priceReportP">una vez</small></div><div class="price-d" data-i18n="priceReportD">Tus filtraciones explicadas + pasos para arreglarlo. Enlaces de reclamo gratis.</div></div>
+            <div class="price"><div class="price-k" data-i18n="priceMonK">Monitoreo</div><div class="price-v">$3<small data-i18n="priceMonP">/mes &middot; $30/a&ntilde;o</small></div><div class="price-d" data-i18n="priceMonD">Elige uno: alertas de filtraciones o alertas de acuerdos.</div></div>
+            <div class="price"><div class="price-k" data-i18n="priceComboK">Combo</div><div class="price-v">$5<small data-i18n="priceComboP">/mes &middot; $50/a&ntilde;o</small></div><div class="price-d" data-i18n="priceComboD">Ambos: monitoreo de filtraciones y de acuerdos.</div></div>
         </div>
     </section>
 
@@ -265,24 +275,19 @@
         </div>
 
         <div class="cc-locked" id="funnelLocked" hidden>
-            <h3 data-i18n="ccLockedTitle">Ver cu&aacute;les son y c&oacute;mo reclamar</h3>
-            <p class="cc-locked-lede" data-i18n="ccLockedLede">El n&uacute;mero es gratis. Para ver qu&eacute; empresas, los montos y los enlaces oficiales para reclamar, desbloquea la lista:</p>
+            <h3 data-i18n="ccLockedTitle">Acuerdos abiertos para ti</h3>
+            <p class="cc-locked-lede" data-i18n="ccLockedLede">Estos son los acuerdos abiertos que coinciden con tu correo. Los enlaces oficiales para reclamar son gratis.</p>
             <ul class="cc-locked-list" id="funnelLockedList"></ul>
-            <div class="cc-gate">
-                <div class="cc-plan primary">
-                    <div class="cc-plan-k" data-i18n="ccPlanOnceK">Ver ahora</div>
-                    <div class="cc-plan-v">US$&nbsp;5<small data-i18n="ccPlanOnceP">una vez</small></div>
-                    <div class="cc-plan-d" data-i18n="ccPlanOnceD">Desbloquea tu lista completa: qu&eacute; empresas, los montos y los enlaces oficiales para reclamar hoy.</div>
-                    <button class="btn" id="funnelUnlockBtn" data-action="startListUnlock" data-i18n="ccPlanOnceBtn">Ver mis acuerdos</button>
-                </div>
-                <div class="cc-plan">
-                    <div class="cc-plan-k" data-i18n="ccPlanSubK">Monitoreo</div>
-                    <div class="cc-plan-v">US$&nbsp;3<small data-i18n="ccPlanSubP">al mes &middot; $30/a&ntilde;o</small></div>
-                    <div class="cc-plan-d" data-i18n="ccPlanSubD">Te vigilamos y te avisamos en cuanto se abre uno nuevo donde podr&iacute;as calificar.</div>
-                    <button class="btn ghost" id="funnelMonitorBtn" data-action="startFunnelMonitor" data-i18n="ccPlanSubBtn">Activar monitoreo</button>
-                </div>
-            </div>
-            <p class="cc-unavail" id="funnelUnavail" hidden data-i18n="ccUnavail">Estamos preparando el cobro para tu pa&iacute;s. Activa el monitoreo abajo y te avisamos por correo en cuanto est&eacute; listo.</p>
+        </div>
+
+        <!-- El momento de venta: quien mira acuerdos que puede reclamar esta en
+             el punto justo para activar el monitoreo. El boton inicia el
+             monitoreo de acuerdos para el correo ya revisado. -->
+        <div class="cc-upsell" hidden>
+            <h3 data-i18n="ccUpsellTitle">Cada semana se abren acuerdos nuevos. Y los plazos cierran r&aacute;pido.</h3>
+            <p data-i18n="ccUpsellBody">Si se te pasa una fecha, ese dinero se pierde para siempre. Activa el monitoreo y te avisamos por correo apenas se abre un acuerdo nuevo donde podr&iacute;as calificar, para que nunca dejes dinero sobre la mesa.</p>
+            <button class="btn" data-action="startMonitor" data-arg="settlement" data-i18n="ccUpsellBtn">Activar alertas de acuerdos &middot; US$&nbsp;3/mes</button>
+            <p class="cc-upsell-note" data-i18n="ccUpsellNote">O monitoreo de filtraciones y acuerdos juntos por US$&nbsp;5/mes. Cancela cuando quieras.</p>
         </div>
 
         <p class="alerts-caveat" data-i18n="ccCaveat">Podr&iacute;as calificar si fuiste cliente, paciente o empleado de la empresa en el periodo afectado. Aparecer no es elegibilidad. Enlazamos solo al administrador oficial. No somos abogados y no reclamamos por ti.</p>
@@ -354,49 +359,43 @@
         </div>
     </div>
 
-    <!-- Alert subscription. Shown only to visitors the server says are in the
-         United States, and only after a check has found something: the pitch
-         is about money from US settlements, so anywhere else it would be
-         selling something that cannot pay out.
-
-         The state list is built in app.js rather than written out here. Fifty
-         one options in two language versions is a hundred and two lines that
-         would drift apart the first time one of them is edited. -->
+    <!-- Monitoreo. Basado en el correo: sin cuenta y sin formulario. Aparece
+         tras un chequeo, para cualquier visitante al que Stripe pueda cobrar.
+         Tres planes (filtraciones, acuerdos, ambos) con interruptor mes/año; el
+         boton manda el plan a Stripe Checkout y el doble opt-in confirma la
+         direccion despues. -->
     <div class="offer" id="alertsCard" hidden>
-        <span class="badge"><span class="dot"></span><span data-i18n="alertsBadge">Alertas &middot; solo EE.&nbsp;UU.</span></span>
-        <h2 id="alertsTitle" data-i18n="alertsTitle">Si demandan a una empresa que filtró tus datos, te avisamos.</h2>
-        <p data-i18n="alertsLede">Las empresas que pierden datos terminan pagando acuerdos colectivos. El dinero existe y casi nadie lo reclama, porque el aviso llega por correo postal y se confunde con publicidad.</p>
-                        <ul id="alertsGeneric">
-            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="alertsLi1">1.081 casos en seguimiento, 14 abiertos para reclamar ahora</span></li>
-            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="alertsLi2">Un aviso al mes, y uno aparte cuando haya algo que reclamar</span></li>
-            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="alertsLi3">Si vives en California, te marcamos el pago estatutario extra</span></li>
-        </ul>
+        <span class="badge"><span class="dot"></span><span data-i18n="monitorBadge">Monitoreo</span></span>
+        <h2 data-i18n="monitorTitle">No te pierdas más dinero.</h2>
+        <p data-i18n="monitorLede">Vigilamos tu correo y te avisamos apenas aparece en una filtración nueva, o apenas se abre un acuerdo que podrías reclamar.</p>
 
-        <div class="alerts-form">
-            <div>
-                <label for="alertsFirstName" data-i18n="alertsFirstName">Nombre</label>
-                <input id="alertsFirstName" autocomplete="given-name" maxlength="60">
+        <label class="monitor-interval">
+            <input type="checkbox" id="monitorYearly">
+            <span data-i18n="monitorYearlyLabel">Pagar al año y ahorrar (2 meses gratis)</span>
+        </label>
+
+        <div class="monitor-plans">
+            <div class="mon-plan">
+                <div class="mon-k" data-i18n="monitorBreachK">Alertas de filtraciones</div>
+                <div class="mon-v">US$&nbsp;3<small data-i18n="monitorMo">/mes</small></div>
+                <div class="mon-d" data-i18n="monitorBreachD">Te avisamos apenas tu correo aparece en una filtración nueva.</div>
+                <button class="btn ghost" data-action="startMonitor" data-arg="breach" data-i18n="monitorBtn">Activar</button>
             </div>
-            <div>
-                <label for="alertsLastName" data-i18n="alertsLastName">Apellido</label>
-                <input id="alertsLastName" autocomplete="family-name" maxlength="60">
+            <div class="mon-plan">
+                <div class="mon-k" data-i18n="monitorSettlementK">Alertas de acuerdos</div>
+                <div class="mon-v">US$&nbsp;3<small data-i18n="monitorMo">/mes</small></div>
+                <div class="mon-d" data-i18n="monitorSettlementD">Te avisamos apenas se abre un acuerdo nuevo que podrías reclamar.</div>
+                <button class="btn ghost" data-action="startMonitor" data-arg="settlement" data-i18n="monitorBtn">Activar</button>
             </div>
-            <div class="wide">
-                <label for="alertsState" data-i18n="alertsStateLabel">Estado donde resides</label>
-                <select id="alertsState" required></select>
+            <div class="mon-plan featured">
+                <div class="mon-k" data-i18n="monitorComboK">Ambos &middot; mejor valor</div>
+                <div class="mon-v">US$&nbsp;5<small data-i18n="monitorMo">/mes</small></div>
+                <div class="mon-d" data-i18n="monitorComboD">Monitoreo de filtraciones y de acuerdos, juntos.</div>
+                <button class="btn" data-action="startMonitor" data-arg="combo" data-i18n="monitorBtnBoth">Activar ambos</button>
             </div>
         </div>
 
-        <div class="alerts-consent">
-            <input type="checkbox" id="alertsConsent">
-            <label for="alertsConsent" data-i18n="alertsConsent">Acepto que usen mi nombre y estado para cruzarlos con los casos activos y avisarme. Puedo darme de baja cuando quiera.</label>
-        </div>
-
-        <div class="offer-foot">
-            <span class="price">US$&nbsp;3<small data-i18n="alertsPer">al mes</small></span>
-            <button class="btn" id="alertsBtn" data-action="startAlertsCheckout" data-i18n="alertsBtn">Activar alertas</button>
-        </div>
-
+        <p class="monitor-note" data-i18n="monitorNote">No necesitas cuenta. Te enviamos un correo para confirmar y puedes darte de baja cuando quieras. Los enlaces para reclamar siempre son gratis.</p>
         <div class="error" id="alertsError" style="display:none"></div>
     </div>
 
@@ -518,8 +517,8 @@
     </div>
 </div>
 
-<script src="/funnel-match.js?v=2026-11-01b" defer></script>
-<script src="/app.js?v=2026-11-01b" defer></script>
+<script src="/funnel-match.js?v=2026-11-04a" defer></script>
+<script src="/app.js?v=2026-11-04a" defer></script>
 
 <!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
      a visitor, which is why the privacy policy can still promise no tracking
