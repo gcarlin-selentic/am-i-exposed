@@ -14,7 +14,7 @@
 import { userFromToken, readBody, sbSelect, tokenFrom } from './_shared.js';
 import { syncUserOnce } from './_zoho.js';
 
-// Same test as the report's: a paid row, for this deployment's Mercado Pago
+// Same test as the report's: a paid row, for this deployment's Stripe
 // credentials, that has not run out. Repeated here rather than imported
 // because api/report.js is a route, not a module.
 async function hasActiveAccess(userId) {

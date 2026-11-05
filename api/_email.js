@@ -10,8 +10,8 @@
 // no dependencies and an SMTP client would be the first one.
 //
 // Nothing here is allowed to fail a payment. A receipt that does not arrive is
-// a bad day; a webhook that returns an error because of it would make Mercado
-// Pago retry, and the money is already recorded by then. Every function below
+// a bad day; a webhook that returns an error because of it would make Stripe
+// retry, and the money is already recorded by then. Every function below
 // reports failure by returning false, never by throwing.
 
 import { breachConfirmCopy, breachWelcomeCopy, breachAlertCopy } from './_breach-watch.mjs';

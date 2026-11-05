@@ -16,7 +16,7 @@ create table if not exists public.purchases (
     status                 text not null default 'pending'
                            check (status in ('pending', 'paid', 'failed', 'refunded', 'cancelled')),
 
-    provider               text not null default 'mercadopago',
+    provider               text not null default 'stripe',
     provider_preference_id text,
     -- Unique so a webhook replay cannot grant a second entitlement.
     provider_payment_id    text unique,
@@ -24,7 +24,7 @@ create table if not exists public.purchases (
     amount                 numeric(12,2),
     currency               text,
 
-    -- False for a purchase made with Mercado Pago's test credentials. Test and
+    -- False for a purchase made with Stripe test keys. Test and
     -- real purchases land in the same table, so without this there is no way to
     -- tell them apart, and a test payment would unlock the real site. The
     -- entitlement check matches this against the credentials the deployment
@@ -82,7 +82,7 @@ create trigger purchases_touch_updated_at
 -- Reads through RLS, so it can only ever report on the caller.
 --
 -- Deliberately does not filter live_mode: a view has no way to know which
--- Mercado Pago environment is asking. Anything that must distinguish a test
+-- Stripe environment is asking. Anything that must distinguish a test
 -- purchase from a real one has to query purchases directly and say which
 -- live_mode it means. The server's entitlement check does exactly that.
 create or replace view public.my_report_access

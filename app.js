@@ -112,7 +112,7 @@ const COPY = {
         offerLi2: 'Cómo reclamar los abiertos para que te paguen, no te rechacen',
         offerLi3: 'Tu plan de seguridad completo, descargable en PDF',
         offerPer: 'pago único',
-        offerChargedAs: (real) => `El cobro se hace en ${real} por Mercado Pago.`, offerBtn: 'Ver un ejemplo',
+        offerBtn: 'Ver un ejemplo',
 
         alertsBadge: 'Alertas &middot; solo EE.&nbsp;UU.',
         alertsTitle: 'Si demandan a una empresa que filtró tus datos, te avisamos.',
@@ -368,11 +368,10 @@ const COPY = {
 
         payOpening: 'Abriendo la caja',
         payClose: 'Cerrar',
-        payConfirming: 'Confirmando tu pago con Mercado Pago…',
+        payConfirming: 'Confirmando tu pago…',
         payReady: 'Pago confirmado. Tu plan completo ya está disponible.',
         payReadyCheck: 'Pago confirmado. Escribe tu correo arriba y te damos el plan completo.',
         paySlow: 'Tu pago se está procesando. Puede tardar unos minutos; vuelve a entrar con la misma cuenta y tu plan estará listo.',
-        payPending: 'Tu pago quedó pendiente de acreditación. Cuando Mercado Pago lo confirme, tu plan completo se desbloquea solo.',
         payCancelled: 'El pago no se completó. No se cobró nada.',
         payFail: 'No pudimos abrir la caja. Intenta de nuevo en un momento.',
     },
@@ -415,7 +414,7 @@ const COPY = {
         offerLi2: 'How to file the open ones so you get paid, not rejected',
         offerLi3: 'Your full security plan, downloadable as a PDF',
         offerPer: 'one time',
-        offerChargedAs: (real) => `Charged as ${real} through Mercado Pago.`, offerBtn: 'See an example',
+        offerBtn: 'See an example',
 
         alertsBadge: 'Alerts &middot; US only',
         alertsTitle: 'If a company that leaked your data gets sued, we’ll let you know.',
@@ -668,11 +667,10 @@ const COPY = {
 
         payOpening: 'Opening the checkout',
         payClose: 'Close',
-        payConfirming: 'Confirming your payment with Mercado Pago…',
+        payConfirming: 'Confirming your payment…',
         payReady: 'Payment confirmed. Your full plan is ready.',
         payReadyCheck: 'Payment confirmed. Type your email above and we will build your full plan.',
         paySlow: 'Your payment is still processing. It can take a few minutes; come back with the same account and your plan will be waiting.',
-        payPending: 'Your payment has not cleared yet. As soon as Mercado Pago confirms it, your full plan unlocks on its own.',
         payCancelled: 'The payment was not completed. Nothing was charged.',
         payFail: 'We could not open the checkout. Please try again in a moment.',
     },
@@ -2500,7 +2498,7 @@ function teaserHTML(data) {
 }
 
 // =======================================================================
-// PAYMENT (Mercado Pago)
+// PAYMENT (Stripe)
 // The amount is never written here. It comes from /api/checkout, which
 // reads it from the environment, so the price exists in one place and a
 // visitor cannot name their own.
@@ -2523,27 +2521,12 @@ async function loadPrice() {
 
 const LANG_HINT_DISMISSED = 'aie-lang-hint-off';
 
-// Suggested, never forced. A redirect by IP would hand Googlebot, which
-// crawls almost entirely from United States addresses, the English page
-// every time it asked for this Spanish one.
-//
-// provider is the signal because /api/checkout already runs on load and
-// already has to say who takes the money, so this costs no extra request
-// and no extra fact about the visitor: a page that must open the right
-// checkout cannot avoid knowing which one that is.
+// The language hint used to key off which payment provider the visitor's
+// country resolved to (a US visitor got a different checkout). With a single
+// USD checkout there is no geo signal any more, so the hint stays dormant
+// rather than guessing which language a visitor would prefer.
 function maybeShowLangHint() {
-    const hint = document.getElementById('langHint');
-    if (!hint) return;
-    // Each page suggests the other one, and only to the readers it is likely
-    // to help: the United States visitor who landed on the Spanish page, and
-    // the Latin American visitor who landed on the English one, which is now
-    // the default and so receives everybody whose language we cannot infer.
-    const esUS = priceInfo?.provider === 'paddle';
-    if (lang === 'es' ? !esUS : esUS) return;
-    try {
-        if (localStorage.getItem(LANG_HINT_DISMISSED) === '1') return;
-    } catch (e) { /* private browsing; show it, it is only a suggestion */ }
-    hint.hidden = false;
+    return;
 }
 
 function dismissLangHint() {
@@ -2564,11 +2547,8 @@ const CURRENCY_LOCALE = {
 
 function formatPrice({ amount, currency }) {
     try {
-        // El simbolo local solo se usa en la pagina en espanol, donde "S/" se
-        // lee sin pensar. En la inglesa ese simbolo no dice nada: la misma
-        // cifra sale como "PEN 19", que al menos nombra la moneda. El importe
-        // no cambia, porque el cobro tampoco: fuera de Estados Unidos lo hace
-        // Mercado Pago en soles, viva el lector donde viva.
+        // The currency symbol follows the currency's own locale, not the
+        // reader's, so the fixed USD price renders as "$5" in both languages.
         const fmt = lang === 'en' ? 'en-US' : (CURRENCY_LOCALE[currency] || locale());
         return new Intl.NumberFormat(fmt, {
             style: 'currency',
@@ -2724,7 +2704,7 @@ async function hasPaidAccess() {
     }
 }
 
-// Mercado Pago sends the buyer back to the site and the webhook separately,
+// Stripe sends the buyer back to the site and the webhook arrives separately,
 // and the redirect usually wins the race. Polling for a few seconds is the
 // difference between "your plan is ready" and telling someone who has just
 // paid that they have not.
@@ -2767,10 +2747,6 @@ async function handleReturnFromCheckout(outcome) {
 
     if (outcome === 'error') {
         showPayBanner(t().payCancelled, 'warn');
-        return;
-    }
-    if (outcome === 'pendiente') {
-        showPayBanner(t().payPending, 'warn');
         return;
     }
 
@@ -3164,11 +3140,10 @@ window.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    // Coming back from Mercado Pago needs the session resolved and the
+    // Coming back from Stripe Checkout needs the session resolved and the
     // price loaded first: the first says whose purchase to look for, the
     // second says whether this deployment is looking at test rows or real
     // ones.
-    const pago = params.get('pago');
     // Stripe return: ?checkout=success|cancel (&plan=report|breach|...).
     const checkout = params.get('checkout');
     // ?plan=1 is the link in the purchase receipt. It needs the session
@@ -3177,12 +3152,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     const wantsPlan = params.get('plan') === '1';
     if (window.sbClient) {
         const ready = initAuth();
-        if (pago || checkout || wantsPlan) await ready;
-    }
-    if (pago) {
-        await priceReady;
-        await handleReturnFromCheckout(pago);
-        return;
+        if (checkout || wantsPlan) await ready;
     }
     if (checkout) {
         await priceReady;

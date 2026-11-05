@@ -11,9 +11,8 @@
 
 
 // Imported rather than repeated. Deciding "was this real money" in two
-// places is what broke entitlement for Paddle: the browser used one rule
-// and this file another, so a buyer saw their own payment confirmed and
-// then the padlocks.
+// places once broke entitlement: the browser used one rule and this file
+// another, so a buyer saw their own payment confirmed and then the padlocks.
 import { liveModeFor, rateLimitOk, tokenFrom } from './_shared.js';
 
 // The personalised matches come from the HIBP-keyed settlement list (each row
@@ -133,9 +132,8 @@ async function hasActiveAccess(userId) {
 
     // Test and real purchases share one table, and live_mode is what stops a
     // test purchase unlocking the real site. What it has to be compared
-    // against is the environment of the provider that took the money, which
-    // is why the filter is not in the query: Mercado Pago can be live while
-    // Paddle is still in sandbox, and one SQL predicate cannot say that.
+    // against is the Stripe environment the row's live_mode means (test vs
+    // live), which is a per-row decision, so the filter is not in the query.
     //
     // Filtered here instead of in PostgREST because a person has a handful of
     // purchase rows at most, and a readable loop beats a nested or() that
