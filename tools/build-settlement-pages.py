@@ -137,6 +137,14 @@ matched = json.load(open(os.path.join(ROOT, 'data', 'hibp-matched.json'), encodi
 _abiertos = os.path.join(ROOT, 'data', 'open-settlements.json')
 abiertos = json.load(open(_abiertos, encoding='utf-8')) if os.path.exists(_abiertos) else []
 
+# Programas de reembolso activos de la FTC (dominio publico). No se cruzan con
+# el correo como los acuerdos por filtracion: se reclaman por haber sido
+# cliente de la empresa sancionada, via el administrador. Es una lista para
+# explorar, separada, bajo la misma idea de "dinero que te pueden deber".
+_ftc = os.path.join(ROOT, 'ftc-refunds.json')
+ftc = (json.load(open(_ftc, encoding='utf-8')).get('programs', [])
+       if os.path.exists(_ftc) else [])
+
 # nombre-maquina de HIBP por nucleo de nombre, para enlazar el chequeo gratuito
 hibp_por_core = {}
 for m in matched:
@@ -693,6 +701,22 @@ def fila_abierta(i):
             f'{amt}<span class="settle-when">{cuando}</span></a></li>')
 
 
+def fila_ftc(p):
+    """Una fila de la lista de reembolsos de la FTC: nombre (con el producto,
+    cuando lo hay), la fecha y el administrador, enlazando a la pagina oficial
+    del programa. Enlace externo, por eso rel=noopener."""
+    nombre = e(p.get('name') or '')
+    if p.get('products'):
+        nombre += f' <span class="settle-tag">{e(p["products"])}</span>'
+    meta = e(p.get('date') or '')
+    if p.get('administrator'):
+        meta += f' &middot; {e(p["administrator"])}' if meta else e(p['administrator'])
+    url = e(p.get('url') or '')
+    return (f'            <li><a href="{url}" rel="noopener">'
+            f'<span class="settle-name">{nombre}</span>'
+            f'<span class="settle-when">{meta}</span></a></li>')
+
+
 def search_row(i):
     """Fila compacta para el JSON del buscador del lado del cliente."""
     if i['pago']:
@@ -760,6 +784,27 @@ if abiertos_ya:
 else:
     bloque_abiertos = ''
 
+# La seccion de reembolsos de la FTC: una lista aparte, claramente distinta de
+# los acuerdos por filtracion (que se cruzan con el correo). No se dibuja si el
+# JSON falta o viene vacio.
+if ftc:
+    bloque_ftc = f'''
+    <h2>FTC refund programs &mdash; money the government is returning</h2>
+    <p>Separate from the data-breach settlements above. When the U.S. Federal Trade
+    Commission sues a company for deceiving its customers, it often returns money to the
+    people who paid. You claim these if you were a customer of that company, through the
+    administrator shown &mdash; not by whether your email was in a breach. {len(ftc)} are
+    active right now.</p>
+    <ul class="settle-list">
+{chr(10).join(fila_ftc(p) for p in ftc)}
+    </ul>
+    <p class="settle-search-hint">Source: the <a href="https://www.ftc.gov/enforcement/refunds" rel="noopener">FTC&rsquo;s public list</a>
+    of active refund programs. Claiming is always free &mdash; the FTC never charges you or
+    asks you to pay to get a refund.</p>
+'''
+else:
+    bloque_ftc = ''
+
 hub_body = f'''    <span class="pool-eyebrow">The Money Pool</span>
     <h1>We help you claim the money companies owe you.</h1>
     <p class="standfirst">Companies that leak data settle class actions and pay the people
@@ -818,7 +863,7 @@ hub_body = f'''    <span class="pool-eyebrow">The Money Pool</span>
 
     <h2>Every company, A to Z</h2>
 {nav_letras()}
-
+{bloque_ftc}
     <div class="cta">
         <h2>Is your email in any of these?</h2>
         <p>The free check tells you which breaches hold your address. Free, no account,
