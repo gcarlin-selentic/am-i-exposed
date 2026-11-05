@@ -421,6 +421,41 @@ img { max-width: 100%; }
     margin: 0 auto;
 }
 
+/* The hero card: a bright blue gradient block that anchors the page, so the
+   first thing a visitor sees is a confident, modern centerpiece instead of a
+   flat wall of text. The headline, lede, email form and trust row all sit
+   inside it in white. The hooks row stays above it, on the page background. */
+.hero-card {
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+    padding: clamp(34px, 6vw, 62px) clamp(22px, 5vw, 52px) clamp(30px, 5vw, 48px);
+    border-radius: 28px;
+    /* SettleMate's exact recipe: a vivid royal-blue base with a vertical
+       overlay that glows white at the top, clears by 60%, and deepens
+       slightly at the bottom. */
+    background:
+        linear-gradient(to bottom, rgba(255,255,255,.40) 0%, rgba(255,255,255,0) 58%, rgba(0,0,0,.10) 100%),
+        #0067EB;
+    box-shadow: 0 10px 24px rgba(0,103,235,.22), 0 28px 64px rgba(0,103,235,.20);
+    color: #fff;
+}
+.hero-card h1 { color: #F5F5F7; letter-spacing: -0.01em; }
+.hero-card .lede { color: rgba(255,255,255,.90); }
+.hero-card .search { margin-top: 26px; }
+/* The in-card CTA is white so it reads as the one action on the blue. */
+.hero-card .search .btn {
+    background: #fff;
+    color: var(--accent-ink);
+}
+.hero-card .search .btn:hover { background: #F0F4FF; }
+.hero-card .search input {
+    border-color: rgba(255,255,255,.45);
+    box-shadow: 0 1px 2px rgba(0,0,0,.08);
+}
+.hero-card .trust { color: rgba(255,255,255,.92); margin-top: 20px; }
+.hero-card .trust span { color: rgba(255,255,255,.92); }
+
 .search {
     display: flex;
     flex-wrap: wrap;
