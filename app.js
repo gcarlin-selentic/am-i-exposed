@@ -90,7 +90,7 @@ const COPY = {
         heroBtn: 'Revisar mi correo',
         heroPlaceholder: 'tucorreo@ejemplo.com',
         checking: 'Revisando...',
-        trust1: 'Solo sitios oficiales', trust2: 'Nunca cobramos comisión', trust3: 'No guardamos tu correo',
+        trust1: 'Solo sitios oficiales', trust2: 'Nunca cobramos comisión', trust3: 'Revisión gratis: no lo guardamos',
 
         pwTitle: 'Revisar también una contraseña',
         pwSub: 'Tu contraseña nunca sale de este dispositivo.',
@@ -400,7 +400,7 @@ const COPY = {
         heroBtn: 'Check my email',
         heroPlaceholder: 'you@example.com',
         checking: 'Checking...',
-        trust1: 'Official claim sites only', trust2: 'We never take a cut', trust3: 'We never store your email',
+        trust1: 'Official claim sites only', trust2: 'We never take a cut', trust3: 'Free check: email not stored',
 
         pwTitle: 'Check a password too',
         pwSub: 'Your password never leaves this device.',

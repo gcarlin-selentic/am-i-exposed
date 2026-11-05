@@ -9,3 +9,6 @@ __pycache__/
 # superpowers workspace (scratch)
 .superpowers/
 .pytest_cache/
+
+# Internal code map (graphify) - keep local, never commit
+graphify-out/
