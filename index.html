@@ -92,7 +92,7 @@
          never change, and a forgotten bust on a year-long immutable asset would
          leave a returning buyer running last week's payment code. Bump the date
          here and in the other language's page when a change has to land now. -->
-    <link rel="stylesheet" href="/app.css?v=2026-11-06a">
+    <link rel="stylesheet" href="/app.css?v=2026-11-06b">
 </head>
 <body>
 
@@ -235,6 +235,10 @@
         <p id="missedNone" hidden></p>
         <ul class="alerts-missed" id="alertsMissedList"></ul>
         <p class="alerts-caveat" id="missedCaveat" data-i18n="alertsCaveat">Claiming required being in the class, which usually means having received the company&rsquo;s notice letter. Appearing in the breach does not guarantee it. We are not lawyers and we do not claim on your behalf.</p>
+        <div class="missed-cta" id="missedCta" hidden>
+            <button class="btn accent" data-action="goMonitor" data-i18n="missedCtaBtn">Turn on monitoring &mdash; catch the next one</button>
+            <p class="missed-cta-note" data-i18n="missedCtaNote">New-breach or new-settlement alerts. No account needed, cancel anytime.</p>
+        </div>
     </section>
 
     <!-- Cross-check funnel (US only, same gate as the alerts card). Paso 2 lets
@@ -504,8 +508,8 @@
     </div>
 </div>
 
-<script src="/funnel-match.js?v=2026-11-06a" defer></script>
-<script src="/app.js?v=2026-11-06a" defer></script>
+<script src="/funnel-match.js?v=2026-11-06b" defer></script>
+<script src="/app.js?v=2026-11-06b" defer></script>
 
 <!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
      a visitor, which is why the privacy policy can still promise no tracking

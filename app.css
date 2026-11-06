@@ -828,6 +828,22 @@ img { max-width: 100%; }
 .offer .btn.offer-buy:hover { background: #0067EB; opacity: .92; }
 .offer .btn.offer-example { background: transparent; color: inherit; border: 1px solid var(--field-line); }
 .offer .btn.offer-example:hover { background: var(--field-bg); }
+
+/* Missed-settlements card call to action: the forward-looking "turn on
+   monitoring" button and its one-line note. Royal blue so it reads as the
+   action, not the proof above it. */
+.missed-cta { margin-top: 20px; }
+.missed-cta .btn { background: #0067EB; color: #fff; }
+.missed-cta .btn:hover { background: #0067EB; opacity: .92; }
+.missed-cta-note { margin: 10px 0 0; font-size: 13px; color: inherit; opacity: .72; }
+
+/* Brief pulse on the monitoring card when the reader is sent to it, so the
+   connection between "catch the next one" and the offer is obvious. */
+.flash { animation: cardflash 1.4s ease-out; }
+@keyframes cardflash {
+    0%   { box-shadow: 0 0 0 0 rgba(0,103,235,.55); }
+    100% { box-shadow: 0 0 0 14px rgba(0,103,235,0); }
+}
 /* The explainer card. It shares .offer's look, and differs in carrying several
    paragraphs rather than one: the paid card's single <p> never needed the gap
    between them, so .offer does not set it. */
