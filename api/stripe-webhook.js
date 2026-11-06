@@ -26,9 +26,9 @@
 
 export const config = { api: { bodyParser: false } };
 
-import { readRawBody, sbSelect, sbInsert, sbPatch, liveModeFor } from './_shared.js';
+import { readRawBody, sbSelect, sbInsert, sbPatch, liveModeFor, ensureUserMagicLink } from './_shared.js';
 import { verifyStripeSignature, monitorStatus } from './_stripe.mjs';
-import { sendBreachConfirm } from './_email.js';
+import { sendBreachConfirm, sendReportLink } from './_email.js';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const CONFIRM_THROTTLE_MS = 15 * 60 * 1000;
@@ -202,12 +202,26 @@ async function grantReport(session, liveMode) {
 
     const dup = must(await sbSelect(`purchases?provider_payment_id=eq.${encodeURIComponent(payId)}&select=id`), 'report dup check');
     if (dup.rows?.length) return;
+
+    // The report is entitled by user_id. A signed-in buyer carried theirs in
+    // client_reference_id (checkout.js). A guest did not: we create or link a
+    // Supabase account from the paid email and, after recording the purchase
+    // under it, mail a magic link that signs them in to reach the report. The
+    // provisioning is idempotent, so a Stripe redelivery after a mid-way failure
+    // retries cleanly. No link is minted for a signed-in buyer — they are
+    // already in their account.
+    let userId = session.client_reference_id || null;
+    let magic = null;
+    if (!userId) {
+        const base = (process.env.PUBLIC_BASE_URL || 'https://www.am-i-exposed.com').replace(/\/+$/, '');
+        magic = await ensureUserMagicLink(email, `${base}/?plan=1`);
+        if (!magic) throw new Error('guest account/link provisioning failed');
+        userId = magic.userId;
+    }
+
     must(await sbInsert('purchases', {
         email,
-        // The report's access is attached to a Supabase account; checkout.js
-        // puts the user id in client_reference_id so report.js (which matches
-        // purchases by user_id) can grant it. Absent for a session without one.
-        user_id: session.client_reference_id || null,
+        user_id: userId,
         status: 'paid',
         provider: 'stripe',
         provider_payment_id: payId,
@@ -218,6 +232,19 @@ async function grantReport(session, liveMode) {
         paid_at: new Date().toISOString(),
         expires_at: new Date(Date.now() + 30 * DAY_MS).toISOString(),
     }), 'report insert');
+
+    // Guest buyer: mail the magic link. The money is already recorded, so a mail
+    // failure must not throw (that would make Stripe redeliver and risk a second
+    // mail); log it and leave the row paid. The reply-to in the mail is the
+    // fallback if the link is never delivered or expires.
+    if (magic) {
+        const lang = session.metadata?.lang === 'es' ? 'es' : 'en';
+        try {
+            await sendReportLink({ to: email, lang, actionLink: magic.actionLink });
+        } catch (error) {
+            console.error('report link mail error:', error.name);
+        }
+    }
 }
 
 // Revoke a report when its payment is refunded or disputed. Matched by the

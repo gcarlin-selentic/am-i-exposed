@@ -94,6 +94,13 @@ const COPY = {
             'Entra con tu cuenta y vuelve a revisar tu correo para ver el plan completo. Puedes volver cuando quieras dentro de ese plazo.',
         ],
         receiptButton: 'Ver mi plan',
+        reportLinkSubject: 'Tu Informe Completo está listo',
+        reportLinkTitle: 'Tu Informe Completo está listo',
+        reportLinkLines: [
+            'Gracias por tu compra. Pulsa el botón de abajo para abrir tu Informe Completo: todo lo que quedó expuesto, un plan paso a paso para arreglarlo, y los acuerdos que tu correo podría reclamar.',
+            'El enlace te identifica automáticamente y funciona durante la próxima hora. Tienes 30 días de acceso a tu informe. Si el enlace vence, responde este correo y te ayudamos.',
+        ],
+        reportLinkButton: 'Abrir mi Informe Completo',
         refundSubject: 'Devolución de tu compra en Am I Exposed?',
         refundTitle: 'Te devolvimos el dinero',
         refundLines: ({ amount, date }) => [
@@ -113,6 +120,13 @@ const COPY = {
             'Sign in and check your email address again to see the full plan. You can come back any time within that period.',
         ],
         receiptButton: 'See my plan',
+        reportLinkSubject: 'Your Full Report is ready',
+        reportLinkTitle: 'Your Full Report is ready',
+        reportLinkLines: [
+            'Thanks for your purchase. Click the button below to open your Full Report: everything that was exposed, a step-by-step plan to fix it, and the settlements your email may be owed.',
+            'The link signs you in automatically and works for the next hour. You have 30 days of access to your report. If the link expires, just reply to this email and we will help.',
+        ],
+        reportLinkButton: 'Open my Full Report',
         refundSubject: 'Refund for your Am I Exposed? purchase',
         refundTitle: 'Your money is on its way back',
         refundLines: ({ amount, date }) => [
@@ -175,6 +189,23 @@ export async function sendReceipt({ to, lang, amount, currency, paidAt, expiresA
         footer: escapeHtml(c.footer),
     });
     return send({ to, subject: c.receiptSubject, html });
+}
+
+// Guest report checkout: the buyer paid without an account, so this is how they
+// reach the report. actionLink is the GoTrue magic link that signs their
+// silently-created account in; the address is never in a query string.
+export async function sendReportLink({ to, lang, actionLink }) {
+    const l = pickLang(lang);
+    const c = COPY[l];
+    if (!actionLink) return false;
+    const html = layout({
+        title: c.reportLinkTitle,
+        lines: c.reportLinkLines,
+        buttonLabel: c.reportLinkButton,
+        buttonUrl: actionLink,
+        footer: escapeHtml(c.footer),
+    });
+    return send({ to, subject: c.reportLinkSubject, html });
 }
 
 export async function sendRefundNotice({ to, lang, amount, currency, paidAt }) {

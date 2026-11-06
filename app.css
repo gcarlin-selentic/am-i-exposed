@@ -821,6 +821,13 @@ img { max-width: 100%; }
     color: var(--muted);
 }
 .offer .btn { background: var(--bg); color: var(--ink); flex: 0 0 auto; }
+/* The primary buy button leads; "See an example" steps back to a secondary
+   outline so the paid action is the obvious one. Fixed royal blue (the hero's)
+   so white stays high-contrast on the card in both themes. */
+.offer .btn.offer-buy { background: #0067EB; color: #fff; }
+.offer .btn.offer-buy:hover { background: #0067EB; opacity: .92; }
+.offer .btn.offer-example { background: transparent; color: inherit; border: 1px solid var(--field-line); }
+.offer .btn.offer-example:hover { background: var(--field-bg); }
 /* The explainer card. It shares .offer's look, and differs in carrying several
    paragraphs rather than one: the paid card's single <p> never needed the gap
    between them, so .offer does not set it. */

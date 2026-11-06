@@ -116,6 +116,7 @@ const COPY = {
         offerLi3: 'Acuerdos que tu correo podría reclamar, con enlaces oficiales gratis',
         offerPer: 'pago único',
         offerBtn: 'Ver un ejemplo',
+        offerBuyBtn: 'Obtener mi Informe Completo',
 
         alertsBadge: 'Alertas &middot; solo EE.&nbsp;UU.',
         alertsTitle: 'Si demandan a una empresa que filtró tus datos, te avisamos.',
@@ -426,6 +427,7 @@ const COPY = {
         offerLi3: 'Settlements your email may be owed, with free official claim links',
         offerPer: 'one time',
         offerBtn: 'See an example',
+        offerBuyBtn: 'Get my Full Report',
 
         alertsBadge: 'Alerts &middot; US only',
         alertsTitle: 'If a company that leaked your data gets sued, we’ll let you know.',
@@ -2653,12 +2655,20 @@ async function startPurchase(btn) {
     // the only way the payment can be honoured afterwards. The intent is
     // remembered so that signing in carries on to the checkout instead of
     // dropping them back where they started, wondering what happened.
-    if (!currentUser) {
-        wantsToBuy(true);
-        openAuthModal('signup');
+    // Guest checkout: no sign-up form before paying. A signed-in buyer binds the
+    // purchase to their account; a guest buys with the email they just checked,
+    // and the webhook then creates/links the account and emails a one-click
+    // magic link to the report. Only when there is neither a session nor a
+    // checked email is there nothing to attach the report to.
+    const guestEmail = (lastEmailResult && lastEmailResult.email) || null;
+    if (!currentUser && !guestEmail) {
+        const input = document.getElementById('emailInput');
+        if (input) { input.scrollIntoView({ behavior: 'smooth', block: 'center' }); input.focus(); }
+        showPayBanner(lang === 'es'
+            ? 'Revisa tu correo primero y luego compra el informe.'
+            : 'Check your email first, then buy the report.', 'warn');
         return;
     }
-    if (!requireClient()) return;
 
     const original = btn ? btn.innerHTML : null;
     const restore = () => {
@@ -2673,26 +2683,31 @@ async function startPurchase(btn) {
     }
 
     try {
-        const { data: { session } } = await window.sbClient.auth.getSession();
-        const accessToken = session?.access_token || null;
-        if (!accessToken) {
-            restore();
-            openAuthModal('signin');
-            return;
+        // Signed in: carry the access token so the purchase binds to the account
+        // (client_reference_id -> purchases.user_id). Guest: no token; the email
+        // is what the webhook attaches the new account to.
+        let accessToken = null;
+        let email = guestEmail;
+        if (currentUser) {
+            if (!requireClient()) { restore(); return; }
+            const { data: { session } } = await window.sbClient.auth.getSession();
+            accessToken = session?.access_token || null;
+            email = currentUser.email || guestEmail;
         }
 
         // The checked address does not survive the round trip to Stripe
         // Checkout, so it is parked here and picked up again on the way back.
         try {
-            if (lastEmailResult) sessionStorage.setItem('aie-pending-email', lastEmailResult.email);
+            if (email) sessionStorage.setItem('aie-pending-email', email);
         } catch (e) { /* not essential */ }
 
-        // Stripe Checkout (hosted). The token resolves the account server-side
-        // so the purchase is bound to it (client_reference_id -> purchases.user_id).
+        // Stripe Checkout (hosted).
         const response = await fetch('/api/checkout?plan=report', {
             method: 'POST',
-            headers: authHeaders(accessToken),
-            body: JSON.stringify({ lang, email: currentUser.email }),
+            headers: accessToken
+                ? authHeaders(accessToken)
+                : { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ lang, email }),
         });
         const data = await response.json().catch(() => null);
         if (!response.ok || !data?.url) {
@@ -3199,8 +3214,16 @@ window.addEventListener('DOMContentLoaded', async () => {
         if (checkout === 'cancel') {
             showPayBanner(t().payCancelled, 'warn');
         } else if (params.get('plan') === 'report') {
-            // Report access is on the account: confirm entitlement, then open it.
-            await handleReturnFromCheckout('ok');
+            if (currentUser) {
+                // Signed-in buyer: confirm entitlement, then open the report.
+                await handleReturnFromCheckout('ok');
+            } else {
+                // Guest buyer: the account is being created from the paid email
+                // and a magic link is on its way. There is nothing to open here.
+                showPayBanner(lang === 'es'
+                    ? 'Pago recibido. Te enviamos un enlace para abrir tu Informe Completo. Revisa tu correo (y la carpeta de spam).'
+                    : 'Payment received. We emailed you a link to open your Full Report. Check your inbox (and spam).');
+            }
         } else {
             // A monitoring subscription: it activates once the owner confirms
             // the email we just sent.

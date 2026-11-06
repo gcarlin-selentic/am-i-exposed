@@ -66,21 +66,26 @@ export default async function handler(req, res) {
 
     const base = publicBaseUrl(req) || 'https://www.am-i-exposed.com';
     const lang = body.lang === 'es' ? 'es' : 'en';
-    const email = typeof body.email === 'string' && EMAIL_RE.test(body.email.trim())
+    let email = typeof body.email === 'string' && EMAIL_RE.test(body.email.trim())
         ? body.email.trim().toLowerCase()
         : null;
 
-    // The report's access is attached to a Supabase account (report.js matches
-    // purchases by user_id), so the buyer must be signed in and the user id is
-    // carried to the webhook as client_reference_id. Resolved from the token
-    // server-side, never trusted from the body. Monitoring plans are email-based
-    // and need no account.
+    // The report is entitled by a Supabase account (report.js matches purchases
+    // by user_id). A signed-in buyer carries their user id to the webhook as
+    // client_reference_id, resolved from the token server-side, never trusted
+    // from the body. A GUEST buys with just the email they checked: the webhook
+    // then creates or links an account from that paid email and mails a magic
+    // link, so no pre-payment sign-up form is needed. Either way the webhook
+    // records the row under a user_id. Monitoring plans are email-based already.
     let clientReferenceId;
     if (spec.plan === 'report') {
         const user = await userFromToken(tokenFrom(req, body));
-        if (!user) return res.status(401).json({ error: 'Sign in required to buy the report' });
-        clientReferenceId = user.id;
-        if (!email && typeof user.email === 'string') email = user.email.trim().toLowerCase();
+        if (user) {
+            clientReferenceId = user.id;
+            if (!email && typeof user.email === 'string') email = user.email.trim().toLowerCase();
+        } else if (!email) {
+            return res.status(400).json({ error: 'Enter your email first, then buy the report' });
+        }
     }
 
     const meta = { plan: spec.plan, plan_param: planParam, lang };
