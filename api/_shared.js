@@ -185,39 +185,87 @@ export async function ensureUserMagicLink(email, redirectTo) {
     };
     const linkBody = { type: 'magiclink', email };
     if (redirectTo) linkBody.redirect_to = redirectTo;
+
+    // Always create confirmed. That is what lets the pre-hijacking guard below
+    // trust "unconfirmed" to mean "not one of ours".
+    const createUser = () => fetch(`${url}/auth/v1/admin/users`, {
+        method: 'POST', headers,
+        body: JSON.stringify({ email, email_confirm: true }),
+        signal: AbortSignal.timeout(5000),
+    });
+    const genLink = () => fetch(`${url}/auth/v1/admin/generate_link`, {
+        method: 'POST', headers,
+        body: JSON.stringify(linkBody),
+        signal: AbortSignal.timeout(5000),
+    });
+    // GoTrue has returned both shapes across versions: the link fields at the
+    // top level beside the user, or nested under properties/user.
+    const parseLink = async (res) => {
+        const data = await res.json().catch(() => null);
+        const u = (data && data.user) || data || {};
+        return {
+            userId: u.id || null,
+            actionLink: data?.action_link || data?.properties?.action_link || null,
+            confirmed: !!(u.email_confirmed_at || u.confirmed_at),
+        };
+    };
+
     try {
-        // Create the user first; generate_link(type=magiclink) needs it to
-        // exist. An already-registered email returns 422, which is success for
-        // our purposes (a returning buyer).
-        const created = await fetch(`${url}/auth/v1/admin/users`, {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({ email, email_confirm: true }),
-            signal: AbortSignal.timeout(5000),
-        });
+        // generate_link(type=magiclink) needs the user to exist. A 2xx means we
+        // just created it (confirmed, no password, ours); 422 means it already
+        // existed and we must inspect it before trusting it.
+        const created = await createUser();
         if (!created.ok && created.status !== 422) {
             console.error('admin create user failed:', created.status);
             return null;
         }
-        const linkRes = await fetch(`${url}/auth/v1/admin/generate_link`, {
-            method: 'POST',
-            headers,
-            body: JSON.stringify(linkBody),
-            signal: AbortSignal.timeout(5000),
-        });
+        const freshlyCreated = created.ok;
+
+        let linkRes = await genLink();
         if (!linkRes.ok) {
             console.error('admin generate_link failed:', linkRes.status);
             return null;
         }
-        const data = await linkRes.json();
-        // GoTrue has returned both shapes across versions: the link fields at the
-        // top level beside the user, or nested under properties/user.
-        const userId = data?.user?.id || data?.id || null;
-        const actionLink = data?.action_link || data?.properties?.action_link || null;
+        let { userId, actionLink, confirmed } = await parseLink(linkRes);
         if (!userId || !actionLink) {
             console.error('admin generate_link missing userId/actionLink');
             return null;
         }
+
+        // Account pre-hijacking guard. A pre-existing account we did NOT just
+        // create, still unconfirmed, may have been seeded by someone else with a
+        // password of their choosing; confirming it through this magic link
+        // would hand them a working login on the buyer's account. Because we
+        // only ever create accounts confirmed, an unconfirmed one is never ours,
+        // has no proven owner and (never having reached checkout) no purchase
+        // rows — so we delete it and recreate it clean before issuing the link.
+        // A confirmed account is owner-verified: minting a passwordless login to
+        // its own inbox is legitimate, so it is left alone.
+        if (!freshlyCreated && !confirmed) {
+            const del = await fetch(`${url}/auth/v1/admin/users/${encodeURIComponent(userId)}`, {
+                method: 'DELETE', headers, signal: AbortSignal.timeout(5000),
+            });
+            if (!del.ok) {
+                console.error('admin delete unconfirmed failed:', del.status);
+                return null;
+            }
+            const recreated = await createUser();
+            if (!recreated.ok) {
+                console.error('admin recreate failed:', recreated.status);
+                return null;
+            }
+            linkRes = await genLink();
+            if (!linkRes.ok) {
+                console.error('admin re-generate_link failed:', linkRes.status);
+                return null;
+            }
+            ({ userId, actionLink } = await parseLink(linkRes));
+            if (!userId || !actionLink) {
+                console.error('admin re-generate_link missing userId/actionLink');
+                return null;
+            }
+        }
+
         return { userId, actionLink };
     } catch (error) {
         console.error('ensureUserMagicLink error:', error.name);
