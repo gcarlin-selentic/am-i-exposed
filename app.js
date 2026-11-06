@@ -155,6 +155,22 @@ const COPY = {
         // comprobable, "te avisaremos" hay que creerlo.
         alertsMissedTitle: 'Ya pudiste haber cobrado, y nadie te avisó.',
         alertsMissedLede: 'Tu correo aparece en filtraciones que terminaron en acuerdo. Esto es lo que se pagaba, y cuándo venció el plazo:',
+        missedProofTitle: 'Tus datos ya han valido dinero.',
+        missedProofLede: ({ proofMax, openN, openMax, eligible }) => {
+            const paid = proofMax
+                ? `Estos acuerdos pagaron a quienes estaban en la demanda <b>hasta ${proofMax} por persona</b>.`
+                : 'Estos acuerdos pagaron dinero real a quienes estaban en la demanda.';
+            const past = ' Sus plazos ya cerraron, así que no puedes reclamarlos &mdash; pero tu correo sigue apareciendo en filtraciones que terminan en acuerdo.';
+            const pool = (openN && openMax)
+                ? ` Ahora mismo <b>${openN} están pagando</b>, hasta ${openMax} por persona, y cada semana se abren nuevos.`
+                : ' Se abren nuevos todo el tiempo.';
+            const hook = eligible
+                ? ' Activa el monitoreo y te avisamos por correo apenas uno coincida con tu dirección.'
+                : '';
+            return paid + past + pool + hook;
+        },
+        missedCtaBtn: 'Activar monitoreo &mdash; no te pierdas el próximo',
+        missedCtaNote: 'Alertas de nuevas filtraciones o nuevos acuerdos. Sin cuenta, cancela cuando quieras.',
         alertsCaveat: 'Para cobrar había que pertenecer a la clase, lo que normalmente exige haber recibido la carta de aviso de la empresa. Aparecer en la filtración no lo garantiza. No somos abogados y no reclamamos por ti.',
         ccBadge: 'Tus reclamos &middot; EE.&nbsp;UU.',
         ccTitle: '¿Qué acuerdos podrías reclamar realmente?',
@@ -466,6 +482,22 @@ const COPY = {
         // claimed" can be checked, "we will tell you" has to be believed.
         alertsMissedTitle: 'You could already have claimed, and nobody told you.',
         alertsMissedLede: 'Your email appears in breaches that ended in a settlement. This is what they paid, and when the window closed:',
+        missedProofTitle: 'Your data has already been worth money.',
+        missedProofLede: ({ proofMax, openN, openMax, eligible }) => {
+            const paid = proofMax
+                ? `These settlements paid people in the class <b>up to ${proofMax} each</b>.`
+                : 'These settlements paid people in the class real money.';
+            const past = ' Their claim windows have closed, so these aren&rsquo;t yours to take &mdash; but your email keeps turning up in breaches that settle.';
+            const pool = (openN && openMax)
+                ? ` Right now <b>${openN} are paying out</b>, up to ${openMax} per person, and new ones open every week.`
+                : ' New ones open all the time.';
+            const hook = eligible
+                ? ' Turn on monitoring and we&rsquo;ll email you the moment one matches your address.'
+                : '';
+            return paid + past + pool + hook;
+        },
+        missedCtaBtn: 'Turn on monitoring &mdash; catch the next one',
+        missedCtaNote: 'New-breach or new-settlement alerts. No account needed, cancel anytime.',
         alertsCaveat: 'Claiming required being in the class, which usually means having received the company&rsquo;s notice letter. Appearing in the breach does not guarantee it. We are not lawyers and we do not claim on your behalf.',
         ccBadge: 'Your claims &middot; US',
         ccTitle: 'Which settlements could you actually claim?',
@@ -1942,7 +1974,9 @@ function renderMissed(rows, meta) {
     const none = document.getElementById('missedNone');
     const list = document.getElementById('alertsMissedList');
     const caveat = document.getElementById('missedCaveat');
+    const cta = document.getElementById('missedCta');
     if (!card || !list) return;
+    if (cta) cta.hidden = true;
 
     // Sin coincidencia es el caso de casi todo el mundo: de las mil y pico
     // filtraciones que sigue HIBP, treinta y cinco tienen caso en Estados
@@ -1970,10 +2004,6 @@ function renderMissed(rows, meta) {
     card.hidden = false;
     none.hidden = true;
     lede.hidden = false;
-    const pagan = rows.some(r => r.tipo === 'acuerdo');
-    title.innerHTML = pagan ? t().alertsMissedTitle : t().missedSuitTitle;
-    lede.innerHTML = pagan ? t().alertsMissedLede : t().missedSuitLede;
-    caveat.hidden = !pagan;
 
     const fmt = n => new Intl.NumberFormat(lang === 'en' ? 'en-US' : 'es-CO',
         { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
@@ -1987,6 +2017,33 @@ function renderMissed(rows, meta) {
             lang === 'en' ? 'en-US' : 'es-ES',
             { year: 'numeric', month: 'long', day: 'numeric' });
     };
+
+    const pagan = rows.some(r => r.tipo === 'acuerdo');
+    if (pagan) {
+        // These matched settlements are closed (historical), so leading with
+        // regret is a dead end. Reframe forward: use what they paid as proof the
+        // reader's data has real value, point at the money open right now, and
+        // offer monitoring to catch the next match. Numbers: the biggest
+        // per-person payout among the matches, and the live open pool.
+        const payouts = rows.filter(r => r.tipo === 'acuerdo' && r.porPersona).map(r => r.porPersona);
+        const proofMax = payouts.length ? Math.max(...payouts) : 0;
+        const fm = funnelData && funnelData.meta;
+        const eligible = !!(alertsConfig && alertsConfig.eligible);
+        title.innerHTML = t().missedProofTitle;
+        lede.innerHTML = t().missedProofLede({
+            proofMax: proofMax ? fmt(proofMax) : null,
+            openN: fm ? fm.abiertos : null,
+            openMax: fm && fm.maxPorPersona ? fmt(fm.maxPorPersona) : null,
+            eligible,
+        });
+        caveat.hidden = false;
+        if (cta) cta.hidden = !eligible;
+    } else {
+        title.innerHTML = t().missedSuitTitle;
+        lede.innerHTML = t().missedSuitLede;
+        caveat.hidden = true;
+        if (cta) cta.hidden = true;
+    }
 
     // The claim link is the whole point of telling somebody this. A line that
     // says money existed and then stops is worse than saying nothing: it
@@ -3113,10 +3170,21 @@ function togglePasswordVisibility() {
 // Delegated from the document rather than bound per button, because half of
 // these buttons are written into the page later by renderEmailResult,
 // renderPaywall and the password plan. Binding on load would miss them.
+// The missed-settlements card's call to action: send the reader to the
+// monitoring card (the forward-looking offer) and flash it so the connection
+// is obvious. Does nothing when monitoring is not on offer here.
+function goMonitor() {
+    const card = document.getElementById('alertsCard');
+    if (!card || card.hidden) return;
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    card.classList.add('flash');
+    setTimeout(() => card.classList.remove('flash'), 1400);
+}
+
 const ACTIONS = {
     applyNewPassword, checkEmail, checkPassword, closeAuthModal, closeReport,
-    dismissLangHint, dismissPayBanner, exitDemo, focusEmailCheck, openAuthModal,
-    openChangePassword, openReport, openSampleReport, printReport,
+    dismissLangHint, dismissPayBanner, exitDemo, focusEmailCheck, goMonitor,
+    openAuthModal, openChangePassword, openReport, openSampleReport, printReport,
     sendPasswordReset, showAllBreaches, signInWithEmail, signInWithProvider,
     signOut, signUpWithEmail, startMonitor, startPurchase, switchForm,
     toggleNewPasswordVisibility, togglePasswordFold, togglePasswordVisibility,

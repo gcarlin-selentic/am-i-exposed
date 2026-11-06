@@ -90,7 +90,7 @@
          never change, and a forgotten bust on a year-long immutable asset would
          leave a returning buyer running last week's payment code. Bump the date
          here and in the other language's page when a change has to land now. -->
-    <link rel="stylesheet" href="/app.css?v=2026-11-06a">
+    <link rel="stylesheet" href="/app.css?v=2026-11-06b">
 </head>
 <body>
 
@@ -240,6 +240,10 @@
         <p id="missedNone" hidden></p>
         <ul class="alerts-missed" id="alertsMissedList"></ul>
         <p class="alerts-caveat" id="missedCaveat" data-i18n="alertsCaveat">Para cobrar hab&iacute;a que pertenecer a la clase, lo que normalmente exige haber recibido la carta de aviso de la empresa. Aparecer en la filtraci&oacute;n no lo garantiza. No somos abogados y no reclamamos por ti.</p>
+        <div class="missed-cta" id="missedCta" hidden>
+            <button class="btn accent" data-action="goMonitor" data-i18n="missedCtaBtn">Activar monitoreo &mdash; no te pierdas el pr&oacute;ximo</button>
+            <p class="missed-cta-note" data-i18n="missedCtaNote">Alertas de nuevas filtraciones o nuevos acuerdos. Sin cuenta, cancela cuando quieras.</p>
+        </div>
     </section>
 
     <!-- Funnel de cross-check (solo EE. UU., mismo gate que la tarjeta de
@@ -508,8 +512,8 @@
     </div>
 </div>
 
-<script src="/funnel-match.js?v=2026-11-06a" defer></script>
-<script src="/app.js?v=2026-11-06a" defer></script>
+<script src="/funnel-match.js?v=2026-11-06b" defer></script>
+<script src="/app.js?v=2026-11-06b" defer></script>
 
 <!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
      a visitor, which is why the privacy policy can still promise no tracking
