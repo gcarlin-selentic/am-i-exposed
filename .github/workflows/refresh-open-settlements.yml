@@ -57,6 +57,15 @@ jobs:
           FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
         run: python3 tools/refresh-open-settlements.py ${{ inputs.dry_run && '--dry-run' || '' }}
 
+      # Reembolsos de la FTC (dominio publico, sin API). El hub se regenera de
+      # todos modos en el paso siguiente y lee ftc-refunds.json, asi que la
+      # seccion queda al dia en la misma corrida. Si la pagina de la FTC cambia
+      # de forma el script no escribe y se conserva el JSON anterior: por eso
+      # continue-on-error, para no bloquear el refresco de acuerdos.
+      - name: Actualizar los reembolsos de la FTC
+        continue-on-error: true
+        run: python3 tools/build-ftc-refunds.py ${{ inputs.dry_run && '--dry-run' || '' }}
+
       - name: Regenerar las paginas y el sitemap
         if: ${{ !inputs.dry_run }}
         run: |
@@ -87,7 +96,7 @@ jobs:
         run: |
           git config user.name  'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add -A data settlements.json settlements sitemap.xml
+          git add -A data settlements.json settlements sitemap.xml ftc-refunds.json
           if git diff --cached --quiet; then
             echo 'sin cambios esta semana'
             exit 0
