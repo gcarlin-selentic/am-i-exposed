@@ -303,8 +303,16 @@ def render(p):
     b = []
     pasado_txt = ''
     if plazo_pasado is True:
+        # The search that lands here wants to claim, and the honest answer is
+        # "too late for this one". Left there it is a dead end and the reader
+        # bounces. So the same sentence turns forward: companies keep leaking
+        # data and settling, some are paying right now, and the free check is
+        # how they find the ones that still pay. The claim-now money lives on
+        # the open cases, so the page sends them to look rather than mourn.
         pasado_txt = (f' The claim window <strong>closed on {fecha_larga(p["plazo"])}</strong>, '
-                      f'so this one can no longer be claimed.')
+                      f'so this one can no longer be claimed &mdash; but new settlements open '
+                      f'all the time, and some are paying out right now. The free check tells '
+                      f'you in seconds whether your email is in a breach that still pays.')
     elif plazo_pasado is False:
         pasado_txt = (f' Claims are accepted until <strong>{fecha_larga(p["plazo"])}</strong>.')
 
