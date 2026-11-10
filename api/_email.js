@@ -24,6 +24,15 @@ function sender() {
     return { email, name: process.env.MAIL_FROM_NAME || 'Am I Exposed?' };
 }
 
+// We send from a no-reply address; point replies at a monitored inbox so a
+// customer who hits reply reaches us instead of a dead end.
+function replyTo() {
+    return {
+        email: process.env.MAIL_REPLY_TO || 'support@am-i-exposed.com',
+        name: process.env.MAIL_REPLY_TO_NAME || 'Am I Exposed Support',
+    };
+}
+
 function pickLang(value) {
     return value === 'en' ? 'en' : 'es';
 }
@@ -153,6 +162,7 @@ async function send({ to, subject, html }) {
             body: JSON.stringify({
                 sender: from,
                 to: [{ email: to }],
+                replyTo: replyTo(),
                 subject,
                 htmlContent: html,
                 textContent: stripHtml(html),
