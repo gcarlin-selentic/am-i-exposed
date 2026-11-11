@@ -90,7 +90,7 @@
          never change, and a forgotten bust on a year-long immutable asset would
          leave a returning buyer running last week's payment code. Bump the date
          here and in the other language's page when a change has to land now. -->
-    <link rel="stylesheet" href="/app.css?v=2026-11-06b">
+    <link rel="stylesheet" href="/app.css?v=2026-11-11a">
 </head>
 <body>
 
@@ -278,8 +278,8 @@
         <div class="cc-upsell" hidden>
             <h3 data-i18n="ccUpsellTitle">Cada semana se abren acuerdos nuevos. Y los plazos cierran r&aacute;pido.</h3>
             <p data-i18n="ccUpsellBody">Si se te pasa una fecha, ese dinero se pierde para siempre. Activa el monitoreo y te avisamos por correo apenas se abre un acuerdo nuevo donde podr&iacute;as calificar, para que nunca dejes dinero sobre la mesa.</p>
-            <button class="btn" data-action="startMonitor" data-arg="settlement" data-i18n="ccUpsellBtn">Activar alertas de acuerdos &middot; US$&nbsp;3/mes</button>
-            <p class="cc-upsell-note" data-i18n="ccUpsellNote">O monitoreo de filtraciones y acuerdos juntos por US$&nbsp;5/mes. Cancela cuando quieras.</p>
+            <button class="btn" data-action="startMonitor" data-arg="monitoring" data-i18n="ccUpsellBtn">Empezar prueba de 14 días &middot; US$&nbsp;7.99/mes</button>
+            <p class="cc-upsell-note" data-i18n="ccUpsellNote">Alertas de filtraciones y acuerdos juntas. $39.99/año. Cancela cuando quieras.</p>
         </div>
 
         <p class="alerts-caveat" data-i18n="ccCaveat">Podr&iacute;as calificar si fuiste cliente, paciente o empleado de la empresa en el periodo afectado. Aparecer no es elegibilidad. Enlazamos solo al administrador oficial. No somos abogados y no reclamamos por ti.</p>
@@ -364,31 +364,19 @@
 
         <label class="monitor-interval">
             <input type="checkbox" id="monitorYearly">
-            <span data-i18n="monitorYearlyLabel">Pagar al año y ahorrar (2 meses gratis)</span>
+            <span data-i18n="monitorYearlyLabel">Pagar al año y ahorrar</span>
         </label>
 
-        <div class="monitor-plans">
-            <div class="mon-plan">
-                <div class="mon-k" data-i18n="monitorBreachK">Alertas de filtraciones</div>
-                <div class="mon-v">US$&nbsp;3<small data-i18n="monitorMo">/mes</small></div>
-                <div class="mon-d" data-i18n="monitorBreachD">Te avisamos apenas tu correo aparece en una filtración nueva.</div>
-                <button class="btn ghost" data-action="startMonitor" data-arg="breach" data-i18n="monitorBtn">Activar</button>
-            </div>
-            <div class="mon-plan">
-                <div class="mon-k" data-i18n="monitorSettlementK">Alertas de acuerdos</div>
-                <div class="mon-v">US$&nbsp;3<small data-i18n="monitorMo">/mes</small></div>
-                <div class="mon-d" data-i18n="monitorSettlementD">Te avisamos apenas se abre un acuerdo nuevo que podrías reclamar.</div>
-                <button class="btn ghost" data-action="startMonitor" data-arg="settlement" data-i18n="monitorBtn">Activar</button>
-            </div>
+        <div class="monitor-plans monitor-plans-one">
             <div class="mon-plan featured">
-                <div class="mon-k" data-i18n="monitorComboK">Ambos &middot; mejor valor</div>
-                <div class="mon-v">US$&nbsp;5<small data-i18n="monitorMo">/mes</small></div>
-                <div class="mon-d" data-i18n="monitorComboD">Monitoreo de filtraciones y de acuerdos, juntos.</div>
-                <button class="btn" data-action="startMonitor" data-arg="combo" data-i18n="monitorBtnBoth">Activar ambos</button>
+                <div class="mon-k" data-i18n="monitorComboK">Alertas de filtraciones + acuerdos</div>
+                <div class="mon-v">US$&nbsp;7.99<small data-i18n="monitorMo">/mes</small></div>
+                <div class="mon-d" data-i18n="monitorComboD">Cada filtración nueva que incluya tu correo, y cada acuerdo nuevo que podrías reclamar.</div>
+                <button class="btn" data-action="startMonitor" data-arg="monitoring" data-i18n="monitorBtn">Empezar prueba de 14 días</button>
             </div>
         </div>
 
-        <p class="monitor-note" data-i18n="monitorNote">No necesitas cuenta. Te enviamos un correo para confirmar y puedes darte de baja cuando quieras. Los enlaces para reclamar siempre son gratis.</p>
+        <p class="monitor-note" data-i18n="monitorNote">Prueba gratis de 14 días, cancela cuando quieras. No necesitas cuenta; te enviamos un correo para confirmar. Los enlaces para reclamar siempre son gratis.</p>
         <div class="error" id="alertsError" style="display:none"></div>
     </div>
 
@@ -512,8 +500,8 @@
     </div>
 </div>
 
-<script src="/funnel-match.js?v=2026-11-06b" defer></script>
-<script src="/app.js?v=2026-11-06b" defer></script>
+<script src="/funnel-match.js?v=2026-11-11a" defer></script>
+<script src="/app.js?v=2026-11-11a" defer></script>
 
 <!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
      a visitor, which is why the privacy policy can still promise no tracking

@@ -937,12 +937,11 @@ hub_body = f'''    <span class="pool-eyebrow">The Money Pool</span>
 
 {bloque_abiertos}
     <details class="costs-fold">
-        <summary><span class="costs-title">What it costs</span><span class="costs-hint">Free check, or $5 / $3 / $5 combo</span></summary>
+        <summary><span class="costs-title">What it costs</span><span class="costs-hint">Free check, or $5 report / $7.99-mo monitoring</span></summary>
         <div class="pool-prices">
             <div class="pp"><div class="pp-k">Free check</div><div class="pp-v">$0</div><div class="pp-d">Your email vs breaches. No card.</div></div>
             <div class="pp"><div class="pp-k">Full report</div><div class="pp-v">$5<small>one time</small></div><div class="pp-d">Your breaches explained + step-by-step fixes. Claim links free.</div></div>
-            <div class="pp"><div class="pp-k">Monitoring</div><div class="pp-v">$3<small>/mo</small></div><div class="pp-d">Pick one: new-breach alerts or new-settlement alerts. $30/yr.</div></div>
-            <div class="pp featured"><div class="pp-k">Combo</div><div class="pp-v">$5<small>/mo</small></div><div class="pp-d">Both: breach and settlement monitoring. $50/yr.</div></div>
+            <div class="pp featured"><div class="pp-k">Monitoring</div><div class="pp-v">$7.99<small>/mo</small></div><div class="pp-d">Both breach and settlement alerts. $39.99/yr. 14-day free trial.</div></div>
         </div>
     </details>
 

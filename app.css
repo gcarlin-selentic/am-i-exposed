@@ -1632,6 +1632,7 @@ a.alerts-missed .m-co,
 }
 .monitor-interval input { width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; }
 .monitor-plans { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.monitor-plans-one { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
 .mon-plan {
     border: 1px solid rgba(128,128,128,.32); border-radius: var(--r);
     padding: 18px; display: flex; flex-direction: column;
