@@ -102,7 +102,7 @@ export default async function handler(req, res) {
         // Carry the plan onto the subscription (payment) object too, so the
         // subscription.* / payment_intent.* events can act without a lookup.
         ...(spec.mode === 'subscription'
-            ? { subscription_data: { metadata: meta } }
+            ? { subscription_data: { metadata: meta, ...(spec.trialDays ? { trial_period_days: spec.trialDays } : {}) } }
             : { payment_intent_data: { metadata: meta } }),
     });
 

@@ -79,6 +79,14 @@ export const PLANS = {
     settlement_year:  { env: 'STRIPE_PRICE_SETTLEMENT_YEAR',  mode: 'subscription', plan: 'settlement', interval: 'year' },
     combo_month:      { env: 'STRIPE_PRICE_COMBO_MONTH',      mode: 'subscription', plan: 'combo',       interval: 'month' },
     combo_year:       { env: 'STRIPE_PRICE_COMBO_YEAR',       mode: 'subscription', plan: 'combo',       interval: 'year' },
+    // Unified "Monitoring": one tier that covers both breach and settlement
+    // alerts, to match the app. Its entitlement plan is 'combo' on purpose, so
+    // the alert jobs (plan in breach,combo / settlement,combo) include these
+    // subscribers in BOTH with no backend change. 14-day free trial, like the
+    // app. The breach/settlement/combo tiers above are retained only for any
+    // in-flight subscribers; the UI offers monitoring_* going forward.
+    monitoring_month: { env: 'STRIPE_PRICE_MONITORING_MONTH', mode: 'subscription', plan: 'combo',       interval: 'month', trialDays: 14 },
+    monitoring_year:  { env: 'STRIPE_PRICE_MONITORING_YEAR',  mode: 'subscription', plan: 'combo',       interval: 'year',  trialDays: 14 },
 };
 
 export function planSpec(planParam) {

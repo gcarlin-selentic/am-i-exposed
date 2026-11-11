@@ -25,6 +25,9 @@ export async function handleConfig(req, res) {
         breach: has('breach_month') || has('breach_year'),
         settlement: has('settlement_month') || has('settlement_year'),
         combo: has('combo_month') || has('combo_year'),
+        // The unified monitoring tier (both alerts, 14-day trial). The UI shows
+        // its buy buttons only when its price ids are set.
+        monitoring: has('monitoring_month') || has('monitoring_year'),
     };
     const eligible = Object.values(plans).some(Boolean);
 

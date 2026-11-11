@@ -82,11 +82,16 @@ const ENV = {
     STRIPE_PRICE_SETTLEMENT_YEAR: 'price_sy',
     STRIPE_PRICE_COMBO_MONTH: 'price_cm',
     STRIPE_PRICE_COMBO_YEAR: 'price_cy',
+    STRIPE_PRICE_MONITORING_MONTH: 'price_mm',
+    STRIPE_PRICE_MONITORING_YEAR: 'price_my',
 };
 
 test('planSpec maps the query param to mode/plan/interval', () => {
     assert.deepEqual(planSpec('report'), { env: 'STRIPE_PRICE_REPORT', mode: 'payment', plan: 'report', interval: null });
     assert.deepEqual(planSpec('combo_year'), { env: 'STRIPE_PRICE_COMBO_YEAR', mode: 'subscription', plan: 'combo', interval: 'year' });
+    // Unified monitoring: entitlement plan 'combo' (both alerts) + a 14-day trial.
+    assert.deepEqual(planSpec('monitoring_month'), { env: 'STRIPE_PRICE_MONITORING_MONTH', mode: 'subscription', plan: 'combo', interval: 'month', trialDays: 14 });
+    assert.deepEqual(planSpec('monitoring_year'), { env: 'STRIPE_PRICE_MONITORING_YEAR', mode: 'subscription', plan: 'combo', interval: 'year', trialDays: 14 });
     assert.equal(planSpec('nonsense'), null);
     assert.equal(planSpec(''), null);
 });
@@ -101,6 +106,8 @@ test('priceIdFor resolves the configured price id', () => {
 
 test('planFromPriceId reverses a Stripe price id to its plan', () => {
     assert.deepEqual(planFromPriceId('price_cy', ENV), { mode: 'subscription', plan: 'combo', interval: 'year' });
+    // A monitoring price reverses to the same 'combo' entitlement (both alerts).
+    assert.deepEqual(planFromPriceId('price_mm', ENV), { mode: 'subscription', plan: 'combo', interval: 'month' });
     assert.deepEqual(planFromPriceId('price_report', ENV), { mode: 'payment', plan: 'report', interval: null });
     assert.equal(planFromPriceId('price_unknown', ENV), null);
 });
