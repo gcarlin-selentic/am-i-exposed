@@ -106,6 +106,11 @@ def e(s):
     return html.escape(s or '', quote=True)
 
 
+def sin_tags(s):
+    """Plain text of an answer that carries inline HTML, for the FAQ schema."""
+    return re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', s or '')).strip()
+
+
 def parrafos(txt, limite=4):
     """The source descriptions arrive as one block. Split on sentence runs so
     the page reads as prose instead of a wall."""
@@ -447,6 +452,74 @@ def render(p):
              + (f' &middot; <a href="{e(p["fuente_cao"])}" rel="nofollow noopener">ClassAction.org</a>'
                 if p.get('fuente_cao') else '') + '</p>')
 
+    # ---- FAQ: las preguntas que la gente escribe sobre este caso, respondidas
+    # SOLO con los hechos que esta misma pagina ya tiene. Cada respuesta lleva el
+    # nombre de la empresa y sus cifras, asi que es unica por pagina y no repite
+    # el bloque de ninguna otra. Se omite toda pregunta cuyo dato no exista, y la
+    # regla del plazo pasado se respeta: un caso cerrado nunca se responde como
+    # si se pudiera reclamar.
+    faq = []
+    if es_abierto:
+        if p['plazo'] and plazo_pasado is False:
+            faq.append((f'Is the {emp} settlement still open?',
+                        f'Yes. Claims are open until <strong>{fecha_larga(p["plazo"])}</strong>.'))
+        elif plazo_pasado is True:
+            faq.append((f'Can you still claim the {emp} settlement?',
+                        f'No. The claim window closed on <strong>{fecha_larga(p["plazo"])}</strong>.'))
+        else:
+            faq.append((f'Is the {emp} settlement still open?',
+                        'Yes, the claim window is open.'))
+    elif es_acuerdo:
+        if plazo_pasado is True:
+            faq.append((f'Can you still claim the {emp} settlement?',
+                        f'No. The claim window closed on <strong>{fecha_larga(p["plazo"])}</strong>.'))
+        elif p['plazo'] and plazo_pasado is False:
+            faq.append((f'Is the {emp} settlement still open?',
+                        f'Yes. Claims are accepted until <strong>{fecha_larga(p["plazo"])}</strong>.'))
+        else:
+            faq.append((f'What was the {emp} data breach settlement?',
+                        f'{e(emp)} settled a data breach claim. The amount and the official '
+                        f'claim site are listed above.'))
+    else:
+        faq.append((f'Can you claim money from the {emp} case yet?',
+                    'Not yet. No settlement has been announced, so there is nothing to claim. '
+                    'This is the stage at which it is worth knowing your data is involved, so '
+                    'you are not surprised by a notice letter later.'))
+
+    if pago:
+        a_monto = f'Up to <strong>{pago} per person</strong>.'
+        if fondo:
+            a_monto += f' The total settlement fund was {fondo}.'
+        faq.append((f'How much can you get from the {emp} settlement?', a_monto))
+    elif fondo:
+        faq.append((f'How much was the {emp} settlement?',
+                    f'A <strong>{fondo}</strong> fund.'))
+
+    # La elegibilidad ya tiene su propia seccion ("Who was covered"); repetirla
+    # aqui palabra por palabra se ve auto-generado, asi que no va al FAQ.
+
+    if p['datos']:
+        crudo_faq = p['datos']
+        if isinstance(crudo_faq, (list, tuple)):
+            lista_faq = [str(x).strip() for x in crudo_faq if str(x).strip()]
+        else:
+            lista_faq = [x.strip() for x in re.split(r'[,;]', str(crudo_faq)) if x.strip()]
+        if lista_faq:
+            faq.append((f'What information did the {emp} breach expose?',
+                        e(', '.join(lista_faq[:8])) + '.'))
+
+    if href and plazo_pasado is not True:
+        faq.append((f'Where do you file a {emp} claim?',
+                    f'On the court-appointed administrator&rsquo;s official site, '
+                    f'<a href="{e(href)}" rel="nofollow noopener">{e(sitio)}</a>. '
+                    f'It is the only place a claim counts, and filing is always free.'))
+
+    if faq:
+        termino_faq = 'settlement' if es_acuerdo else 'case'
+        b.append(f'\n    <h2>Common questions about the {e(emp)} {termino_faq}</h2>')
+        for q_faq, a_faq in faq:
+            b.append(f'    <h3>{e(q_faq)}</h3>\n    <p>{a_faq}</p>')
+
     b.append(f'\n    <div class="note">\n        <p>{CAVEAT}</p>\n    </div>')
 
     # el puente al chequeo gratuito, solo cuando es verdad
@@ -483,6 +556,16 @@ def render(p):
             ]},
         ],
     }
+
+    if faq:
+        ld["@graph"].append({
+            "@type": "FAQPage",
+            "mainEntity": [
+                {"@type": "Question", "name": q_faq,
+                 "acceptedAnswer": {"@type": "Answer", "text": sin_tags(a_faq)}}
+                for q_faq, a_faq in faq
+            ],
+        })
 
     return f'''<!DOCTYPE html>
 <html lang="en">
