@@ -51,6 +51,21 @@ def slugify(s):
     return re.sub(r'-+', '-', s).strip('-')
 
 
+# Vercel's build drops any directory whose name is on its default ignore list
+# (CVS, node_modules, venv, ...), so a company whose slug lands on one would 404
+# in production even though the file is committed and in the deploy. The only one
+# a company name can slugify to is "cvs" (the legacy CVS version-control dir); we
+# remap it to a safe, stable alternative. Keep the set for future collisions.
+SLUGS_RESERVADOS = {'cvs'}
+
+
+def slug_pagina(emp):
+    s = slugify(emp)
+    if s in SLUGS_RESERVADOS:
+        s = s + '-settlement'
+    return s
+
+
 # Trece de los 568 no son empresas, son titulares. La fuente mezcla sus
 # noticias con sus fichas de acuerdo y el slug lo arrastra.
 #
@@ -164,7 +179,7 @@ for r in tca:
     emp = nombre_limpio(r.get('empresa'))
     if not emp:
         continue
-    s = slugify(emp)
+    s = slug_pagina(emp)
     prev = paginas.get(s)
     # Cuando una empresa tiene dos acuerdos, gana el que trae mas que decir.
     peso = (bool(r.get('sitio_oficial')), bool(r.get('fecha_limite')),
@@ -188,7 +203,7 @@ for r in cao:
     emp = nombre_limpio(r.get('empresa'))
     if not emp:
         continue
-    s = slugify(emp)
+    s = slug_pagina(emp)
     if s in paginas and paginas[s]['tipo'] == 'acuerdo':
         # El acuerdo manda, pero el caso aporta que datos se filtraron y los
         # hechos del expediente.
@@ -228,7 +243,7 @@ for r in abiertos:
     emp = nombre_limpio(r.get('empresa'))
     if not emp:
         continue
-    s = slugify(emp)
+    s = slug_pagina(emp)
     previa = paginas.get(s)
     if previa:
         colisiones.append((s, previa['tipo']))

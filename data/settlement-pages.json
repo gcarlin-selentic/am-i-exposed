@@ -169,7 +169,7 @@
   "priority": "0.9"
  },
  {
-  "ruta": "/settlements/cvs/",
+  "ruta": "/settlements/cvs-settlement/",
   "empresa": "Cvs",
   "tipo": "abierto",
   "fondo": null,
