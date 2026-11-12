@@ -443,10 +443,15 @@ img { max-width: 100%; }
 .hero-card h1 { color: #F5F5F7; letter-spacing: -0.01em; }
 .hero-card .lede { color: rgba(255,255,255,.90); }
 .hero-card .search { margin-top: 26px; }
-/* The in-card CTA is white so it reads as the one action on the blue. */
+/* The in-card CTA is a solid white pill so it reads as THE action on the blue.
+   The hero is blue in both themes, so the label is a fixed dark blue, not the
+   --accent-ink token: that token lightens to periwinkle in dark mode and washed
+   the white button out to a near-invisible, disabled-looking state. A soft lift
+   shadow keeps it reading as a raised, tappable button. */
 .hero-card .search .btn {
     background: #fff;
-    color: var(--accent-ink);
+    color: #0A46C8;
+    box-shadow: 0 2px 10px rgba(0,0,0,.18);
 }
 .hero-card .search .btn:hover { background: #F0F4FF; }
 .hero-card .search input {
@@ -828,6 +833,35 @@ img { max-width: 100%; }
 .offer .btn.offer-buy:hover { background: #0067EB; opacity: .92; }
 .offer .btn.offer-example { background: transparent; color: inherit; border: 1px solid var(--field-line); }
 .offer .btn.offer-example:hover { background: var(--field-bg); }
+
+/* The $5 Full Report is the single buy on the page, so green marks it, set
+   apart from the blue every other action (monitoring, sign-in) uses. Scoped to
+   #offerCard, so the badge dot, the checkmarks and the buy button turn green
+   together and no other .offer card changes. Fixed emerald with white text,
+   like the blue buy button above, because the --good token lightens in dark
+   mode and would drop white's contrast. */
+#offerCard { --accent: #0E8A4F; }
+#offerCard .btn.offer-buy { background: #0E8A4F; color: #fff; }
+#offerCard .btn.offer-buy:hover { background: #0E8A4F; opacity: .92; }
+
+/* Anonymous-result extras, shown before sign-in only: the "+N more types in
+   your Full Report" line under the leaked-types teaser, and the settlements
+   money tile ("up to $X to claim") that routes to the on-page money target.
+   The tile uses the site's own --money tokens, so it is theme-aware. */
+.teaser-more { margin: 10px 0 0; font-size: 13px; color: var(--muted); }
+.owed-tile {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    width: 100%; margin-top: 20px; padding: 13px 16px; text-align: left; cursor: pointer;
+    background: var(--money-soft); border: 1px solid var(--money);
+    border-radius: var(--r-sm); color: var(--money-ink); font: inherit;
+    transition: filter .15s;
+}
+.owed-tile:hover { filter: brightness(.97); }
+.owed-tile-main { display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap; }
+.owed-tile-up { font-size: 13px; color: var(--muted); }
+.owed-tile-num { font-size: 21px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; }
+.owed-tile-lbl { font-size: 13.5px; font-weight: 600; }
+.owed-tile-arrow { font-size: 18px; font-weight: 700; flex: none; }
 
 /* Missed-settlements card call to action: the forward-looking "turn on
    monitoring" button and its one-line note. Royal blue so it reads as the

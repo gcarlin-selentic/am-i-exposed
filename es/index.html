@@ -90,7 +90,7 @@
          never change, and a forgotten bust on a year-long immutable asset would
          leave a returning buyer running last week's payment code. Bump the date
          here and in the other language's page when a change has to land now. -->
-    <link rel="stylesheet" href="/app.css?v=2026-11-11a">
+    <link rel="stylesheet" href="/app.css?v=2026-11-12a">
 </head>
 <body>
 
@@ -286,6 +286,28 @@
         <div class="error" id="funnelError" style="display:none"></div>
     </section>
 
+    <!-- Paid tier. The $5 Full Report, raised to sit right under the free money
+         cards instead of below the breach list and the password fold, so the
+         buy is no longer buried. Hidden once the visitor is known to have bought
+         it: selling somebody something they already own reads as a mistake, and
+         it is. -->
+    <div class="offer" id="offerCard" hidden>
+        <span class="badge"><span class="dot"></span><span data-i18n="offerBadge">Informe Completo</span></span>
+        <h2 data-i18n="offerTitle">Estás expuesto. Esto es exactamente qué hacer.</h2>
+        <p data-i18n="offerLede">Un Informe Completo sobre tu correo filtrado: todo lo que quedó expuesto, un plan paso a paso para blindar tus cuentas, y los acuerdos que tus datos podrían reclamar.</p>
+        <ul>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi1">Todo lo que quedó expuesto, y cómo arreglar cada cosa</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi2">Tu plan de seguridad completo, paso a paso, descargable en PDF</span></li>
+            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi3">Acuerdos que tu correo podría reclamar, con enlaces oficiales gratis</span></li>
+        </ul>
+        <div class="offer-foot">
+            <span class="price"><span id="offerPriceAmount">&mdash;</span><small data-i18n="offerPer">pago único</small></span>
+            <small class="price-note" id="offerPriceNote" hidden></small>
+            <button class="btn offer-buy" data-action="startPurchase" data-i18n="offerBuyBtn">Obtener mi Informe Completo</button>
+            <button class="btn offer-example" data-action="openSampleReport" data-i18n="offerBtn">Ver un ejemplo</button>
+        </div>
+    </div>
+
     <!-- Breach list, folded behind a free-to-open button, below the money card -->
     <div id="breachListBlock"></div>
 
@@ -330,25 +352,6 @@
             <a class="btn" data-i18n="explainBtn"
                data-href-es="/es/preguntas-frecuentes/" data-href-en="/faq/"
                href="/es/preguntas-frecuentes/">Ver todas las preguntas</a>
-        </div>
-    </div>
-
-    <!-- Paid tier. Hidden once the visitor is known to have bought it: selling
-         somebody something they already own reads as a mistake, and it is. -->
-    <div class="offer" id="offerCard" hidden>
-        <span class="badge"><span class="dot"></span><span data-i18n="offerBadge">Informe Completo</span></span>
-        <h2 data-i18n="offerTitle">Estás expuesto. Esto es exactamente qué hacer.</h2>
-        <p data-i18n="offerLede">Un Informe Completo sobre tu correo filtrado: todo lo que quedó expuesto, un plan paso a paso para blindar tus cuentas, y los acuerdos que tus datos podrían reclamar.</p>
-        <ul>
-            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi1">Todo lo que quedó expuesto, y cómo arreglar cada cosa</span></li>
-            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi2">Tu plan de seguridad completo, paso a paso, descargable en PDF</span></li>
-            <li><svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 4.5l-7 7-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="offerLi3">Acuerdos que tu correo podría reclamar, con enlaces oficiales gratis</span></li>
-        </ul>
-        <div class="offer-foot">
-            <span class="price"><span id="offerPriceAmount">&mdash;</span><small data-i18n="offerPer">pago único</small></span>
-            <small class="price-note" id="offerPriceNote" hidden></small>
-            <button class="btn offer-buy" data-action="startPurchase" data-i18n="offerBuyBtn">Obtener mi Informe Completo</button>
-            <button class="btn offer-example" data-action="openSampleReport" data-i18n="offerBtn">Ver un ejemplo</button>
         </div>
     </div>
 
@@ -501,7 +504,7 @@
 </div>
 
 <script src="/funnel-match.js?v=2026-11-11a" defer></script>
-<script src="/app.js?v=2026-11-11a" defer></script>
+<script src="/app.js?v=2026-11-12a" defer></script>
 
 <!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
      a visitor, which is why the privacy policy can still promise no tracking
