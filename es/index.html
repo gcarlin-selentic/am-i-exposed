@@ -90,7 +90,7 @@
          never change, and a forgotten bust on a year-long immutable asset would
          leave a returning buyer running last week's payment code. Bump the date
          here and in the other language's page when a change has to land now. -->
-    <link rel="stylesheet" href="/app.css?v=2026-11-12c">
+    <link rel="stylesheet" href="/app.css?v=2026-11-12d">
 </head>
 <body>
 
@@ -284,7 +284,7 @@
         <div class="cc-upsell" hidden>
             <h3 data-i18n="ccUpsellTitle">Cada semana se abren acuerdos nuevos. Y los plazos cierran r&aacute;pido.</h3>
             <p data-i18n="ccUpsellBody">Si se te pasa una fecha, ese dinero se pierde para siempre. Activa el monitoreo y te avisamos por correo apenas se abre un acuerdo nuevo donde podr&iacute;as calificar, para que nunca dejes dinero sobre la mesa.</p>
-            <button class="btn" data-action="startMonitor" data-arg="monitoring" data-i18n="ccUpsellBtn">Empezar prueba de 14 días &middot; US$&nbsp;7.99/mes</button>
+            <button class="btn" data-action="goMonitor" data-i18n="ccUpsellBtn">Ver opciones de monitoreo &darr;</button>
             <p class="cc-upsell-note" data-i18n="ccUpsellNote">Alertas de filtraciones y acuerdos juntas. $39.99/año. Cancela cuando quieras.</p>
         </div>
 
@@ -371,17 +371,21 @@
         <h2 data-i18n="monitorTitle">No te pierdas más dinero.</h2>
         <p data-i18n="monitorLede">Vigilamos tu correo y te avisamos apenas aparece en una filtración nueva, o apenas se abre un acuerdo que podrías reclamar.</p>
 
-        <label class="monitor-interval">
-            <input type="checkbox" id="monitorYearly">
-            <span data-i18n="monitorYearlyLabel">Pagar al año y ahorrar</span>
-        </label>
+        <div class="mon-combo" data-i18n="monitorComboK">Alertas de filtraciones + acuerdos</div>
 
-        <div class="monitor-plans monitor-plans-one">
+        <div class="monitor-plans monitor-plans-two">
             <div class="mon-plan featured">
-                <div class="mon-k" data-i18n="monitorComboK">Alertas de filtraciones + acuerdos</div>
+                <span class="mon-flag" data-i18n="monitorSave">Ahorra 58%</span>
+                <div class="mon-k" data-i18n="monitorYearlyK">Anual</div>
+                <div class="mon-v">US$&nbsp;39.99<small data-i18n="monitorYr">/año</small></div>
+                <div class="mon-sub" data-i18n="monitorYearSub">Unos US$ 3.33/mes, facturado al año.</div>
+                <button class="btn" data-action="startMonitor" data-arg="monitoring" data-arg2="year" data-i18n="monitorBtn">Empezar prueba de 14 días</button>
+            </div>
+            <div class="mon-plan">
+                <div class="mon-k" data-i18n="monitorMonthlyK">Mensual</div>
                 <div class="mon-v">US$&nbsp;7.99<small data-i18n="monitorMo">/mes</small></div>
-                <div class="mon-d" data-i18n="monitorComboD">Cada filtración nueva que incluya tu correo, y cada acuerdo nuevo que podrías reclamar.</div>
-                <button class="btn" data-action="startMonitor" data-arg="monitoring" data-i18n="monitorBtn">Empezar prueba de 14 días</button>
+                <div class="mon-sub" data-i18n="monitorMonthlySub">Cancela cuando quieras.</div>
+                <button class="btn ghost" data-action="startMonitor" data-arg="monitoring" data-arg2="month" data-i18n="monitorBtn">Empezar prueba de 14 días</button>
             </div>
         </div>
 
@@ -510,7 +514,7 @@
 </div>
 
 <script src="/funnel-match.js?v=2026-11-11a" defer></script>
-<script src="/app.js?v=2026-11-12c" defer></script>
+<script src="/app.js?v=2026-11-12d" defer></script>
 
 <!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
      a visitor, which is why the privacy policy can still promise no tracking
