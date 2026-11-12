@@ -443,10 +443,15 @@ img { max-width: 100%; }
 .hero-card h1 { color: #F5F5F7; letter-spacing: -0.01em; }
 .hero-card .lede { color: rgba(255,255,255,.90); }
 .hero-card .search { margin-top: 26px; }
-/* The in-card CTA is white so it reads as the one action on the blue. */
+/* The in-card CTA is a solid white pill so it reads as THE action on the blue.
+   The hero is blue in both themes, so the label is a fixed dark blue, not the
+   --accent-ink token: that token lightens to periwinkle in dark mode and washed
+   the white button out to a near-invisible, disabled-looking state. A soft lift
+   shadow keeps it reading as a raised, tappable button. */
 .hero-card .search .btn {
     background: #fff;
-    color: var(--accent-ink);
+    color: #0A46C8;
+    box-shadow: 0 2px 10px rgba(0,0,0,.18);
 }
 .hero-card .search .btn:hover { background: #F0F4FF; }
 .hero-card .search input {
