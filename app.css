@@ -864,24 +864,38 @@ img { max-width: 100%; }
 }
 #inlinePlan .plan-loading .spinner { color: var(--muted); }
 
-/* Anonymous-result extras, shown before sign-in only: the "+N more types in
-   your Full Report" line under the leaked-types teaser, and the settlements
-   money tile ("up to $X to claim") that routes to the on-page money target.
-   The tile uses the site's own --money tokens, so it is theme-aware. */
-.teaser-more { margin: 10px 0 0; font-size: 13px; color: var(--muted); }
-.owed-tile {
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    width: 100%; margin-top: 20px; padding: 13px 16px; text-align: left; cursor: pointer;
+/* Proposal C: the result header is the app's compact 3-stat card, shown to
+   anonymous visitors in place of the text teaser. Tiles sit inside the verdict
+   .card and mirror .tally-box (var(--surface-2)) so they read in both themes.
+   breaches is real and per-user; "open to claim now" and the "up to" owed
+   figure are the public pool numbers. The owed tile is a button that routes to
+   the money target, using the site's theme-aware --money tokens. */
+.result-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+    margin: 22px 0 0; align-items: stretch;
+}
+.rstat {
+    background: var(--surface-2); border-radius: var(--r-sm);
+    padding: 14px 15px; display: flex; flex-direction: column; min-height: 92px;
+}
+.rstat-n {
+    font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 26px;
+    line-height: 1.1; letter-spacing: -.02em; font-variant-numeric: tabular-nums;
+}
+.rstat-n.money { color: var(--money-ink); }
+.rstat-l { color: var(--muted); font-size: 12.5px; font-weight: 500; margin-top: 7px; line-height: 1.3; }
+button.rstat.owed {
     background: var(--money-soft); border: 1px solid var(--money);
-    border-radius: var(--r-sm); color: var(--money-ink); font: inherit;
+    cursor: pointer; text-align: left; font: inherit; color: inherit;
     transition: filter .15s;
 }
-.owed-tile:hover { filter: brightness(.97); }
-.owed-tile-main { display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap; }
-.owed-tile-up { font-size: 13px; color: var(--muted); }
-.owed-tile-num { font-size: 21px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; }
-.owed-tile-lbl { font-size: 13.5px; font-weight: 600; }
-.owed-tile-arrow { font-size: 18px; font-weight: 700; flex: none; }
+button.rstat.owed:hover { filter: brightness(.97); }
+.rstat-up { font-size: 12px; color: var(--muted); margin-bottom: 2px; }
+.rstat-cta { margin-top: auto; padding-top: 8px; color: var(--money-ink); font-size: 11.5px; font-weight: 700; }
+@media (max-width: 480px) {
+    .result-stats { grid-template-columns: 1fr 1fr; }
+    .rstat.owed { grid-column: 1 / -1; }
+}
 
 /* Missed-settlements card call to action: the forward-looking "turn on
    monitoring" button and its one-line note. Royal blue so it reads as the

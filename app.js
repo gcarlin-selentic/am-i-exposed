@@ -306,8 +306,9 @@ const COPY = {
         lblWhere: 'Dónde apareció tu correo',
         lblExposed: 'Qué se expuso sobre ti',
         inBreaches: (n) => n === 1 ? '1 filtración' : `${n} filtraciones`,
-        teaserMore: (n) => n === 1 ? '+1 tipo más en tu Reporte completo' : `+${n} tipos más en tu Reporte completo`,
-        owedClaimLabel: 'por reclamar',
+        statBreaches: 'filtraciones en las que apareces',
+        statOwed: 'podrían deberte',
+        statClaimCta: 'Seguir y reclamar',
         accountsIn: 'cuentas en esta filtración',
         showMore: (n) => n === 1 ? 'Ver 1 filtración más' : `Ver las otras ${n} filtraciones`,
         showAllFree: 'Ver todas las filtraciones gratis · sin tarjeta',
@@ -633,8 +634,9 @@ const COPY = {
         lblWhere: 'Where your email showed up',
         lblExposed: 'What was exposed about you',
         inBreaches: (n) => n === 1 ? '1 breach' : `${n} breaches`,
-        teaserMore: (n) => n === 1 ? '+1 more type in your Full Report' : `+${n} more types in your Full Report`,
-        owedClaimLabel: 'to claim',
+        statBreaches: "breaches you're in",
+        statOwed: 'you may be owed',
+        statClaimCta: 'Track & claim',
         accountsIn: 'accounts in this breach',
         showMore: (n) => n === 1 ? 'Show 1 more breach' : `Show the other ${n} breaches`,
         showAllFree: 'Show me all breaches for free · no credit card',
@@ -1647,50 +1649,38 @@ function renderEmailResult(breaches, email) {
             <button class="btn sm accent" data-action="openReport">${escapeHtml(t().nextBtn)}</button>
         </div>` : '';
 
-    // Anonymous visitors do not get the full per-class rollup (gated above for
-    // signed-in users), but a short teaser of the top data types leaked gives
-    // them real free value that makes the Full Report below worth $5. The
-    // per-breach chips and the stealer flags stay gated; only this aggregate
-    // top-3 is surfaced.
-    let teaserHTML = '';
-    let owedHTML = '';
+    // Proposal C: the result header is the app's compact 3-stat card, shown to
+    // anonymous visitors in place of the text teaser. The breach count is real
+    // and per-user; the open-settlement count and the "up to" owed figure are
+    // the public money-pool numbers (never a per-user promise), the same ones
+    // the pool banner shows, so they track it. The owed tile is actionable and
+    // routes to the on-page money/monitoring target. funnelData feeds the pool
+    // figures; static fallbacks hold until it loads, and renderPoolStats keeps
+    // #resultOpenNum / #resultOwedNum in sync if it arrives after the scan.
+    let statsHTML = '';
     if (!unlocked) {
-        const tally = new Map();
-        breaches.forEach(b => {
-            (Array.isArray(b.dataClasses) ? b.dataClasses : []).forEach(c => {
-                tally.set(c, (tally.get(c) || 0) + 1);
-            });
-        });
-        const ranked = [...tally.entries()].sort((a, b) => b[1] - a[1]);
-        if (ranked.length) {
-            const top = ranked.slice(0, 3);
-            const moreCount = ranked.length - top.length;
-            teaserHTML = `
-                <div class="section-lbl">${escapeHtml(t().lblExposed)}</div>
-                <div class="rollup teaser">
-                    ${top.map(([name, n]) => `
-                        <div class="rollup-row">
-                            <span>${escapeHtml(dataClassLabel(name))}</span>
-                            <span class="rollup-count">${escapeHtml(t().inBreaches(n))}</span>
-                        </div>`).join('')}
-                </div>
-                ${moreCount > 0 ? `<p class="teaser-more">${escapeHtml(t().teaserMore(moreCount))}</p>` : ''}`;
-        }
-        // The settlements money hook: "up to $X to claim", the same pool maximum
-        // the public money-pool banner shows (never a per-user promise), routed
-        // to the on-page money/monitoring target. Number from funnelData so it
-        // never drifts from the banner; a static fallback until that loads.
+        const nf = new Intl.NumberFormat(lang === 'en' ? 'en-US' : 'es-CO');
+        const openN = funnelData && funnelData.meta && funnelData.meta.abiertos != null
+            ? nf.format(funnelData.meta.abiertos) : '14';
         const owedNum = funnelData && funnelData.meta && funnelData.meta.maxPorPersona
             ? poolMoney(funnelData.meta.maxPorPersona) : '$5,050';
-        owedHTML = `
-            <button type="button" class="owed-tile" data-action="goClaim">
-                <span class="owed-tile-main">
-                    <span class="owed-tile-up">${escapeHtml(t().poolHookUpTo)}</span>
-                    <span class="owed-tile-num" id="resultOwedNum">${escapeHtml(owedNum)}</span>
-                    <span class="owed-tile-lbl">${escapeHtml(t().owedClaimLabel)}</span>
-                </span>
-                <span class="owed-tile-arrow" aria-hidden="true">&rarr;</span>
-            </button>`;
+        statsHTML = `
+            <div class="result-stats">
+                <div class="rstat">
+                    <div class="rstat-n">${escapeHtml(num(count))}</div>
+                    <div class="rstat-l">${escapeHtml(t().statBreaches)}</div>
+                </div>
+                <div class="rstat">
+                    <div class="rstat-n" id="resultOpenNum">${escapeHtml(openN)}</div>
+                    <div class="rstat-l">${escapeHtml(t().poolStatOpen)}</div>
+                </div>
+                <button type="button" class="rstat owed" data-action="goClaim">
+                    <span class="rstat-up">${escapeHtml(t().poolHookUpTo)}</span>
+                    <span class="rstat-n money" id="resultOwedNum">${escapeHtml(owedNum)}</span>
+                    <span class="rstat-l">${escapeHtml(t().statOwed)}</span>
+                    <span class="rstat-cta">${escapeHtml(t().statClaimCta)} &rarr;</span>
+                </button>
+            </div>`;
     }
 
     resultDiv.innerHTML = `
@@ -1704,8 +1694,7 @@ function renderEmailResult(breaches, email) {
             </div>
             ${tallyHTML}
             ${rollupHTML}
-            ${teaserHTML}
-            ${owedHTML}
+            ${statsHTML}
             ${nextHTML}
         </div>`;
     resultDiv.style.display = 'block';
@@ -1926,9 +1915,11 @@ function renderPoolStats() {
     // The hero's Money Pool badge shows the same "most any one person can claim"
     // figure, so it never drifts from the pool stats below it.
     set('poolBadgeNum', poolMoney(m.maxPorPersona));
-    // The result's "up to $X to claim" tile shares the same figure. It is only
-    // on the page after a check, so this is a no-op until then; it keeps the
-    // tile correct when the funnel dataset finishes loading after a check.
+    // The result's 3-stat header (proposal C) shares these same figures. They
+    // are only on the page after a check, so these are no-ops until then; they
+    // keep the "open to claim now" and "up to" tiles correct when the funnel
+    // dataset finishes loading after a check.
+    set('resultOpenNum', nf.format(m.abiertos));
     set('resultOwedNum', poolMoney(m.maxPorPersona));
     renderPoolChips();
 }
