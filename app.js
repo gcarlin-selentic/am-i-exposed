@@ -139,6 +139,10 @@ const COPY = {
         monitorLede: 'Vigilamos tu correo y te avisamos apenas aparece en una filtración nueva, o apenas se abre un acuerdo que podrías reclamar.',
         monitorYearlyLabel: 'Pagar al año y ahorrar',
         monitorMo: '/mes', monitorYr: '/año',
+        monitorSave: 'Ahorra 58%',
+        monitorYearlyK: 'Anual', monitorMonthlyK: 'Mensual',
+        monitorYearSub: 'Unos US$ 3.33/mes, facturado al año.',
+        monitorMonthlySub: 'Cancela cuando quieras.',
         monitorBreachK: 'Alertas de filtraciones',
         monitorBreachD: 'Te avisamos apenas tu correo aparece en una filtración nueva.',
         monitorSettlementK: 'Alertas de acuerdos',
@@ -196,7 +200,7 @@ const COPY = {
         ccCaveat: 'Podrías calificar si fuiste cliente, paciente o empleado de la empresa en el periodo afectado. Aparecer no es elegibilidad. Enlazamos solo al administrador oficial. No somos abogados y no reclamamos por ti.',
         ccUpsellTitle: 'Cada semana se abren acuerdos nuevos. Y los plazos cierran rápido.',
         ccUpsellBody: 'Si se te pasa una fecha, ese dinero se pierde para siempre. Activa el monitoreo y te avisamos por correo apenas se abre un acuerdo nuevo donde podrías calificar, para que nunca dejes dinero sobre la mesa.',
-        ccUpsellBtn: 'Empezar prueba de 14 días &middot; US$&nbsp;7.99/mes',
+        ccUpsellBtn: 'Ver opciones de monitoreo &darr;',
         ccUpsellNote: 'Alertas de filtraciones y acuerdos juntas. $39.99/año. Cancela cuando quieras.',
         poolTag: 'El fondo de dinero',
         poolTitle: 'Te ayudamos a reclamar el dinero que las empresas te deben.',
@@ -469,6 +473,10 @@ const COPY = {
         monitorLede: 'We watch your email and tell you the moment it turns up in a new breach, or a new settlement opens that you could claim.',
         monitorYearlyLabel: 'Pay yearly and save',
         monitorMo: '/mo', monitorYr: '/yr',
+        monitorSave: 'Save 58%',
+        monitorYearlyK: 'Yearly', monitorMonthlyK: 'Monthly',
+        monitorYearSub: 'About US$ 3.33/mo, billed yearly.',
+        monitorMonthlySub: 'Cancel anytime.',
         monitorBreachK: 'Breach alerts',
         monitorBreachD: 'Email the moment your address turns up in a new breach.',
         monitorSettlementK: 'Settlement alerts',
@@ -526,7 +534,7 @@ const COPY = {
         ccCaveat: 'You might qualify if you were a customer, patient or employee in the affected period. Appearing is not eligibility. We link only to the official administrator. We are not lawyers and we never file for you.',
         ccUpsellTitle: 'New settlements open every week. The windows close fast.',
         ccUpsellBody: 'Miss a deadline and that money is gone for good. Turn on monitoring and we will email you the moment a new settlement opens where you might qualify, so you never leave money on the table again.',
-        ccUpsellBtn: 'Start 14-day free trial &middot; US$&nbsp;7.99/mo',
+        ccUpsellBtn: 'See monitoring options &darr;',
         ccUpsellNote: 'Breach and settlement alerts together. $39.99/yr. Cancel anytime.',
         poolTag: 'The money pool',
         poolTitle: 'We help you claim the money companies owe you.',
@@ -2354,13 +2362,16 @@ const MONITOR_PRICES = {
 // Rewrites each card's figure when the month/year switch moves, so the price
 // the visitor reads always matches the plan the button will buy.
 function renderMonitorPrices() {
-    const yearly = monitorInterval() === 'year';
-    const per = yearly ? t().monitorYr : t().monitorMo;
+    // Each card now owns its interval (data-arg2 year|month) instead of a shared
+    // toggle, so the yearly and monthly figures show side by side.
     document.querySelectorAll('#alertsCard .mon-plan').forEach(card => {
-        const base = card.querySelector('[data-action="startMonitor"]')?.dataset.arg;
+        const btn = card.querySelector('[data-action="startMonitor"]');
+        const base = btn?.dataset.arg;
+        const yearly = btn?.dataset.arg2 === 'year';
         const p = MONITOR_PRICES[base];
         const v = card.querySelector('.mon-v');
         if (!p || !v) return;
+        const per = yearly ? t().monitorYr : t().monitorMo;
         v.innerHTML = `US$&nbsp;${yearly ? p.year : p.month}<small>${escapeHtml(per)}</small>`;
     });
 }
@@ -2371,7 +2382,10 @@ async function startMonitor(btn) {
     const email = monitorEmail();
     if (!email) { alertsError(t().monitorErrEmail); return; }
     alertsError('');
-    const plan = `${base}_${monitorInterval()}`;
+    // Each option button carries its own interval (data-arg2 year|month);
+    // monitorInterval() stays as a fallback for any legacy caller.
+    const interval = btn?.dataset?.arg2 || monitorInterval();
+    const plan = `${base}_${interval}`;
     const original = btn ? btn.innerHTML : null;
     if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>' + escapeHtml(t().alertsOpening); }
     try {

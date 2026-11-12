@@ -92,7 +92,7 @@
          never change, and a forgotten bust on a year-long immutable asset would
          leave a returning buyer running last week's payment code. Bump the date
          here and in the other language's page when a change has to land now. -->
-    <link rel="stylesheet" href="/app.css?v=2026-11-12c">
+    <link rel="stylesheet" href="/app.css?v=2026-11-12d">
 </head>
 <body>
 
@@ -281,7 +281,7 @@
         <div class="cc-upsell" hidden>
             <h3 data-i18n="ccUpsellTitle">New settlements open every week. The windows close fast.</h3>
             <p data-i18n="ccUpsellBody">Miss a deadline and that money is gone for good. Turn on monitoring and we will email you the moment a new settlement opens where you might qualify, so you never leave money on the table again.</p>
-            <button class="btn" data-action="startMonitor" data-arg="monitoring" data-i18n="ccUpsellBtn">Start 14-day free trial &middot; US$&nbsp;7.99/mo</button>
+            <button class="btn" data-action="goMonitor" data-i18n="ccUpsellBtn">See monitoring options &darr;</button>
             <p class="cc-upsell-note" data-i18n="ccUpsellNote">Breach and settlement alerts together. $39.99/yr. Cancel anytime.</p>
         </div>
 
@@ -367,17 +367,21 @@
         <h2 data-i18n="monitorTitle">Never miss money again.</h2>
         <p data-i18n="monitorLede">We watch your email and tell you the moment it turns up in a new breach, or a new settlement opens that you could claim.</p>
 
-        <label class="monitor-interval">
-            <input type="checkbox" id="monitorYearly">
-            <span data-i18n="monitorYearlyLabel">Pay yearly and save</span>
-        </label>
+        <div class="mon-combo" data-i18n="monitorComboK">Breach + settlement alerts</div>
 
-        <div class="monitor-plans monitor-plans-one">
+        <div class="monitor-plans monitor-plans-two">
             <div class="mon-plan featured">
-                <div class="mon-k" data-i18n="monitorComboK">Breach + settlement alerts</div>
+                <span class="mon-flag" data-i18n="monitorSave">Save 58%</span>
+                <div class="mon-k" data-i18n="monitorYearlyK">Yearly</div>
+                <div class="mon-v">US$&nbsp;39.99<small data-i18n="monitorYr">/yr</small></div>
+                <div class="mon-sub" data-i18n="monitorYearSub">About US$ 3.33/mo, billed yearly.</div>
+                <button class="btn" data-action="startMonitor" data-arg="monitoring" data-arg2="year" data-i18n="monitorBtn">Start 14-day free trial</button>
+            </div>
+            <div class="mon-plan">
+                <div class="mon-k" data-i18n="monitorMonthlyK">Monthly</div>
                 <div class="mon-v">US$&nbsp;7.99<small data-i18n="monitorMo">/mo</small></div>
-                <div class="mon-d" data-i18n="monitorComboD">Every new breach that includes your email, and every new settlement you may qualify for.</div>
-                <button class="btn" data-action="startMonitor" data-arg="monitoring" data-i18n="monitorBtn">Start 14-day free trial</button>
+                <div class="mon-sub" data-i18n="monitorMonthlySub">Cancel anytime.</div>
+                <button class="btn ghost" data-action="startMonitor" data-arg="monitoring" data-arg2="month" data-i18n="monitorBtn">Start 14-day free trial</button>
             </div>
         </div>
 
@@ -506,7 +510,7 @@
 </div>
 
 <script src="/funnel-match.js?v=2026-11-11a" defer></script>
-<script src="/app.js?v=2026-11-12c" defer></script>
+<script src="/app.js?v=2026-11-12d" defer></script>
 
 <!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
      a visitor, which is why the privacy policy can still promise no tracking
