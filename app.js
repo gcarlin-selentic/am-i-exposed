@@ -1497,6 +1497,10 @@ async function checkEmail() {
         hasSearched = true;
         refreshPasswordCTA();
         refreshOfferCard();
+        // Proposal B: surface the per-user action plan inline as the one next
+        // step. Self-guards (anonymous + exposed only); async with its own
+        // loading state, so it does not block the scroll-to-result below.
+        showInlinePlan();
         // The result is the whole point of the visit, but it renders below the
         // hero and the Money Pool section, far enough down that a visitor can
         // type an email, watch the page not move, and assume nothing happened.
@@ -1534,6 +1538,10 @@ function renderCleanEmail(email) {
     // No breaches, so no breach list below the money card.
     const blockDiv = document.getElementById('breachListBlock');
     if (blockDiv) { blockDiv.innerHTML = ''; blockDiv.style.display = 'none'; }
+
+    // A clean result has no action plan, so the inline plan goes away.
+    const plan = document.getElementById('inlinePlan');
+    if (plan) { plan.hidden = true; plan.innerHTML = ''; }
 }
 
 function renderEmailResult(breaches, email) {
@@ -1639,16 +1647,6 @@ function renderEmailResult(breaches, email) {
             <button class="btn sm accent" data-action="openReport">${escapeHtml(t().nextBtn)}</button>
         </div>` : '';
 
-    const gateHTML = unlocked ? '' : `
-        <div class="gate">
-            <h3>${escapeHtml(t().gateTitle)}</h3>
-            <p>${escapeHtml(t().gateBody)}</p>
-            <div class="gate-btns">
-                <button class="btn sm" data-action="openAuthModal" data-arg="signup">${escapeHtml(t().gateSignup)}</button>
-                <button class="ghost-btn" data-action="openAuthModal" data-arg="signin">${escapeHtml(t().gateSignin)}</button>
-            </div>
-        </div>`;
-
     // Anonymous visitors do not get the full per-class rollup (gated above for
     // signed-in users), but a short teaser of the top data types leaked gives
     // them real free value that makes the Full Report below worth $5. The
@@ -1709,7 +1707,6 @@ function renderEmailResult(breaches, email) {
             ${teaserHTML}
             ${owedHTML}
             ${nextHTML}
-            ${gateHTML}
         </div>`;
     resultDiv.style.display = 'block';
 
@@ -1799,13 +1796,10 @@ async function openReport() {
 // good.
 function refreshOfferCard() {
     const card = document.getElementById('offerCard');
-    // priceInfo is set directly now (a fixed US$5), so it is never null in
-    // practice; the guard stays so the card hides rather than showing
-    // "&mdash; per report" over a buy button if that ever changes.
-    if (card) {
-        card.hidden = !lastEmailResult || !!currentUser || knownEntitled
-            || (priceChecked && !priceInfo);
-    }
+    // The inline action plan (#inlinePlan) is the $5 ask now (proposal B), so
+    // this compact offer card stays hidden and only reappears as a fallback
+    // (see showInlinePlan) if the plan teaser fails to load.
+    if (card) card.hidden = true;
 
     // The explainer answers "what does this even mean", which is a question
     // people have before they check. Once there is a result on the page, of
@@ -2650,6 +2644,78 @@ function teaserHTML(data) {
             <p class="paywall-fine">${escapeHtml(t().paywallFine)}</p>
         </section>`
         + claimsTeaserHTML(data.claims);
+}
+
+// Proposal B: the action plan is the one next step after the verdict. The same
+// per-user teaser the report overlay shows (real first step in full, the rest
+// locked, unlock $5) is surfaced INLINE in the result, so the plan is read
+// first and everything else drops below it. Reuses the report sub-helpers so it
+// never drifts from the overlay; drops the email header (the verdict already
+// names the address) and the settlements claims teaser (demoted below), and
+// paints the unlock button green like the rest of the $5 buy.
+function inlinePlanHTML(data) {
+    const locked = data.locked || [];
+    const criticals = data.criticalCount || 0;
+    const lockedHTML = locked.map((a, i) => `
+        <div class="locked-action">
+            <span class="plan-step-num muted">${i + 2}</span>
+            <div class="locked-body">
+                <div class="locked-title">${escapeHtml(a.title)}</div>
+                <div class="locked-meta">${escapeHtml(PRIORITY_LABEL[lang][a.priority] || '')} &middot; ${escapeHtml(a.time)}</div>
+            </div>
+            <span class="locked-icon">${ICON_LOCK}</span>
+        </div>`).join('');
+    const priceStr = priceInfo ? formatPrice(priceInfo) : '';
+    const buyLabel = priceStr ? `${t().paywallBtn} — ${priceStr}` : t().paywallBtn;
+    return `
+        <h2 class="plan-security-title">${escapeHtml(t().planSecurityTitle)}</h2>
+        ${planSummaryHTML(data.stats, data.totalActions, criticals)}
+        <div class="teaser-note">${escapeHtml(t().teaserNote)}</div>
+        ${data.preview ? actionHTML(data.preview, 0) : ''}
+        <section class="paywall">
+            <h2>${escapeHtml(t().paywallTitle(locked.length))}</h2>
+            <div class="locked-list">${lockedHTML}</div>
+            <p class="paywall-pitch">${escapeHtml(t().paywallPitch)}</p>
+            <button class="btn offer-buy" data-action="startPurchase">${escapeHtml(buyLabel)}</button>
+            <p class="paywall-fine">${escapeHtml(t().paywallFine)}</p>
+        </section>`;
+}
+
+// Fetches the per-user plan teaser and renders it inline (anonymous visitors
+// only: a signed-in or entitled visitor keeps the full report flow, and a clean
+// result has no plan). The $5 ask lives here now; the compact offer card stays
+// hidden and only reappears as a fallback if this fetch fails.
+async function showInlinePlan() {
+    const box = document.getElementById('inlinePlan');
+    if (!box) return;
+    if (!lastEmailResult || currentUser || knownEntitled) { box.hidden = true; box.innerHTML = ''; return; }
+    box.hidden = false;
+    box.innerHTML = `<div class="plan-loading"><span class="spinner"></span>${escapeHtml(t().buildingPlan)}</div>`;
+    try {
+        let accessToken = null;
+        if (window.sbClient) {
+            const { data: { session } } = await window.sbClient.auth.getSession();
+            accessToken = session?.access_token || null;
+        }
+        const response = await fetch('/api/report', {
+            method: 'POST',
+            headers: authHeaders(accessToken),
+            body: JSON.stringify({ email: lastEmailResult.email, lang }),
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || t().planFail);
+        lastReport = data;
+        // Already owns it: no teaser, and the report opens from their own flow.
+        if (data.entitled) { box.hidden = true; box.innerHTML = ''; return; }
+        box.innerHTML = inlinePlanHTML(data);
+    } catch (e) {
+        // Fall back to the compact $5 offer card so the ask never disappears.
+        box.hidden = true; box.innerHTML = '';
+        const offer = document.getElementById('offerCard');
+        if (offer && lastEmailResult && !currentUser && !knownEntitled && !(priceChecked && !priceInfo)) {
+            offer.hidden = false;
+        }
+    }
 }
 
 // =======================================================================

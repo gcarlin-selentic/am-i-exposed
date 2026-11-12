@@ -92,7 +92,7 @@
          never change, and a forgotten bust on a year-long immutable asset would
          leave a returning buyer running last week's payment code. Bump the date
          here and in the other language's page when a change has to land now. -->
-    <link rel="stylesheet" href="/app.css?v=2026-11-12a">
+    <link rel="stylesheet" href="/app.css?v=2026-11-12b">
 </head>
 <body>
 
@@ -224,6 +224,12 @@
 
     <div id="emailError" class="error" style="display: none;"></div>
     <div id="emailResult" style="display: none;"></div>
+
+    <!-- Action plan, surfaced inline right under the result (proposal B): the
+         real per-user plan (step one free, the rest locked, unlock $5) is the
+         one next step, so everything below is read after the pay ask. Filled by
+         app.js from /api/report; hidden until a result exists. -->
+    <div id="inlinePlan" hidden></div>
 
     <!-- Money card, surfaced right under the result and above the breach list:
          whether there is money to claim is the first thing the reader sees.
@@ -500,7 +506,7 @@
 </div>
 
 <script src="/funnel-match.js?v=2026-11-11a" defer></script>
-<script src="/app.js?v=2026-11-12a" defer></script>
+<script src="/app.js?v=2026-11-12b" defer></script>
 
 <!-- Vercel Web Analytics. Cookieless, and it collects no data that identifies
      a visitor, which is why the privacy policy can still promise no tracking
