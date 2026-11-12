@@ -844,6 +844,26 @@ img { max-width: 100%; }
 #offerCard .btn.offer-buy { background: #0E8A4F; color: #fff; }
 #offerCard .btn.offer-buy:hover { background: #0E8A4F; opacity: .92; }
 
+/* Proposal B: the action plan rendered inline in the result (#inlinePlan).
+   The inner .plan-summary / .plan-action already carry card chrome, so the
+   container stays transparent; the paywall (the $5 ask) is framed in the same
+   green as the buy, and the unlock button matches #offerCard's green. */
+#inlinePlan { margin: 18px 0 14px; }
+#inlinePlan .plan-security-title { margin-bottom: 14px; }
+#inlinePlan .paywall {
+    border: 1.5px solid #0E8A4F;
+    border-radius: 16px;
+    padding: 22px 20px 20px;
+    margin-top: 18px;
+}
+#inlinePlan .btn.offer-buy { background: #0E8A4F; color: #fff; }
+#inlinePlan .btn.offer-buy:hover { background: #0E8A4F; opacity: .92; }
+#inlinePlan .plan-loading {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 30px 20px; color: var(--muted); font-size: 15px;
+}
+#inlinePlan .plan-loading .spinner { color: var(--muted); }
+
 /* Anonymous-result extras, shown before sign-in only: the "+N more types in
    your Full Report" line under the leaked-types teaser, and the settlements
    money tile ("up to $X to claim") that routes to the on-page money target.
